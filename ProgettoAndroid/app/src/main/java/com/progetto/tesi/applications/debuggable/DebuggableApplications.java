@@ -1,4 +1,4 @@
-package com.progetto.tesi.debuggable.applications;
+package com.progetto.tesi.applications.debuggable;
 
 import static android.os.Debug.isDebuggerConnected;
 

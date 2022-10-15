@@ -1,10 +1,11 @@
 package com.progetto.tesi;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 
-import com.progetto.tesi.debuggable.applications.DebuggableApplications;
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.progetto.tesi.applications.debuggable.DebuggableApplications;
+import com.progetto.tesi.debugger.detection.DebuggerDetection;
 import com.progetto.tesi.sensors.gamerotationvector.GestioneSensori;
 
 public class MainActivity extends AppCompatActivity {
@@ -14,6 +15,8 @@ public class MainActivity extends AppCompatActivity {
 
     /*variable to manage all sensors*/
     private GestioneSensori gestioneSensori;
+
+    private DebuggerDetection debuggerDetection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +35,10 @@ public class MainActivity extends AppCompatActivity {
 
         /*initialize the sensor manager class*/
         this.gestioneSensori = new GestioneSensori(this);
+
+        /*gdb detection*/
+        this.debuggerDetection = new DebuggerDetection(this);
+
     }
 
     @Override

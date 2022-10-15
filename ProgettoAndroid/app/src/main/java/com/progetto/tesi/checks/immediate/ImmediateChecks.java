@@ -1,4 +1,4 @@
-package com.progetto.tesi.immediate.checks;
+package com.progetto.tesi.checks.immediate;
 
 import android.os.Build;
 

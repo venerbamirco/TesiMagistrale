@@ -31,7 +31,7 @@ public class SensorListener implements SensorEventListener {
     private AppCompatActivity appCompatActivity = null;
     private TextView textView = null;
 
-    /*variable used to contain the text that we want to show to see sensor values and sensor text values*/
+    /*variable used to contain the text that we want to show to see sensor values and sensor text values but actually not used*/
     private String string = null;
 
     /*variables used to the azimuth management*/
