@@ -56,18 +56,20 @@ public class DebuggerDetection extends Thread {
             /*recalculate the tracer pid*/
             this.readProcPidStatus();
 
-            /*one analysis each 5 seconds*/
+            /*one analysis each 1 seconds*/
             try {
-                this.sleep(5000);
+                this.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
         }
 
+        /*now this applications has one process attached*/
+        System.out.println("Process attached");
+
         /*get the name of attached process*/
         this.getNameProcessTracerPid();
-
 
     }
 
@@ -98,7 +100,7 @@ public class DebuggerDetection extends Thread {
     /*function used to get the name of the process with pid=tracerpid*/
     private void getNameProcessTracerPid() {
 
-        /*nothing to do because limited not rooted*/
+        /*nothing to do because device requires root access to get the name of process with a specific pid*/
 
     }
 
@@ -127,8 +129,6 @@ public class DebuggerDetection extends Thread {
 
                     /*obtain the value of tracer pid from the last part of the actual row*/
                     this.tracerPid = Integer.parseInt(currentLine.split(":")[1]);
-
-                    System.out.println("Tracerpid: " + this.tracerPid);
 
                     /*break to not pass all data in proc/pid/status file*/
                     break;
