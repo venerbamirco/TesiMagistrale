@@ -2,47 +2,70 @@ package com.progetto.tesi.sensors.gamerotationvector;
 
 public class GestioneRoll {
 
-    private double rollLimitBottom = -90;
-    private double rollLimitCenter = 0;
-    private double rollLimitTop = 90;
+    private double rollLimitBottom;
+    private double rollLimitCenter;
+    private double rollLimitTop;
 
-    private double rollValoreMinimo = -90;
-    private double rollValoreMassimo = 90;
+    private double rollMinimumValue;
+    private double rollMaximumValue;
 
-    private double rollDouble = 0;
+    private double rollDouble;
     private int rollInt;
 
-    private double rollCalibra = 0;
+    private double rollCalibrateValue;
 
-    public GestioneRoll() {
+    public GestioneRoll ( ) {
 
     }
 
-    public void calibraRoll(double roll) {
-        this.rollCalibra = roll;
-        this.rollLimitBottom = this.rollCalibra - 180;
-        this.rollLimitCenter = this.rollCalibra;
-        this.rollLimitTop = this.rollCalibra + 180;
-        if (this.rollLimitBottom < -180) {
-            this.rollValoreMinimo = 360 - Math.abs(this.rollLimitBottom);
-            this.rollValoreMassimo = 180 - Math.abs(this.rollLimitCenter);
-        } else if (this.rollLimitTop >= 180) {
-            this.rollValoreMinimo = -180 + Math.abs(this.rollLimitCenter);
-            this.rollValoreMassimo = -360 + Math.abs(this.rollLimitTop);
+    /*function used to initialize all necessary variables*/
+    private void initializeAllVariables ( ) {
+
+        /*initialize the limit range of roll value*/
+        this.rollLimitBottom = - 90;
+        this.rollLimitCenter = 0;
+        this.rollLimitTop = 90;
+
+        /*initialize the limit top and bottom value of roll*/
+        this.rollMinimumValue = - 90;
+        this.rollMaximumValue = 90;
+
+        /*initialize the roll values*/
+        this.rollInt = 0;
+        this.rollDouble = 0;
+
+        /*initialize the calibrated value of roll*/
+        this.rollCalibrateValue = 0;
+
+    }
+
+    /*function used to calibrate the roll values*/
+    public void calibrateRoll ( double roll ) {
+        this.rollCalibrateValue = roll;
+        this.rollLimitBottom = this.rollCalibrateValue - 180;
+        this.rollLimitCenter = this.rollCalibrateValue;
+        this.rollLimitTop = this.rollCalibrateValue + 180;
+        if ( this.rollLimitBottom < - 180 ) {
+            this.rollMinimumValue = 360 - Math.abs ( this.rollLimitBottom );
+            this.rollMaximumValue = 180 - Math.abs ( this.rollLimitCenter );
+        } else if ( this.rollLimitTop >= 180 ) {
+            this.rollMinimumValue = - 180 + Math.abs ( this.rollLimitCenter );
+            this.rollMaximumValue = - 360 + Math.abs ( this.rollLimitTop );
         }
     }
 
-    public void filtraRoll(double roll) {
-        if (roll >= 0) {
-            if (this.rollLimitCenter >= 0) {
+    /*function used to filter the roll values*/
+    public void filterRoll ( double roll ) {
+        if ( roll >= 0 ) {
+            if ( this.rollLimitCenter >= 0 ) {
                 this.rollDouble = roll - this.rollLimitCenter;
-            } else if (roll >= this.rollValoreMinimo && roll <= 180) {
-                this.rollDouble = -360 + roll - this.rollLimitCenter;
-            } else if (roll >= this.rollLimitCenter) {
+            } else if ( roll >= this.rollMinimumValue && roll <= 180 ) {
+                this.rollDouble = - 360 + roll - this.rollLimitCenter;
+            } else if ( roll >= this.rollLimitCenter ) {
                 this.rollDouble = roll - this.rollLimitCenter;
             }
-        } else if (this.rollLimitCenter >= 0) {
-            if (roll <= this.rollValoreMinimo && roll >= -180) {
+        } else if ( this.rollLimitCenter >= 0 ) {
+            if ( roll <= this.rollMinimumValue && roll >= - 180 ) {
                 this.rollDouble = roll + 360 - this.rollLimitCenter;
             } else {
                 this.rollDouble = roll - this.rollLimitCenter;
@@ -50,17 +73,19 @@ public class GestioneRoll {
         } else {
             this.rollDouble = roll - this.rollLimitCenter;
         }
-        if (this.rollDouble < 0) {
+        if ( this.rollDouble < 0 ) {
             this.rollDouble = 360 + this.rollDouble;
         }
-        this.rollInt = (int) this.rollDouble;
+        this.rollInt = ( int ) this.rollDouble;
     }
 
-    public double getRollDouble() {
+    /*function used to get the double value of roll*/
+    public double getRollDouble ( ) {
         return this.rollDouble;
     }
 
-    public int getRollInt() {
+    /*function used to get the int value of roll*/
+    public int getRollInt ( ) {
         return this.rollInt;
     }
 }

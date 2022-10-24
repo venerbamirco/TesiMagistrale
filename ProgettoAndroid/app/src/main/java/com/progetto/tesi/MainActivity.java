@@ -4,56 +4,64 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.progetto.tesi.applications.debuggable.DebuggableApplications;
-import com.progetto.tesi.debugger.detection.DebuggerDetection;
-import com.progetto.tesi.sensors.gamerotationvector.GestioneSensori;
+import com.progetto.tesi.applications.debuggable_done.DebuggableApplications;
+import com.progetto.tesi.debugger.detection_done.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.detection_done.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
 
 public class MainActivity extends AppCompatActivity {
 
     /*variable to detect all debuggable apps in the device*/
-    private DebuggableApplications installedApps;
+    private DebuggableApplications debuggableApplications;
 
     /*variable to manage all sensors*/
-    private GestioneSensori gestioneSensori;
+    private SensorsManagement sensorsManagement;
 
-    private DebuggerDetection debuggerDetection;
+    /*variable to manage the jdwp debugger detection*/
+    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
+
+    /*variable to manage the gdb debugger detection*/
+    private GnuDebugger_GDB gnuDebugger_gdb;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+    protected void onCreate ( Bundle savedInstanceState ) {
+        super.onCreate ( savedInstanceState );
+        setContentView ( R.layout.activity_main );
 
-        /*initialize all  necessary variables*/
-        this.initializeVariables();
+        /*initialize all necessary variables*/
+        this.initializeVariables ( );
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeVariables() {
+    private void initializeVariables ( ) {
 
         /*initialize the debuggable applications class passing the context to access then the package manager*/
-        this.installedApps = new DebuggableApplications(this.getApplicationContext());
+        this.debuggableApplications = new DebuggableApplications ( this );
 
         /*initialize the sensor manager class*/
-        this.gestioneSensori = new GestioneSensori(this);
+        this.sensorsManagement = new SensorsManagement ( this );
 
-        /*gdb detection*/
-        this.debuggerDetection = new DebuggerDetection(this);
+        /*initialize and start the gdb debugger detection thread*/
+        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this );
+
+        /*initialize and start the jdwp debugger detection thread*/
+        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( );
 
     }
 
     @Override
-    protected void onPause() {
-        super.onPause();
+    protected void onPause ( ) {
+        super.onPause ( );
 
         /*when the application go on pause unregister sensor listener*/
-        this.gestioneSensori.unregisterListener();
+        this.sensorsManagement.unregisterListener ( );
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
+    protected void onResume ( ) {
+        super.onResume ( );
 
         /*when the application start again register sensor listener*/
-        this.gestioneSensori.registerListener();
+        this.sensorsManagement.registerListener ( );
     }
 }

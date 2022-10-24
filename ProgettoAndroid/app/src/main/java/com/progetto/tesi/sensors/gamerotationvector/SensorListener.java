@@ -13,52 +13,87 @@ import com.progetto.tesi.R;
 public class SensorListener implements SensorEventListener {
 
     /*enum used to get a visual text of the azimuth value*/
-    private AppCompatActivity appCompatActivity = null;
-    private TextView textView = null;
+    private AppCompatActivity appCompatActivity;
+    private TextView textView;
 
     /*variable used to contain the text that we want to show to see sensor values and sensor text values but actually not used*/
-    private String string = null;
+    private String textSensorListener;
 
     /*variables used to the azimuth management*/
-    private GestioneAzimuth gestioneAzimuth = null;
-    private AzimuthPitchRollTextValue azimuth = null;
-    private double azimuthDouble = 0;
-    private int azimuthInt = 0;
+    private GestioneAzimuth gestioneAzimuth;
+    private AzimuthPitchRollTextValue azimuth;
+    private double azimuthDouble;
+    private int azimuthInt;
 
     /*variables used to the pitch management*/
-    private GestionePitch gestionePitch = null;
-    private AzimuthPitchRollTextValue pitch = null;
-    private double pitchDouble = 0;
-    private int pitchInt = 0;
+    private GestionePitch gestionePitch;
+    private AzimuthPitchRollTextValue pitch;
+    private double pitchDouble;
+    private int pitchInt;
 
     /*variables used to the roll management*/
-    private GestioneRoll gestioneRoll = null;
-    private AzimuthPitchRollTextValue roll = null;
-    private double rollDouble = 0;
-    private int rollInt = 0;
+    private GestioneRoll gestioneRoll;
+    private AzimuthPitchRollTextValue roll;
+    private double rollDouble;
+    private int rollInt;
 
     /*variables to check the available and alert device angles*/
-    private AzimuthPitchRollTextValue rememberAzimuth = null;
-    private AzimuthPitchRollTextValue rememberPitch = null;
-    private AzimuthPitchRollTextValue rememberRoll = null;
+    private AzimuthPitchRollTextValue rememberAzimuth;
+    private AzimuthPitchRollTextValue rememberPitch;
+    private AzimuthPitchRollTextValue rememberRoll;
+
+    /*variable to check if the first calibration is done*/
+    private boolean firstCalibrationDone;
 
     /*variable used to say to the program when calibrate the sensor again*/
-    private boolean firstCalibrationDone = false;
-    private boolean calibrate = false;
+    private boolean calibrate;
 
     /*variable used to check if the sensors are stationary*/
-    private boolean stationary = false;
+    private boolean stationary;
 
     /*variable used to store the number of measurements*/
-    private int numberMeasurements = 0;
+    private int numberMeasurements;
 
+    /*constructor to initialize the sensor listener*/
     public SensorListener ( AppCompatActivity appCompatActivity ) {
+
+        /*initialize all necessary variables*/
+        this.initializeAllVariables ( appCompatActivity );
+
+    }
+
+    /*function used initialize all necessary variables*/
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
 
         /*save the actual activity to access forward to the layout object*/
         this.appCompatActivity = appCompatActivity;
 
         /*get the references of all necessary object in the activity layout*/
         this.textView = this.appCompatActivity.findViewById ( R.id.valori );
+
+        /*initialize all azimuth values*/
+        this.azimuthInt = 0;
+        this.azimuthDouble = 0;
+
+        /*initialize all pitch values*/
+        this.pitchInt = 0;
+        this.pitchDouble = 0;
+
+        /*initialize all roll values*/
+        this.rollInt = 0;
+        this.rollDouble = 0;
+
+        /*at the beginning the first calibration is not done*/
+        this.firstCalibrationDone = false;
+
+        /*at the beginning we don't calibrate because we wait the thread to start the calibration*/
+        this.calibrate = false;
+
+        /*at the beginning the sensor is not stationary*/
+        this.stationary = false;
+
+        /*at the beginning the number of measurements is equal to zero*/
+        this.numberMeasurements = 0;
 
         /*create all object for the management of each part of the sensor data*/
         this.gestioneAzimuth = new GestioneAzimuth ( );
@@ -67,7 +102,7 @@ public class SensorListener implements SensorEventListener {
 
         /*initial calibration for the azimuth and roll*/
         this.gestioneAzimuth.calibraAzimuth ( 0 );
-        this.gestioneRoll.calibraRoll ( 0 );
+        this.gestioneRoll.calibrateRoll ( 0 );
 
     }
 
@@ -81,8 +116,8 @@ public class SensorListener implements SensorEventListener {
             /*check if the data is for the game rotation vector sensor*/
             if ( event.sensor.getType ( ) == Sensor.TYPE_GAME_ROTATION_VECTOR ) {
 
-                /**/
-                this.string = "";
+                /*string to store and then show the sensor values*/
+                this.textSensorListener = "";
 
                 /*calculate the right values for azimuth pitch and roll*/
                 this.calculateRightValuesAzimuthPitchRoll ( event );
@@ -128,6 +163,8 @@ public class SensorListener implements SensorEventListener {
     @Override
     public void onAccuracyChanged ( Sensor sensor , int accuracy ) {
 
+        /*do nothing for the moment*/
+
     }
 
     /*function used to calculate the right values for azimuth pitch and roll*/
@@ -152,7 +189,7 @@ public class SensorListener implements SensorEventListener {
 
             /*calibrate azimuth and roll with actual values*/
             this.gestioneAzimuth.calibraAzimuth ( azimuth );
-            this.gestioneRoll.calibraRoll ( roll );
+            this.gestioneRoll.calibrateRoll ( roll );
 
         }
 
@@ -167,7 +204,7 @@ public class SensorListener implements SensorEventListener {
         this.pitchInt = this.gestionePitch.getPitchInt ( );
 
         /*calculate the right value for roll using a 360 degrees value*/
-        this.gestioneRoll.filtraRoll ( roll );
+        this.gestioneRoll.filterRoll ( roll );
         this.rollDouble = this.gestioneRoll.getRollDouble ( );
         this.rollInt = this.gestioneRoll.getRollInt ( );
 

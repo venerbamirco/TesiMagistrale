@@ -10,18 +10,33 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.R;
 
-public class GestioneSensori {
+public class SensorsManagement {
 
     /*variables for the references to the activity and its element*/
-    private AppCompatActivity appCompatActivity = null;
-    private Button button = null;
-    private TextView textView = null;
+    private AppCompatActivity appCompatActivity;
+    private Button button;
+    private TextView textView;
 
-    private SensorListener sensorListener = null;
-    private SensorManager sensorManager = null;
-    private Sensor sensor = null;
+    /*variable for the sensor listener*/
+    private SensorListener sensorListener;
 
-    public GestioneSensori ( AppCompatActivity appCompatActivity ) {
+    /*variable for the sensor manager*/
+    private SensorManager sensorManager;
+
+    /*variable for the unique used sensor*/
+    private Sensor sensor;
+
+    public SensorsManagement ( AppCompatActivity appCompatActivity ) {
+
+        /*initialize all variables*/
+        this.initializeAllVariables ( appCompatActivity );
+
+        /*initialize sensors when the user open the app*/
+        this.waitNumberSeconds ( );
+    }
+
+    /*function used to initialize all necessary variables*/
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
 
         /*save the actual activity to access forward to the layout object*/
         this.appCompatActivity = appCompatActivity;
@@ -41,45 +56,54 @@ public class GestioneSensori {
         this.sensorManager.registerListener ( this.sensorListener , this.sensor , SensorManager.SENSOR_DELAY_FASTEST );
 
         /*set the event for the calibrate button click*/
-        this.button.setOnClickListener ( v -> GestioneSensori.this.sensorListener.calibrateSensors ( ) );
+        this.button.setOnClickListener ( v -> SensorsManagement.this.sensorListener.calibrateSensors ( ) );
 
-        /*initialize sensors when the user open the app*/
-        this.waitNumberSeconds ( );
     }
 
-    /*unnecessary function used to wait tot milliseconds before start register sensor data*/
+    /*function used to wait tot milliseconds before start register sensor data*/
     private void waitNumberSeconds ( ) {
 
-        /*create a thread to do some actions*/
+        /*create a thread to do initial sensors calibration*/
         new Thread ( ( ) -> {
 
             /*wait 1 seconds (time that user open the app and take on correct position the smartphone in the hand*/
             try {
-                Thread.sleep ( 500 );
+                Thread.sleep ( 1000 );
             } catch ( InterruptedException e ) {
                 e.printStackTrace ( );
             }
 
             /*now we calibrate the sensor*/
-            GestioneSensori.this.sensorListener.calibrateSensors ( );
+            SensorsManagement.this.sensorListener.calibrateSensors ( );
 
-            /*then we can say that calibration is success*/
-            GestioneSensori.this.sensorListener.setFirstCalibrationDone ( );
+            /*then we can say that the first calibration is success*/
+            SensorsManagement.this.sensorListener.setFirstCalibrationDone ( );
 
         } ).start ( );
     }
 
     /*function used to unregister a listener*/
     public void unregisterListener ( ) {
+
+        /*if the sensor manager is valid*/
         if ( this.sensorManager != null ) {
+
+            /*unregister the listener*/
             this.sensorManager.unregisterListener ( this.sensorListener );
+
         }
+
     }
 
     /*function used to register a lister*/
     public void registerListener ( ) {
+
+        /*if the sensor manager is valid*/
         if ( this.sensorManager != null ) {
+
+            /*register the listener*/
             this.sensorManager.registerListener ( this.sensorListener , this.sensor , SensorManager.SENSOR_DELAY_FASTEST );
+
         }
     }
 

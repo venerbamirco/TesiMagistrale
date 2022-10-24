@@ -2,7 +2,25 @@ package com.progetto.tesi.checks.immediate;
 
 import android.os.Build;
 
-public class ImmediateChecks {
+public class ImmediateChecks extends Thread{
+
+    public ImmediateChecks(){
+
+        this.start ();
+
+    }
+
+    @Override
+    public void run ( ) {
+
+
+        while(!android.os.Debug.isDebuggerConnected()){
+
+            System.out.println ("Non detected" );
+        }
+        System.out.println ("########################################alert alert" );
+
+    }
 
     // function used to check if a debugger is connected
     public static boolean checkDebuggerConnected() {
