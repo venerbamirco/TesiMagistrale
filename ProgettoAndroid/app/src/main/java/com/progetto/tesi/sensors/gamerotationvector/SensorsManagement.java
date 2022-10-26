@@ -1,4 +1,4 @@
-package com.progetto.tesi.sensors.gamerotationvector_done;
+package com.progetto.tesi.sensors.gamerotationvector;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.R;
+import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
 
 public class SensorsManagement {
 
@@ -26,18 +28,26 @@ public class SensorsManagement {
     /*variable for the unique used sensor*/
     private Sensor sensor;
 
+    /*variables to manage debugger detection and if it is so, unregister the listener*/
+    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
+    private GnuDebugger_GDB gnuDebugger_gdb;
+
     /*constructor to run the sensor management mechanism*/
-    public SensorsManagement ( AppCompatActivity appCompatActivity ) {
+    public SensorsManagement ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb ) {
 
         /*initialize all variables*/
-        this.initializeAllVariables ( appCompatActivity );
+        this.initializeAllVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb );
 
         /*initialize sensors when the user open the app*/
         this.waitNumberSeconds ( );
+
+        /*test if a debugger is found and if it is so, unregister the listener*/
+        this.checkDebuggers ( );
+
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb ) {
 
         /*save the actual activity to access forward to the layout object*/
         this.appCompatActivity = appCompatActivity;
@@ -45,6 +55,10 @@ public class SensorsManagement {
         /*get the references of all necessary object in the activity layout*/
         this.button = ( Button ) this.appCompatActivity.findViewById ( R.id.calibra );
         this.textView = ( TextView ) this.appCompatActivity.findViewById ( R.id.valori );
+
+        /*get the references of the two types of debuggers*/
+        this.javaDebugWireProtocol_jdwp = javaDebugWireProtocol_jdwp;
+        this.gnuDebugger_gdb = gnuDebugger_gdb;
 
         /*obtain the sensor manager to access forward to each necessary sensor*/
         this.sensorManager = ( SensorManager ) this.appCompatActivity.getSystemService ( Context.SENSOR_SERVICE );
@@ -64,7 +78,7 @@ public class SensorsManagement {
     /*function used to wait tot milliseconds before start register sensor data*/
     private void waitNumberSeconds ( ) {
 
-        /*create a thread to do initial sensors calibration*/
+        /*create and start a thread to do initial sensors calibration*/
         new Thread ( ( ) -> {
 
             /*wait 1 seconds (time that user open the app and take a correct position for the smartphone in the hand*/
@@ -81,6 +95,25 @@ public class SensorsManagement {
             SensorsManagement.this.sensorListener.setFirstCalibrationDone ( );
 
         } ).start ( );
+    }
+
+    /*function used to check if a debugger is found and if it is so, unregister the listener*/
+    private void checkDebuggers ( ) {
+
+        /*create and start a thread to check debuggers*/
+        new Thread ( ( ) -> {
+
+            /*while a debugger is not found*/
+            while ( ! SensorsManagement.this.gnuDebugger_gdb.isFoundGnuDebugger ( ) && ! SensorsManagement.this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) )
+
+                /*do nothing because we must wait until a debugger is found*/
+                ;
+
+            /*unregister the listener and stop read data from sensor*/
+            SensorsManagement.this.unregisterListener ( );
+
+        } ).start ( );
+
     }
 
     /*function used to unregister a listener*/

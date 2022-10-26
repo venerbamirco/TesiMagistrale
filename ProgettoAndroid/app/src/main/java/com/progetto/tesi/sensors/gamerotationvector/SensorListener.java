@@ -1,4 +1,4 @@
-package com.progetto.tesi.sensors.gamerotationvector_done;
+package com.progetto.tesi.sensors.gamerotationvector;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;

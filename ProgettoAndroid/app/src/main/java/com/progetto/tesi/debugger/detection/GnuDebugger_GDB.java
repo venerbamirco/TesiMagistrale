@@ -1,9 +1,15 @@
-package com.progetto.tesi.debugger.detection_done;
+package com.progetto.tesi.debugger.detection;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.progetto.tesi.R;
+import com.progetto.tesi.debugger.detected.GnuDebugger_GDB_Activity;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -13,10 +19,13 @@ import java.util.List;
 public class GnuDebugger_GDB extends Thread {
 
     /*boolean variable to store if a gdb debugger is found*/
-    private boolean foundGdbDebugger = false;
+    private boolean gnuDebugger_GDB_found = false;
 
     /*variable to save the reference of the main activity*/
     private AppCompatActivity appCompatActivity;
+
+    /*variable to access to the textview*/
+    private TextView textView;
 
     /*variable used to access to the activity manager*/
     private ActivityManager activityManager;
@@ -33,14 +42,21 @@ public class GnuDebugger_GDB extends Thread {
     /*variable used to store the name of process that is attached to this application*/
     private String processAttached;
 
+    /*variable used to access to the jdwp debugger class*/
+    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
+
+    /*variable used to check if a jdwp debugger is found*/
+    private boolean javaDebugWireProtocol_jdwp_found;
+
+    private Handler handler;
+
     /*constructor to initialize and start the gdb debugger detection thread*/
-    public GnuDebugger_GDB ( AppCompatActivity appCompatActivity ) {
+    public GnuDebugger_GDB ( AppCompatActivity appCompatActivity , Handler handler ) {
 
         /*initialize all necessary variables*/
         this.initializeAllVariables ( appCompatActivity );
 
-        /*start the thread*/
-        this.start ( );
+        this.handler = handler;
 
     }
 
@@ -48,10 +64,13 @@ public class GnuDebugger_GDB extends Thread {
     private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
 
         /*at the beginning the debugger is not found*/
-        this.foundGdbDebugger = false;
+        this.gnuDebugger_GDB_found = false;
 
         /*save the actual activity to access forward to its managers*/
         this.appCompatActivity = appCompatActivity;
+
+        /*get reference for the textview*/
+        this.textView = ( TextView ) this.appCompatActivity.findViewById ( R.id.valori );
 
         /*get the activity manager reference*/
         this.activityManager = ( ActivityManager ) this.appCompatActivity.getSystemService ( Context.ACTIVITY_SERVICE );
@@ -64,8 +83,19 @@ public class GnuDebugger_GDB extends Thread {
 
         /*initialize the name of the attached process as empty*/
         this.processAttached = "";
+
     }
 
+    /*function to import other debugger*/
+    public void importOtherDebugger ( JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp ) {
+
+        /*set jdwp debugger*/
+        this.javaDebugWireProtocol_jdwp = javaDebugWireProtocol_jdwp;
+
+        /*at the beginning jdwp debugger not found*/
+        this.javaDebugWireProtocol_jdwp_found = false;
+
+    }
 
     @Override
     public void run ( ) {
@@ -73,8 +103,8 @@ public class GnuDebugger_GDB extends Thread {
         /*obtain the list of running processes and find the actual pid*/
         this.getApplicationPid ( );
 
-        /*while tracer pid is equal to zero -> not connected debugger*/
-        while ( this.tracerPid == 0 ) {
+        /*until a debugger is not found*/
+        while ( this.tracerPid == 0 && ! ( this.javaDebugWireProtocol_jdwp_found = this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) ) {
 
             /*debug row to say that a debugger is not found*/
             System.out.println ( "GnuDebugger_GDB: Debugger not found" );
@@ -82,20 +112,39 @@ public class GnuDebugger_GDB extends Thread {
             /*recalculate the tracer pid*/
             this.readProcPidStatus ( );
 
-            /*one analysis each 5 seconds*/
-            try {
-                this.sleep ( 5000 );
-            } catch ( InterruptedException e ) {
-                e.printStackTrace ( );
-            }
+        }
+
+        /*if the program exit because a jdwp debugger if found*/
+        if ( this.javaDebugWireProtocol_jdwp_found ) {
+
+            /*debug row to say that a gdb debugger is not found*/
+            System.out.println ( "GnuDebugger_GDB: Debugger not found" );
 
         }
 
-        /*debug row to say that a debugger is found*/
-        System.out.println ( "GnuDebugger_GDB: Debugger found" );
+        /*if the program exit because a gdb debugger is found*/
+        else {
 
-        /*get the name of attached process*/
-        this.getNameProcessTracerPid ( );
+            /*set that program found gdb debugger*/
+            this.gnuDebugger_GDB_found = true;
+
+            /*debug row to say that a debugger is found*/
+            System.out.println ( "GnuDebugger_GDB: Debugger found" );
+
+            /*get the name of attached process*/
+            this.getNameProcessTracerPid ( );
+
+            /*if the program is here means that a gnu debugger is found*/
+            this.gnu_debugger_found ( );
+
+            handler.post ( new Runnable ( ) {
+                @Override
+                public void run ( ) {
+                    Intent intent = new Intent ( GnuDebugger_GDB.this.appCompatActivity , GnuDebugger_GDB_Activity.class );
+                    GnuDebugger_GDB.this.appCompatActivity.startActivity ( intent );
+                }
+            } );
+        }
 
     }
 
@@ -186,6 +235,21 @@ public class GnuDebugger_GDB extends Thread {
     private void getNameProcessTracerPid ( ) {
 
         /*nothing to do because device requires root access to get the name of process with a specific pid*/
+
+    }
+
+    /*function used after that a gnu debugger is detected*/
+    private void gnu_debugger_found ( ) {
+
+        /*do some operations after debugger detection*/
+
+    }
+
+    /*function to check if a gnu debugger is found*/
+    public boolean isFoundGnuDebugger ( ) {
+
+        /*return if a gnu debugger is found*/
+        return this.gnuDebugger_GDB_found;
 
     }
 

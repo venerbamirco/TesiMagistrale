@@ -1,4 +1,4 @@
-package com.progetto.tesi.sensors.gamerotationvector_done;
+package com.progetto.tesi.sensors.gamerotationvector;
 
 /*enum used for the different text values that azimuth pitch and roll can have*/
 public enum AzimuthPitchRollTextValue {

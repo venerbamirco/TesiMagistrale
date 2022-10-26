@@ -1,4 +1,4 @@
-package com.progetto.tesi.applications.debuggable_done;
+package com.progetto.tesi.applications.debuggable;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;

@@ -1,4 +1,4 @@
-package com.progetto.tesi.sensors.gamerotationvector_done;
+package com.progetto.tesi.sensors.gamerotationvector;
 
 public class ManagementAzimuth {
 
