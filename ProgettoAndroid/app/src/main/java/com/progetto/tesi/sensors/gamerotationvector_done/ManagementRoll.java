@@ -1,20 +1,26 @@
-package com.progetto.tesi.sensors.gamerotationvector;
+package com.progetto.tesi.sensors.gamerotationvector_done;
 
-public class GestioneRoll {
+public class ManagementRoll {
 
+    /*variables to store the limit points of roll value*/
     private double rollLimitBottom;
     private double rollLimitCenter;
     private double rollLimitTop;
-
     private double rollMinimumValue;
     private double rollMaximumValue;
 
+    /*variables to store the values of pitch*/
     private double rollDouble;
     private int rollInt;
 
+    /*variable to store the calibrated value of roll*/
     private double rollCalibrateValue;
 
-    public GestioneRoll ( ) {
+    /*constructor to initialize the manager of roll value*/
+    public ManagementRoll ( ) {
+
+        /*initialize all necessary variables*/
+        this.initializeAllVariables ( );
 
     }
 
@@ -41,10 +47,16 @@ public class GestioneRoll {
 
     /*function used to calibrate the roll values*/
     public void calibrateRoll ( double roll ) {
+
+        /*save actual value of roll*/
         this.rollCalibrateValue = roll;
+
+        /*save new range of roll values*/
         this.rollLimitBottom = this.rollCalibrateValue - 180;
         this.rollLimitCenter = this.rollCalibrateValue;
         this.rollLimitTop = this.rollCalibrateValue + 180;
+
+        /*calculate new extreme range points for roll*/
         if ( this.rollLimitBottom < - 180 ) {
             this.rollMinimumValue = 360 - Math.abs ( this.rollLimitBottom );
             this.rollMaximumValue = 180 - Math.abs ( this.rollLimitCenter );
@@ -52,10 +64,13 @@ public class GestioneRoll {
             this.rollMinimumValue = - 180 + Math.abs ( this.rollLimitCenter );
             this.rollMaximumValue = - 360 + Math.abs ( this.rollLimitTop );
         }
+
     }
 
     /*function used to filter the roll values*/
     public void filterRoll ( double roll ) {
+
+        /*calculate the new value of roll in relation with the calibrated value using 0 - 360 degree range*/
         if ( roll >= 0 ) {
             if ( this.rollLimitCenter >= 0 ) {
                 this.rollDouble = roll - this.rollLimitCenter;
@@ -76,7 +91,10 @@ public class GestioneRoll {
         if ( this.rollDouble < 0 ) {
             this.rollDouble = 360 + this.rollDouble;
         }
+
+        /*save also the integer version of the roll value*/
         this.rollInt = ( int ) this.rollDouble;
+
     }
 
     /*function used to get the double value of roll*/
@@ -84,7 +102,7 @@ public class GestioneRoll {
         return this.rollDouble;
     }
 
-    /*function used to get the int value of roll*/
+    /*function used to get the integer value of roll*/
     public int getRollInt ( ) {
         return this.rollInt;
     }

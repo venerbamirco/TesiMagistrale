@@ -1,4 +1,4 @@
-package com.progetto.tesi.sensors.gamerotationvector;
+package com.progetto.tesi.sensors.gamerotationvector_done;
 
 import android.hardware.Sensor;
 import android.hardware.SensorEvent;
@@ -20,19 +20,19 @@ public class SensorListener implements SensorEventListener {
     private String textSensorListener;
 
     /*variables used to the azimuth management*/
-    private GestioneAzimuth gestioneAzimuth;
+    private ManagementAzimuth managementAzimuth;
     private AzimuthPitchRollTextValue azimuth;
     private double azimuthDouble;
     private int azimuthInt;
 
     /*variables used to the pitch management*/
-    private GestionePitch gestionePitch;
+    private ManagementPitch managementPitch;
     private AzimuthPitchRollTextValue pitch;
     private double pitchDouble;
     private int pitchInt;
 
     /*variables used to the roll management*/
-    private GestioneRoll gestioneRoll;
+    private ManagementRoll managementRoll;
     private AzimuthPitchRollTextValue roll;
     private double rollDouble;
     private int rollInt;
@@ -96,13 +96,13 @@ public class SensorListener implements SensorEventListener {
         this.numberMeasurements = 0;
 
         /*create all object for the management of each part of the sensor data*/
-        this.gestioneAzimuth = new GestioneAzimuth ( );
-        this.gestionePitch = new GestionePitch ( );
-        this.gestioneRoll = new GestioneRoll ( );
+        this.managementAzimuth = new ManagementAzimuth ( );
+        this.managementPitch = new ManagementPitch ( );
+        this.managementRoll = new ManagementRoll ( );
 
         /*initial calibration for the azimuth and roll*/
-        this.gestioneAzimuth.calibraAzimuth ( 0 );
-        this.gestioneRoll.calibrateRoll ( 0 );
+        this.managementAzimuth.calibrateAzimuth ( 0 );
+        this.managementRoll.calibrateRoll ( 0 );
 
     }
 
@@ -154,6 +154,9 @@ public class SensorListener implements SensorEventListener {
                 /*increment the number of measurements*/
                 this.numberMeasurements++;
 
+                /*set text on textview*/
+                this.textView.setText ( this.textSensorListener );
+
             }
 
         }
@@ -188,32 +191,32 @@ public class SensorListener implements SensorEventListener {
         if ( this.calibrate ) {
 
             /*calibrate azimuth and roll with actual values*/
-            this.gestioneAzimuth.calibraAzimuth ( azimuth );
-            this.gestioneRoll.calibrateRoll ( roll );
+            this.managementAzimuth.calibrateAzimuth ( azimuth );
+            this.managementRoll.calibrateRoll ( roll );
 
         }
 
         /*calculate the right value for azimuth using a 360 degrees value*/
-        this.gestioneAzimuth.filtraAzimuth ( azimuth );
-        this.azimuthDouble = this.gestioneAzimuth.getAzimuthDouble ( );
-        this.azimuthInt = this.gestioneAzimuth.getAzimuthInt ( );
+        this.managementAzimuth.filterAzimuth ( azimuth );
+        this.azimuthDouble = this.managementAzimuth.getAzimuthDouble ( );
+        this.azimuthInt = this.managementAzimuth.getAzimuthInt ( );
 
         /*calculate the right value for pitch using the standard values of the sensor*/
-        this.gestionePitch.filtraPitch ( pitch );
-        this.pitchDouble = this.gestionePitch.getPitchDouble ( );
-        this.pitchInt = this.gestionePitch.getPitchInt ( );
+        this.managementPitch.filterPitch ( pitch );
+        this.pitchDouble = this.managementPitch.getPitchDouble ( );
+        this.pitchInt = this.managementPitch.getPitchInt ( );
 
         /*calculate the right value for roll using a 360 degrees value*/
-        this.gestioneRoll.filterRoll ( roll );
-        this.rollDouble = this.gestioneRoll.getRollDouble ( );
-        this.rollInt = this.gestioneRoll.getRollInt ( );
+        this.managementRoll.filterRoll ( roll );
+        this.rollDouble = this.managementRoll.getRollDouble ( );
+        this.rollInt = this.managementRoll.getRollInt ( );
 
     }
 
     /*function used to set the azimuth text value*/
     private void setAzimuthTextValue ( ) {
 
-        /*transform actual azimuth value*/
+        /*transform actual azimuth value in text value*/
         if ( this.azimuthInt > 315 || this.azimuthInt < 45 ) {
             this.azimuth = AzimuthPitchRollTextValue.NORTH;
         } else if ( this.azimuthInt > 45 && this.azimuthInt < 135 ) {
@@ -237,7 +240,7 @@ public class SensorListener implements SensorEventListener {
     /*function used to set the pitch text value*/
     private void setPitchTextValue ( ) {
 
-        /*transform actual pitch value*/
+        /*transform actual pitch value in text value*/
         if ( this.pitchInt > - 90 && this.pitchInt < - 45 ) {
             if ( this.roll == AzimuthPitchRollTextValue.NORTH ) {
                 this.pitch = AzimuthPitchRollTextValue.NORTH;
@@ -275,7 +278,7 @@ public class SensorListener implements SensorEventListener {
     /*function used to set the roll text value*/
     private void setRollTextValue ( ) {
 
-        /*transform actual roll value*/
+        /*transform actual roll value in text value*/
         if ( this.rollInt > 315 || this.rollInt < 45 ) {
             this.roll = AzimuthPitchRollTextValue.NORTH;
         } else if ( this.rollInt > 45 && this.rollInt < 135 ) {
@@ -299,20 +302,23 @@ public class SensorListener implements SensorEventListener {
     /*function used to set the measurements into the text label*/
     private void setMeasurementIntoTextLabel ( ) {
 
-        /*initialize again the text label value*/
-        this.textView.setText ( "" );
+        /*put inside azimuth pitch and roll number values*/
+        this.textSensorListener = "\n\nNumber values";
+        this.textSensorListener = this.textSensorListener + "\nAzimuth: " + this.azimuthInt;
+        this.textSensorListener = this.textSensorListener + "\nPitch: " + this.pitchInt;
+        this.textSensorListener = this.textSensorListener + "\nRoll: " + this.rollInt;
 
-        /*put inside azimuth pitch and roll their number values*/
-        this.textView.setText ( this.textView.getText ( ) + "\n\nNumber values" );
-        this.textView.setText ( this.textView.getText ( ) + "\nAzimuth: " + this.azimuthInt );
-        this.textView.setText ( this.textView.getText ( ) + "\nPitch: " + this.pitchInt );
-        this.textView.setText ( this.textView.getText ( ) + "\nRoll: " + this.rollInt );
+        /*debug row for number values*/
+        System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
 
-        /*put inside azimuth pitch and roll their text values*/
-        this.textView.setText ( this.textView.getText ( ) + "\n\nText values" );
-        this.textView.setText ( this.textView.getText ( ) + "\nAzimuth: " + this.azimuth );
-        this.textView.setText ( this.textView.getText ( ) + "\nPitch: " + this.pitch );
-        this.textView.setText ( this.textView.getText ( ) + "\nRoll: " + this.roll );
+        /*put inside azimuth pitch and roll text values*/
+        this.textSensorListener = this.textSensorListener + "\n\nText values";
+        this.textSensorListener = this.textSensorListener + "\nAzimuth: " + this.azimuth;
+        this.textSensorListener = this.textSensorListener + "\nPitch: " + this.pitch;
+        this.textSensorListener = this.textSensorListener + "\nRoll: " + this.roll;
+
+        /*debug row for text values*/
+        System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
     }
 
@@ -367,7 +373,7 @@ public class SensorListener implements SensorEventListener {
         if ( ! azimuthAlert && ! pitchAlert && ! rollAlert ) {
 
             /*the device is correctly used*/
-            this.textView.setText ( this.textView.getText ( ) + "\n\nDevice is correctly used" );
+            this.textSensorListener = this.textSensorListener + "\n\nDevice is correctly used";
 
             /*debug row for device correctly used*/
             System.out.println ( "SensorListener: Device is correctly used" );
@@ -378,7 +384,7 @@ public class SensorListener implements SensorEventListener {
         else {
 
             /*debug row in the text label to make a list of alerts*/
-            this.textView.setText ( this.textView.getText ( ) + "\n\nAlert:" );
+            this.textSensorListener = this.textSensorListener + "\n\nAlert:";
 
         }
 
@@ -386,7 +392,7 @@ public class SensorListener implements SensorEventListener {
         if ( azimuthAlert ) {
 
             /*the device is wrongly directed*/
-            this.textView.setText ( this.textView.getText ( ) + "\nWrongly directed" );
+            this.textSensorListener = this.textSensorListener + "\nWrongly directed";
 
             /*debug row for azimuth alert*/
             System.out.println ( "SensorListener: Azimuth alert" );
@@ -397,7 +403,7 @@ public class SensorListener implements SensorEventListener {
         if ( pitchAlert ) {
 
             /*the device is wrongly inclined*/
-            this.textView.setText ( this.textView.getText ( ) + "\nWrongly inclined" );
+            this.textSensorListener = this.textSensorListener + "\nWrongly inclined";
 
             /*debug row for pitch alert*/
             System.out.println ( "SensorListener: Pitch alert" );
@@ -408,7 +414,7 @@ public class SensorListener implements SensorEventListener {
         if ( rollAlert ) {
 
             /*the device is wrongly rotated*/
-            this.textView.setText ( this.textView.getText ( ) + "\nWrongly rotated" );
+            this.textSensorListener = this.textSensorListener + "\nWrongly rotated";
 
             /*debug row for roll alert*/
             System.out.println ( "SensorListener: Roll alert" );
@@ -481,7 +487,10 @@ public class SensorListener implements SensorEventListener {
 
     /*function used to say that the first calibration of the device is done*/
     public void setFirstCalibrationDone ( ) {
+
+        /*set first calibration done*/
         this.firstCalibrationDone = true;
+
     }
 
 }

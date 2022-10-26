@@ -1,4 +1,4 @@
-package com.progetto.tesi.sensors.gamerotationvector;
+package com.progetto.tesi.sensors.gamerotationvector_done;
 
 import android.content.Context;
 import android.hardware.Sensor;
@@ -26,6 +26,7 @@ public class SensorsManagement {
     /*variable for the unique used sensor*/
     private Sensor sensor;
 
+    /*constructor to run the sensor management mechanism*/
     public SensorsManagement ( AppCompatActivity appCompatActivity ) {
 
         /*initialize all variables*/
@@ -66,7 +67,7 @@ public class SensorsManagement {
         /*create a thread to do initial sensors calibration*/
         new Thread ( ( ) -> {
 
-            /*wait 1 seconds (time that user open the app and take on correct position the smartphone in the hand*/
+            /*wait 1 seconds (time that user open the app and take a correct position for the smartphone in the hand*/
             try {
                 Thread.sleep ( 1000 );
             } catch ( InterruptedException e ) {

@@ -7,7 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.progetto.tesi.applications.debuggable_done.DebuggableApplications;
 import com.progetto.tesi.debugger.detection_done.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection_done.JavaDebugWireProtocol_JDWP;
-import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
+import com.progetto.tesi.sensors.gamerotationvector_done.SensorsManagement;
 
 public class MainActivity extends AppCompatActivity {
 
