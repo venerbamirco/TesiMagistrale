@@ -1,20 +1,22 @@
 package com.progetto.tesi;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.applications.debuggable.DebuggableApplications;
-import com.progetto.tesi.debugger.detected.GnuDebugger_GDB_Activity;
-import com.progetto.tesi.debugger.detected.JavaDebugWireProtocol_JDWP_Activity;
 import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
 import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
 
 public class MainActivity extends AppCompatActivity {
+
+    /*variable used to get the reference of stop button*/
+    private Button stopRecordingData;
 
     /*variable to detect all debuggable apps in the device*/
     private DebuggableApplications debuggableApplications;
@@ -28,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
     /*variable to manage the gdb debugger detection*/
     private GnuDebugger_GDB gnuDebugger_gdb;
 
+    /*handler to manage the change of activities*/
+    private Handler handler;
+
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
         super.onCreate ( savedInstanceState );
@@ -35,23 +40,22 @@ public class MainActivity extends AppCompatActivity {
 
         /*initialize all necessary variables*/
         this.initializeVariables ( );
-
-        //this.waitThreadDebugger ( );
     }
 
     /*function used to initialize all necessary variables*/
     private void initializeVariables ( ) {
 
+        /*initialize the handler with the main looper*/
+        this.handler = new Handler ( Looper.getMainLooper ( ) );
+
         /*initialize the debuggable applications class passing the context to access then the package manager*/
         this.debuggableApplications = new DebuggableApplications ( this );
 
-        Handler handler = new Handler ( Looper.getMainLooper());
-
         /*initialize and start the gdb debugger detection thread*/
-        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this, handler );
+        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this , this.handler );
 
         /*initialize and start the jdwp debugger detection thread*/
-        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this );
+        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this , this.handler );
 
         /*import other debugger into each class*/
         this.gnuDebugger_gdb.importOtherDebugger ( this.javaDebugWireProtocol_jdwp );
@@ -63,6 +67,28 @@ public class MainActivity extends AppCompatActivity {
 
         /*initialize the sensor manager class*/
         this.sensorsManagement = new SensorsManagement ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
+
+        /*initialize the button to stop recording data*/
+        this.stopRecordingData = ( Button ) this.findViewById ( R.id.stop );
+
+        /*initialize the onclick listener of the button*/
+        this.stopRecordingData.setOnClickListener ( new View.OnClickListener ( ) {
+
+            @Override
+            public void onClick ( View v ) {
+
+                /*stop checks of gdb debugger*/
+                MainActivity.this.gnuDebugger_gdb.stopRecordingDataButtonPressed ( );
+
+                /*stop checks of jdwp debugger*/
+                MainActivity.this.javaDebugWireProtocol_jdwp.stopRecordingDataButtonPressed ( );
+
+                /*stop recording sensor data*/
+                MainActivity.this.sensorsManagement.unregisterListener ( );
+
+            }
+
+        } );
 
     }
 
@@ -80,24 +106,5 @@ public class MainActivity extends AppCompatActivity {
 
         /*when the application start again register sensor listener*/
         this.sensorsManagement.registerListener ( );
-    }
-
-    private void waitThreadDebugger ( ) {
-
-        try {
-            this.gnuDebugger_gdb.join ( );
-            this.javaDebugWireProtocol_jdwp.join ( );
-        } catch ( InterruptedException e ) {
-            e.printStackTrace ( );
-        }
-
-        if ( this.gnuDebugger_gdb.isFoundGnuDebugger ( ) ) {
-            Intent myIntent = new Intent ( this , GnuDebugger_GDB_Activity.class );
-            startActivity ( myIntent );
-        } else if ( this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) {
-            Intent myIntent = new Intent ( this , JavaDebugWireProtocol_JDWP_Activity.class );
-            startActivity ( myIntent );
-        }
-
     }
 }

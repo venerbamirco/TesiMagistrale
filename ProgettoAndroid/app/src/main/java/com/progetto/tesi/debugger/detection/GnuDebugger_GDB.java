@@ -48,23 +48,22 @@ public class GnuDebugger_GDB extends Thread {
     /*variable used to check if a jdwp debugger is found*/
     private boolean javaDebugWireProtocol_jdwp_found;
 
+    /*variable used to store the handler for the main looper*/
     private Handler handler;
 
-    /*constructor to initialize and start the gdb debugger detection thread*/
+    /*boolean variable to manage the stop button*/
+    private boolean stopRecordingData;
+
+    /*constructor to initialize the gdb debugger detection thread*/
     public GnuDebugger_GDB ( AppCompatActivity appCompatActivity , Handler handler ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity );
-
-        this.handler = handler;
+        this.initializeAllVariables ( appCompatActivity , handler );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
-
-        /*at the beginning the debugger is not found*/
-        this.gnuDebugger_GDB_found = false;
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Handler handler ) {
 
         /*save the actual activity to access forward to its managers*/
         this.appCompatActivity = appCompatActivity;
@@ -83,6 +82,15 @@ public class GnuDebugger_GDB extends Thread {
 
         /*initialize the name of the attached process as empty*/
         this.processAttached = "";
+
+        /*at the beginning the debugger is not found*/
+        this.gnuDebugger_GDB_found = false;
+
+        /*save the reference of the handler*/
+        this.handler = handler;
+
+        /*at the beginning we must record data*/
+        this.stopRecordingData = false;
 
     }
 
@@ -104,7 +112,7 @@ public class GnuDebugger_GDB extends Thread {
         this.getApplicationPid ( );
 
         /*until a debugger is not found*/
-        while ( this.tracerPid == 0 && ! ( this.javaDebugWireProtocol_jdwp_found = this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) ) {
+        while ( this.tracerPid == 0 && ! ( this.javaDebugWireProtocol_jdwp_found = this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) && ! this.stopRecordingData ) {
 
             /*debug row to say that a debugger is not found*/
             System.out.println ( "GnuDebugger_GDB: Debugger not found" );
@@ -118,7 +126,15 @@ public class GnuDebugger_GDB extends Thread {
         if ( this.javaDebugWireProtocol_jdwp_found ) {
 
             /*debug row to say that a gdb debugger is not found*/
-            System.out.println ( "GnuDebugger_GDB: Debugger not found" );
+            System.out.println ( "GnuDebugger_GDB: JavaDebugWireProtocol_JDWP debugger found" );
+
+        }
+
+        /*if the program terminates because the stop button is pressed*/
+        else if ( this.stopRecordingData ) {
+
+            /*debug row to say that a gdb debugger is not found*/
+            System.out.println ( "GnuDebugger_GDB: StopRecordingData true" );
 
         }
 
@@ -137,13 +153,17 @@ public class GnuDebugger_GDB extends Thread {
             /*if the program is here means that a gnu debugger is found*/
             this.gnu_debugger_found ( );
 
-            handler.post ( new Runnable ( ) {
-                @Override
-                public void run ( ) {
-                    Intent intent = new Intent ( GnuDebugger_GDB.this.appCompatActivity , GnuDebugger_GDB_Activity.class );
-                    GnuDebugger_GDB.this.appCompatActivity.startActivity ( intent );
-                }
+            /*say to the handler to put in the queue a thread to change the activity*/
+            handler.post ( ( ) -> {
+
+                /*create an intent with the gnu debugger found activity*/
+                Intent intent = new Intent ( GnuDebugger_GDB.this.appCompatActivity , GnuDebugger_GDB_Activity.class );
+
+                /*start the previous intent*/
+                GnuDebugger_GDB.this.appCompatActivity.startActivity ( intent );
+
             } );
+
         }
 
     }
@@ -250,6 +270,14 @@ public class GnuDebugger_GDB extends Thread {
 
         /*return if a gnu debugger is found*/
         return this.gnuDebugger_GDB_found;
+
+    }
+
+    /*function used to set that the stop recording data button is pressed*/
+    public void stopRecordingDataButtonPressed ( ) {
+
+        /*stop recording data*/
+        this.stopRecordingData = true;
 
     }
 

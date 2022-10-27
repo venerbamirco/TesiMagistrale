@@ -1,11 +1,12 @@
 package com.progetto.tesi.debugger.detected;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.R;
 
+/*activity to show that a jdwp debugger is attached*/
 public class JavaDebugWireProtocol_JDWP_Activity extends AppCompatActivity {
 
     @Override
