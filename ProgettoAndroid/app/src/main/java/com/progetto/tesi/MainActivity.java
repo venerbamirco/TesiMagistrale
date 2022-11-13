@@ -12,6 +12,7 @@ import com.progetto.tesi.applications.debuggable.DebuggableApplications;
 import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
 import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
+import com.progetto.tesi.usb.UsbChecker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,6 +30,9 @@ public class MainActivity extends AppCompatActivity {
 
     /*variable to manage the gdb debugger detection*/
     private GnuDebugger_GDB gnuDebugger_gdb;
+
+    /*variable to manage the usb typology*/
+    private UsbChecker usbChecker;
 
     /*handler to manage the change of activities*/
     private Handler handler;
@@ -71,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
         /*initialize the button to stop recording data*/
         this.stopRecordingData = ( Button ) this.findViewById ( R.id.stop );
 
-        /*initialize the onclick listener of the button*/
+        /*initialize the onclick listener of the stop button*/
         this.stopRecordingData.setOnClickListener ( new View.OnClickListener ( ) {
 
             @Override
@@ -85,6 +89,9 @@ public class MainActivity extends AppCompatActivity {
 
                 /*stop recording sensor data*/
                 MainActivity.this.sensorsManagement.unregisterListener ( );
+
+                /*stop recording usb data*/
+                MainActivity.this.usbChecker.stopRecordingDataButtonPressed ( );
 
             }
 
