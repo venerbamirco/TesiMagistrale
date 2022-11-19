@@ -14,7 +14,7 @@ public class UsbChecker extends Thread {
     private final IntentFilter ifilter = new IntentFilter ( Intent.ACTION_BATTERY_CHANGED );
 
 
-    private final Intent batteryStatus = context.registerReceiver ( null , ifilter );
+    //private final Intent batteryStatus = context.registerReceiver ( null , ifilter );
 
     /*variable for the reference of main activity*/
     private AppCompatActivity appCompatActivity;
