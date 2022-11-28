@@ -81,7 +81,7 @@ public class SensorsManagement {
         /*create and start a thread to do initial sensors calibration*/
         new Thread ( ( ) -> {
 
-            /*wait 1 seconds (time that user open the app and take a correct position for the smartphone in the hand*/
+            /*wait 1 seconds (time that user opens the app and take a correct position for the smartphone in the hand*/
             try {
                 Thread.sleep ( 1000 );
             } catch ( InterruptedException e ) {

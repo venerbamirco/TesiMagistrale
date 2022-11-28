@@ -51,9 +51,6 @@ public class GnuDebugger_GDB extends Thread {
     /*variable used to store the handler for the main looper*/
     private Handler handler;
 
-    /*boolean variable to manage the stop button*/
-    private boolean stopRecordingData;
-
     /*constructor to initialize the gdb debugger detection thread*/
     public GnuDebugger_GDB ( AppCompatActivity appCompatActivity , Handler handler ) {
 
@@ -89,9 +86,6 @@ public class GnuDebugger_GDB extends Thread {
         /*save the reference of the handler*/
         this.handler = handler;
 
-        /*at the beginning we must record data*/
-        this.stopRecordingData = false;
-
     }
 
     /*function to import other debugger*/
@@ -112,7 +106,7 @@ public class GnuDebugger_GDB extends Thread {
         this.getApplicationPid ( );
 
         /*until a debugger is not found*/
-        while ( this.tracerPid == 0 && ! ( this.javaDebugWireProtocol_jdwp_found = this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) && ! this.stopRecordingData ) {
+        while ( this.tracerPid == 0 && ! ( this.javaDebugWireProtocol_jdwp_found = this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) ) {
 
             /*debug row to say that a debugger is not found*/
             System.out.println ( "GnuDebugger_GDB: Debugger not found" );
@@ -127,14 +121,6 @@ public class GnuDebugger_GDB extends Thread {
 
             /*debug row to say that a gdb debugger is not found*/
             System.out.println ( "GnuDebugger_GDB: JavaDebugWireProtocol_JDWP debugger found" );
-
-        }
-
-        /*if the program terminates because the stop button is pressed*/
-        else if ( this.stopRecordingData ) {
-
-            /*debug row to say that a gdb debugger is not found*/
-            System.out.println ( "GnuDebugger_GDB: StopRecordingData true" );
 
         }
 
@@ -270,14 +256,6 @@ public class GnuDebugger_GDB extends Thread {
 
         /*return if a gnu debugger is found*/
         return this.gnuDebugger_GDB_found;
-
-    }
-
-    /*function used to set that the stop recording data button is pressed*/
-    public void stopRecordingDataButtonPressed ( ) {
-
-        /*stop recording data*/
-        this.stopRecordingData = true;
 
     }
 

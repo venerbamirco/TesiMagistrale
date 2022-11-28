@@ -3,8 +3,6 @@ package com.progetto.tesi;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
-import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -15,9 +13,6 @@ import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
 import com.progetto.tesi.usb.UsbChecker;
 
 public class MainActivity extends AppCompatActivity {
-
-    /*variable used to get the reference of stop button*/
-    private Button stopRecordingData;
 
     /*variable to detect all debuggable apps in the device*/
     private DebuggableApplications debuggableApplications;
@@ -72,30 +67,8 @@ public class MainActivity extends AppCompatActivity {
         /*initialize the sensor manager class*/
         this.sensorsManagement = new SensorsManagement ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
 
-        /*initialize the button to stop recording data*/
-        this.stopRecordingData = ( Button ) this.findViewById ( R.id.stop );
-
-        /*initialize the onclick listener of the stop button*/
-        this.stopRecordingData.setOnClickListener ( new View.OnClickListener ( ) {
-
-            @Override
-            public void onClick ( View v ) {
-
-                /*stop checks of gdb debugger*/
-                MainActivity.this.gnuDebugger_gdb.stopRecordingDataButtonPressed ( );
-
-                /*stop checks of jdwp debugger*/
-                MainActivity.this.javaDebugWireProtocol_jdwp.stopRecordingDataButtonPressed ( );
-
-                /*stop recording sensor data*/
-                MainActivity.this.sensorsManagement.unregisterListener ( );
-
-                /*stop recording usb data*/
-                MainActivity.this.usbChecker.stopRecordingDataButtonPressed ( );
-
-            }
-
-        } );
+        /*initialize the usb checker*/
+        this.usbChecker = new UsbChecker ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
 
     }
 

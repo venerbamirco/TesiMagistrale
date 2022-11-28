@@ -29,9 +29,6 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
     /*variable used to store the handler for the main looper*/
     private Handler handler;
 
-    /*boolean variable to manage the stop button*/
-    private boolean stopRecordingData;
-
     /*constructor to initialize the jdwp debugger detection thread*/
     public JavaDebugWireProtocol_JDWP ( AppCompatActivity appCompatActivity , Handler handler ) {
 
@@ -55,9 +52,6 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
         /*save the reference of the handler*/
         this.handler = handler;
 
-        /*at the beginning we must record data*/
-        this.stopRecordingData = false;
-
     }
 
     /*function to import other debugger*/
@@ -75,7 +69,7 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
     public void run ( ) {
 
         /*until a debugger is not found*/
-        while ( ! this.javaDebugWireProtocol_jdwp_found && ! ( this.gnuDebugger_gdb_found = this.gnuDebugger_gdb.isFoundGnuDebugger ( ) ) && ! this.stopRecordingData ) {
+        while ( ! this.javaDebugWireProtocol_jdwp_found && ! ( this.gnuDebugger_gdb_found = this.gnuDebugger_gdb.isFoundGnuDebugger ( ) ) ) {
 
             /*debug row to say that a debugger is not found*/
             System.out.println ( "JavaDebugWireProtocol_JDWP: Debugger not found" );
@@ -90,14 +84,6 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
 
             /*debug row to say that a jdwp debugger is not found*/
             System.out.println ( "JavaDebugWireProtocol_JDWP: GnuDebugger_GDB debugger found" );
-
-        }
-
-        /*if the program terminates because the stop button is pressed*/
-        else if ( this.stopRecordingData ) {
-
-            /*debug row to say that a gdb debugger is not found*/
-            System.out.println ( "JavaDebugWireProtocol_JDWP: StopRecordingData true" );
 
         }
 
@@ -140,14 +126,6 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
 
         /*return if a jdwp debugger is found*/
         return this.javaDebugWireProtocol_jdwp_found;
-
-    }
-
-    /*function used to set that the stop recording data button is pressed*/
-    public void stopRecordingDataButtonPressed ( ) {
-
-        /*stop recording data*/
-        this.stopRecordingData = true;
 
     }
 
