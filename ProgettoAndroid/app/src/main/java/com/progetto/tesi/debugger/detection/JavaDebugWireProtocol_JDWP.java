@@ -72,7 +72,7 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
         while ( ! this.javaDebugWireProtocol_jdwp_found && ! ( this.gnuDebugger_gdb_found = this.gnuDebugger_gdb.isFoundGnuDebugger ( ) ) ) {
 
             /*debug row to say that a debugger is not found*/
-            System.out.println ( "JavaDebugWireProtocol_JDWP: Debugger not found" );
+            //System.out.println ( "JavaDebugWireProtocol_JDWP: Debugger not found" );
 
             /*look if a debugger is attached*/
             this.javaDebugWireProtocol_jdwp_found = android.os.Debug.isDebuggerConnected ( );
@@ -83,7 +83,7 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
         if ( this.gnuDebugger_gdb_found ) {
 
             /*debug row to say that a jdwp debugger is not found*/
-            System.out.println ( "JavaDebugWireProtocol_JDWP: GnuDebugger_GDB debugger found" );
+            //System.out.println ( "JavaDebugWireProtocol_JDWP: GnuDebugger_GDB debugger found" );
 
         }
 
@@ -100,7 +100,7 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
             this.jdwp_debugger_found ( );
 
             /*say to the handler to put in the queue a thread to change the activity*/
-            handler.post ( ( ) -> {
+            this.handler.post ( ( ) -> {
 
                 /*create an intent with the jdwp debugger found activity*/
                 Intent intent = new Intent ( JavaDebugWireProtocol_JDWP.this.appCompatActivity , JavaDebugWireProtocol_JDWP_Activity.class );

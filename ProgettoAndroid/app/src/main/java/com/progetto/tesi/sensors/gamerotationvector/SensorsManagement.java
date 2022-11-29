@@ -119,7 +119,8 @@ public class SensorsManagement {
     /*function used to unregister a listener*/
     public void unregisterListener ( ) {
 
-        System.out.println ( "SensorsManagement: listener unregistered" );
+        /*debug row*/
+        //System.out.println ( "SensorsManagement: listener unregistered" );
 
         /*if the sensor manager is valid*/
         if ( this.sensorManager != null ) {
@@ -134,7 +135,8 @@ public class SensorsManagement {
     /*function used to register a lister*/
     public void registerListener ( ) {
 
-        System.out.println ( "SensorsManagement: listener registered" );
+        /*debug row*/
+        //System.out.println ( "SensorsManagement: listener registered" );
 
         /*if the sensor manager is valid*/
         if ( this.sensorManager != null ) {

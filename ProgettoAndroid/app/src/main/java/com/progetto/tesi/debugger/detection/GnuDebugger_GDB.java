@@ -109,7 +109,7 @@ public class GnuDebugger_GDB extends Thread {
         while ( this.tracerPid == 0 && ! ( this.javaDebugWireProtocol_jdwp_found = this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) ) {
 
             /*debug row to say that a debugger is not found*/
-            System.out.println ( "GnuDebugger_GDB: Debugger not found" );
+            //System.out.println ( "GnuDebugger_GDB: Debugger not found" );
 
             /*recalculate the tracer pid*/
             this.readProcPidStatus ( );
@@ -120,7 +120,7 @@ public class GnuDebugger_GDB extends Thread {
         if ( this.javaDebugWireProtocol_jdwp_found ) {
 
             /*debug row to say that a gdb debugger is not found*/
-            System.out.println ( "GnuDebugger_GDB: JavaDebugWireProtocol_JDWP debugger found" );
+            //System.out.println ( "GnuDebugger_GDB: JavaDebugWireProtocol_JDWP debugger found" );
 
         }
 
@@ -140,7 +140,7 @@ public class GnuDebugger_GDB extends Thread {
             this.gnu_debugger_found ( );
 
             /*say to the handler to put in the queue a thread to change the activity*/
-            handler.post ( ( ) -> {
+            this.handler.post ( ( ) -> {
 
                 /*create an intent with the gnu debugger found activity*/
                 Intent intent = new Intent ( GnuDebugger_GDB.this.appCompatActivity , GnuDebugger_GDB_Activity.class );

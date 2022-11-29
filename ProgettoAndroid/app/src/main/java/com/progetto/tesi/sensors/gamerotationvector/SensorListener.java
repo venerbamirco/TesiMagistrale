@@ -42,6 +42,11 @@ public class SensorListener implements SensorEventListener {
     private AzimuthPitchRollTextValue rememberPitch;
     private AzimuthPitchRollTextValue rememberRoll;
 
+    /*variables used to store old values of azimuth pitch and roll*/
+    private int rememberAzimuthInt;
+    private int rememberPitchInt;
+    private int rememberRollInt;
+
     /*variable to check if the first calibration is done*/
     private boolean firstCalibrationDone;
 
@@ -145,8 +150,16 @@ public class SensorListener implements SensorEventListener {
 
                 }
 
+                /*if it is the first time or when we will calibrate the sensor*/
+                else {
+
+                    /*print all details*/
+                    this.printDebugRows ( );
+
+                }
+
                 /*update remember values for azimuth pitch and roll*/
-                this.rememberAzimuthPitchRollTextValues ( );
+                this.rememberAzimuthPitchRollValues ( );
 
                 /*we can change the calibrate status if there was active*/
                 this.calibrate = false;
@@ -308,27 +321,26 @@ public class SensorListener implements SensorEventListener {
         this.textSensorListener = this.textSensorListener + "\nPitch: " + this.pitchInt;
         this.textSensorListener = this.textSensorListener + "\nRoll: " + this.rollInt;
 
-        /*debug row for number values*/
-        System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
-
         /*put inside azimuth pitch and roll text values*/
         this.textSensorListener = this.textSensorListener + "\n\nText values";
         this.textSensorListener = this.textSensorListener + "\nAzimuth: " + this.azimuth;
         this.textSensorListener = this.textSensorListener + "\nPitch: " + this.pitch;
         this.textSensorListener = this.textSensorListener + "\nRoll: " + this.roll;
 
-        /*debug row for text values*/
-        System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
-
     }
 
     /*function used to remember the azimuth pitch and roll text values when the calibrate button is pressed*/
-    private void rememberAzimuthPitchRollTextValues ( ) {
+    private void rememberAzimuthPitchRollValues ( ) {
 
         /*save the actual azimuth pitch and roll text values*/
         this.rememberAzimuth = this.azimuth;
         this.rememberPitch = this.pitch;
         this.rememberRoll = this.roll;
+
+        /*save the actual azimuth pitch and roll number values*/
+        this.rememberAzimuthInt = this.azimuthInt;
+        this.rememberPitchInt = this.pitchInt;
+        this.rememberRollInt = this.rollInt;
 
     }
 
@@ -376,7 +388,7 @@ public class SensorListener implements SensorEventListener {
             this.textSensorListener = this.textSensorListener + "\n\nDevice is correctly used";
 
             /*debug row for device correctly used*/
-            System.out.println ( "SensorListener: Device is correctly used" );
+            //System.out.println ( "SensorListener: Device is correctly used" );
 
         }
 
@@ -438,35 +450,26 @@ public class SensorListener implements SensorEventListener {
         this.stationary = true;
 
         /*check azimuth stationary*/
-        if ( this.azimuth != this.rememberAzimuth ) {
+        if ( this.azimuth != this.rememberAzimuth || this.azimuthInt != this.rememberAzimuthInt ) {
 
             /*not stationary*/
             this.stationary = false;
-
-            /*debug row for azimuth change*/
-            System.out.println ( "SensorListener: Azimuth change: " + this.rememberAzimuth + " -> " + this.azimuth );
 
         }
 
         /*check pitch stationary*/
-        if ( this.pitch != this.rememberPitch ) {
+        if ( this.pitch != this.rememberPitch || this.pitchInt != this.rememberPitchInt ) {
 
             /*not stationary*/
             this.stationary = false;
-
-            /*debug row for pitch change*/
-            System.out.println ( "SensorListener: Pitch change: " + this.rememberPitch + " -> " + this.pitch );
 
         }
 
         /*check roll stationary*/
-        if ( this.roll != this.rememberRoll ) {
+        if ( this.roll != this.rememberRoll || this.rollInt != this.rememberRollInt ) {
 
             /*not stationary*/
             this.stationary = false;
-
-            /*debug row for roll change*/
-            System.out.println ( "SensorListener: Roll change: " + this.rememberRoll + " -> " + this.roll );
 
         }
 
@@ -479,7 +482,7 @@ public class SensorListener implements SensorEventListener {
         /*if device is not stationary*/
         else {
 
-            /*nothing to do now*/
+            this.printDebugRows ( );
 
         }
 
@@ -490,6 +493,17 @@ public class SensorListener implements SensorEventListener {
 
         /*set first calibration done*/
         this.firstCalibrationDone = true;
+
+    }
+
+    /*function used to print all debug values*/
+    private void printDebugRows ( ) {
+
+        /*debug row for number values*/
+        System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
+
+        /*debug row for text values*/
+        System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
     }
 

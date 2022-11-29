@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
         this.sensorsManagement = new SensorsManagement ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
 
         /*initialize the usb checker*/
-        this.usbChecker = new UsbChecker ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
+        this.usbChecker = new UsbChecker ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler );
 
     }
 
