@@ -61,8 +61,8 @@ public class DeveloperOptions extends Thread {
 
             /*get actual values for adb and developer options if they are activated*/
             try {
-                this.adbActivated = Settings.Secure.getInt ( this.appCompatActivity.getApplicationContext ( ).getContentResolver ( ) , Settings.Global.ADB_ENABLED ) > 0;
-                this.developerOptionsActivated = Settings.Secure.getInt ( this.appCompatActivity.getApplicationContext ( ).getContentResolver ( ) , Settings.Global.DEVELOPMENT_SETTINGS_ENABLED ) > 0;
+                this.adbActivated = Settings.Global.getInt ( this.appCompatActivity.getApplicationContext ( ).getContentResolver ( ) , Settings.Global.ADB_ENABLED ) > 0;
+                this.developerOptionsActivated = Settings.Global.getInt ( this.appCompatActivity.getApplicationContext ( ).getContentResolver ( ) , Settings.Global.DEVELOPMENT_SETTINGS_ENABLED ) > 0;
             } catch ( Settings.SettingNotFoundException e ) {
                 e.printStackTrace ( );
             }
