@@ -9,8 +9,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.progetto.tesi.applications.debuggable.DebuggableApplications;
 import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.developeroptions.detection.DeveloperOptions;
+import com.progetto.tesi.recharge.detection.RechargeDetection;
 import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
-import com.progetto.tesi.usb.UsbChecker;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,10 +28,13 @@ public class MainActivity extends AppCompatActivity {
     private GnuDebugger_GDB gnuDebugger_gdb;
 
     /*variable to manage the usb typology*/
-    private UsbChecker usbChecker;
+    private RechargeDetection rechargeDetection;
 
     /*handler to manage the change of activities*/
     private Handler handler;
+
+    /*variable to manage the developer options detection*/
+    private DeveloperOptions developerOptions;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -68,7 +72,10 @@ public class MainActivity extends AppCompatActivity {
         this.sensorsManagement = new SensorsManagement ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
 
         /*initialize the usb checker*/
-        this.usbChecker = new UsbChecker ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler );
+        this.rechargeDetection = new RechargeDetection ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler );
+
+        /*initialize the detection for developer options*/
+        this.developerOptions = new DeveloperOptions ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
 
     }
 
