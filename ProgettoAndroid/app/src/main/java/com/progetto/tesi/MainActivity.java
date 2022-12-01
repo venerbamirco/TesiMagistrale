@@ -6,35 +6,13 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.progetto.tesi.applications.debuggable.DebuggableApplications;
-import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
-import com.progetto.tesi.developeroptions.detection.DeveloperOptions;
-import com.progetto.tesi.recharge.detection.RechargeDetection;
-import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
-
 public class MainActivity extends AppCompatActivity {
 
-    /*variable to detect all debuggable apps in the device*/
-    private DebuggableApplications debuggableApplications;
-
-    /*variable to manage all sensors*/
-    private SensorsManagement sensorsManagement;
-
-    /*variable to manage the jdwp debugger detection*/
-    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
-
-    /*variable to manage the gdb debugger detection*/
-    private GnuDebugger_GDB gnuDebugger_gdb;
-
-    /*variable to manage the usb typology*/
-    private RechargeDetection rechargeDetection;
+    /*variable for the data management class object*/
+    private DataManagement dataManagement;
 
     /*handler to manage the change of activities*/
     private Handler handler;
-
-    /*variable to manage the developer options detection*/
-    private DeveloperOptions developerOptions;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -51,31 +29,12 @@ public class MainActivity extends AppCompatActivity {
         /*initialize the handler with the main looper*/
         this.handler = new Handler ( Looper.getMainLooper ( ) );
 
-        /*initialize the debuggable applications class passing the context to access then the package manager*/
-        this.debuggableApplications = new DebuggableApplications ( this );
+        /*initialize the data management class object*/
+        this.dataManagement = new DataManagement ( this , this.handler );
 
-        /*initialize and start the gdb debugger detection thread*/
-        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this , this.handler );
-
-        /*initialize and start the jdwp debugger detection thread*/
-        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this , this.handler );
-
-        /*import other debugger into each class*/
-        this.gnuDebugger_gdb.importOtherDebugger ( this.javaDebugWireProtocol_jdwp );
-        this.javaDebugWireProtocol_jdwp.importOtherDebugger ( this.gnuDebugger_gdb );
-
-        /*start thread for each debugger*/
-        this.gnuDebugger_gdb.start ( );
-        this.javaDebugWireProtocol_jdwp.start ( );
-
-        /*initialize the sensor manager class*/
-        this.sensorsManagement = new SensorsManagement ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
-
-        /*initialize the usb checker*/
-        this.rechargeDetection = new RechargeDetection ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler );
-
-        /*initialize the detection for developer options*/
-        this.developerOptions = new DeveloperOptions ( this , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
+        /*to simplify the import in other applications we can write this:
+         * this.dataManagement = new DataManagement ( this , new Handler ( Looper.getMainLooper ( ) ) );
+         * */
 
     }
 
@@ -83,15 +42,28 @@ public class MainActivity extends AppCompatActivity {
     protected void onPause ( ) {
         super.onPause ( );
 
-        /*when the application go on pause unregister sensor listener*/
-        this.sensorsManagement.unregisterListener ( );
+        /*if the data management object is created*/
+        if ( this.dataManagement != null ) {
+
+            /*call the onpause method*/
+            this.dataManagement.onPause ( );
+
+        }
+
     }
 
     @Override
     protected void onResume ( ) {
         super.onResume ( );
 
-        /*when the application start again register sensor listener*/
-        this.sensorsManagement.registerListener ( );
+        /*if the data management object is created*/
+        if ( this.dataManagement != null ) {
+
+            /*call the onresume method*/
+            this.dataManagement.onResume ( );
+
+        }
+
     }
+
 }

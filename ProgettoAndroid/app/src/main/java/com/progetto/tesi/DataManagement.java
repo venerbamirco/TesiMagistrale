@@ -1,0 +1,103 @@
+package com.progetto.tesi;
+
+import android.os.Handler;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.progetto.tesi.applications.debuggable.DebuggableApplications;
+import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.developeroptions.detection.DeveloperOptions;
+import com.progetto.tesi.recharge.detection.RechargeDetection;
+import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
+
+public class DataManagement {
+
+    /*reference to the main activity*/
+    private AppCompatActivity appCompatActivity;
+
+    /*variable to detect all debuggable apps in the device*/
+    private DebuggableApplications debuggableApplications;
+
+    /*variable to manage all sensors*/
+    private SensorsManagement sensorsManagement;
+
+    /*variable to manage the jdwp debugger detection*/
+    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
+
+    /*variable to manage the gdb debugger detection*/
+    private GnuDebugger_GDB gnuDebugger_gdb;
+
+    /*variable to manage the usb typology*/
+    private RechargeDetection rechargeDetection;
+
+    /*variable to manage the developer options detection*/
+    private DeveloperOptions developerOptions;
+
+    /*handler to manage the change of activities*/
+    private Handler handler;
+
+
+    /*public constructor to initialize the data management class*/
+    public DataManagement ( AppCompatActivity appCompatActivity , Handler handler ) {
+
+        /*initialize all necessary variables*/
+        this.initializeVariables ( appCompatActivity , handler );
+
+    }
+
+    /*function used to initialize all necessary variables*/
+    private void initializeVariables ( AppCompatActivity appCompatActivity , Handler handler ) {
+
+        /*save the reference for the main activity*/
+        this.appCompatActivity = appCompatActivity;
+
+        /*save the reference for the main handler*/
+        this.handler = handler;
+
+        /*initialize the debuggable applications class passing the context to access then the package manager*/
+        this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity );
+
+        /*initialize and start the gdb debugger detection thread*/
+        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this.appCompatActivity , this.handler );
+
+        /*initialize and start the jdwp debugger detection thread*/
+        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.appCompatActivity , this.handler );
+
+        /*import other debugger into each class*/
+        this.gnuDebugger_gdb.importOtherDebugger ( this.javaDebugWireProtocol_jdwp );
+        this.javaDebugWireProtocol_jdwp.importOtherDebugger ( this.gnuDebugger_gdb );
+
+        /*start thread for each debugger*/
+        this.gnuDebugger_gdb.start ( );
+        this.javaDebugWireProtocol_jdwp.start ( );
+
+        /*initialize the sensor manager class*/
+        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
+
+        /*initialize the usb checker*/
+        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler );
+
+        /*initialize the detection for developer options*/
+        this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
+
+    }
+
+    /*function used for the onresume event*/
+    public void onResume ( ) {
+
+        /*when the application start again register sensor listener*/
+        this.sensorsManagement.registerListener ( );
+
+    }
+
+    /*function used to the onpause event*/
+    public void onPause ( ) {
+
+        /*when the application go on pause unregister sensor listener*/
+        this.sensorsManagement.unregisterListener ( );
+
+    }
+
+
+}

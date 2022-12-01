@@ -142,9 +142,6 @@ public class SensorListener implements SensorEventListener {
                 /*only if we have already at least one measurement and we don't calibrate the sensor*/
                 if ( this.numberMeasurements > 0 && ! this.calibrate ) {
 
-                    /*show details inside the text label if there are some alerts*/
-                    this.setAlerts ( );
-
                     /*check if device is stationary or not*/
                     this.checkDeviceStationary ( );
 
@@ -344,6 +341,63 @@ public class SensorListener implements SensorEventListener {
 
     }
 
+    /*function used to calibrated again all the sensors*/
+    public void calibrateSensors ( ) {
+
+        /*we must calibrate again the sensor*/
+        this.calibrate = true;
+
+    }
+
+    /*function used to check if the device is stationary*/
+    private void checkDeviceStationary ( ) {
+
+        /*boolean variable to store if the device is stationary*/
+        this.stationary = true;
+
+        /*check azimuth stationary*/
+        if ( this.azimuth != this.rememberAzimuth || this.azimuthInt != this.rememberAzimuthInt ) {
+
+            /*not stationary*/
+            this.stationary = false;
+
+        }
+
+        /*check pitch stationary*/
+        if ( this.pitch != this.rememberPitch || this.pitchInt != this.rememberPitchInt ) {
+
+            /*not stationary*/
+            this.stationary = false;
+
+        }
+
+        /*check roll stationary*/
+        if ( this.roll != this.rememberRoll || this.rollInt != this.rememberRollInt ) {
+
+            /*not stationary*/
+            this.stationary = false;
+
+        }
+
+        /*if device is stationary*/
+        if ( this.stationary ) {
+
+            /*nothing to do now*/
+
+        }
+        /*if device is not stationary*/
+        else {
+
+            /*debug row*/
+            this.printDebugRows ( );
+
+            /*show details inside the text label if there are some alerts*/
+            this.setAlerts ( );
+
+        }
+
+    }
+
     /*function used to alert if some sensor values are suspicious*/
     private void setAlerts ( ) {
 
@@ -430,59 +484,6 @@ public class SensorListener implements SensorEventListener {
 
             /*debug row for roll alert*/
             System.out.println ( "SensorListener: Roll alert" );
-
-        }
-
-    }
-
-    /*function used to calibrated again all the sensors*/
-    public void calibrateSensors ( ) {
-
-        /*we must calibrate again the sensor*/
-        this.calibrate = true;
-
-    }
-
-    /*function used to check if the device is stationary*/
-    private void checkDeviceStationary ( ) {
-
-        /*boolean variable to store if the device is stationary*/
-        this.stationary = true;
-
-        /*check azimuth stationary*/
-        if ( this.azimuth != this.rememberAzimuth || this.azimuthInt != this.rememberAzimuthInt ) {
-
-            /*not stationary*/
-            this.stationary = false;
-
-        }
-
-        /*check pitch stationary*/
-        if ( this.pitch != this.rememberPitch || this.pitchInt != this.rememberPitchInt ) {
-
-            /*not stationary*/
-            this.stationary = false;
-
-        }
-
-        /*check roll stationary*/
-        if ( this.roll != this.rememberRoll || this.rollInt != this.rememberRollInt ) {
-
-            /*not stationary*/
-            this.stationary = false;
-
-        }
-
-        /*if device is stationary*/
-        if ( this.stationary ) {
-
-            /*nothing to do now*/
-
-        }
-        /*if device is not stationary*/
-        else {
-
-            this.printDebugRows ( );
 
         }
 
