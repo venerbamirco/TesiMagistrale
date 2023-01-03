@@ -1,5 +1,5 @@
-from managementlog.incomingData import filename , IncomingData , properties
-from managementsocket.socketTcp import SocketTcp , host , port , clients
+from manageFile.manageFile import filename , IncomingData , properties
+from manageSocket.socketTcp import SocketTcp , host , port , clients
 
 if __name__ == "__main__" :
 	
