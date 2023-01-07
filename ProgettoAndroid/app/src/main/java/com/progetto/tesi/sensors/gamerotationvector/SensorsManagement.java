@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.progetto.tesi.R;
 import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.socket.Client;
 
 public class SensorsManagement {
 
@@ -33,10 +34,10 @@ public class SensorsManagement {
     private GnuDebugger_GDB gnuDebugger_gdb;
 
     /*constructor to run the sensor management mechanism*/
-    public SensorsManagement ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb ) {
+    public SensorsManagement ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Client client) {
 
         /*initialize all variables*/
-        this.initializeAllVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb );
+        this.initializeAllVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb, client );
 
         /*initialize sensors when the user open the app*/
         this.waitNumberSeconds ( );
@@ -47,7 +48,7 @@ public class SensorsManagement {
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb, Client client ) {
 
         /*save the actual activity to access forward to the layout object*/
         this.appCompatActivity = appCompatActivity;
@@ -67,8 +68,8 @@ public class SensorsManagement {
         this.sensor = this.sensorManager.getDefaultSensor ( Sensor.TYPE_GAME_ROTATION_VECTOR );
 
         /*initialize and register the sensor listener*/
-        this.sensorListener = new SensorListener ( this.appCompatActivity );
-        this.sensorManager.registerListener ( this.sensorListener , this.sensor , SensorManager.SENSOR_DELAY_FASTEST );
+        this.sensorListener = new SensorListener ( this.appCompatActivity, client );
+        this.sensorManager.registerListener ( this.sensorListener , this.sensor , SensorManager.SENSOR_DELAY_NORMAL );
 
         /*set the event for the calibrate button click*/
         this.button.setOnClickListener ( v -> SensorsManagement.this.sensorListener.calibrateSensors ( ) );

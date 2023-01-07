@@ -129,9 +129,9 @@ class SocketTcp:
             if self.__receivedMessageString != "":
                 # write the incoming message into the file
                 self.__manageFile.writeIntoFile(self.__receivedMessageString)
-                print(self.__name + " - Received: " + self.__receivedMessageString)
                 # analyze the input data
                 self._analyzeInputData()
+        print("exit from function")
     
     # function used to analyze the received data
     def _analyzeInputData(self):

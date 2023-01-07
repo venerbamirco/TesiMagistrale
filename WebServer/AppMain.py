@@ -35,32 +35,30 @@ if __name__ == "__main__":
     #
     # create the object to manage the web server
     # mc = MainClass()
-    #
+    
     # create the object for settings to get all constant values
     settings = Settings()
-    #
+    
     # manage the file for the ptracer logs
     ptracerLogs = ManageFile(settings.getPtracerLogs(), settings.getHowToOpenFiles())
     # open the file
     ptracerLogs.openFile()
-    #
+    
     # manage the file for the android logs
     androidLogs = ManageFile(settings.getAndroidLogs(), settings.getHowToOpenFiles())
     # open the file
     androidLogs.openFile()
-    #
+    
     # create the ptracer socket
     ptracerSocket = PtracerLogs("ptracer", settings.getHostname(), settings.getPtracerPort(), settings.getMaxNumberConnectedClients(), ptracerLogs, settings)
-    #
+    
     # create the android socket
     androidSocket = AndroidLogs("android", settings.getHostname(), settings.getAndroidPort(), settings.getMaxNumberConnectedClients(), androidLogs, settings)
-    #
+    
     # create and start a thread to manage ptracer logs
     threadPtracer = Thread(target=ptracerSocket.createConfigureStartSocket)
     threadPtracer.start()
-    #
+    
     # create and start a thread to manage android logs
     threadAndroid = Thread(target=androidSocket.createConfigureStartSocket)
     threadAndroid.start()
-    
-    

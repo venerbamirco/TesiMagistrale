@@ -10,8 +10,9 @@ import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
 import com.progetto.tesi.developeroptions.detection.DeveloperOptions;
 import com.progetto.tesi.recharge.detection.RechargeDetection;
 import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
+import com.progetto.tesi.socket.Client;
 
-public class DataManagement {
+public class DataManagement extends Thread {
 
     /*reference to the main activity*/
     private AppCompatActivity appCompatActivity;
@@ -37,6 +38,8 @@ public class DataManagement {
     /*handler to manage the change of activities*/
     private Handler handler;
 
+    /*socket for the communication*/
+    private Client client;
 
     /*public constructor to initialize the data management class*/
     public DataManagement ( AppCompatActivity appCompatActivity , Handler handler ) {
@@ -54,6 +57,12 @@ public class DataManagement {
 
         /*save the reference for the main handler*/
         this.handler = handler;
+
+        /*initialize the socket*/
+        this.client = new Client ( );
+
+        /*start the socket management*/
+        this.client.start ( );
 
         /*initialize the debuggable applications class passing the context to access then the package manager*/
         this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity );
@@ -73,7 +82,7 @@ public class DataManagement {
         this.javaDebugWireProtocol_jdwp.start ( );
 
         /*initialize the sensor manager class*/
-        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
+        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb, this.client );
 
         /*initialize the usb checker*/
         this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler );

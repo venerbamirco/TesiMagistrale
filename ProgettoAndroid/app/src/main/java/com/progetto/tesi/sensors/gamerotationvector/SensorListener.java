@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.R;
+import com.progetto.tesi.socket.Client;
 
 public class SensorListener implements SensorEventListener {
 
@@ -53,25 +54,32 @@ public class SensorListener implements SensorEventListener {
     /*variable used to say to the program when calibrate the sensor again*/
     private boolean calibrate;
 
-    /*variable used to check if the sensors are stationary*/
-    private boolean stationary;
+    /*variable used to check if the sensors are stationary on text and number values*/
+    private boolean stationaryNumber;
+    private boolean stationaryText;
 
     /*variable used to store the number of measurements*/
     private int numberMeasurements;
 
+    /*variable used to send data using the socket*/
+    private Client client;
+
     /*constructor to initialize the sensor listener*/
-    public SensorListener ( AppCompatActivity appCompatActivity ) {
+    public SensorListener ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity );
+        this.initializeAllVariables ( appCompatActivity , client );
 
     }
 
     /*function used initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*save the actual activity to access forward to the layout object*/
         this.appCompatActivity = appCompatActivity;
+
+        /*save the reference for the socket*/
+        this.client = client;
 
         /*get the references of all necessary object in the activity layout*/
         this.textView = this.appCompatActivity.findViewById ( R.id.valori );
@@ -95,7 +103,8 @@ public class SensorListener implements SensorEventListener {
         this.calibrate = false;
 
         /*at the beginning the sensor is not stationary*/
-        this.stationary = false;
+        this.stationaryNumber = false;
+        this.stationaryText = false;
 
         /*at the beginning the number of measurements is equal to zero*/
         this.numberMeasurements = 0;
@@ -151,7 +160,10 @@ public class SensorListener implements SensorEventListener {
                 else {
 
                     /*print all details*/
-                    this.printDebugRows ( );
+                    this.client.addElementToBeSent ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
+                    System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
+                    this.client.addElementToBeSent ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
+                    System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
                 }
 
@@ -352,44 +364,86 @@ public class SensorListener implements SensorEventListener {
     /*function used to check if the device is stationary*/
     private void checkDeviceStationary ( ) {
 
-        /*boolean variable to store if the device is stationary*/
-        this.stationary = true;
+        /*boolean variable to store if the device is stationary on number values*/
+        this.stationaryNumber = true;
+        /*boolean variable to store if the device is stationary on text values*/
+        this.stationaryText = true;
 
-        /*check azimuth stationary*/
-        if ( this.azimuth != this.rememberAzimuth || this.azimuthInt != this.rememberAzimuthInt ) {
+        /*check azimuth stationary text*/
+        if ( this.azimuth != this.rememberAzimuth ) {
 
             /*not stationary*/
-            this.stationary = false;
+            this.stationaryText = false;
 
         }
 
-        /*check pitch stationary*/
-        if ( this.pitch != this.rememberPitch || this.pitchInt != this.rememberPitchInt ) {
+        /*check azimuth stationary number*/
+        if ( this.azimuthInt != this.rememberAzimuthInt ) {
 
             /*not stationary*/
-            this.stationary = false;
+            this.stationaryNumber = false;
 
         }
 
-        /*check roll stationary*/
-        if ( this.roll != this.rememberRoll || this.rollInt != this.rememberRollInt ) {
+        /*check pitch stationary text*/
+        if ( this.pitch != this.rememberPitch ) {
 
             /*not stationary*/
-            this.stationary = false;
+            this.stationaryText = false;
 
         }
 
-        /*if device is stationary*/
-        if ( this.stationary ) {
+        /*check pitch stationary number*/
+        if ( this.pitchInt != this.rememberPitchInt ) {
+
+            /*not stationary*/
+            this.stationaryNumber = false;
+
+        }
+
+        /*check roll stationary text*/
+        if ( this.roll != this.rememberRoll ) {
+
+            /*not stationary*/
+            this.stationaryText = false;
+
+        }
+
+        /*check pitch stationary number*/
+        if ( this.rollInt != this.rememberRollInt ) {
+
+            /*not stationary*/
+            this.stationaryNumber = false;
+
+        }
+
+        /*if device is stationary on number values*/
+        if ( this.stationaryNumber ) {
 
             /*nothing to do now*/
 
         }
-        /*if device is not stationary*/
+        /*if device is not stationary on number values*/
         else {
 
             /*debug row*/
-            this.printDebugRows ( );
+            this.client.addElementToBeSent ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
+            System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
+
+        }
+
+        /*if device is stationary on text values*/
+        if ( this.stationaryText ) {
+
+            /*nothing to do now*/
+
+        }
+        /*if device is not stationary on text values*/
+        else {
+
+            /*debug row*/
+            this.client.addElementToBeSent ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
+            System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
             /*show details inside the text label if there are some alerts*/
             this.setAlerts ( );
@@ -440,9 +494,7 @@ public class SensorListener implements SensorEventListener {
 
             /*the device is correctly used*/
             this.textSensorListener = this.textSensorListener + "\n\nDevice is correctly used";
-
-            /*debug row for device correctly used*/
-            //System.out.println ( "SensorListener: Device is correctly used" );
+            this.client.addElementToBeSent ( "SensorListener: Device is correctly used" );
 
         }
 
@@ -461,6 +513,7 @@ public class SensorListener implements SensorEventListener {
             this.textSensorListener = this.textSensorListener + "\nWrongly directed";
 
             /*debug row for azimuth alert*/
+            this.client.addElementToBeSent ( "SensorListener: Azimuth alert" );
             System.out.println ( "SensorListener: Azimuth alert" );
 
         }
@@ -472,6 +525,7 @@ public class SensorListener implements SensorEventListener {
             this.textSensorListener = this.textSensorListener + "\nWrongly inclined";
 
             /*debug row for pitch alert*/
+            this.client.addElementToBeSent ( "SensorListener: Pitch alert" );
             System.out.println ( "SensorListener: Pitch alert" );
 
         }
@@ -483,6 +537,7 @@ public class SensorListener implements SensorEventListener {
             this.textSensorListener = this.textSensorListener + "\nWrongly rotated";
 
             /*debug row for roll alert*/
+            this.client.addElementToBeSent ( "SensorListener: Roll alert" );
             System.out.println ( "SensorListener: Roll alert" );
 
         }
@@ -494,17 +549,6 @@ public class SensorListener implements SensorEventListener {
 
         /*set first calibration done*/
         this.firstCalibrationDone = true;
-
-    }
-
-    /*function used to print all debug values*/
-    private void printDebugRows ( ) {
-
-        /*debug row for number values*/
-        System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
-
-        /*debug row for text values*/
-        System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
     }
 

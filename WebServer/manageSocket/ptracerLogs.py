@@ -8,4 +8,4 @@ class PtracerLogs(SocketTcp):
         super().__init__(name, host, port, clients, manageFile, settings)
     
     def _analyzeInputData(self):
-        print("ptracersocket")
+        pass
