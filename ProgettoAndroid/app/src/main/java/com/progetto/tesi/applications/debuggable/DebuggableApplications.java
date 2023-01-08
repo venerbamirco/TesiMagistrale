@@ -6,6 +6,8 @@ import android.content.pm.PackageManager;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.progetto.tesi.socket.Client;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +25,13 @@ public class DebuggableApplications extends Thread {
     /*variable used to store all debuggable applications*/
     private List < ApplicationInfo > debugabbleApplications;
 
-    public DebuggableApplications ( AppCompatActivity appCompatActivity ) {
+    /*variable used for the the reference for the client socket*/
+    private Client client;
+
+    public DebuggableApplications ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity );
+        this.initializeAllVariables ( appCompatActivity , client );
 
         /*start thread*/
         this.start ( );
@@ -37,10 +42,13 @@ public class DebuggableApplications extends Thread {
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*save the reference of actual activity*/
         this.appCompatActivity = appCompatActivity;
+
+        /*save the reference for the client socket*/
+        this.client = client;
 
         /*save the context*/
         this.context = this.appCompatActivity.getApplicationContext ( );
@@ -64,8 +72,9 @@ public class DebuggableApplications extends Thread {
             /*for each debuggable application*/
             for ( ApplicationInfo app : this.debugabbleApplications ) {
 
-                /*print app information's*/
+                /*print and send app information's*/
                 System.out.println ( "DebuggableApplications: " + this.packageManager.getApplicationLabel ( app ) );
+                this.client.addElementToBeSent ( "DebuggableApplications: " + this.packageManager.getApplicationLabel ( app ) + "\n" );
 
             }
 

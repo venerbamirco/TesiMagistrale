@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.R;
 import com.progetto.tesi.debugger.detected.JavaDebugWireProtocol_JDWP_Activity;
+import com.progetto.tesi.socket.Client;
 
 public class JavaDebugWireProtocol_JDWP extends Thread {
 
@@ -29,19 +30,25 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
     /*variable used to store the handler for the main looper*/
     private Handler handler;
 
+    /*variable used for the reference to the client socket*/
+    private Client client;
+
     /*constructor to initialize the jdwp debugger detection thread*/
-    public JavaDebugWireProtocol_JDWP ( AppCompatActivity appCompatActivity , Handler handler ) {
+    public JavaDebugWireProtocol_JDWP ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity , handler );
+        this.initializeAllVariables ( appCompatActivity , handler , client );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Handler handler ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
 
         /*save the actual activity*/
         this.appCompatActivity = appCompatActivity;
+
+        /*save the reference for the client socket*/
+        this.client = client;
 
         /*get reference for the textview*/
         this.textView = ( TextView ) this.appCompatActivity.findViewById ( R.id.valori );
@@ -93,8 +100,9 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
             /*set that program found jdwp debugger*/
             this.javaDebugWireProtocol_jdwp_found = true;
 
-            /*debug row to say that a debugger is found*/
+            /*debug row to say and send that a debugger is found*/
             System.out.println ( "JavaDebugWireProtocol_JDWP: Debugger found" );
+            this.client.addElementToBeSent ( "JavaDebugWireProtocol_JDWP: Debugger found" );
 
             /*if the program is here means that a jdwp debugger is found*/
             this.jdwp_debugger_found ( );

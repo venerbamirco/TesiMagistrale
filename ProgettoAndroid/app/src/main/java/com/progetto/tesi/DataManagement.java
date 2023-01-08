@@ -65,30 +65,33 @@ public class DataManagement extends Thread {
         this.client.start ( );
 
         /*initialize the debuggable applications class passing the context to access then the package manager*/
-        this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity );
+        this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity , this.client );
 
         /*initialize and start the gdb debugger detection thread*/
-        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this.appCompatActivity , this.handler );
+        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this.appCompatActivity , this.handler , this.client );
 
         /*initialize and start the jdwp debugger detection thread*/
-        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.appCompatActivity , this.handler );
+        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.appCompatActivity , this.handler , this.client );
 
         /*import other debugger into each class*/
         this.gnuDebugger_gdb.importOtherDebugger ( this.javaDebugWireProtocol_jdwp );
         this.javaDebugWireProtocol_jdwp.importOtherDebugger ( this.gnuDebugger_gdb );
+
+        /*import the two debugger variables into the client*/
+        this.client.importReferenceDebuggerDetection ( this.gnuDebugger_gdb , this.javaDebugWireProtocol_jdwp );
 
         /*start thread for each debugger*/
         this.gnuDebugger_gdb.start ( );
         this.javaDebugWireProtocol_jdwp.start ( );
 
         /*initialize the sensor manager class*/
-        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb, this.client );
+        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.client );
 
         /*initialize the usb checker*/
-        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler );
+        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler , this.client );
 
         /*initialize the detection for developer options*/
-        this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb );
+        this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.client );
 
     }
 

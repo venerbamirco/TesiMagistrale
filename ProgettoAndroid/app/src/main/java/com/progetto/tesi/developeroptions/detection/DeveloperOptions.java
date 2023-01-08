@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.socket.Client;
 
 public class DeveloperOptions extends Thread {
 
@@ -27,11 +28,14 @@ public class DeveloperOptions extends Thread {
     private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
     private GnuDebugger_GDB gnuDebugger_gdb;
 
+    /*variable used to save the reference to the client socket*/
+    private Client client;
+
     /*constructor to initialize the developer option detection mechanism*/
-    public DeveloperOptions ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb ) {
+    public DeveloperOptions ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllNecessaryVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb );
+        this.initializeAllNecessaryVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb , client );
 
         /*start actual thread*/
         this.start ( );
@@ -39,10 +43,13 @@ public class DeveloperOptions extends Thread {
     }
 
     /*function to initialize all necessary variables*/
-    private void initializeAllNecessaryVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb ) {
+    private void initializeAllNecessaryVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Client client ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
+
+        /*save the reference to the client socket*/
+        this.client = client;
 
         /*at beginning number of misurations equal to 0*/
         this.misurations = 0;
@@ -103,8 +110,9 @@ public class DeveloperOptions extends Thread {
     /*function used to print all details*/
     private void printAllDetails ( ) {
 
-        /*debug row*/
+        /*debug row and send it*/
         System.out.println ( "DeveloperOptions: adb: " + this.adbActivated + " devops: " + this.developerOptionsActivated );
+        this.client.addElementToBeSent ( "DeveloperOptions: adb: " + this.adbActivated + " devops: " + this.developerOptionsActivated );
 
     }
 

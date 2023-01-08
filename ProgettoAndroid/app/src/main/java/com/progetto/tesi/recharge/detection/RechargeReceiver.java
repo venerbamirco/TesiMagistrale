@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.BatteryManager;
 
+import com.progetto.tesi.socket.Client;
+
 /*class used to receive all broadcast notifications from the battery manager*/
 public class RechargeReceiver extends BroadcastReceiver {
 
@@ -25,16 +27,22 @@ public class RechargeReceiver extends BroadcastReceiver {
     /*variable for counter number of misurations*/
     private int misurations;
 
+    /*variable used for the reference for the client socket*/
+    private Client client;
+
     /*public constructor*/
-    public RechargeReceiver ( ) {
+    public RechargeReceiver ( Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( );
+        this.initializeAllVariables ( client );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( ) {
+    private void initializeAllVariables ( Client client ) {
+
+        /*save the reference for the client socket*/
+        this.client = client;
 
         /*at beginning 0 misurations*/
         this.misurations = 0;
@@ -84,8 +92,9 @@ public class RechargeReceiver extends BroadcastReceiver {
     /*function used to print all details of all types of charging*/
     private void printDetailsRechargerTypes ( ) {
 
-        /*print debug row*/
+        /*print and send the debug row*/
         System.out.println ( "UsbChecker: ischarg: " + this.isCharging + " usbcharg: " + this.usbCharge + " accharge: " + this.acCharge );
+        this.client.addElementToBeSent ( "UsbChecker: ischarg: " + this.isCharging + " usbcharg: " + this.usbCharge + " accharge: " + this.acCharge + "\n" );
 
     }
 

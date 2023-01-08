@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.socket.Client;
 
 public class RechargeDetection extends Thread {
 
@@ -28,10 +29,10 @@ public class RechargeDetection extends Thread {
     private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
     private GnuDebugger_GDB gnuDebugger_gdb;
 
-    public RechargeDetection ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Handler handler ) {
+    public RechargeDetection ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Handler handler , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb , handler );
+        this.initializeAllVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb , handler , client );
 
         /*start the thread*/
         this.start ( );
@@ -39,13 +40,13 @@ public class RechargeDetection extends Thread {
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Handler handler ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Handler handler , Client client ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
 
         /*initialize the recharge receiver*/
-        this.rechargeReceiver = new RechargeReceiver ( );
+        this.rechargeReceiver = new RechargeReceiver ( client );
 
         /*access to action battery changes detection mechanism*/
         this.ifilter = new IntentFilter ( Intent.ACTION_BATTERY_CHANGED );

@@ -1,41 +1,61 @@
 package com.progetto.tesi.socket;
 
+import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
+import java.time.Instant;
 import java.util.LinkedList;
 
 /*class to manage the tcp client socket to send all data to the server*/
 public class Client extends Thread {
 
     /*variable used to send this string using the socket*/
-    public LinkedList < String > dataToBeSent;
+    private LinkedList < String > dataToBeSent;
 
     /*variable used for the socket definition*/
     private Socket socket;
+
     /*variable used for the input stream*/
     private DataInputStream dataInputStream;
+
     /*variable used for the output stream*/
     private DataOutputStream dataOutputStream;
+
     /*variable used for address of the server socket*/
     private String addressServerSocket = "192.168.1.10";
+
     /*variable used for the port of the server socket*/
     private int portServerSocket = 1501;
-    /*variable used for receive data from socket*/
-    private byte[] dataToBeReceived;
+
+    /*variable used to extract an element from the input stream*/
+    private String singleDataToBeSent;
+
+    /*variable to check the jdwp debugger detection*/
+    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
+
+    /*variable to check the gdb debugger detection*/
+    private GnuDebugger_GDB gnuDebugger_gdb;
 
     /*constructor to initialize the client socket*/
     public Client ( ) {
 
-        /*do nothing because the creation of socket in android must be done into a thread*/
-
         /*create the queue for the messages using the socket*/
         this.dataToBeSent = new LinkedList < String > ( );
 
-        this.dataToBeReceived = new byte[ 100 ];
+    }
+
+    /*function used to import the variables to check if there is a debugger*/
+    public void importReferenceDebuggerDetection ( GnuDebugger_GDB gnuDebugger_gdb , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp ) {
+
+        /*save the reference for the two debuggers*/
+        this.gnuDebugger_gdb = gnuDebugger_gdb;
+        this.javaDebugWireProtocol_jdwp = javaDebugWireProtocol_jdwp;
 
     }
 
@@ -46,20 +66,12 @@ public class Client extends Thread {
         /*initialize all necessary variables*/
         this.initializeAllVariables ( );
 
-        //System.out.println (this.dataToBeSent.size () );
-
         while ( true ) {
-            if ( this.dataToBeSent.size ( ) > 0 ) {
+            if ( ! this.dataToBeSent.isEmpty ( ) ) {
+                /*extract the actual element to send to the server*/
+                this.singleDataToBeSent = this.dataToBeSent.pop ( );
                 /*send data to the server*/
-                this.sendDataToServer ( this.dataToBeSent.pop ( ) );
-
-                /*try {
-                    this.dataInputStream.read ( this.dataToBeReceived );
-
-                    System.out.println ( "Ricevuto: " + new String ( this.dataToBeReceived ).substring(0, 2) );
-                } catch ( IOException e ) {
-                    e.printStackTrace ( );
-                }*/
+                this.sendDataToServer ( this.singleDataToBeSent );
 
             }
 
@@ -121,8 +133,12 @@ public class Client extends Thread {
 
     }
 
+    /*function used to add the current string to the output list to be sent*/
     public void addElementToBeSent ( String dataToBeSent ) {
-        this.dataToBeSent.push ( dataToBeSent );
+
+        /*add current string to the linkedlist with its timestamp*/
+        this.dataToBeSent.push ( Instant.now ( ).toEpochMilli ( ) + " " + dataToBeSent );
+
     }
 
 

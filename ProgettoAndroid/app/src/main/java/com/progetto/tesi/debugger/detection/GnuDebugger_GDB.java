@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.R;
 import com.progetto.tesi.debugger.detected.GnuDebugger_GDB_Activity;
+import com.progetto.tesi.socket.Client;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -19,7 +20,7 @@ import java.util.List;
 public class GnuDebugger_GDB extends Thread {
 
     /*boolean variable to store if a gdb debugger is found*/
-    private boolean gnuDebugger_GDB_found = false;
+    private boolean gnuDebugger_GDB_found;
 
     /*variable to save the reference of the main activity*/
     private AppCompatActivity appCompatActivity;
@@ -51,19 +52,25 @@ public class GnuDebugger_GDB extends Thread {
     /*variable used to store the handler for the main looper*/
     private Handler handler;
 
+    /*variable used for the reference to the client socket*/
+    private Client client;
+
     /*constructor to initialize the gdb debugger detection thread*/
-    public GnuDebugger_GDB ( AppCompatActivity appCompatActivity , Handler handler ) {
+    public GnuDebugger_GDB ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity , handler );
+        this.initializeAllVariables ( appCompatActivity , handler , client );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Handler handler ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
 
         /*save the actual activity to access forward to its managers*/
         this.appCompatActivity = appCompatActivity;
+
+        /*save the reference for the client socket*/
+        this.client = client;
 
         /*get reference for the textview*/
         this.textView = ( TextView ) this.appCompatActivity.findViewById ( R.id.valori );
@@ -130,8 +137,9 @@ public class GnuDebugger_GDB extends Thread {
             /*set that program found gdb debugger*/
             this.gnuDebugger_GDB_found = true;
 
-            /*debug row to say that a debugger is found*/
+            /*debug row to say and send that a debugger is found*/
             System.out.println ( "GnuDebugger_GDB: Debugger found" );
+            this.client.addElementToBeSent ( "GnuDebugger_GDB: Debugger found" );
 
             /*get the name of attached process*/
             this.getNameProcessTracerPid ( );

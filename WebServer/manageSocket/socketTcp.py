@@ -121,12 +121,9 @@ class SocketTcp:
             self.__receivedMessageString = self.__receivedMessageBytes.decode()
             # delete from the incoming message the final new line
             self.__receivedMessageString = self.__receivedMessageString.rstrip()
-            # if the received string is the terminal string
-            if self.__receivedMessageString == "exit":
-                # exit from listening mode
-                break
             # if the received string is not an empty string
             if self.__receivedMessageString != "":
+                print(self.__receivedMessageString)
                 # write the incoming message into the file
                 self.__manageFile.writeIntoFile(self.__receivedMessageString)
                 # analyze the input data
