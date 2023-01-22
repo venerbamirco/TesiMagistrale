@@ -1,4 +1,5 @@
 # class used to set all usefully constants
+import datetime
 import socket
 
 class Settings:
@@ -10,11 +11,14 @@ class Settings:
     
     # function used to set all constants
     def __setConstants(self):
+        # name for the extension of log file
+        self.__extensionLogFile = ".log"
+        
         # name for the file to store all logs from ptracer
-        self.__filenameLogsPtracer = "savedlogs/ptracer.log"
+        self.__filenameLogsPtracer = "savedlogs/ptracer/ptracer"
         
         # name for the file to store all logs from android application
-        self.__filenameLogsAndroid = "savedlogs/androidapp.log"
+        self.__filenameLogsAndroid = "savedlogs/android/android"
         
         # variable to define how to open the file to save the logs
         self.__howToOpenFiles = "w"
@@ -95,12 +99,12 @@ class Settings:
     # function used to get the folder and file for ptracer logs
     def getPtracerLogs(self):
         # return the folder and the filename for ptracer logs
-        return self.__filenameLogsPtracer
+        return self.__filenameLogsPtracer + "--" + datetime.datetime.now().strftime("%Y-%m-%d--%H-%M-%S") + self.__extensionLogFile
     
     # function used to get the folder and file for android logs
     def getAndroidLogs(self):
         # return the folder and the filename for android logs
-        return self.__filenameLogsAndroid
+        return self.__filenameLogsAndroid + "--" + datetime.datetime.now().strftime("%Y-%m-%d--%H-%M-%S") + self.__extensionLogFile
     
     # function used to get how open the files
     def getHowToOpenFiles(self):

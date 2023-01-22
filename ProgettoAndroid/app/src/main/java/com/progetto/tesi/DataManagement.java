@@ -4,11 +4,12 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.progetto.tesi.applications.debuggable.DebuggableApplications;
+import com.progetto.tesi.debuggableapplications.DebuggableApplications;
 import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
 import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
-import com.progetto.tesi.developeroptions.detection.DeveloperOptions;
-import com.progetto.tesi.recharge.detection.RechargeDetection;
+import com.progetto.tesi.developeroptions.DeveloperOptions;
+import com.progetto.tesi.ptracer.Ptracer;
+import com.progetto.tesi.recharge.RechargeDetection;
 import com.progetto.tesi.sensors.gamerotationvector.SensorsManagement;
 import com.progetto.tesi.socket.Client;
 
@@ -41,6 +42,9 @@ public class DataManagement extends Thread {
     /*socket for the communication*/
     private Client client;
 
+    /*ptracer process*/
+    private Ptracer ptracer;
+
     /*public constructor to initialize the data management class*/
     public DataManagement ( AppCompatActivity appCompatActivity , Handler handler ) {
 
@@ -54,6 +58,8 @@ public class DataManagement extends Thread {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
+
+        this.ptracer = new Ptracer (this.appCompatActivity );
 
         /*save the reference for the main handler*/
         this.handler = handler;

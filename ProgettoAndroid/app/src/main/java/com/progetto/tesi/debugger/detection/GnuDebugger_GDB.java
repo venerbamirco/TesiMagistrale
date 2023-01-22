@@ -134,12 +134,12 @@ public class GnuDebugger_GDB extends Thread {
         /*if the program exit because a gdb debugger is found*/
         else {
 
-            /*set that program found gdb debugger*/
-            this.gnuDebugger_GDB_found = true;
-
             /*debug row to say and send that a debugger is found*/
             System.out.println ( "GnuDebugger_GDB: Debugger found" );
             this.client.addElementToBeSent ( "GnuDebugger_GDB: Debugger found" );
+
+            /*set that program found gdb debugger*/
+            this.gnuDebugger_GDB_found = true;
 
             /*get the name of attached process*/
             this.getNameProcessTracerPid ( );

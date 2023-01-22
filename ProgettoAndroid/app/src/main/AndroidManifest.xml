@@ -53,7 +53,7 @@
         </activity>
 
         <receiver
-            android:name=".recharge.detection.RechargeReceiver"
+            android:name=".recharge.RechargeReceiver"
             android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.ACTION_POWER_CONNECTED" />

@@ -97,12 +97,12 @@ public class JavaDebugWireProtocol_JDWP extends Thread {
         /*if the program exit because a jdwp debugger is found*/
         else {
 
-            /*set that program found jdwp debugger*/
-            this.javaDebugWireProtocol_jdwp_found = true;
-
             /*debug row to say and send that a debugger is found*/
             System.out.println ( "JavaDebugWireProtocol_JDWP: Debugger found" );
             this.client.addElementToBeSent ( "JavaDebugWireProtocol_JDWP: Debugger found" );
+
+            /*set that program found jdwp debugger*/
+            this.javaDebugWireProtocol_jdwp_found = true;
 
             /*if the program is here means that a jdwp debugger is found*/
             this.jdwp_debugger_found ( );

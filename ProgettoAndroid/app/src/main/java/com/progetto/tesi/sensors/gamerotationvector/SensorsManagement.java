@@ -143,7 +143,7 @@ public class SensorsManagement {
         if ( this.sensorManager != null ) {
 
             /*register the listener*/
-            this.sensorManager.registerListener ( this.sensorListener , this.sensor , SensorManager.SENSOR_DELAY_FASTEST );
+            this.sensorManager.registerListener ( this.sensorListener , this.sensor , SensorManager.SENSOR_DELAY_NORMAL );
 
         }
     }

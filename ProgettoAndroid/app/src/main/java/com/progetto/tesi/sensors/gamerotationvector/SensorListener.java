@@ -490,7 +490,8 @@ public class SensorListener implements SensorEventListener {
 
             /*the device is correctly used*/
             this.textSensorListener = this.textSensorListener + "\n\nDevice is correctly used";
-            this.addDataToBeSent ( "SensorListener: Device is correctly used\n" );
+            this.addDataToBeSent ( "SensorListener: Device is correctly used" );
+            System.out.println ( "SensorListener: Device is correctly used" );
 
         }
 
@@ -509,7 +510,7 @@ public class SensorListener implements SensorEventListener {
             this.textSensorListener = this.textSensorListener + "\nWrongly directed";
 
             /*debug row for azimuth alert*/
-            this.addDataToBeSent ( "SensorListener: Azimuth alert\n" );
+            this.addDataToBeSent ( "SensorListener: Azimuth alert" );
             System.out.println ( "SensorListener: Azimuth alert" );
 
         }
@@ -521,7 +522,7 @@ public class SensorListener implements SensorEventListener {
             this.textSensorListener = this.textSensorListener + "\nWrongly inclined";
 
             /*debug row for pitch alert*/
-            this.addDataToBeSent ( "SensorListener: Pitch alert\n" );
+            this.addDataToBeSent ( "SensorListener: Pitch alert" );
             System.out.println ( "SensorListener: Pitch alert" );
 
         }
@@ -533,7 +534,7 @@ public class SensorListener implements SensorEventListener {
             this.textSensorListener = this.textSensorListener + "\nWrongly rotated";
 
             /*debug row for roll alert*/
-            this.addDataToBeSent ( "SensorListener: Roll alert\n" );
+            this.addDataToBeSent ( "SensorListener: Roll alert" );
             System.out.println ( "SensorListener: Roll alert" );
 
         }
@@ -552,7 +553,7 @@ public class SensorListener implements SensorEventListener {
     private void printDetailsSensorText ( ) {
 
         /*print and send these data to the client*/
-        this.addDataToBeSent ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll + "\n" );
+        this.addDataToBeSent ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
         System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
     }
@@ -561,7 +562,7 @@ public class SensorListener implements SensorEventListener {
     private void printDetailsSensorNumber ( ) {
 
         /*print and send these data to the client*/
-        this.addDataToBeSent ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt + "\n" );
+        this.addDataToBeSent ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
         System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
 
     }
