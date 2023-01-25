@@ -123,7 +123,6 @@ class SocketTcp:
             self.__receivedMessageString = self.__receivedMessageString.rstrip()
             # if the received string is not an empty string
             if self.__receivedMessageString != "":
-                print(self.__receivedMessageString)
                 # write the incoming message into the file
                 self.__manageFile.writeIntoFile(self.__receivedMessageString)
                 # analyze the input data

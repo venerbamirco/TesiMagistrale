@@ -6,6 +6,8 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.progetto.tesi.ptracer.Ptracer;
+
 public class MainActivity extends AppCompatActivity {
 
     /*variable for the data management class object*/
@@ -31,10 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
         /*initialize the data management class object*/
         this.dataManagement = new DataManagement ( this , this.handler );
-
-        /*to simplify the import in other applications we can write this:
-         * this.dataManagement = new DataManagement ( this , new Handler ( Looper.getMainLooper ( ) ) );
-         * */
 
     }
 

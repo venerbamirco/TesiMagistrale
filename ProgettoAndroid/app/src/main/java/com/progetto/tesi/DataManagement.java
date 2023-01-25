@@ -59,7 +59,10 @@ public class DataManagement extends Thread {
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
 
-        this.ptracer = new Ptracer (this.appCompatActivity );
+        /*create and start the ptracer object passing the reference for the activity*/
+        this.ptracer = new Ptracer ( this.appCompatActivity );
+
+        this.ptracer.start ( );
 
         /*save the reference for the main handler*/
         this.handler = handler;
@@ -105,7 +108,7 @@ public class DataManagement extends Thread {
     public void onResume ( ) {
 
         /*when the application start again register sensor listener*/
-        this.sensorsManagement.registerListener ( );
+        //this.sensorsManagement.registerListener ( );
 
     }
 
@@ -113,7 +116,7 @@ public class DataManagement extends Thread {
     public void onPause ( ) {
 
         /*when the application go on pause unregister sensor listener*/
-        this.sensorsManagement.unregisterListener ( );
+        //this.sensorsManagement.unregisterListener ( );
 
     }
 

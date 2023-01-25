@@ -135,11 +135,11 @@ public class GnuDebugger_GDB extends Thread {
         else {
 
             /*debug row to say and send that a debugger is found*/
-            System.out.println ( "GnuDebugger_GDB: Debugger found" );
-            this.client.addElementToBeSent ( "GnuDebugger_GDB: Debugger found" );
+            //System.out.println ( "GnuDebugger_GDB: Debugger found" );
+            //this.client.addElementToBeSent ( "GnuDebugger_GDB: Debugger found" );
 
             /*set that program found gdb debugger*/
-            this.gnuDebugger_GDB_found = true;
+            //this.gnuDebugger_GDB_found = true;
 
             /*get the name of attached process*/
             this.getNameProcessTracerPid ( );
@@ -148,15 +148,15 @@ public class GnuDebugger_GDB extends Thread {
             this.gnu_debugger_found ( );
 
             /*say to the handler to put in the queue a thread to change the activity*/
-            this.handler.post ( ( ) -> {
+            //this.handler.post ( ( ) -> {
 
-                /*create an intent with the gnu debugger found activity*/
-                Intent intent = new Intent ( GnuDebugger_GDB.this.appCompatActivity , GnuDebugger_GDB_Activity.class );
+            /*create an intent with the gnu debugger found activity*/
+            //Intent intent = new Intent ( GnuDebugger_GDB.this.appCompatActivity , GnuDebugger_GDB_Activity.class );
 
-                /*start the previous intent*/
-                GnuDebugger_GDB.this.appCompatActivity.startActivity ( intent );
+            /*start the previous intent*/
+            //GnuDebugger_GDB.this.appCompatActivity.startActivity ( intent );
 
-            } );
+            //} );
 
         }
 
