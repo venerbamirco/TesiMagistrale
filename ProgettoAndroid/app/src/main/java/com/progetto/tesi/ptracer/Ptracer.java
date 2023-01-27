@@ -73,6 +73,16 @@ public class Ptracer extends Thread {
             /*send that ptracer is started*/
             this.client.addElementToBeSent ( "Ptracer: started" );
 
+            /*while the process of ptracer is alive*/
+            while ( this.process.isAlive ( ) ) {
+
+                /*do nothing*/
+
+            }
+
+            /*send that ptracer is crashed*/
+            this.client.addElementToBeSent ( "Ptracer: crashed" );
+
         } catch ( IOException e ) {
 
             /*send that ptracer is not started*/

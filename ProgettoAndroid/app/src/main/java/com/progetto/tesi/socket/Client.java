@@ -28,10 +28,10 @@ public class Client extends Thread {
     private DataOutputStream dataOutputStream;
 
     /*variable used for address of the server socket*/
-    private String addressServerSocket = "192.168.1.10";
+    private String addressServerSocket;
 
     /*variable used for the port of the server socket*/
-    private int portServerSocket = 1501;
+    private int portServerSocket;
 
     /*variable used to extract an element from the input stream*/
     private String singleDataToBeSent;
@@ -49,6 +49,10 @@ public class Client extends Thread {
 
     /*function used to initialize all necessary variables*/
     private void initializeAllVariables ( ) {
+
+        this.addressServerSocket = "192.168.1.10";
+
+        this.portServerSocket = 1501;
 
         /*create the queue for the messages using the socket*/
         this.dataToBeSent = new LinkedList < String > ( );
@@ -114,7 +118,7 @@ public class Client extends Thread {
         try {
 
             /*create the socket to connect to the server*/
-            this.socket = new Socket ( "192.168.1.10" , 1501 );
+            this.socket = new Socket ( this.addressServerSocket , this.portServerSocket );
 
         } catch ( IOException e ) {
             e.printStackTrace ( );

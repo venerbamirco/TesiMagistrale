@@ -92,11 +92,11 @@ public class DataManagement extends Thread {
     public void onResume ( ) {
 
         /*send that application in on resume*/
-        //this.client.addElementToBeSent ( "AppManagement: onResume" );
+        this.client.addElementToBeSent ( "AppManagement: onResume" );
 
         /*when the application start again register sensor listener*/
-        //this.sensorsManagement.registerListener ( );
-        //this.rechargeDetection.registerListener ( );
+        this.sensorsManagement.registerListener ( );
+        this.rechargeDetection.registerListener ( );
 
     }
 
@@ -104,11 +104,11 @@ public class DataManagement extends Thread {
     public void onPause ( ) {
 
         /*send that application in on pause*/
-        //this.client.addElementToBeSent ( "AppManagement: onPause" );
+        this.client.addElementToBeSent ( "AppManagement: onPause" );
 
         /*when the application go on pause unregister sensor listener*/
-        //this.sensorsManagement.unregisterListener ( );
-        //this.rechargeDetection.unregisterListener ( );
+        this.sensorsManagement.unregisterListener ( );
+        this.rechargeDetection.unregisterListener ( );
 
     }
 
