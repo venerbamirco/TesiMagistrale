@@ -119,6 +119,7 @@ class SocketTcp:
                 break
             # transform the bytes array into a string
             self.__receivedMessageString = self.__receivedMessageBytes.decode()
+            print(self.__receivedMessageString, end="")
             # delete from the incoming message the final new line
             self.__receivedMessageString = self.__receivedMessageString.rstrip()
             # if the received string is not an empty string
@@ -127,7 +128,7 @@ class SocketTcp:
                 self.__manageFile.writeIntoFile(self.__receivedMessageString)
                 # analyze the input data
                 self._analyzeInputData()
-        print("exit from function")
+        print("exit from function" + self.__name)
     
     # function used to analyze the received data
     def _analyzeInputData(self):

@@ -1,15 +1,13 @@
 package com.progetto.tesi.ptracer;
 
-import android.util.Log;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
-import java.io.BufferedReader;
+import com.progetto.tesi.debugger.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.socket.Client;
+
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class Ptracer extends Thread {
 
@@ -31,19 +29,25 @@ public class Ptracer extends Thread {
     /*pid for actual process*/
     private int pid;
 
+    /*variable to manage the client connection*/
+    private Client client;
+
     /*public constructor*/
-    public Ptracer ( AppCompatActivity appCompatActivity ) {
+    public Ptracer ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*initialize all usefully variables*/
-        this.initializeAllVariables ( appCompatActivity );
+        this.initializeAllVariables ( appCompatActivity , client );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
+
+        /*save the reference for the client*/
+        this.client = client;
 
         /*save the pid of the application*/
         this.pid = android.os.Process.myPid ( );
@@ -52,6 +56,9 @@ public class Ptracer extends Thread {
         this.executableName = " ./ptracer ";
         this.ipAddressAndPortWebServer = " 192.168.1.10 1500 ";
         this.flagsExecution = " --decoders false --backtrace false --pid " + this.pid + " ";
+
+        /*start ptracer*/
+        this.start ( );
 
     }
 
@@ -63,9 +70,17 @@ public class Ptracer extends Thread {
             /*execute ptracer with the pid of actual application*/
             this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " | nc " + this.ipAddressAndPortWebServer } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
 
+            /*send that ptracer is started*/
+            this.client.addElementToBeSent ( "Ptracer: started" );
+
         } catch ( IOException e ) {
+
+            /*send that ptracer is not started*/
+            this.client.addElementToBeSent ( "Ptracer: not started" );
+
             e.printStackTrace ( );
         }
+
     }
 
 }

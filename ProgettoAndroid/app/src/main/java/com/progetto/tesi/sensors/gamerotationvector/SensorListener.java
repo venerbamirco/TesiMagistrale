@@ -139,11 +139,11 @@ public class SensorListener implements SensorEventListener {
                 /*set the azimuth text value*/
                 this.setAzimuthTextValue ( );
 
-                /*set the pitch text value*/
-                this.setPitchTextValue ( );
-
                 /*set the roll text value*/
                 this.setRollTextValue ( );
+
+                /*set the pitch text value*/
+                this.setPitchTextValue ( );
 
                 /*set azimuth pitch and roll number and text values into text label*/
                 this.setMeasurementIntoTextLabel ( );
@@ -491,7 +491,6 @@ public class SensorListener implements SensorEventListener {
             /*the device is correctly used*/
             this.textSensorListener = this.textSensorListener + "\n\nDevice is correctly used";
             this.addDataToBeSent ( "SensorListener: Device is correctly used" );
-            System.out.println ( "SensorListener: Device is correctly used" );
 
         }
 
@@ -511,7 +510,6 @@ public class SensorListener implements SensorEventListener {
 
             /*debug row for azimuth alert*/
             this.addDataToBeSent ( "SensorListener: Azimuth alert" );
-            System.out.println ( "SensorListener: Azimuth alert" );
 
         }
 
@@ -523,7 +521,6 @@ public class SensorListener implements SensorEventListener {
 
             /*debug row for pitch alert*/
             this.addDataToBeSent ( "SensorListener: Pitch alert" );
-            System.out.println ( "SensorListener: Pitch alert" );
 
         }
 
@@ -535,7 +532,6 @@ public class SensorListener implements SensorEventListener {
 
             /*debug row for roll alert*/
             this.addDataToBeSent ( "SensorListener: Roll alert" );
-            System.out.println ( "SensorListener: Roll alert" );
 
         }
 
@@ -543,6 +539,9 @@ public class SensorListener implements SensorEventListener {
 
     /*function used to say that the first calibration of the device is done*/
     public void setFirstCalibrationDone ( ) {
+
+        /*send that calibration is done*/
+        this.addDataToBeSent ( "SensorListener: Calibration done" );
 
         /*set first calibration done*/
         this.firstCalibrationDone = true;
@@ -554,7 +553,6 @@ public class SensorListener implements SensorEventListener {
 
         /*print and send these data to the client*/
         this.addDataToBeSent ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
-        System.out.println ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
     }
 
@@ -563,7 +561,6 @@ public class SensorListener implements SensorEventListener {
 
         /*print and send these data to the client*/
         this.addDataToBeSent ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
-        System.out.println ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
 
     }
 

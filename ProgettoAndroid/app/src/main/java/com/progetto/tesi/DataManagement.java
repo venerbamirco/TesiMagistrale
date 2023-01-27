@@ -5,8 +5,8 @@ import android.os.Handler;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.debuggableapplications.DebuggableApplications;
-import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.debugger.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
 import com.progetto.tesi.developeroptions.DeveloperOptions;
 import com.progetto.tesi.ptracer.Ptracer;
 import com.progetto.tesi.recharge.RechargeDetection;
@@ -59,19 +59,11 @@ public class DataManagement extends Thread {
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
 
-        /*create and start the ptracer object passing the reference for the activity*/
-        this.ptracer = new Ptracer ( this.appCompatActivity );
-
-        this.ptracer.start ( );
-
         /*save the reference for the main handler*/
         this.handler = handler;
 
         /*initialize the socket*/
         this.client = new Client ( );
-
-        /*start the socket management*/
-        this.client.start ( );
 
         /*initialize the debuggable applications class passing the context to access then the package manager*/
         this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity , this.client );
@@ -82,41 +74,41 @@ public class DataManagement extends Thread {
         /*initialize and start the jdwp debugger detection thread*/
         this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.appCompatActivity , this.handler , this.client );
 
-        /*import other debugger into each class*/
-        this.gnuDebugger_gdb.importOtherDebugger ( this.javaDebugWireProtocol_jdwp );
-        this.javaDebugWireProtocol_jdwp.importOtherDebugger ( this.gnuDebugger_gdb );
-
-        /*import the two debugger variables into the client*/
-        this.client.importReferenceDebuggerDetection ( this.gnuDebugger_gdb , this.javaDebugWireProtocol_jdwp );
-
-        /*start thread for each debugger*/
-        this.gnuDebugger_gdb.start ( );
-        this.javaDebugWireProtocol_jdwp.start ( );
-
         /*initialize the sensor manager class*/
-        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.client );
+        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.client );
 
         /*initialize the usb checker*/
-        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.handler , this.client );
+        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.handler , this.client );
 
         /*initialize the detection for developer options*/
-        this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.javaDebugWireProtocol_jdwp , this.gnuDebugger_gdb , this.client );
+        this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.client );
+
+        /*create and start the ptracer object passing the reference for the activity*/
+        this.ptracer = new Ptracer ( this.appCompatActivity , this.client );
 
     }
 
     /*function used for the onresume event*/
     public void onResume ( ) {
 
+        /*send that application in on resume*/
+        //this.client.addElementToBeSent ( "AppManagement: onResume" );
+
         /*when the application start again register sensor listener*/
         //this.sensorsManagement.registerListener ( );
+        //this.rechargeDetection.registerListener ( );
 
     }
 
     /*function used to the onpause event*/
     public void onPause ( ) {
 
+        /*send that application in on pause*/
+        //this.client.addElementToBeSent ( "AppManagement: onPause" );
+
         /*when the application go on pause unregister sensor listener*/
         //this.sensorsManagement.unregisterListener ( );
+        //this.rechargeDetection.unregisterListener ( );
 
     }
 

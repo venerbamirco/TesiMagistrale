@@ -1,7 +1,7 @@
 package com.progetto.tesi.socket;
 
-import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.debugger.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -36,17 +36,14 @@ public class Client extends Thread {
     /*variable used to extract an element from the input stream*/
     private String singleDataToBeSent;
 
-    /*variable to check the jdwp debugger detection*/
-    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
-
-    /*variable to check the gdb debugger detection*/
-    private GnuDebugger_GDB gnuDebugger_gdb;
-
     /*variable to store if a debugger is found*/
     private boolean isDebuggerFound;
 
     /*constructor to initialize the client socket*/
     public Client ( ) {
+
+        /*start the client*/
+        this.start ( );
 
     }
 
@@ -67,15 +64,6 @@ public class Client extends Thread {
 
     }
 
-    /*function used to import the variables to check if there is a debugger*/
-    public void importReferenceDebuggerDetection ( GnuDebugger_GDB gnuDebugger_gdb , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp ) {
-
-        /*save the reference for the two debuggers*/
-        this.gnuDebugger_gdb = gnuDebugger_gdb;
-        this.javaDebugWireProtocol_jdwp = javaDebugWireProtocol_jdwp;
-
-    }
-
     /*manage the thread for the socket connection*/
     @Override
     public void run ( ) {
@@ -83,69 +71,26 @@ public class Client extends Thread {
         /*initialize all necessary variables*/
         this.initializeAllVariables ( );
 
-        /*quando iniviio le stringhe settare a true un flag per ciascun debugger*/
-        //while ( ( this.gnuDebugger_gdb == null || ! this.gnuDebugger_gdb.isFoundGnuDebugger ( ) ) && ( this.javaDebugWireProtocol_jdwp == null || ! this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) ) {
+        /*always*/
         while ( true ) {
 
-            /*check for a gdb debugger*/
-            if ( this.gnuDebugger_gdb != null && this.gnuDebugger_gdb.isFoundGnuDebugger ( ) ) {
+            /*if there are some messages to be sent*/
+            if ( ! this.dataToBeSent.isEmpty ( ) ) {
 
-                /*a debugger is found*/
-                this.isDebuggerFound = true;
+                /*extract the actual element to send to the server*/
+                this.singleDataToBeSent = this.dataToBeSent.pop ( );
 
-            }
-
-            /*check for a jdwp debugger*/
-            else if ( this.javaDebugWireProtocol_jdwp != null && this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) ) {
-
-                /*a debugger is found*/
-                this.isDebuggerFound = true;
+                /*send data to the server*/
+                this.sendDataToServer ( this.singleDataToBeSent );
 
             }
-
-            /*if a debugger is found*/
-            if ( this.isDebuggerFound ) {
-
-                /*while there are messages to be sent*/
-                while ( ! this.dataToBeSent.isEmpty ( ) ) {
-
-                    /*extract the actual element to send to the server*/
-                    this.singleDataToBeSent = this.dataToBeSent.pop ( );
-
-                    /*send data to the server*/
-                    this.sendDataToServer ( this.singleDataToBeSent );
-
-                }
-
-                /*when the thread finish, close all socket channels*/
-                this.closeSocketChannels ( );
-
-            }
-
-            /*if a debugger is not found*/
-            else {
-
-                /*if there are some messages to be sent*/
-                if ( ! this.dataToBeSent.isEmpty ( ) ) {
-
-                    /*extract the actual element to send to the server*/
-                    this.singleDataToBeSent = this.dataToBeSent.pop ( );
-
-                    /*send data to the server*/
-                    this.sendDataToServer ( this.singleDataToBeSent );
-
-                }
-
-            }
-
 
         }
-
 
     }
 
     /*function used to close all socket channel*/
-    private void closeSocketChannels ( ) {
+    public void closeSocketChannels ( ) {
 
         try {
             /*close input channel*/
@@ -165,18 +110,15 @@ public class Client extends Thread {
 
     /*function used to create the socket*/
     private void createSocket ( ) {
+
         try {
-            System.out.println ("entrato" );
+
             /*create the socket to connect to the server*/
             this.socket = new Socket ( "192.168.1.10" , 1501 );
-            System.out.println ("entrato1" );
 
         } catch ( IOException e ) {
-            System.out.println ("entrato2" );
-            System.out.println ( e.getMessage ( ) );
             e.printStackTrace ( );
         }
-        System.out.println ("entrato3" );
     }
 
     /*function used to create the two streams*/

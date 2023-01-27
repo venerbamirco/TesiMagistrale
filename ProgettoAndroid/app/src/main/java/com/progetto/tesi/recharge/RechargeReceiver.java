@@ -92,8 +92,7 @@ public class RechargeReceiver extends BroadcastReceiver {
     /*function used to print all details of all types of charging*/
     private void printDetailsRechargerTypes ( ) {
 
-        /*print and send the debug row*/
-        System.out.println ( "UsbChecker: ischarg: " + this.isCharging + " usbcharg: " + this.usbCharge + " accharge: " + this.acCharge );
+        /*send the debug row*/
         this.client.addElementToBeSent ( "UsbChecker: ischarg: " + this.isCharging + " usbcharg: " + this.usbCharge + " accharge: " + this.acCharge );
 
     }

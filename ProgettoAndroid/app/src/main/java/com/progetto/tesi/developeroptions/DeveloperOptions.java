@@ -4,8 +4,8 @@ import android.provider.Settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.debugger.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
 import com.progetto.tesi.socket.Client;
 
 public class DeveloperOptions extends Thread {
@@ -24,18 +24,14 @@ public class DeveloperOptions extends Thread {
     /*variable used to store the number of misurations*/
     private int misurations;
 
-    /*variables to manage debugger detection and if it is so, stop to check*/
-    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
-    private GnuDebugger_GDB gnuDebugger_gdb;
-
     /*variable used to save the reference to the client socket*/
     private Client client;
 
     /*constructor to initialize the developer option detection mechanism*/
-    public DeveloperOptions ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Client client ) {
+    public DeveloperOptions ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllNecessaryVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb , client );
+        this.initializeAllNecessaryVariables ( appCompatActivity , client );
 
         /*start actual thread*/
         this.start ( );
@@ -43,7 +39,7 @@ public class DeveloperOptions extends Thread {
     }
 
     /*function to initialize all necessary variables*/
-    private void initializeAllNecessaryVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Client client ) {
+    private void initializeAllNecessaryVariables ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
@@ -54,22 +50,20 @@ public class DeveloperOptions extends Thread {
         /*at beginning number of misurations equal to 0*/
         this.misurations = 0;
 
-        /*get the references of the two types of debuggers*/
-        this.javaDebugWireProtocol_jdwp = javaDebugWireProtocol_jdwp;
-        this.gnuDebugger_gdb = gnuDebugger_gdb;
-
     }
 
     @Override
     public void run ( ) {
 
-        /*until a debugger is not found*/
-        while ( ! this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) && ! this.gnuDebugger_gdb.isFoundGnuDebugger ( ) ) {
+        /*always*/
+        while ( true ) {
 
-            /*get actual values for adb and developer options if they are activated*/
             try {
+
+                /*get actual values for adb and developer options if they are activated*/
                 this.adbActivated = Settings.Global.getInt ( this.appCompatActivity.getApplicationContext ( ).getContentResolver ( ) , Settings.Global.ADB_ENABLED ) > 0;
                 this.developerOptionsActivated = Settings.Global.getInt ( this.appCompatActivity.getApplicationContext ( ).getContentResolver ( ) , Settings.Global.DEVELOPMENT_SETTINGS_ENABLED ) > 0;
+
             } catch ( Settings.SettingNotFoundException e ) {
                 e.printStackTrace ( );
             }
@@ -103,15 +97,12 @@ public class DeveloperOptions extends Thread {
 
         }
 
-        /*a debugger is found*/
-
     }
 
     /*function used to print all details*/
     private void printAllDetails ( ) {
 
-        /*debug row and send it*/
-        System.out.println ( "DeveloperOptions: adb: " + this.adbActivated + " devops: " + this.developerOptionsActivated );
+        /*send all data*/
         this.client.addElementToBeSent ( "DeveloperOptions: adb: " + this.adbActivated + " devops: " + this.developerOptionsActivated );
 
     }

@@ -3,7 +3,7 @@ package com.progetto.tesi.sensors.gamerotationvector;
 public class ManagementPitch {
 
     /*variables to store the values of pitch*/
-    private double pitchDouble = 0;
+    private double pitchDouble;
     private int pitchInt;
 
     /*constructor to initialize the manager of pitch value*/

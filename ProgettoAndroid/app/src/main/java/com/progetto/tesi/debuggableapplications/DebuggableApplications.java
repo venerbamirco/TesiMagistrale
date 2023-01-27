@@ -73,7 +73,6 @@ public class DebuggableApplications extends Thread {
             for ( ApplicationInfo app : this.debugabbleApplications ) {
 
                 /*print and send app information's*/
-                System.out.println ( "DebuggableApplications: " + this.packageManager.getApplicationLabel ( app ) );
                 this.client.addElementToBeSent ( "DebuggableApplications: " + this.packageManager.getApplicationLabel ( app ) );
 
             }

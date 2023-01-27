@@ -9,8 +9,8 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.R;
-import com.progetto.tesi.debugger.detection.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.detection.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.debugger.GnuDebugger_GDB;
+import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
 import com.progetto.tesi.socket.Client;
 
 public class SensorsManagement {
@@ -29,37 +29,32 @@ public class SensorsManagement {
     /*variable for the unique used sensor*/
     private Sensor sensor;
 
-    /*variables to manage debugger detection and if it is so, unregister the listener*/
-    private JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp;
-    private GnuDebugger_GDB gnuDebugger_gdb;
+    /*variable for the reference of the client*/
+    private Client client;
 
     /*constructor to run the sensor management mechanism*/
-    public SensorsManagement ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Client client ) {
+    public SensorsManagement ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*initialize all variables*/
-        this.initializeAllVariables ( appCompatActivity , javaDebugWireProtocol_jdwp , gnuDebugger_gdb , client );
+        this.initializeAllVariables ( appCompatActivity , client );
 
         /*initialize sensors when the user open the app*/
         this.waitNumberSeconds ( );
 
-        /*test if a debugger is found and if it is so, unregister the listener*/
-        this.checkDebuggers ( );
-
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , JavaDebugWireProtocol_JDWP javaDebugWireProtocol_jdwp , GnuDebugger_GDB gnuDebugger_gdb , Client client ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*save the actual activity to access forward to the layout object*/
         this.appCompatActivity = appCompatActivity;
 
+        /*save the reference of the client*/
+        this.client = client;
+
         /*get the references of all necessary object in the activity layout*/
         this.button = ( Button ) this.appCompatActivity.findViewById ( R.id.calibra );
         this.textView = ( TextView ) this.appCompatActivity.findViewById ( R.id.valori );
-
-        /*get the references of the two types of debuggers*/
-        this.javaDebugWireProtocol_jdwp = javaDebugWireProtocol_jdwp;
-        this.gnuDebugger_gdb = gnuDebugger_gdb;
 
         /*obtain the sensor manager to access forward to each necessary sensor*/
         this.sensorManager = ( SensorManager ) this.appCompatActivity.getSystemService ( Context.SENSOR_SERVICE );
@@ -82,9 +77,11 @@ public class SensorsManagement {
         /*create and start a thread to do initial sensors calibration*/
         new Thread ( ( ) -> {
 
-            /*wait 1 seconds (time that user opens the app and take a correct position for the smartphone in the hand*/
             try {
-                Thread.sleep ( 1000 );
+
+                /*wait tot milliseconds (time that user opens the app and take a correct position for the smartphone in the hand*/
+                Thread.sleep ( 2000 );
+
             } catch ( InterruptedException e ) {
                 e.printStackTrace ( );
             }
@@ -98,30 +95,8 @@ public class SensorsManagement {
         } ).start ( );
     }
 
-    /*function used to check if a debugger is found and if it is so, unregister the listener*/
-    private void checkDebuggers ( ) {
-
-        /*create and start a thread to check debuggers*/
-        new Thread ( ( ) -> {
-
-            /*while a debugger is not found*/
-            while ( ! SensorsManagement.this.gnuDebugger_gdb.isFoundGnuDebugger ( ) && ! SensorsManagement.this.javaDebugWireProtocol_jdwp.isFoundJdwpDebugger ( ) )
-
-                /*do nothing because we must wait until a debugger is found*/
-                ;
-
-            /*unregister the listener and stop read data from sensor*/
-            SensorsManagement.this.unregisterListener ( );
-
-        } ).start ( );
-
-    }
-
     /*function used to unregister a listener*/
     public void unregisterListener ( ) {
-
-        /*debug row*/
-        //System.out.println ( "SensorsManagement: listener unregistered" );
 
         /*if the sensor manager is valid*/
         if ( this.sensorManager != null ) {
@@ -135,9 +110,6 @@ public class SensorsManagement {
 
     /*function used to register a lister*/
     public void registerListener ( ) {
-
-        /*debug row*/
-        //System.out.println ( "SensorsManagement: listener registered" );
 
         /*if the sensor manager is valid*/
         if ( this.sensorManager != null ) {
