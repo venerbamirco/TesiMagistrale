@@ -36,9 +36,6 @@ public class Client extends Thread {
     /*variable used to extract an element from the input stream*/
     private String singleDataToBeSent;
 
-    /*variable to store if a debugger is found*/
-    private boolean isDebuggerFound;
-
     /*constructor to initialize the client socket*/
     public Client ( ) {
 
@@ -56,9 +53,6 @@ public class Client extends Thread {
 
         /*create the queue for the messages using the socket*/
         this.dataToBeSent = new LinkedList < String > ( );
-
-        /*at the beginning no debugger is found*/
-        this.isDebuggerFound = false;
 
         /*create the socket*/
         this.createSocket ( );
@@ -118,7 +112,7 @@ public class Client extends Thread {
         try {
 
             /*create the socket to connect to the server*/
-            this.socket = new Socket ( "192.168.1.10" , 1501 );
+            this.socket = new Socket ( this.addressServerSocket , this.portServerSocket );
 
         } catch ( IOException e ) {
             e.printStackTrace ( );

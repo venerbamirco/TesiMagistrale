@@ -23,9 +23,6 @@ public class GnuDebugger_GDB extends Thread {
     /*variable to save the reference of the main activity*/
     private AppCompatActivity appCompatActivity;
 
-    /*variable to access to the textview*/
-    private TextView textView;
-
     /*variable used to access to the activity manager*/
     private ActivityManager activityManager;
 
@@ -41,17 +38,14 @@ public class GnuDebugger_GDB extends Thread {
     /*variable used to store the name of process that is attached to this application*/
     private String processAttached;
 
-    /*variable used to store the handler for the main looper*/
-    private Handler handler;
-
     /*variable used for the reference to the client socket*/
     private Client client;
 
     /*constructor to initialize the gdb debugger detection thread*/
-    public GnuDebugger_GDB ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
+    public GnuDebugger_GDB ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity , handler , client );
+        this.initializeAllVariables ( appCompatActivity , client );
 
         /*start the gdb debugger detection*/
         this.start ( );
@@ -59,16 +53,13 @@ public class GnuDebugger_GDB extends Thread {
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity, Client client ) {
 
         /*save the actual activity to access forward to its managers*/
         this.appCompatActivity = appCompatActivity;
 
         /*save the reference for the client socket*/
         this.client = client;
-
-        /*get reference for the textview*/
-        this.textView = ( TextView ) this.appCompatActivity.findViewById ( R.id.valori );
 
         /*get the activity manager reference*/
         this.activityManager = ( ActivityManager ) this.appCompatActivity.getSystemService ( Context.ACTIVITY_SERVICE );
@@ -84,9 +75,6 @@ public class GnuDebugger_GDB extends Thread {
 
         /*at the beginning the debugger is not found*/
         this.gnuDebugger_GDB_found = false;
-
-        /*save the reference of the handler*/
-        this.handler = handler;
 
     }
 
@@ -246,14 +234,6 @@ public class GnuDebugger_GDB extends Thread {
     private void gnu_debugger_found ( ) {
 
         /*do some operations after debugger detection*/
-
-    }
-
-    /*function to check if a gnu debugger is found*/
-    public boolean isFoundGnuDebugger ( ) {
-
-        /*return if a gnu debugger is found*/
-        return this.gnuDebugger_GDB_found;
 
     }
 

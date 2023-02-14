@@ -69,16 +69,16 @@ public class DataManagement extends Thread {
         this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity , this.client );
 
         /*initialize and start the gdb debugger detection thread*/
-        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this.appCompatActivity , this.handler , this.client );
+        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this.appCompatActivity , this.client );
 
         /*initialize and start the jdwp debugger detection thread*/
-        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.appCompatActivity , this.handler , this.client );
+        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.client );
 
         /*initialize the sensor manager class*/
         this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.client );
 
         /*initialize the usb checker*/
-        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.handler , this.client );
+        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.client );
 
         /*initialize the detection for developer options*/
         this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.client );

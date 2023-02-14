@@ -93,11 +93,11 @@ public class RechargeReceiver extends BroadcastReceiver {
     private void printDetailsRechargerTypes ( ) {
 
         /*send the debug row*/
-        this.client.addElementToBeSent ( "UsbChecker: ischarg: " + this.isCharging + " usbcharg: " + this.usbCharge + " accharge: " + this.acCharge );
+        this.client.addElementToBeSent ( "UsbChecker: ischarg: " + this.isCharging + " usbcharg: " + this.usbCharge + " accharg: " + this.acCharge );
 
     }
 
-    /*function used to save actual valus in old variables*/
+    /*function used to save actual values in old variables*/
     private void saveActualValues ( ) {
 
         /*save actual values*/

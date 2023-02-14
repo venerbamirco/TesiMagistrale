@@ -18,7 +18,6 @@ public class SensorsManagement {
     /*variables for the references to the activity and its element*/
     private AppCompatActivity appCompatActivity;
     private Button button;
-    private TextView textView;
 
     /*variable for the sensor listener*/
     private SensorListener sensorListener;
@@ -28,9 +27,6 @@ public class SensorsManagement {
 
     /*variable for the unique used sensor*/
     private Sensor sensor;
-
-    /*variable for the reference of the client*/
-    private Client client;
 
     /*constructor to run the sensor management mechanism*/
     public SensorsManagement ( AppCompatActivity appCompatActivity , Client client ) {
@@ -49,12 +45,8 @@ public class SensorsManagement {
         /*save the actual activity to access forward to the layout object*/
         this.appCompatActivity = appCompatActivity;
 
-        /*save the reference of the client*/
-        this.client = client;
-
         /*get the references of all necessary object in the activity layout*/
         this.button = ( Button ) this.appCompatActivity.findViewById ( R.id.calibra );
-        this.textView = ( TextView ) this.appCompatActivity.findViewById ( R.id.valori );
 
         /*obtain the sensor manager to access forward to each necessary sensor*/
         this.sensorManager = ( SensorManager ) this.appCompatActivity.getSystemService ( Context.SENSOR_SERVICE );

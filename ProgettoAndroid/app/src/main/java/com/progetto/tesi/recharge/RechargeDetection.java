@@ -17,23 +17,19 @@ public class RechargeDetection {
 
     /*variables for the action battery changes access*/
     private IntentFilter ifilter;
-    private Intent batteryStatus;
 
     /*variable for recharge receiver*/
     private RechargeReceiver rechargeReceiver;
 
-    /*variable to manage toast into thread*/
-    private Handler handler;
-
-    public RechargeDetection ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
+    public RechargeDetection ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*initialize all necessary variables*/
-        this.initializeAllVariables ( appCompatActivity , handler , client );
+        this.initializeAllVariables ( appCompatActivity , client );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Handler handler , Client client ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Client client ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
@@ -43,13 +39,13 @@ public class RechargeDetection {
 
         /*access to action battery changes detection mechanism*/
         this.ifilter = new IntentFilter ( Intent.ACTION_BATTERY_CHANGED );
-        this.batteryStatus = this.appCompatActivity.getApplicationContext ( ).registerReceiver ( this.rechargeReceiver , this.ifilter );
 
-        /*save the reference of handler*/
-        this.handler = handler;
+        /*register the listener*/
+        this.registerListener ( );
 
     }
 
+    /*function used to unregister the listener*/
     public void unregisterListener ( ) {
 
         /*unregister the recharge receiver*/
@@ -57,6 +53,7 @@ public class RechargeDetection {
 
     }
 
+    /*function used to register the listener*/
     public void registerListener ( ) {
 
         /*unregister the recharge receiver*/

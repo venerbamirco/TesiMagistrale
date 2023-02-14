@@ -6,8 +6,6 @@ import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.progetto.tesi.ptracer.Ptracer;
-
 public class MainActivity extends AppCompatActivity {
 
     /*variable for the data management class object*/

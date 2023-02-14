@@ -214,6 +214,9 @@ public class SensorListener implements SensorEventListener {
             this.managementAzimuth.calibrateAzimuth ( azimuth );
             this.managementRoll.calibrateRoll ( roll );
 
+            /*send that calibration is done*/
+            this.addDataToBeSent ( "SensorListener: Calibration done" );
+
         }
 
         /*calculate the right value for azimuth using a 360 degrees value*/
@@ -351,7 +354,7 @@ public class SensorListener implements SensorEventListener {
 
     }
 
-    /*function used to calibrated again all the sensors*/
+    /*function used to calibrate again all the sensors*/
     public void calibrateSensors ( ) {
 
         /*we must calibrate again the sensor*/
@@ -541,7 +544,7 @@ public class SensorListener implements SensorEventListener {
     public void setFirstCalibrationDone ( ) {
 
         /*send that calibration is done*/
-        this.addDataToBeSent ( "SensorListener: Calibration done" );
+        this.addDataToBeSent ( "SensorListener: First calibration done" );
 
         /*set first calibration done*/
         this.firstCalibrationDone = true;
