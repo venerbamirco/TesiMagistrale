@@ -78,6 +78,12 @@ class Ptracer ( GeneralSocket ) :
                 # start operations
                 self.f1 ( )
             #
+            # return value of syscall
+            case s if "Return value" in s :
+                #
+                # start operations
+                self.f1 ( )
+            #
             # other case
             case _ :
                 #
@@ -107,8 +113,6 @@ class Ptracer ( GeneralSocket ) :
                 #
                 # write the actual message in the log file
                 self.manageFile.writeIntoFile ( x )
-                
-                pass
             #
             # if it is not valid
             else :
