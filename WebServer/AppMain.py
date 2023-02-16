@@ -1,6 +1,6 @@
 from threading import Thread
 
-from file.file import File
+from dataStructure.file import File
 from settings.settings import Settings
 from tcpSocket.android import Android
 from tcpSocket.ptracer import Ptracer

@@ -29,8 +29,8 @@ class Settings :
         # variable to define the port to receive data from android application
         self.portSocketAndroid = 1501
         #
-        # variable to define the port to send data using a terminal
-        self.portSocketTerminal = 1502
+        # variable to define the port to receive data in training mode
+        self.portSocketTraining = 1502
         #
         # variable used to set the maximum number of connected clients
         self.maximumNumberConnectedClients = 1

@@ -1,4 +1,4 @@
-from file.file import File
+from dataStructure.file import File
 from settings.settings import Settings
 from tcpSocket.generalSocket import GeneralSocket
 
@@ -24,25 +24,25 @@ class Ptracer ( GeneralSocket ) :
         # select the right operations for actual input message
         match message :
             #
-            # syscall start initial part
+            # ptracer start initial part
             case "------------------ SYSCALL ENTRY START ------------------" :
                 #
                 # start operations
                 self.f1 ( )
             #
-            # syscall start final part
+            # ptracer start final part
             case "------------------ SYSCALL ENTRY STOP ------------------" :
                 #
                 # start operations
                 self.f1 ( )
             #
-            # syscall finish initial part
+            # ptracer finish initial part
             case "------------------ SYSCALL EXIT START ------------------" :
                 #
                 # start operations
                 self.f1 ( )
             #
-            # syscall finish final part
+            # ptracer finish final part
             case "------------------ SYSCALL EXIT STOP ------------------" :
                 #
                 # start operations
@@ -54,31 +54,31 @@ class Ptracer ( GeneralSocket ) :
                 # start operations
                 self.f1 ( )
             #
-            # pid of actual syscall
+            # pid of actual ptracer
             case s if "PID" in s :
                 #
                 # start operations
                 self.f1 ( )
             #
-            # spid of actual syscall
+            # spid of actual ptracer
             case s if "SPID" in s :
                 #
                 # start operations
                 self.f1 ( )
             #
-            # timestamp of actual start or finish syscall
+            # timestamp of actual start or finish ptracer
             case s if "Timestamp" in s :
                 #
                 # start operations
                 self.f1 ( )
             #
-            # name of syscall
+            # name of ptracer
             case s if "Syscall" in s :
                 #
                 # start operations
                 self.f1 ( )
             #
-            # return value of syscall
+            # return value of ptracer
             case s if "Return value" in s :
                 #
                 # start operations

@@ -2,8 +2,8 @@ from dataStructure.file import File
 from settings.settings import Settings
 from tcpSocket.generalSocket import GeneralSocket
 
-# class for the android socket
-class Android ( GeneralSocket ) :
+# class for the ptracer socket
+class Training ( GeneralSocket ) :
     
     # constructor for the android socket class
     def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings ) :

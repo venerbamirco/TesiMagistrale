@@ -1,6 +1,6 @@
 import socket
 
-from file.file import File
+from dataStructure.file import File
 from settings.settings import Settings
 
 # class to manage the general tcp socket
