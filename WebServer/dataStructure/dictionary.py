@@ -5,7 +5,7 @@ class Dictionary :
     def __init__ ( self ) -> None :
         #
         # create an empty dictionary
-        self.__dictionarySyscall = dict ( )
+        self.__dictionarySyscall: dict = dict ( )
     
     # function used to insert a new key in the dictionary
     def insertNewKey ( self , key: str ) -> None :
@@ -14,7 +14,7 @@ class Dictionary :
         if key not in self.__dictionarySyscall.keys ( ) :
             #
             # insert new key with an empty list
-            self.__dictionarySyscall [ key ] = [ ]
+            self.__dictionarySyscall [ key ]: list = [ ]
     
     # function used to insert a new element in a certain key
     def insertNewValueInKey ( self , key: str , value: str ) -> None :
@@ -77,7 +77,7 @@ class Dictionary :
             if oldValue in self.__dictionarySyscall.get ( key ) :
                 #
                 # change the actual old element with the actual newest one
-                self.__dictionarySyscall.get ( key ) [ self.__dictionarySyscall.get ( key ).index ( oldValue ) ] = newValue
+                self.__dictionarySyscall.get ( key ) [ self.__dictionarySyscall.get ( key ).index ( oldValue ) ]: str = newValue
     
     # function used to update a key
     def updateKey ( self , oldKey: str , newKey: str ) -> None :
@@ -107,19 +107,25 @@ class Dictionary :
         return self.__dictionarySyscall
     
     # function used to print the dictionary and its key values
-    def printDictionary ( self ) -> None :
+    def __str__ ( self ) -> str :
+        #
+        # variable to store the output
+        output: str = ""
         #
         # for each key
         for key in self.__dictionarySyscall.keys ( ) :
             #
             # print the actual key
-            print ( key )
+            output += f"{key}\n"
             #
             # for each element of the list of actual key
             for element in self.__dictionarySyscall [ key ] :
                 #
                 # print actual element of the list
-                print ( "\t\t" + element )
+                output += f"\t\t{element}\n"
+        #
+        # return the output
+        return output
 
 """if __name__ == "__main__" :
     d = Dictionary ( )
@@ -129,6 +135,6 @@ class Dictionary :
     d.updateValueInKey ( "ptracer" , "nuovovalore" , "nuovovalore1" )
     d.insertNewKey ( "syscall1" )
     d.insertNewValueInKey ( "syscall1" , "nuovovalore11" )
-    d.printDictionary ( )
-    d.updateKey("ptracer", "nuovasyscall")
-    d.printDictionary ( )"""
+    print ( d )
+    d.updateKey ( "ptracer" , "nuovasyscall" )
+    print ( d )"""
