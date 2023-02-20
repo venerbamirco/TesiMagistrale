@@ -1,7 +1,7 @@
-# class to create the dictionary of all ptracer and the following instructions
+# class to create the dictionary
 class Dictionary :
     
-    # constructor for the management of ptracer sequences
+    # constructor for the management of the dictionary
     def __init__ ( self ) -> None :
         #
         # create an empty dictionary
@@ -127,7 +127,7 @@ class Dictionary :
         # return the output
         return output
 
-"""if __name__ == "__main__" :
+if __name__ == "__main__" :
     d = Dictionary ( )
     d.insertNewKey ( "ptracer" )
     d.insertNewValueInKey ( "ptracer" , "nuovovalore" )
@@ -136,5 +136,3 @@ class Dictionary :
     d.insertNewKey ( "syscall1" )
     d.insertNewValueInKey ( "syscall1" , "nuovovalore11" )
     print ( d )
-    d.updateKey ( "ptracer" , "nuovasyscall" )
-    print ( d )"""
