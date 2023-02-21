@@ -1,6 +1,5 @@
 """
-Dictionary of syscall, each instruction a dictionary
-
+ANALYSIS OF ALL SYSCALL
 syscall
 		Min_measure: 1
 		Max_measure: 6
@@ -16,23 +15,23 @@ from statistics import mean
 
 from numpy import var
 
-# class used to manage statistics of each instruction
-class Statistic :
+# class used to manage analyses of each instruction
+class Analyses :
     
-    # constructor to initialize the structure for statistics
+    # constructor to initialize the structure for analyses
     def __init__ ( self ) -> None :
         #
         # create an empty dictionary
-        self.dictionary = dict ( )
+        self.dictionary: dict [ dict [ any ] ] = dict ( )
     
-    # function used to insert a new instruction into statistics
+    # function used to insert a new instruction into analyses
     def insertNewInstruction ( self , syscall: str ) -> None :
         #
         # if the syscall is not in the dictionary
         if syscall not in self.dictionary.keys ( ) :
             #
             # create an empty dictionary
-            dictionary: dict = dict ( )
+            dictionary: dict [ any ] = dict ( )
             #
             # insert all keys for a new instruction
             dictionary [ "Min_measure" ]: int = 0
@@ -45,7 +44,7 @@ class Statistic :
             dictionary [ "List_measurements" ]: list = list ( )
             #
             # initialize the entry of the new instruction
-            self.dictionary [ syscall ]: dict = dictionary
+            self.dictionary [ syscall ]: dict [ any ] = dictionary
     
     # function used to insert a new measurement for an instruction
     def addMeasurement ( self , syscall: str , duration: int , success: bool ) -> None :
@@ -86,14 +85,14 @@ class Statistic :
             # increment the counter of bad terminations
             self.dictionary [ syscall ] [ "Bad_terminations" ] = self.dictionary [ syscall ] [ "Bad_terminations" ] + 1
     
-    # function used to get the statistics of a particular instruction
-    def getDictionaryOfInstruction ( self , syscall: str ) -> dict :
+    # function used to get the analysis of a particular instruction
+    def getAnalysisOfInstruction ( self , syscall: str ) -> dict [ any ] :
         #
         # return the dictionary of that syscall
         return self.dictionary [ syscall ]
     
     # function used to get the whole dictionary
-    def getDictionary ( self ) -> dict :
+    def getDictionary ( self ) -> dict [ dict [ any ] ] :
         #
         # return the dictionary
         return self.dictionary
@@ -103,6 +102,9 @@ class Statistic :
         #
         # variable to store the output
         output: str = ""
+        #
+        # print debug row of analysis of each syscall
+        output: str = f"{output}\nANALYSIS OF ALL SYSCALL\n"
         #
         # for each instruction
         for instruction in self.dictionary.keys ( ) :
@@ -119,12 +121,12 @@ class Statistic :
         # return the output
         return output
 
-if __name__ == "__main__" :
-    d = Statistic ( )
+"""if __name__ == "__main__" :
+    d = Analyses ( )
     d.addMeasurement ( "syscall" , 1 , True )
     d.addMeasurement ( "syscall" , 2 , False )
     d.addMeasurement ( "syscall" , 3 , True )
     d.addMeasurement ( "syscall" , 4 , False )
     d.addMeasurement ( "syscall" , 5 , False )
     d.addMeasurement ( "syscall" , 6 , False )
-    print ( d )
+    print ( d )"""

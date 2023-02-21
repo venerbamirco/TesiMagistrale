@@ -118,4 +118,4 @@ class Ptracer ( GeneralSocket ) :
             else :
                 #
                 # we must skip it
-                pass
+                self.manageFile.writeIntoFile ( x )
