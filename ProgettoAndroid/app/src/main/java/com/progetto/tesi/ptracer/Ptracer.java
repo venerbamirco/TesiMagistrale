@@ -2,8 +2,7 @@ package com.progetto.tesi.ptracer;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.progetto.tesi.debugger.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.settings.Settings;
 import com.progetto.tesi.socket.Client;
 
 import java.io.File;
@@ -54,7 +53,7 @@ public class Ptracer extends Thread {
 
         /*set all parameters for the execution*/
         this.executableName = " ./ptracer ";
-        this.ipAddressAndPortWebServer = " 192.168.1.10 1500 ";
+        this.ipAddressAndPortWebServer = " " + Settings.ipAddress + " " + Settings.portPtracer + " ";
         this.flagsExecution = " --follow-threads true --follow-children true --decoders false --backtrace false --pid " + this.pid + " ";
 
         /*start ptracer*/

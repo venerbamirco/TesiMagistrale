@@ -1,7 +1,6 @@
 package com.progetto.tesi.socket;
 
-import com.progetto.tesi.debugger.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
+import com.progetto.tesi.settings.Settings;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
@@ -47,9 +46,9 @@ public class Client extends Thread {
     /*function used to initialize all necessary variables*/
     private void initializeAllVariables ( ) {
 
-        this.addressServerSocket = "192.168.1.10";
+        this.addressServerSocket = Settings.ipAddress;
 
-        this.portServerSocket = 1501;
+        this.portServerSocket = Settings.portAndroid;
 
         /*create the queue for the messages using the socket*/
         this.dataToBeSent = new LinkedList < String > ( );
