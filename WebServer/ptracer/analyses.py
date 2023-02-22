@@ -17,7 +17,7 @@ from statistics import mean
 from numpy import var
 
 # class to manage the analyses for each instruction
-class AnalysesInstruction :
+class Instruction :
     
     # constructor to initialize the analyses of actual instruction
     def __init__ ( self , syscall: str ) -> None :
@@ -125,7 +125,7 @@ class Analyses :
     def __init__ ( self ) -> None :
         #
         # create an empty dictionary of analyses instructions
-        self.listAllInstructions: dict [ AnalysesInstruction ] = dict ( )
+        self.listAllInstructions: dict [ Instruction ] = dict ( )
     
     # function used to insert a new instruction into analyses
     def insertNewInstruction ( self , syscall: str ) -> None :
@@ -134,7 +134,7 @@ class Analyses :
         if syscall not in self.listAllInstructions.keys ( ) :
             #
             # create an initialized analyses object for the new instruction
-            self.listAllInstructions [ syscall ]: AnalysesInstruction = AnalysesInstruction ( syscall )
+            self.listAllInstructions [ syscall ]: Instruction = Instruction ( syscall )
     
     # function used to insert a new measurement for an instruction
     def addMeasurement ( self , syscall: str , duration: int , success: bool ) -> None :
@@ -161,7 +161,7 @@ class Analyses :
         for instruction in self.listAllInstructions.keys ( ) :
             #
             # print the analyses of actual instruction
-            output += f"{self.listAllInstructions [ instruction ]}\n"
+            output += f"{self.listAllInstructions [ instruction ]}"
         #
         # return the output
         return output

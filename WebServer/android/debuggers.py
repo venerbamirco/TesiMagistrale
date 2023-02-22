@@ -4,7 +4,6 @@ LIST OF ALL DEBUGGERS
 		Name: GDB debugger
 		Found: True
 		Timestamp: 1677055652603636
-
 	Debugger
 		Name: JDWP debugger
 		Found: False
@@ -23,7 +22,7 @@ class Debugger :
         self.found: bool = False
         #
         # timestamp in which is found
-        self.timestamp: int = None
+        self.foundTimestamp: int = None
     
     # function used to set found a debugger
     def setDebuggerFound ( self , timestamp: int ) -> None :
@@ -32,7 +31,7 @@ class Debugger :
         self.found: bool = True
         #
         # timestamp in which is found
-        self.timestamp: int = timestamp
+        self.foundTimestamp: int = timestamp
     
     # function used to print a debugger object
     def __str__ ( self ) -> str :
@@ -50,7 +49,7 @@ class Debugger :
         if self.found :
             #
             # add the timestamp in which is found
-            output: str = f"{output}\t\tTimestamp: {self.timestamp}\n"
+            output: str = f"{output}\t\tTimestamp: {self.foundTimestamp}\n"
         #
         # return the output
         return output
@@ -68,16 +67,16 @@ class Debuggers :
         self.jdwpDebugger: Debugger = Debugger ( "JDWP debugger" )
     
     # function used to set found the gdb debugger
-    def setFoundGdbDebugger ( self , timestamp: int ) :
+    def setFoundGdbDebugger ( self , foundTimestamp: int ) :
         #
         # set found the gdb debugger
-        self.gdbDebugger.setDebuggerFound ( timestamp )
+        self.gdbDebugger.setDebuggerFound ( foundTimestamp )
     
     # function used to set found the jdwp debugger
-    def setFoundJdwpDebugger ( self , timestamp: int ) :
+    def setFoundJdwpDebugger ( self , foundTimestamp: int ) :
         #
         # set found the jdwp debugger
-        self.jdwpDebugger.setDebuggerFound ( timestamp )
+        self.jdwpDebugger.setDebuggerFound ( foundTimestamp )
     
     # function used to print all debuggers
     def __str__ ( self ) -> str :
@@ -89,10 +88,10 @@ class Debuggers :
         output: str = f"{output}\nLIST OF ALL DEBUGGERS\n"
         #
         # print gdb debugger
-        output: str = f"{output}{self.gdbDebugger}\n"
+        output: str = f"{output}{self.gdbDebugger}"
         #
         # print jdwp debugger
-        output: str = f"{output}{self.jdwpDebugger}\n"
+        output: str = f"{output}{self.jdwpDebugger}"
         #
         # return the output
         return output

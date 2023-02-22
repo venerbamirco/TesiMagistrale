@@ -1,9 +1,33 @@
 """
 LIST OF ALL DEBUGGABLE APPLICATIONS
-	application1
-	application2
-	application3
+	Application
+		Name: application1
+	Application
+		Name: application2
+	Application
+		Name: application3
 """
+
+# class used to manage the single application
+class Application :
+    
+    # constructor to initialize the single application
+    def __init__ ( self , name: str ) -> None :
+        #
+        # save the name
+        self.name = name
+    
+    # function used to print the application details
+    def __str__ ( self ) :
+        #
+        # variable to store the output
+        output: str = "\tApplication\n"
+        #
+        # add name of the application
+        output: str = f"{output}\t\tName: {self.name}\n"
+        #
+        # return the output
+        return output
 
 # class used to manage the list of debuggable applications
 class DebuggableApplications :
@@ -12,16 +36,16 @@ class DebuggableApplications :
     def __init__ ( self ) -> None :
         #
         # create the list for all debuggable applications
-        self.listDebuggableApplications: list [ str ] = list ( )
+        self.listDebuggableApplications: list [ Application ] = list ( )
     
     # function used to insert a new debuggable application in the list
-    def addNewDebuggableApplication ( self , application: str ) -> None :
+    def addDebuggableApplication ( self , name: str ) -> None :
         #
-        # if the application is not in the list
-        if application not in self.listDebuggableApplications :
-            #
-            # insert the new debuggable application in the list
-            self.listDebuggableApplications.append ( application )
+        # create the application with the right name
+        application: Application = Application ( name )
+        #
+        # insert the new debuggable application in the list
+        self.listDebuggableApplications.append ( application )
     
     # function used to print the list of all debuggable applications
     def __str__ ( self ) -> str :
@@ -36,14 +60,14 @@ class DebuggableApplications :
         for application in self.listDebuggableApplications :
             #
             # print the name of actual application
-            output: str = f"{output}\t{application}\n"
+            output: str = f"{output}{application}"
         #
         # return the output
         return output
 
 if __name__ == "__main__" :
     i = DebuggableApplications ( )
-    i.addNewDebuggableApplication("application1")
-    i.addNewDebuggableApplication("application2")
-    i.addNewDebuggableApplication("application3")
+    i.addDebuggableApplication ( "application1" )
+    i.addDebuggableApplication ( "application2" )
+    i.addDebuggableApplication ( "application3" )
     print ( i )

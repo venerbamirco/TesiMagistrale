@@ -23,7 +23,7 @@ LIST OF ALL TERMINATED SYSCALL
 class Instruction :
     
     # constructor to initialize an instruction
-    def __init__ ( self , syscall: str , pid: int , spid: int , start_timestamp: int ) -> None :
+    def __init__ ( self , syscall: str , pid: int , spid: int , startTimestamp: int ) -> None :
         #
         # save the name of the syscall
         self.syscall: str = syscall
@@ -34,38 +34,38 @@ class Instruction :
         # save the spid
         self.spid: int = spid
         #
-        # save the start_timestamp
-        self.start_timestamp: int = start_timestamp
+        # save the startTimestamp
+        self.startTimestamp: int = startTimestamp
         #
         # finish timestamp not defined at this moment
-        self.finish_timestamp: int = None
+        self.finishTimestamp: int = None
         #
         # save the return value not defined at this moment
-        self.return_value: int = None
+        self.returnValue: int = None
         #
         # variable used to see if the actual instruction is finished
         self.finished: bool = False
     
     # function used to set the terminated status in the actual instruction
-    def finish_instruction ( self , return_value: int , finish_timestamp: int ) -> None :
+    def finishInstruction ( self , returnValue: int , finishTimestamp: int ) -> None :
         #
         # the instruction is finished
         self.finished: bool = True
         #
         # save the return value
-        self.return_value: int = return_value
+        self.returnValue: int = returnValue
         #
         # save the finish timestamp
-        self.finish_timestamp: int = finish_timestamp
+        self.finishTimestamp: int = finishTimestamp
     
     # function used to get the duration of actual instruction
-    def get_duration_instruction ( self ) -> int :
+    def getDuration ( self ) -> int :
         #
         # if the instruction is finished
         if self.finished :
             #
             # return the duration in milliseconds
-            return self.finish_timestamp - self.start_timestamp
+            return self.finishTimestamp - self.startTimestamp
         #
         # else if the instruction is not finished
         else :
@@ -95,7 +95,7 @@ class Instruction :
             output: str = f"{output}\t\tStatus: Executing\n"
             #
             # add start timestamp of syscall
-            output: str = f"{output}\t\tStart: {self.start_timestamp}\n"
+            output: str = f"{output}\t\tStart: {self.startTimestamp}\n"
         #
         # else if the syscall is finished
         else :
@@ -104,16 +104,16 @@ class Instruction :
             output: str = f"{output}\t\tStatus: Finished\n"
             #
             # add start timestamp of syscall
-            output: str = f"{output}\t\tStart: {self.start_timestamp}\n"
+            output: str = f"{output}\t\tStart: {self.startTimestamp}\n"
             #
             # add finish timestamp of syscall
-            output: str = f"{output}\t\tFinish: {self.finish_timestamp}\n"
+            output: str = f"{output}\t\tFinish: {self.finishTimestamp}\n"
             #
             # add duration of syscall
-            output: str = f"{output}\t\tDuration: {self.get_duration_instruction ( )}\n"
+            output: str = f"{output}\t\tDuration: {self.getDuration ( )}\n"
             #
             # add return value of syscall
-            output: str = f"{output}\t\tReturn Value: {self.return_value}\n"
+            output: str = f"{output}\t\tReturn Value: {self.returnValue}\n"
         #
         # return the output
         return output
@@ -131,10 +131,10 @@ class Instructions :
         self.listNotTerminatedInstructions: list [ Instruction ] = list ( )
     
     # function used to add a new instruction in the list
-    def addInstructionInTheList ( self , syscall: str , pid: int , spid: int , start_timestamp: int ) :
+    def addInstruction ( self , syscall: str , pid: int , spid: int , startTimestamp: int ) :
         #
         # create the instruction
-        instruction: Instruction = Instruction ( syscall , pid , spid , start_timestamp )
+        instruction: Instruction = Instruction ( syscall , pid , spid , startTimestamp )
         #
         # append the instruction in the list of all instructions
         self.listAllInstructions.append ( instruction )
@@ -143,7 +143,7 @@ class Instructions :
         self.listNotTerminatedInstructions.append ( instruction )
     
     # function used to terminate instruction
-    def terminateInstruction ( self , pid: int , spid: int , return_value: int , finish_timestamp: int ) :
+    def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) :
         #
         # for each instruction in the list of not terminated instructions
         for instruction in self.listNotTerminatedInstructions :
@@ -152,7 +152,7 @@ class Instructions :
             if instruction.pid == pid and instruction.spid == spid :
                 #
                 # terminated the right instruction in the list of all instructions
-                self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].finish_instruction ( return_value , finish_timestamp )
+                self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].finishInstruction ( returnValue , finishTimestamp )
                 #
                 # exit from the loop
                 break
@@ -192,7 +192,7 @@ class Instructions :
 
 if __name__ == "__main__" :
     i = Instructions ( )
-    i.addInstructionInTheList ( "name1" , 1 , 1 , 1676364852615690 )
-    i.addInstructionInTheList ( "name2" , 2 , 2 , 2676364852615690 )
-    i.terminateInstruction(2, 2, 0, 4715285019562354)
+    i.addInstruction ( "name1" , 1 , 1 , 1676364852615690 )
+    i.addInstruction ( "name2" , 2 , 2 , 2676364852615690 )
+    i.finishInstruction(2, 2, 0, 4715285019562354)
     print ( i )

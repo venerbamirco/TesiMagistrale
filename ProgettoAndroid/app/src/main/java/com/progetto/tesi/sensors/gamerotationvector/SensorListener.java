@@ -555,7 +555,7 @@ public class SensorListener implements SensorEventListener {
     private void printDetailsSensorText ( ) {
 
         /*print and send these data to the client*/
-        this.addDataToBeSent ( "SensorListener: Texts:  Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
+        this.addDataToBeSent ( "SensorListener: Texts: Azimuth " + this.azimuth + " Pitch " + this.pitch + " " + "Roll " + this.roll );
 
     }
 
@@ -563,7 +563,7 @@ public class SensorListener implements SensorEventListener {
     private void printDetailsSensorNumber ( ) {
 
         /*print and send these data to the client*/
-        this.addDataToBeSent ( "SensorListener: Numbers:  Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
+        this.addDataToBeSent ( "SensorListener: Numbers: Azimuth " + this.azimuthInt + " Pitch " + this.pitchInt + " " + "Roll " + this.rollInt );
 
     }
 

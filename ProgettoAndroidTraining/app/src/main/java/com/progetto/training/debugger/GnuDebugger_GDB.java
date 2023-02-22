@@ -101,7 +101,7 @@ public class GnuDebugger_GDB extends Thread {
         for ( int i = 0 ; i < this.listRunningProcesses.size ( ) ; ++ i ) {
 
             /*if the actual process is this application*/
-            if ( this.listRunningProcesses.get ( i ).processName.equalsIgnoreCase ( "com.progetto.tesi" ) ) {
+            if ( this.listRunningProcesses.get ( i ).processName.equalsIgnoreCase ( "com.progetto.training" ) ) {
 
                 /*save the pid*/
                 this.pid = this.listRunningProcesses.get ( i ).pid;

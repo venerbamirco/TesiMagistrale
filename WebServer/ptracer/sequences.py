@@ -1,15 +1,57 @@
 """
-LIST OF ALL SEQUENCES FOR EACH SYSCALL
-	Syscall
-		Name: namesyscall
-		Next:['namesyscall1', 'namesyscall2']
-	Syscall
-		Name: namesyscall1
-		Next:['namesyscall2']
-	Syscall
-		Name: namesyscall2
-		Next:[]
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+	Instruction
+		Name: nameinstruction
+		Next: [nameinstruction1, nameinstruction2]
+	Instruction
+		Name: nameinstruction1
+		Next: [nameinstruction2]
+	Instruction
+		Name: nameinstruction2
+		Next: []
 """
+
+# class to manage the single instruction
+class Instruction :
+    
+    # constructor to initialize a single instruction
+    def __init__ ( self , name: str ) -> None :
+        #
+        # save the name of the instruction
+        self.name: str = name
+        #
+        # empty list of possible next instructions
+        self.nextInstructions: list [ Instruction ] = list ( )
+    
+    # function used to add an instruction
+    def addNextInstruction ( self , name: str ) -> None :
+        #
+        # create a simple instruction object
+        instruction: Instruction = Instruction ( name )
+        #
+        # append the instruction in the list of possible instructions
+        self.nextInstructions.append ( instruction )
+    
+    # function used to represent the object with only the name
+    def __repr__ ( self ) -> str :
+        #
+        # return only the name
+        return f"{self.name}"
+    
+    # function used to print the instruction object
+    def __str__ ( self ) -> str :
+        #
+        # variable to store the output
+        output: str = "\tInstruction\n"
+        #
+        # add the name
+        output: str = f"{output}\t\tName: {self.name}\n"
+        #
+        # add the next possible instructions
+        output: str = f"{output}\t\tNext: {self.nextInstructions}\n"
+        #
+        # return the output
+        return output
 
 # class to manage sequence of instructions
 class Sequences :
@@ -17,56 +59,44 @@ class Sequences :
     # constructor to initialize the structure for sequences
     def __init__ ( self ) -> None :
         #
-        # create an empty dictionary
-        self.dictionary: dict [ list [ str ] ] = dict ( )
+        # create a list of all instructions
+        self.listInstructions: list [ Instruction ] = list ( )
     
     # function used to insert a new instruction in the dictionary
-    def insertNewInstruction ( self , syscall: str ) -> None :
+    def addInstruction ( self , syscall: str ) -> None :
         #
         # if the syscall is not in the dictionary
-        if syscall not in self.dictionary.keys ( ) :
+        if not any ( instruction.name == syscall for instruction in self.listInstructions ) :
             #
-            # initialize as empty list the sequences of actual syscall
-            self.dictionary [ syscall ]: list [ str ] = [ ]
+            # create a new instruction object with an empty list of next instructions
+            instruction: Instruction = Instruction ( syscall )
+            #
+            # append the actual instruction in the list of all instructions
+            self.listInstructions.append ( instruction )
+        #
+        # order instructions in the list
+        self.listInstructions.sort ( key = lambda x : x.name )
     
-    # function used to insert a new element in a certain key
-    def insertNewSequence ( self , previousSyscall: str , nextSyscall: str ) -> None :
+    # function used to insert a next instruction for a specific instruction
+    def addNextInstruction ( self , previousSyscall: str , nextSyscall: str ) -> None :
         #
         # if the previous instruction is not in dictionary
-        if previousSyscall not in self.dictionary.keys ( ) :
+        if not any ( instruction.name == previousSyscall for instruction in self.listInstructions ) :
             #
             # insert a new instruction in the dictionary for the previous instruction
-            self.insertNewInstruction ( previousSyscall )
-            #
-            # insert the sequence
-            self.insertNewSequence ( previousSyscall , nextSyscall )
+            self.addInstruction ( previousSyscall )
         #
         # if the next instruction is not in dictionary
-        elif nextSyscall not in self.dictionary.keys ( ) :
+        elif not any ( instruction.name == nextSyscall for instruction in self.listInstructions ) :
             #
             # insert a new instruction in the dictionary for the next instruction
-            self.insertNewInstruction ( nextSyscall )
-            #
-            # insert the sequence
-            self.insertNewSequence ( previousSyscall , nextSyscall )
+            self.addInstruction ( nextSyscall )
         #
-        # if all syscall are in dictionary
-        else :
-            #
-            # append the next instruction in the actual instruction
-            self.dictionary.get ( previousSyscall ).append ( nextSyscall )
-    
-    # function used to get the sequences of a particular instruction
-    def getSequencesOfInstruction ( self , syscall: str ) -> list [ str ] :
+        # obtain the object in the list for the previous instruction
+        prevInstruction = [ obj for obj in self.listInstructions if obj.name == previousSyscall ] [ 0 ]
         #
-        # return the dictionary of that syscall
-        return self.dictionary [ syscall ]
-    
-    # function used to get the whole dictionary
-    def getDictionary ( self ) -> dict [ list [ str ] ] :
-        #
-        # return the dictionary
-        return self.dictionary
+        # add the next instruction in the actual instruction next instructions list
+        self.listInstructions [ self.listInstructions.index ( prevInstruction ) ].addNextInstruction ( nextSyscall )
     
     # function used to print the dictionary of sequences of each instruction
     def __str__ ( self ) -> str :
@@ -75,26 +105,20 @@ class Sequences :
         output: str = ""
         #
         # print debug row of sequences for each syscall
-        output: str = f"{output}\nLIST OF ALL SEQUENCES FOR EACH SYSCALL\n"
+        output: str = f"{output}\nLIST OF ALL SEQUENCES FOR EACH INSTRUCTION\n"
         #
         # for each instruction
-        for syscall in self.dictionary.keys ( ) :
+        for syscall in self.listInstructions :
             #
             # print debug row for another syscall fragment
-            output: str = f"{output}\tSyscall\n"
-            #
-            # print the actual key
-            output: str = f"{output}\t\tName: {syscall}\n"
-            #
-            # print next possible syscall
-            output: str = f"{output}\t\tNext:{self.dictionary [ syscall ]}\n"
+            output: str = f"{output}{syscall}"
         #
         # return the output
         return output
 
 if __name__ == "__main__" :
     d = Sequences ( )
-    d.insertNewSequence ( "namesyscall" , "namesyscall1" )
-    d.insertNewSequence ( "namesyscall" , "namesyscall2" )
-    d.insertNewSequence ( "namesyscall1" , "namesyscall2" )
+    d.addNextInstruction ( "nameinstruction" , "nameinstruction1" )
+    d.addNextInstruction ( "nameinstruction" , "nameinstruction2" )
+    d.addNextInstruction ( "nameinstruction1" , "nameinstruction2" )
     print ( d )
