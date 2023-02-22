@@ -1,11 +1,14 @@
 """
 LIST OF ALL SEQUENCES FOR EACH SYSCALL
-syscall
-		syscall1
-		syscall2
-syscall1
-		syscall2
-syscall2
+	Syscall
+		Name: namesyscall
+		Next:['namesyscall1', 'namesyscall2']
+	Syscall
+		Name: namesyscall1
+		Next:['namesyscall2']
+	Syscall
+		Name: namesyscall2
+		Next:[]
 """
 
 # class to manage sequence of instructions
@@ -77,21 +80,21 @@ class Sequences :
         # for each instruction
         for syscall in self.dictionary.keys ( ) :
             #
-            # print the actual key
-            output: str = f"{output}{syscall}\n"
+            # print debug row for another syscall fragment
+            output: str = f"{output}\tSyscall\n"
             #
-            # for each next syscall of actual instruction
-            for nextSyscall in self.dictionary [ syscall ] :
-                #
-                # print next syscall
-                output: str = f"{output}\t\t{nextSyscall}\n"
+            # print the actual key
+            output: str = f"{output}\t\tName: {syscall}\n"
+            #
+            # print next possible syscall
+            output: str = f"{output}\t\tNext:{self.dictionary [ syscall ]}\n"
         #
         # return the output
         return output
 
 if __name__ == "__main__" :
     d = Sequences ( )
-    d.insertNewSequence ( "syscall" , "syscall1" )
-    d.insertNewSequence ( "syscall" , "syscall2" )
-    d.insertNewSequence ( "syscall1" , "syscall2" )
+    d.insertNewSequence ( "namesyscall" , "namesyscall1" )
+    d.insertNewSequence ( "namesyscall" , "namesyscall2" )
+    d.insertNewSequence ( "namesyscall1" , "namesyscall2" )
     print ( d )

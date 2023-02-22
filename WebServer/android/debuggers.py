@@ -1,0 +1,103 @@
+"""
+LIST OF ALL DEBUGGERS
+	Debugger
+		Name: GDB debugger
+		Found: True
+		Timestamp: 1677055652603636
+
+	Debugger
+		Name: JDWP debugger
+		Found: False
+"""
+
+# class used to manage the debugger
+class Debugger :
+    
+    # constructor to initialize the debugger
+    def __init__ ( self , name: str ) -> None :
+        #
+        # name of the debugger
+        self.name: str = name
+        #
+        # debugger not found at the moment
+        self.found: bool = False
+        #
+        # timestamp in which is found
+        self.timestamp: int = None
+    
+    # function used to set found a debugger
+    def setDebuggerFound ( self , timestamp: int ) -> None :
+        #
+        # debugger is found
+        self.found: bool = True
+        #
+        # timestamp in which is found
+        self.timestamp: int = timestamp
+    
+    # function used to print a debugger object
+    def __str__ ( self ) -> str :
+        #
+        # variable to store the output
+        output: str = "\tDebugger\n"
+        #
+        # add name of debugger
+        output: str = f"{output}\t\tName: {self.name}\n"
+        #
+        # add status of debugger
+        output: str = f"{output}\t\tFound: {self.found}\n"
+        #
+        # if the debugger is found
+        if self.found :
+            #
+            # add the timestamp in which is found
+            output: str = f"{output}\t\tTimestamp: {self.timestamp}\n"
+        #
+        # return the output
+        return output
+
+# class used to manage all types of debuggers
+class Debuggers :
+    
+    # constructor to initialize all possible debuggers
+    def __init__ ( self ) :
+        #
+        # create the gdb debugger
+        self.gdbDebugger: Debugger = Debugger ( "GDB debugger" )
+        #
+        # create the jdwp debugger
+        self.jdwpDebugger: Debugger = Debugger ( "JDWP debugger" )
+    
+    # function used to set found the gdb debugger
+    def setFoundGdbDebugger ( self , timestamp: int ) :
+        #
+        # set found the gdb debugger
+        self.gdbDebugger.setDebuggerFound ( timestamp )
+    
+    # function used to set found the jdwp debugger
+    def setFoundJdwpDebugger ( self , timestamp: int ) :
+        #
+        # set found the jdwp debugger
+        self.jdwpDebugger.setDebuggerFound ( timestamp )
+    
+    # function used to print all debuggers
+    def __str__ ( self ) -> str :
+        #
+        # initialize as empty the output string
+        output: str = ""
+        #
+        # print debug row of all debuggers
+        output: str = f"{output}\nLIST OF ALL DEBUGGERS\n"
+        #
+        # print gdb debugger
+        output: str = f"{output}{self.gdbDebugger}\n"
+        #
+        # print jdwp debugger
+        output: str = f"{output}{self.jdwpDebugger}\n"
+        #
+        # return the output
+        return output
+
+if __name__ == "__main__" :
+    i = Debuggers ( )
+    i.setFoundGdbDebugger ( 1677055652603636 )
+    print ( i )

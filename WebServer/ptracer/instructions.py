@@ -1,22 +1,22 @@
 """
 LIST OF ALL NOT TERMINATED SYSCALL
 	Syscall
-			Name: name1
-			Pid: 1
-			Spid: 1
-			Status: Executing
-			Start: 1676364852615690
-			
+		Name: name1
+		Pid: 1
+		Spid: 1
+		Status: Executing
+		Start: 1676364852615690
+
 LIST OF ALL TERMINATED SYSCALL
 	Syscall
-			Name: name1
-			Pid: 1
-			Spid: 1
-			Status: Finished
-			Start: 1676364852615690
-			Finish: 3715285019562354
-			Duration: 2038920166946664
-			Return Value: 0
+		Name: name2
+		Pid: 2
+		Spid: 2
+		Status: Finished
+		Start: 2676364852615690
+		Finish: 4715285019562354
+		Duration: 2038920166946664
+		Return Value: 0
 """
 
 # class to manage the structure of a single instruction
@@ -80,40 +80,40 @@ class Instruction :
         output: str = "\tSyscall\n"
         #
         # add name of syscall
-        output: str = f"{output}\t\t\tName: {self.syscall}\n"
+        output: str = f"{output}\t\tName: {self.syscall}\n"
         #
         # add pid of syscall
-        output: str = f"{output}\t\t\tPid: {self.pid}\n"
+        output: str = f"{output}\t\tPid: {self.pid}\n"
         #
         # add spid of syscall
-        output: str = f"{output}\t\t\tSpid: {self.spid}\n"
+        output: str = f"{output}\t\tSpid: {self.spid}\n"
         #
         # if the syscall in not finished
         if not self.finished :
             #
             # add status of syscall
-            output: str = f"{output}\t\t\tStatus: Executing\n"
+            output: str = f"{output}\t\tStatus: Executing\n"
             #
             # add start timestamp of syscall
-            output: str = f"{output}\t\t\tStart: {self.start_timestamp}\n"
+            output: str = f"{output}\t\tStart: {self.start_timestamp}\n"
         #
         # else if the syscall is finished
         else :
             #
             # add status of syscall
-            output: str = f"{output}\t\t\tStatus: Finished\n"
+            output: str = f"{output}\t\tStatus: Finished\n"
             #
             # add start timestamp of syscall
-            output: str = f"{output}\t\t\tStart: {self.start_timestamp}\n"
+            output: str = f"{output}\t\tStart: {self.start_timestamp}\n"
             #
             # add finish timestamp of syscall
-            output: str = f"{output}\t\t\tFinish: {self.finish_timestamp}\n"
+            output: str = f"{output}\t\tFinish: {self.finish_timestamp}\n"
             #
             # add duration of syscall
-            output: str = f"{output}\t\t\tDuration: {self.get_duration_instruction ( )}\n"
+            output: str = f"{output}\t\tDuration: {self.get_duration_instruction ( )}\n"
             #
             # add return value of syscall
-            output: str = f"{output}\t\t\tReturn Value: {self.return_value}\n"
+            output: str = f"{output}\t\tReturn Value: {self.return_value}\n"
         #
         # return the output
         return output
@@ -190,11 +190,9 @@ class Instructions :
         # return the output
         return output
 
-"""if __name__ == "__main__" :
+if __name__ == "__main__" :
     i = Instructions ( )
     i.addInstructionInTheList ( "name1" , 1 , 1 , 1676364852615690 )
     i.addInstructionInTheList ( "name2" , 2 , 2 , 2676364852615690 )
-    print ( i )
-    i.terminateInstruction(1, 1, 0, 3715285019562354)
     i.terminateInstruction(2, 2, 0, 4715285019562354)
-    print ( i )"""
+    print ( i )
