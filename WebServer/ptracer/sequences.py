@@ -1,11 +1,14 @@
 """
 LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
 	Instruction
 		Name: nameinstruction
 		Next: [nameinstruction1, nameinstruction2]
+
 	Instruction
 		Name: nameinstruction1
 		Next: [nameinstruction2]
+
 	Instruction
 		Name: nameinstruction2
 		Next: []
@@ -31,6 +34,9 @@ class Instruction :
         #
         # append the instruction in the list of possible instructions
         self.nextInstructions.append ( instruction )
+        #
+        # order the list of next instructions
+        self.nextInstructions.sort ( key = lambda x : x.name )
     
     # function used to represent the object with only the name
     def __repr__ ( self ) -> str :
@@ -42,7 +48,7 @@ class Instruction :
     def __str__ ( self ) -> str :
         #
         # variable to store the output
-        output: str = "\tInstruction\n"
+        output: str = "\n\tInstruction\n"
         #
         # add the name
         output: str = f"{output}\t\tName: {self.name}\n"
@@ -63,40 +69,49 @@ class Sequences :
         self.listInstructions: list [ Instruction ] = list ( )
     
     # function used to insert a new instruction in the dictionary
-    def addInstruction ( self , syscall: str ) -> None :
+    def addInstruction ( self , name: str ) -> None :
         #
-        # if the syscall is not in the dictionary
-        if not any ( instruction.name == syscall for instruction in self.listInstructions ) :
+        # if the instruction is not in the list
+        if not any ( instruction.name == name for instruction in self.listInstructions ) :
             #
             # create a new instruction object with an empty list of next instructions
-            instruction: Instruction = Instruction ( syscall )
+            instruction: Instruction = Instruction ( name )
             #
             # append the actual instruction in the list of all instructions
             self.listInstructions.append ( instruction )
-        #
-        # order instructions in the list
-        self.listInstructions.sort ( key = lambda x : x.name )
+            #
+            # order instructions in the list
+            self.listInstructions.sort ( key = lambda x : x.name )
     
     # function used to insert a next instruction for a specific instruction
-    def addNextInstruction ( self , previousSyscall: str , nextSyscall: str ) -> None :
+    def addNextInstruction ( self , previousInstruction: str , nextInstruction: str ) -> None :
         #
         # if the previous instruction is not in dictionary
-        if not any ( instruction.name == previousSyscall for instruction in self.listInstructions ) :
+        if not any ( instruction.name == previousInstruction for instruction in self.listInstructions ) :
             #
             # insert a new instruction in the dictionary for the previous instruction
-            self.addInstruction ( previousSyscall )
+            self.addInstruction ( previousInstruction )
         #
         # if the next instruction is not in dictionary
-        elif not any ( instruction.name == nextSyscall for instruction in self.listInstructions ) :
+        elif not any ( instruction.name == nextInstruction for instruction in self.listInstructions ) :
             #
             # insert a new instruction in the dictionary for the next instruction
-            self.addInstruction ( nextSyscall )
+            self.addInstruction ( nextInstruction )
         #
         # obtain the object in the list for the previous instruction
-        prevInstruction = [ obj for obj in self.listInstructions if obj.name == previousSyscall ] [ 0 ]
+        prevInstruction:Instruction = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
         #
         # add the next instruction in the actual instruction next instructions list
-        self.listInstructions [ self.listInstructions.index ( prevInstruction ) ].addNextInstruction ( nextSyscall )
+        self.listInstructions [ self.listInstructions.index ( prevInstruction ) ].addNextInstruction ( nextInstruction )
+    
+    # function used to get a specific instruction
+    def getInstruction ( self , name: str ) -> Instruction :
+        #
+        # obtain the right instruction
+        instruction: Instruction = [ obj for obj in self.listInstructions if obj.name == name ] [ 0 ]
+        #
+        # return the specific instruction
+        return instruction
     
     # function used to print the dictionary of sequences of each instruction
     def __str__ ( self ) -> str :
@@ -104,21 +119,21 @@ class Sequences :
         # variable to store the output
         output: str = ""
         #
-        # print debug row of sequences for each syscall
+        # print debug row of sequences for each instruction
         output: str = f"{output}\nLIST OF ALL SEQUENCES FOR EACH INSTRUCTION\n"
         #
         # for each instruction
-        for syscall in self.listInstructions :
+        for instruction in self.listInstructions :
             #
-            # print debug row for another syscall fragment
-            output: str = f"{output}{syscall}"
+            # print debug row for another instruction fragment
+            output: str = f"{output}{instruction}"
         #
         # return the output
         return output
 
 if __name__ == "__main__" :
     d = Sequences ( )
-    d.addNextInstruction ( "nameinstruction" , "nameinstruction1" )
     d.addNextInstruction ( "nameinstruction" , "nameinstruction2" )
+    d.addNextInstruction ( "nameinstruction" , "nameinstruction1" )
     d.addNextInstruction ( "nameinstruction1" , "nameinstruction2" )
     print ( d )

@@ -1,14 +1,16 @@
 """
-LIST OF ALL NOT TERMINATED SYSCALL
-	Syscall
+LIST OF ALL NOT TERMINATED INSTRUCTIONS
+
+	Instruction
 		Name: name1
 		Pid: 1
 		Spid: 1
 		Status: Executing
 		Start: 1676364852615690
 
-LIST OF ALL TERMINATED SYSCALL
-	Syscall
+LIST OF ALL TERMINATED INSTRUCTIONS
+
+	Instruction
 		Name: name2
 		Pid: 2
 		Spid: 2
@@ -23,10 +25,10 @@ LIST OF ALL TERMINATED SYSCALL
 class Instruction :
     
     # constructor to initialize an instruction
-    def __init__ ( self , syscall: str , pid: int , spid: int , startTimestamp: int ) -> None :
+    def __init__ ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> None :
         #
-        # save the name of the syscall
-        self.syscall: str = syscall
+        # save the name of the instruction
+        self.name: str = name
         #
         # save the pid
         self.pid: int = pid
@@ -77,42 +79,42 @@ class Instruction :
     def __str__ ( self ) -> str :
         #
         # variable to store the output
-        output: str = "\tSyscall\n"
+        output: str = "\n\tInstruction\n"
         #
-        # add name of syscall
-        output: str = f"{output}\t\tName: {self.syscall}\n"
+        # add name
+        output: str = f"{output}\t\tName: {self.name}\n"
         #
-        # add pid of syscall
+        # add pid
         output: str = f"{output}\t\tPid: {self.pid}\n"
         #
-        # add spid of syscall
+        # add spid
         output: str = f"{output}\t\tSpid: {self.spid}\n"
         #
-        # if the syscall in not finished
+        # if the instruction is not finished
         if not self.finished :
             #
-            # add status of syscall
+            # add status
             output: str = f"{output}\t\tStatus: Executing\n"
             #
-            # add start timestamp of syscall
+            # add start timestamp
             output: str = f"{output}\t\tStart: {self.startTimestamp}\n"
         #
-        # else if the syscall is finished
+        # else if the instruction is finished
         else :
             #
-            # add status of syscall
+            # add status
             output: str = f"{output}\t\tStatus: Finished\n"
             #
-            # add start timestamp of syscall
+            # add start timestamp
             output: str = f"{output}\t\tStart: {self.startTimestamp}\n"
             #
-            # add finish timestamp of syscall
+            # add finish timestamp
             output: str = f"{output}\t\tFinish: {self.finishTimestamp}\n"
             #
-            # add duration of syscall
+            # add duration
             output: str = f"{output}\t\tDuration: {self.getDuration ( )}\n"
             #
-            # add return value of syscall
+            # add return value
             output: str = f"{output}\t\tReturn Value: {self.returnValue}\n"
         #
         # return the output
@@ -131,61 +133,70 @@ class Instructions :
         self.listNotTerminatedInstructions: list [ Instruction ] = list ( )
     
     # function used to add a new instruction in the list
-    def addInstruction ( self , syscall: str , pid: int , spid: int , startTimestamp: int ) :
+    def addInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> None :
         #
         # create the instruction
-        instruction: Instruction = Instruction ( syscall , pid , spid , startTimestamp )
+        instruction: Instruction = Instruction ( name , pid , spid , startTimestamp )
         #
         # append the instruction in the list of all instructions
         self.listAllInstructions.append ( instruction )
         #
         # append the instruction in the list of not terminated instructions
         self.listNotTerminatedInstructions.append ( instruction )
+        #
+        # order the list of all instructions
+        self.listAllInstructions.sort ( key = lambda x : x.name )
+        #
+        # order the list of all not terminated instructions
+        self.listAllInstructions.sort ( key = lambda x : x.name )
     
     # function used to terminate instruction
-    def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) :
+    def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) -> None :
         #
-        # for each instruction in the list of not terminated instructions
-        for instruction in self.listNotTerminatedInstructions :
-            #
-            # if it is the right instruction looking pid and spid codes
-            if instruction.pid == pid and instruction.spid == spid :
-                #
-                # terminated the right instruction in the list of all instructions
-                self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].finishInstruction ( returnValue , finishTimestamp )
-                #
-                # exit from the loop
-                break
+        # obtain the right instruction
+        instruction: Instruction = [ obj for obj in self.listAllInstructions
+                                     if obj.pid == pid and
+                                     obj.spid == spid ] [ 0 ]
+        #
+        # terminated the right instruction in the list of all instructions
+        self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].finishInstruction ( returnValue , finishTimestamp )
     
-    # function used to print an instruction object
+    # function used to get a specific instruction
+    def getInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> Instruction :
+        #
+        # obtain the right instruction
+        instruction: Instruction = [ obj for obj in self.listAllInstructions
+                                     if obj.name == name and
+                                     obj.pid == pid and
+                                     obj.spid == spid and
+                                     obj.startTimestamp == startTimestamp ] [ 0 ]
+        #
+        # return the specific instruction
+        return instruction
+    
+    # function used to print all instructions
     def __str__ ( self ) -> str :
         #
         # initialize as empty the output string
         output: str = ""
         #
         # print debug row of all not terminated instructions
-        output: str = f"{output}\nLIST OF ALL NOT TERMINATED SYSCALL\n"
+        output: str = f"{output}\nLIST OF ALL NOT TERMINATED INSTRUCTIONS\n"
         #
         # for each not terminated instruction
-        for instruction in self.listAllInstructions :
+        for instruction in [ obj for obj in self.listAllInstructions if not obj.finished ] :
             #
-            # if the actual instruction is not terminated
-            if not instruction.finished :
-                #
-                # print the actual not terminated instruction
-                output: str = f"{output}{instruction}"
+            # print the actual not terminated instruction
+            output: str = f"{output}{instruction}"
         #
         # print debug row of all terminated instructions
-        output: str = f"{output}\nLIST OF ALL TERMINATED SYSCALL\n"
+        output: str = f"{output}\nLIST OF ALL TERMINATED INSTRUCTIONS\n"
         #
-        # for each not terminated instruction
-        for instruction in self.listAllInstructions :
+        # for each terminated instruction
+        for instruction in [ obj for obj in self.listAllInstructions if obj.finished ] :
             #
-            # if the actual instruction is terminated
-            if instruction.finished :
-                #
-                # print the actual terminated instruction
-                output: str = f"{output}{instruction}"
+            # print the actual terminated instruction
+            output: str = f"{output}{instruction}"
         #
         # return the output
         return output
@@ -194,5 +205,5 @@ if __name__ == "__main__" :
     i = Instructions ( )
     i.addInstruction ( "name1" , 1 , 1 , 1676364852615690 )
     i.addInstruction ( "name2" , 2 , 2 , 2676364852615690 )
-    i.finishInstruction(2, 2, 0, 4715285019562354)
+    i.finishInstruction ( 2 , 2 , 0 , 4715285019562354 )
     print ( i )

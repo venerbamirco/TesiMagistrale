@@ -1,11 +1,11 @@
 """
 LIST OF ALL DEBUGGABLE APPLICATIONS
+
 	Application
 		Name: application1
+
 	Application
 		Name: application2
-	Application
-		Name: application3
 """
 
 # class used to manage the single application
@@ -15,13 +15,13 @@ class Application :
     def __init__ ( self , name: str ) -> None :
         #
         # save the name
-        self.name = name
+        self.name: str = name
     
     # function used to print the application details
     def __str__ ( self ) :
         #
         # variable to store the output
-        output: str = "\tApplication\n"
+        output: str = "\n\tApplication\n"
         #
         # add name of the application
         output: str = f"{output}\t\tName: {self.name}\n"
@@ -46,6 +46,9 @@ class DebuggableApplications :
         #
         # insert the new debuggable application in the list
         self.listDebuggableApplications.append ( application )
+        #
+        # order the list of debuggable applications
+        self.listDebuggableApplications.sort ( key = lambda x : x.name )
     
     # function used to print the list of all debuggable applications
     def __str__ ( self ) -> str :

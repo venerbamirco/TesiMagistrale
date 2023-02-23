@@ -1,7 +1,8 @@
 """
-ANALYSIS OF ALL SYSCALL
-	Syscall
-		Name: NameSyscall
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: NameInstruction
 		Minimum duration: 1
 		Maximum duration: 6
 		Average duration: 3.5
@@ -20,10 +21,10 @@ from numpy import var
 class Instruction :
     
     # constructor to initialize the analyses of actual instruction
-    def __init__ ( self , syscall: str ) -> None :
+    def __init__ ( self , name: str ) -> None :
         #
-        # set the name of syscall
-        self.syscall: str = syscall
+        # set the name
+        self.name: str = name
         #
         # set the minimum measure of duration
         self.minimumMeasure: int = 0
@@ -74,22 +75,22 @@ class Instruction :
         if success :
             #
             # increment the counter of good terminations
-            self.numberGoodTerminations = self.numberGoodTerminations + 1
+            self.numberGoodTerminations: int = self.numberGoodTerminations + 1
         #
         # if the instruction is terminated in a bad manner
         else :
             #
             # increment the counter of bad terminations
-            self.numberBadTerminations = self.numberBadTerminations + 1
+            self.numberBadTerminations: int = self.numberBadTerminations + 1
     
     # function used to print an instruction object
     def __str__ ( self ) -> str :
         #
         # variable to store the output
-        output: str = "\tSyscall\n"
+        output: str = "\n\tInstruction\n"
         #
-        # add name of syscall
-        output: str = f"{output}\t\tName: {self.syscall}\n"
+        # add name
+        output: str = f"{output}\t\tName: {self.name}\n"
         #
         # add minimum measure of duration
         output: str = f"{output}\t\tMinimum duration: {self.minimumMeasure}\n"
@@ -124,29 +125,47 @@ class Analyses :
     # constructor to initialize the structure for analyses
     def __init__ ( self ) -> None :
         #
-        # create an empty dictionary of analyses instructions
-        self.listAllInstructions: dict [ Instruction ] = dict ( )
+        # create an empty list of analyses instructions
+        self.listAllInstructions: list [ Instruction ] = list ( )
     
     # function used to insert a new instruction into analyses
-    def insertNewInstruction ( self , syscall: str ) -> None :
+    def addInstruction ( self , name: str ) -> None :
         #
-        # if the syscall is not in the analyses
-        if syscall not in self.listAllInstructions.keys ( ) :
+        # if the instruction is not in the list
+        if not any ( instruction.name == name for instruction in self.listAllInstructions ) :
             #
-            # create an initialized analyses object for the new instruction
-            self.listAllInstructions [ syscall ]: Instruction = Instruction ( syscall )
+            # create a new instruction
+            instruction: Instruction = Instruction ( name )
+            #
+            # append in the list the new instruction
+            self.listAllInstructions.append ( instruction )
+            #
+            # order the list of all instructions
+            self.listAllInstructions.sort ( key = lambda x : x.name )
     
     # function used to insert a new measurement for an instruction
-    def addMeasurement ( self , syscall: str , duration: int , success: bool ) -> None :
+    def addMeasurement ( self , name: str , duration: int , success: bool ) -> None :
         #
-        # if the instruction is not in the analyses
-        if syscall not in self.listAllInstructions.keys ( ) :
+        # if the instruction is not in the analyses list
+        if not any ( instruction.name == name for instruction in self.listAllInstructions ) :
             #
             # initialize the new instruction
-            self.insertNewInstruction ( syscall )
+            self.addInstruction ( name )
         #
-        # insert the new measurement in the right syscall
-        self.listAllInstructions [ syscall ].addMeasurement ( duration , success )
+        # obtain the right instruction
+        instruction: Instruction = [ obj for obj in self.listAllInstructions if obj.name == name ] [ 0 ]
+        #
+        # insert the new measurement in the right instruction
+        self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].addMeasurement ( duration , success )
+    
+    # function used to get analyses of a specific instruction
+    def getInstruction ( self , name: str ) -> Instruction :
+        #
+        # obtain the right instruction
+        instruction: Instruction = [ obj for obj in self.listAllInstructions if obj.name == name ] [ 0 ]
+        #
+        # return the instruction
+        return instruction
     
     # function used to print the analyses of statistics of each instruction
     def __str__ ( self ) -> str :
@@ -154,24 +173,24 @@ class Analyses :
         # variable to store the output
         output: str = ""
         #
-        # print debug row of analysis of each syscall
-        output: str = f"{output}\nANALYSIS OF ALL SYSCALL\n"
+        # print debug row of analysis of each instruction
+        output: str = f"{output}\nANALYSIS OF ALL INSTRUCTIONS\n"
         #
         # for each instruction
-        for instruction in self.listAllInstructions.keys ( ) :
+        for instruction in self.listAllInstructions :
             #
             # print the analyses of actual instruction
-            output += f"{self.listAllInstructions [ instruction ]}"
+            output: str = f"{output}{instruction}"
         #
         # return the output
         return output
 
 if __name__ == "__main__" :
     d = Analyses ( )
-    d.addMeasurement ( "NameSyscall" , 1 , True )
-    d.addMeasurement ( "NameSyscall" , 2 , False )
-    d.addMeasurement ( "NameSyscall" , 3 , True )
-    d.addMeasurement ( "NameSyscall" , 4 , False )
-    d.addMeasurement ( "NameSyscall" , 5 , False )
-    d.addMeasurement ( "NameSyscall" , 6 , False )
+    d.addMeasurement ( "NameInstruction" , 1 , True )
+    d.addMeasurement ( "NameInstruction" , 2 , False )
+    d.addMeasurement ( "NameInstruction" , 3 , True )
+    d.addMeasurement ( "NameInstruction" , 4 , False )
+    d.addMeasurement ( "NameInstruction" , 5 , False )
+    d.addMeasurement ( "NameInstruction" , 6 , False )
     print ( d )

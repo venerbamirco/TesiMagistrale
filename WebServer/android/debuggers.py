@@ -1,9 +1,11 @@
 """
 LIST OF ALL DEBUGGERS
+
 	Debugger
 		Name: GDB debugger
 		Found: True
 		Timestamp: 1677055652603636
+
 	Debugger
 		Name: JDWP debugger
 		Found: False
@@ -37,7 +39,7 @@ class Debugger :
     def __str__ ( self ) -> str :
         #
         # variable to store the output
-        output: str = "\tDebugger\n"
+        output: str = "\n\tDebugger\n"
         #
         # add name of debugger
         output: str = f"{output}\t\tName: {self.name}\n"
@@ -58,7 +60,7 @@ class Debugger :
 class Debuggers :
     
     # constructor to initialize all possible debuggers
-    def __init__ ( self ) :
+    def __init__ ( self ) -> None :
         #
         # create the gdb debugger
         self.gdbDebugger: Debugger = Debugger ( "GDB debugger" )
@@ -67,13 +69,13 @@ class Debuggers :
         self.jdwpDebugger: Debugger = Debugger ( "JDWP debugger" )
     
     # function used to set found the gdb debugger
-    def setFoundGdbDebugger ( self , foundTimestamp: int ) :
+    def setFoundGdbDebugger ( self , foundTimestamp: int ) -> None :
         #
         # set found the gdb debugger
         self.gdbDebugger.setDebuggerFound ( foundTimestamp )
     
     # function used to set found the jdwp debugger
-    def setFoundJdwpDebugger ( self , foundTimestamp: int ) :
+    def setFoundJdwpDebugger ( self , foundTimestamp: int ) -> None :
         #
         # set found the jdwp debugger
         self.jdwpDebugger.setDebuggerFound ( foundTimestamp )
