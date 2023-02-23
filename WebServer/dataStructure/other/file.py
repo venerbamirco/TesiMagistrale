@@ -1,26 +1,26 @@
-# class to manage a specific file
+# class to manage a specific other
 class File :
     
-    # constructor for the file class
+    # constructor for the other class
     def __init__ ( self , filename: str , properties: str ) -> None :
         #
         # save the filename
         self.filename: str = filename
         #
-        # save the property for the file
+        # save the property for the other
         self.properties: str = properties
         #
-        # open the file
+        # open the other
         self.file: File = open ( self.filename , self.properties )
     
-    # function used to close the file
+    # function used to close the other
     def closeFile ( self ) -> None :
         #
-        # close the file
+        # close the other
         self.file.close ( )
     
-    # function used to write into the file
+    # function used to write into the other
     def writeIntoFile ( self , data: str ) -> None :
         #
-        # write data into file
+        # write data into other
         self.file.write ( f"{data}\n" )

@@ -1,6 +1,6 @@
 import socket
 
-from dataStructure.file import File
+from dataStructure.other.file import File
 from settings.settings import Settings
 
 # class to manage the general tcp socket
@@ -21,7 +21,7 @@ class GeneralSocket :
         # initialize the maximum number of client
         self.clients = clients
         #
-        # save the reference for the file
+        # save the reference for the other
         self.manageFile = manageFile
         #
         # save the reference for the settings
@@ -110,10 +110,10 @@ class GeneralSocket :
     def restrictInputMessages ( self ) :
         pass
     
-    # function used to close the tcp tcpSocket and the file
+    # function used to close the tcp tcpSocket and the other
     def closeAll ( self ) :
         #
-        # close the file
+        # close the other
         self.manageFile.closeFile ( )
         # close the connection
         self.conn.close ( )

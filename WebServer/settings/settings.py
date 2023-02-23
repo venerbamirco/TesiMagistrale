@@ -9,16 +9,16 @@ class Settings :
         #
         # ----------------------------------------------------------------------- LOG FILES
         #
-        # name for the extension of log file
+        # name for the extension of log other
         self.extensionLogFile = ".log"
         #
-        # name for the file to store all logs from ptracer
-        self.filenameLogsPtracer = "savedlogs/ptracer/ptracer"
+        # name for the other to store all logs from ptracer
+        self.filenameLogsPtracer = "logs/receive/ptracer/ptracer"
         #
-        # name for the file to store all logs from android application
-        self.filenameLogsAndroid = "savedlogs/android/android"
+        # name for the other to store all logs from android application
+        self.filenameLogsAndroid = "logs/receive/android/android"
         #
-        # variable to define how to open the file to save the logs
+        # variable to define how to open the other to save the logs
         self.howToOpenFiles = "w"
         #
         # ----------------------------------------------------------------------- SOCKET TCP
@@ -47,12 +47,12 @@ class Settings :
         # ----------------------------------------------------------------------- OTHER
         #
     
-    # function used to get the folder and file for ptracer logs
+    # function used to get the folder and other for ptracer logs
     def getPtracerLogs ( self ) :
         # return the folder and the filename for ptracer logs
         return self.filenameLogsPtracer + "--" + datetime.datetime.now ( ).strftime ( "%Y-%m-%d--%H-%M-%S" ) + self.extensionLogFile
     
-    # function used to get the folder and file for android logs
+    # function used to get the folder and other for android logs
     def getAndroidLogs ( self ) :
         # return the folder and the filename for android logs
         return self.filenameLogsAndroid + "--" + datetime.datetime.now ( ).strftime ( "%Y-%m-%d--%H-%M-%S" ) + self.extensionLogFile

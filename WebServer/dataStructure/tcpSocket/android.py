@@ -1,6 +1,6 @@
-from dataStructure.file import File
+from dataStructure.other.file import File
 from settings.settings import Settings
-from tcpSocket.generalSocket import GeneralSocket
+from dataStructure.tcpSocket.generalSocket import GeneralSocket
 
 # class for the android socket
 class Android ( GeneralSocket ) :
@@ -26,7 +26,7 @@ class Android ( GeneralSocket ) :
             # if it is valid
             if valid :
                 #
-                # write the actual message in the log file
+                # write the actual message in the log other
                 self.manageFile.writeIntoFile ( x )
             #
             # if it is not valid

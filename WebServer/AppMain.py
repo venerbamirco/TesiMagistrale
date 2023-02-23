@@ -1,9 +1,9 @@
 from threading import Thread
 
-from dataStructure.file import File
+from dataStructure.other import File
 from settings.settings import Settings
-from tcpSocket.android import Android
-from tcpSocket.ptracer import Ptracer
+from dataStructure.tcpSocket.android import Android
+from dataStructure.tcpSocket.ptracer import Ptracer
 
 # main method to start the web server
 if __name__ == "__main__" :
@@ -11,10 +11,10 @@ if __name__ == "__main__" :
     # create the object for settings to get all constant values
     settings = Settings ( )
     #
-    # create and open the file for the ptracer logs
+    # create and open the other for the ptracer logs
     ptracerLogs = File ( settings.getPtracerLogs ( ) , settings.howToOpenFiles )
     #
-    # create and open the file for the android logs
+    # create and open the other for the android logs
     androidLogs = File ( settings.getAndroidLogs ( ) , settings.howToOpenFiles )
     #
     # create the ptracer tcpSocket

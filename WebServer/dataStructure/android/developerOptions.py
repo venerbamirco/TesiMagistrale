@@ -1,13 +1,13 @@
 """
 LIST OF ALL DEVELOPER OPTIONS RECORDS
 
-	Developer option
+	Developer options record
 		Developer options: True
 		Android debug bridge: False
 		Start timestamp: 1
 		Finish timestamp: 12
 
-	Developer option
+	Developer options record
 		Developer options: False
 		Android debug bridge: False
 		Start timestamp: 13
@@ -35,13 +35,13 @@ class DeveloperOptionsRecord :
     def finishRecord ( self , finishTimestamp: int ) -> None :
         #
         # remove 1 because in this timestamp start a new record
-        rightFinishTimestamp = finishTimestamp - 1
+        rightFinishTimestamp: int = finishTimestamp - 1
         #
         # set the finish timestamp of this record
-        self.finishTimestamp = rightFinishTimestamp
+        self.finishTimestamp: int = rightFinishTimestamp
     
-    # function used to get the duration of actual instruction
-    def get_duration_instruction ( self ) -> int :
+    # function used to get the duration of actual developer options record
+    def getDuration ( self ) -> int :
         #
         # if it is possible to calculate the duration
         if self.finishTimestamp :
@@ -49,7 +49,7 @@ class DeveloperOptionsRecord :
             # return the duration in milliseconds
             return self.finishTimestamp - self.startTimestamp
         #
-        # else if the instruction is not finished
+        # else if the range is not finished
         else :
             #
             # return a zero duration
@@ -59,7 +59,7 @@ class DeveloperOptionsRecord :
     def __str__ ( self ) -> str :
         #
         # variable to store the output
-        output: str = "\n\tDeveloper option\n"
+        output: str = "\n\tDeveloper options record\n"
         #
         # add if the developer options are enabled
         output: str = f"{output}\t\tDeveloper options: {self.developerOptionsEnabled}\n"
@@ -78,9 +78,6 @@ class DeveloperOptionsRecord :
         #
         # return the output
         return output
-    
-    def __repr__ ( self ) :
-        return f"{self.developerOptionsEnabled} {self.androidDebugBridgeEnabled} {self.startTimestamp} {self.finishTimestamp}"
 
 # class used to manage developer options and adb
 class DeveloperOptions :
@@ -118,10 +115,10 @@ class DeveloperOptions :
             # return the last element
             return listDeveloperOptionRecord [ -1 ]
         #
-        # return none because there are not elements in the list
+        # return none because there are no elements in the list
         return None
     
-    # function used to print an instruction object
+    # function used to print a developer options object
     def __str__ ( self ) -> str :
         #
         # initialize as empty the output string
