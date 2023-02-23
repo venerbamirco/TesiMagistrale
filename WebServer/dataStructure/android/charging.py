@@ -115,7 +115,7 @@ class Charging :
     def getCharging ( self , timestamp: int ) -> ChargingRecord :
         #
         # get the list of records that the timestamp is included in the range of timestamps
-        listChargingRecords: ChargingRecord = [ obj for obj in self.listChargingRecords if obj.startTimestamp <= timestamp ]
+        listChargingRecords: list [ ChargingRecord ] = list ( obj for obj in self.listChargingRecords if obj.startTimestamp <= timestamp )
         #
         # if the list is not empty
         if listChargingRecords :
@@ -147,5 +147,5 @@ class Charging :
 if __name__ == "__main__" :
     d = Charging ( )
     d.addChargingRecord ( True , False , True , 1 )
-    d.addChargingRecord ( False , False, False , 13 )
+    d.addChargingRecord ( False , False , False , 13 )
     print ( d )

@@ -107,7 +107,7 @@ class DeveloperOptions :
     def getDeveloperOption ( self , timestamp: int ) -> DeveloperOptionsRecord :
         #
         # get the list of records that the timestamp is included in the range of timestamps
-        listDeveloperOptionRecord: DeveloperOptionsRecord = [ obj for obj in self.listDeveloperOptions if obj.startTimestamp <= timestamp ]
+        listDeveloperOptionRecord: list [ DeveloperOptionsRecord ] = list ( obj for obj in self.listDeveloperOptions if obj.startTimestamp <= timestamp )
         #
         # if the list is not empty
         if listDeveloperOptionRecord :

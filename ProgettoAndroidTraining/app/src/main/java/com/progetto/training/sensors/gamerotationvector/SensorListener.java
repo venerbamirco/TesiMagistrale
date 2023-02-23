@@ -503,38 +503,62 @@ public class SensorListener implements SensorEventListener {
             /*debug row in the text label to make a list of alerts*/
             this.textSensorListener = this.textSensorListener + "\n\nAlert:";
 
-        }
+            /*if there is a azimuth alert*/
+            if ( azimuthAlert ) {
 
-        /*if there is a azimuth alert*/
-        if ( azimuthAlert ) {
+                /*the device is wrongly directed*/
+                this.textSensorListener = this.textSensorListener + "\nWrongly directed";
 
-            /*the device is wrongly directed*/
-            this.textSensorListener = this.textSensorListener + "\nWrongly directed";
+                /*debug row for azimuth alert*/
+                this.addDataToBeSent ( "SensorListener: Azimuth alert" );
 
-            /*debug row for azimuth alert*/
-            this.addDataToBeSent ( "SensorListener: Azimuth alert" );
+            }
 
-        }
+            /*else if there is no azimuth alert*/
+            else{
 
-        /*if there is a pitch alert*/
-        if ( pitchAlert ) {
+                /*debug row for azimuth ok*/
+                this.addDataToBeSent ( "SensorListener: Azimuth ok" );
 
-            /*the device is wrongly inclined*/
-            this.textSensorListener = this.textSensorListener + "\nWrongly inclined";
+            }
 
-            /*debug row for pitch alert*/
-            this.addDataToBeSent ( "SensorListener: Pitch alert" );
+            /*if there is a pitch alert*/
+            if ( pitchAlert ) {
 
-        }
+                /*the device is wrongly inclined*/
+                this.textSensorListener = this.textSensorListener + "\nWrongly inclined";
 
-        /*if there is a pitch alert*/
-        if ( rollAlert ) {
+                /*debug row for pitch alert*/
+                this.addDataToBeSent ( "SensorListener: Pitch alert" );
 
-            /*the device is wrongly rotated*/
-            this.textSensorListener = this.textSensorListener + "\nWrongly rotated";
+            }
 
-            /*debug row for roll alert*/
-            this.addDataToBeSent ( "SensorListener: Roll alert" );
+            /*else if there is no pitch alert*/
+            else{
+
+                /*debug row for pitch ok*/
+                this.addDataToBeSent ( "SensorListener: Pitch ok" );
+
+            }
+
+            /*if there is a pitch alert*/
+            if ( rollAlert ) {
+
+                /*the device is wrongly rotated*/
+                this.textSensorListener = this.textSensorListener + "\nWrongly rotated";
+
+                /*debug row for roll alert*/
+                this.addDataToBeSent ( "SensorListener: Roll alert" );
+
+            }
+
+            /*else if there is no roll alert*/
+            else{
+
+                /*debug row for roll ok*/
+                this.addDataToBeSent ( "SensorListener: Roll ok" );
+
+            }
 
         }
 
