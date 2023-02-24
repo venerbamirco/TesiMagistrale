@@ -1,5 +1,42 @@
 """
+LIST OF ALL CORRECTLY USED ALERTS
 
+	Alert record
+		Alert: True
+		Start timestamp: 10
+		Finish timestamp: 12
+
+	Alert record
+		Alert: False
+		Start timestamp: 13
+
+LIST OF ALL AZIMUTH ALERTS
+
+	Alert record
+		Alert: False
+		Start timestamp: 10
+		Finish timestamp: 12
+
+	Alert record
+		Alert: True
+		Start timestamp: 13
+
+LIST OF ALL PITCH ALERTS
+
+	Alert record
+		Alert: False
+		Start timestamp: 10
+		Finish timestamp: 14
+
+	Alert record
+		Alert: True
+		Start timestamp: 15
+
+LIST OF ALL ROLL ALERTS
+
+	Alert record
+		Alert: False
+		Start timestamp: 10
 """
 
 # class used to manage the single alert
@@ -102,12 +139,14 @@ class SensorAlert :
                 listAlerts.append ( initialElement )
                 #
                 # create an initial element for azimuth pitch and roll from the initial timestamp
-                initialElementAzimuthPitchRoll: AlertRecord = AlertRecord ( False , startTimeStamp )
+                initialElementAzimuth: AlertRecord = AlertRecord ( False , startTimeStamp )
+                initialElementPitch: AlertRecord = AlertRecord ( False , startTimeStamp )
+                initialElementRoll: AlertRecord = AlertRecord ( False , startTimeStamp )
                 #
                 # append in azimuth pitch and roll list the initial element that is ok
-                self.listAzimuthAlerts.append ( initialElementAzimuthPitchRoll )
-                self.listPitchAlerts.append ( initialElementAzimuthPitchRoll )
-                self.listRollAlerts.append ( initialElementAzimuthPitchRoll )
+                self.listAzimuthAlerts.append ( initialElementAzimuth )
+                self.listPitchAlerts.append ( initialElementPitch )
+                self.listRollAlerts.append ( initialElementRoll )
         #
         # if the list is not empty
         else :
@@ -127,35 +166,74 @@ class SensorAlert :
                 # finish the last element
                 lastAlert.finishRecord ( startTimeStamp )
                 #
-                # create an actual alert with right startTimestamp
-                actualAlertRecord: AlertRecord = AlertRecord ( actualAlert , startTimeStamp )
+                # if the finish timestamp is smaller than start timestamp
+                if lastAlert.finishTimestamp < lastAlert.startTimestamp :
+                    #
+                    # remove from the list the actual element
+                    listAlerts.remove ( lastAlert )
+                    #
+                    # recall this function to add the new element
+                    self.addAlert ( listAlerts , actualAlert , startTimeStamp , correctlyUsed )
                 #
-                # append in the list the new element
-                listAlerts.append ( actualAlertRecord )
+                # if the start timestamp is smaller than finish timestamp is ok
+                else :
+                    #
+                    # create an actual alert with right startTimestamp
+                    actualAlertRecord: AlertRecord = AlertRecord ( actualAlert , startTimeStamp )
+                    #
+                    # append in the list the new element
+                    listAlerts.append ( actualAlertRecord )
+    
+    # function used to manage the addition of alert
+    def manageAddAlert ( self , listAlerts: list [ AlertRecord ] , actualAlert: bool , startTimeStamp: int , correctlyUsed: bool ) -> None :
+        #
+        # add the actual alert in the relative list
+        self.addAlert ( listAlerts , actualAlert , startTimeStamp , correctlyUsed )
+        #
+        # if azimuth pitch or roll alert
+        if not correctlyUsed :
+            #
+            # if the actual alert is true
+            if actualAlert :
+                #
+                # device not correctly used
+                self.addAlert ( self.listCorrectlyUsed , False , startTimeStamp , True )
+            #
+            # if actual alert is false
+            else :
+                #
+                # get list of actual start timestamp alerts
+                listActualAlerts: list [ AlertRecord ] = self.getSensorRecord ( startTimeStamp )
+                #
+                # if in the actual moment there are no alerts
+                if not listActualAlerts [ 1 ].alert and not listActualAlerts [ 2 ].alert and not listActualAlerts [ 3 ].alert :
+                    #
+                    # device correctly used
+                    self.addAlert ( self.listCorrectlyUsed , True , startTimeStamp , True )
     
     # function used to add azimuth alert
     def addAzimuthAlert ( self , azimuthAlert: bool , startTimeStamp: int ) -> None :
         #
-        # add the actual alert in the relative list
-        self.addAlert ( self.listAzimuthAlerts , azimuthAlert , startTimeStamp , False )
+        # add the actual azimuth alert in the relative list
+        self.manageAddAlert ( self.listAzimuthAlerts , azimuthAlert , startTimeStamp , False )
     
     # function used to add pitch alert
     def addPitchAlert ( self , pitchAlert: bool , startTimeStamp: int ) -> None :
         #
-        # add the actual alert in the relative list
-        self.addAlert ( self.listPitchAlerts , pitchAlert , startTimeStamp , False )
+        # add the actual pitch alert in the relative list
+        self.manageAddAlert ( self.listPitchAlerts , pitchAlert , startTimeStamp , False )
     
     # function used to add roll alert
     def addRollAlert ( self , rollAlert: bool , startTimeStamp: int ) -> None :
         #
-        # add the actual alert in the relative list
-        self.addAlert ( self.listRollAlerts , rollAlert , startTimeStamp , False )
+        # add the actual roll alert in the relative list
+        self.manageAddAlert ( self.listRollAlerts , rollAlert , startTimeStamp , False )
     
     # function used to add roll alert
     def addCorrectlyUsed ( self , correctlyUsed: bool , startTimeStamp: int ) -> None :
         #
-        # add the actual alert in the relative list
-        self.addAlert ( self.listCorrectlyUsed , correctlyUsed , startTimeStamp , True )
+        # add the actual correctly used alert in the relative list
+        self.manageAddAlert ( self.listCorrectlyUsed , correctlyUsed , startTimeStamp , True )
     
     # function used to get a specific sensor record using the timestamp
     def getSensorRecord ( self , timestamp: int ) -> list [ AlertRecord ] :
@@ -189,3 +267,55 @@ class SensorAlert :
         #
         # return none because there are no elements in the list
         return None
+    
+    # function used to print the lists of alerts
+    def __str__ ( self ) -> str :
+        #
+        # initialize as empty the output string
+        output: str = ""
+        #
+        # print debug row of correctly used alerts
+        output: str = f"{output}\nLIST OF ALL CORRECTLY USED ALERTS\n"
+        #
+        # for each correctly used alert
+        for correctlyUsedAlert in self.listCorrectlyUsed :
+            #
+            # print the actual correctly used alert
+            output: str = f"{output}{correctlyUsedAlert}"
+        #
+        # print debug row of azimuth alerts
+        output: str = f"{output}\nLIST OF ALL AZIMUTH ALERTS\n"
+        #
+        # for each azimuth alert
+        for azimuthAlert in self.listAzimuthAlerts :
+            #
+            # print the azimuth alert
+            output: str = f"{output}{azimuthAlert}"
+        #
+        # print debug row of pitch alerts
+        output: str = f"{output}\nLIST OF ALL PITCH ALERTS\n"
+        #
+        # for each pitch alert
+        for pitchAlert in self.listPitchAlerts :
+            #
+            # print the pitch alert
+            output: str = f"{output}{pitchAlert}"
+        #
+        # print debug row of roll alerts
+        output: str = f"{output}\nLIST OF ALL ROLL ALERTS\n"
+        #
+        # for each roll alert
+        for rollAlert in self.listRollAlerts :
+            #
+            # print the roll alert
+            output: str = f"{output}{rollAlert}"
+        #
+        # return the output
+        return output
+
+if __name__ == "__main__" :
+    d = SensorAlert ( )
+    d.addCorrectlyUsed ( True , 10 )
+    d.addAzimuthAlert ( True , 13 )
+    d.addPitchAlert ( True , 15 )
+    print ( d )
