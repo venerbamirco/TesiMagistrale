@@ -570,6 +570,9 @@ public class SensorListener implements SensorEventListener {
         /*send that calibration is done*/
         this.addDataToBeSent ( "SensorListener: First calibration done" );
 
+        /*sed that is correctly used*/
+        this.addDataToBeSent ( "SensorListener: Device is correctly used" );
+
         /*set first calibration done*/
         this.firstCalibrationDone = true;
 

@@ -115,7 +115,7 @@ class SensorText :
     def getSensorRecord ( self , timestamp: int ) -> SensorRecord :
         #
         # get the list of records that the timestamp is included in the range of timestamps
-        listSensorRecords: list ( SensorRecord ) = list ( obj for obj in self.listSensorRecord if obj.startTimestamp <= timestamp )
+        listSensorRecords: list [ SensorRecord ] = list ( obj for obj in self.listSensorRecord if obj.startTimestamp <= timestamp )
         #
         # if the list is not empty
         if listSensorRecords :
