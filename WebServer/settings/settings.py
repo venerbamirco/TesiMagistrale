@@ -44,6 +44,9 @@ class Settings :
         # variable to define the max dimension of tcpSocket data
         self.dimensionSocketData = 10240
         #
+        # variable to define the timeout for connection
+        self.timeout = 3
+        #
         # ----------------------------------------------------------------------- OTHER
         #
     

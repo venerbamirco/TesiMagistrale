@@ -1,15 +1,16 @@
+from algorithm.manager import Manager
 from dataStructure.other.file import File
-from settings.settings import Settings
 from dataStructure.tcpSocket.generalSocket import GeneralSocket
+from settings.settings import Settings
 
 # class for the ptracer socket
 class Ptracer ( GeneralSocket ) :
     
     # constructor for the android socket class
-    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings ) :
+    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings , managerAlgorithm: Manager ) :
         #
         # initialize the general socket
-        super ( ).__init__ ( name , host , port , clients , manageFile , settings )
+        super ( ).__init__ ( name , host , port , clients , manageFile , settings , managerAlgorithm )
     
     # temp function
     def f1 ( self ) :

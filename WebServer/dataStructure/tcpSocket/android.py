@@ -1,36 +1,58 @@
+from algorithm.manager import Manager
 from dataStructure.other.file import File
-from settings.settings import Settings
 from dataStructure.tcpSocket.generalSocket import GeneralSocket
+from settings.settings import Settings
 
 # class for the android socket
 class Android ( GeneralSocket ) :
     
     # constructor for the android socket class
-    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings ) :
+    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings , managerAlgorithm: Manager ) :
         #
         # initialize the general socket
-        super ( ).__init__ ( name , host , port , clients , manageFile , settings )
+        super ( ).__init__ ( name , host , port , clients , manageFile , settings , managerAlgorithm )
     
-    # function used to
+    # function used to call the single manager of each type of input
+    def callManagerActualInput ( self , message ) -> bool :
+        #
+        # select the right manager for actual input message
+        match message :
+            #
+            # charging
+            case s if "UsbChecker" in s :
+                #
+                # add the charging record
+                self.managerAlgorithm.addChargingRecord ( s )
+            #
+            # other case
+            case _ :
+                #
+                # return that is a not important instruction
+                return False
+        #
+        # return that is a valid string
+        return True
+    
+    # function used to analyze each receive message
     def analyzeInputData ( self , receivedMessageString ) :
         #
         # get the list of single row of ptracer
-        actualmessages = receivedMessageString.split ( "\n" )
+        actualMessages = receivedMessageString.split ( "\n" )
         #
         # for each single row of the received message from the client
-        for x in actualmessages :
+        for message in actualMessages :
             #
-            # analyze the actual message
-            valid = True
+            # call the relative manager if it is a valid message
+            valid = self.callManagerActualInput ( message )
             #
             # if it is valid
             if valid :
                 #
-                # write the actual message in the log other
-                self.manageFile.writeIntoFile ( x )
+                # write the actual message in the log
+                self.manageFile.writeIntoFile ( message )
             #
             # if it is not valid
             else :
                 #
                 # we must skip it
-                self.manageFile.writeIntoFile ( x )
+                pass

@@ -1,5 +1,6 @@
 import socket
 
+from algorithm.manager import Manager
 from dataStructure.other.file import File
 from settings.settings import Settings
 
@@ -7,7 +8,7 @@ from settings.settings import Settings
 class GeneralSocket :
     
     # constructor to initialize the whole manageSocket object
-    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings ) :
+    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings , managerAlgorithm: Manager ) :
         #
         # save the name for the tcpSocket
         self.name = name
@@ -35,6 +36,9 @@ class GeneralSocket :
         #
         # save the reference for the connection
         self.conn = None
+        #
+        # save the reference for the manager algorithm
+        self.managerAlgorithm = managerAlgorithm
     
     # function used to create configure and start the tcpSocket
     def createConfigureStartSocket ( self ) :
@@ -69,6 +73,9 @@ class GeneralSocket :
         # wait new incoming request
         self.conn , self.address = self.serversocket.accept ( )
         #
+        # set timeout for connection
+        self.conn.settimeout ( self.settings.timeout )
+        #
         # debug row for a connection
         print ( self.name + " - Connection from: " + str ( self.address ) )
     
@@ -78,26 +85,35 @@ class GeneralSocket :
         # while all messages are not received
         while True :
             #
-            # receive data stream, it won't accept data packet greater than 10240 bytes
-            receivedMessageBytes = self.conn.recv ( self.settings.dimensionSocketData )
+            # manage the exception in conn.recv
+            try :
+                #
+                # receive data stream, it won't accept data packet greater than 10240 bytes
+                receivedMessageBytes = self.conn.recv ( self.settings.dimensionSocketData )
+                #
+                # if there aren't received data
+                if not receivedMessageBytes :
+                    #
+                    # exit from listening mode
+                    break
+                #
+                # transform the bytes array into a string
+                receivedMessageString = receivedMessageBytes.decode ( )
+                #
+                # delete from the incoming message the final new line
+                receivedMessageString = receivedMessageString.rstrip ( )
+                #
+                # if the received string is not an empty string
+                if receivedMessageString != "" :
+                    #
+                    # analyze the input data
+                    self.analyzeInputData ( receivedMessageString )
             #
-            # if there aren't received data
-            if not receivedMessageBytes :
+            # in case of exception
+            except socket.timeout :
                 #
                 # exit from listening mode
                 break
-            #
-            # transform the bytes array into a string
-            receivedMessageString = receivedMessageBytes.decode ( )
-            #
-            # delete from the incoming message the final new line
-            receivedMessageString = receivedMessageString.rstrip ( )
-            #
-            # if the received string is not an empty string
-            if receivedMessageString != "" :
-                #
-                # analyze the input data
-                self.analyzeInputData ( receivedMessageString )
         #
         # debug row that actual tcpSocket is terminated
         print ( self.name + " - Terminated" )

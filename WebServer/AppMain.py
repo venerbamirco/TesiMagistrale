@@ -1,12 +1,16 @@
 from threading import Thread
 
+from algorithm.manager import Manager
 from dataStructure.other.file import File
-from settings.settings import Settings
 from dataStructure.tcpSocket.android import Android
 from dataStructure.tcpSocket.ptracer import Ptracer
+from settings.settings import Settings
 
 # main method to start the web server
 if __name__ == "__main__" :
+    #
+    # create the manager algorithm
+    managerAlgorithm = Manager ( )
     #
     # create the object for settings to get all constant values
     settings = Settings ( )
@@ -18,10 +22,10 @@ if __name__ == "__main__" :
     androidLogs = File ( settings.getAndroidLogs ( ) , settings.howToOpenFiles )
     #
     # create the ptracer tcpSocket
-    ptracerSocket = Ptracer ( "ptracer" , settings.hostname , settings.portSocketPtracer , settings.maximumNumberConnectedClients , ptracerLogs , settings )
+    ptracerSocket = Ptracer ( "ptracer" , settings.hostname , settings.portSocketPtracer , settings.maximumNumberConnectedClients , ptracerLogs , settings , managerAlgorithm )
     #
     # create the android tcpSocket
-    androidSocket = Android ( "android" , settings.hostname , settings.portSocketAndroid , settings.maximumNumberConnectedClients , androidLogs , settings )
+    androidSocket = Android ( "android" , settings.hostname , settings.portSocketAndroid , settings.maximumNumberConnectedClients , androidLogs , settings , managerAlgorithm )
     #
     # create and start a thread to manage ptracer socket
     threadPtracer = Thread ( target = ptracerSocket.createConfigureStartSocket )
