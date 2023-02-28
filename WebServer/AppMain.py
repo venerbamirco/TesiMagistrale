@@ -9,11 +9,11 @@ from settings.settings import Settings
 # main method to start the web server
 if __name__ == "__main__" :
     #
-    # create the manager algorithm
-    managerAlgorithm = Manager ( )
-    #
     # create the object for settings to get all constant values
     settings = Settings ( )
+    #
+    # create the manager algorithm
+    managerAlgorithm = Manager ( settings )
     #
     # create and open the other for the ptracer logs
     ptracerLogs = File ( settings.getPtracerLogs ( ) , settings.howToOpenFiles )
@@ -34,3 +34,6 @@ if __name__ == "__main__" :
     # create and start a thread to manage android socket
     threadAndroid = Thread ( target = androidSocket.createConfigureStartSocket )
     threadAndroid.start ( )
+    #
+    # save all the logs structure
+    managerAlgorithm.saveLogsEachManager ( )

@@ -3,19 +3,24 @@ LIST OF ALL DEBUGGABLE APPLICATIONS
 
 	Application
 		Name: application1
+		Timestamp: 2
 
 	Application
 		Name: application2
+		Timestamp: 5
 """
 
 # class used to manage the single application
 class Application :
     
     # constructor to initialize the single application
-    def __init__ ( self , name: str ) -> None :
+    def __init__ ( self , name: str , timestamp: int ) -> None :
         #
         # save the name
         self.name: str = name
+        #
+        # save the timestamp
+        self.timestamp: str = timestamp
     
     # function used to print the application details
     def __str__ ( self ) :
@@ -25,6 +30,9 @@ class Application :
         #
         # add name of the application
         output: str = f"{output}\t\tName: {self.name}\n"
+        #
+        # add timestamp of the application
+        output: str = f"{output}\t\tTimestamp: {self.timestamp}\n"
         #
         # return the output
         return output
@@ -39,10 +47,10 @@ class DebuggableApplications :
         self.listDebuggableApplications: list [ Application ] = list ( )
     
     # function used to insert a new debuggable application in the list
-    def addDebuggableApplication ( self , name: str ) -> None :
+    def addDebuggableApplication ( self , name: str , timestamp: int ) -> None :
         #
         # create the application with the right name
-        application: Application = Application ( name )
+        application: Application = Application ( name , timestamp )
         #
         # insert the new debuggable application in the list
         self.listDebuggableApplications.append ( application )
@@ -70,7 +78,7 @@ class DebuggableApplications :
 
 if __name__ == "__main__" :
     i = DebuggableApplications ( )
-    i.addDebuggableApplication ( "application1" )
-    i.addDebuggableApplication ( "application2" )
-    i.addDebuggableApplication ( "application3" )
+    i.addDebuggableApplication ( "application1", 2 )
+    i.addDebuggableApplication ( "application2",5 )
+    i.addDebuggableApplication ( "application3",11 )
     print ( i )

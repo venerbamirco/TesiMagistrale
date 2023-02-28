@@ -24,6 +24,24 @@ class Android ( GeneralSocket ) :
                 # add the charging record
                 self.managerAlgorithm.addChargingRecord ( s )
             #
+            # developer options
+            case s if "DeveloperOptions" in s :
+                #
+                # add the charging record
+                self.managerAlgorithm.addDeveloperOptionsRecord ( s )
+            #
+            # debuggable application
+            case s if "DebuggableApplications" in s :
+                #
+                # add the charging record
+                self.managerAlgorithm.addDebuggableApplicationsRecord ( s )
+            #
+            # debuggers
+            case s if "GnuDebugger_GDB" in s or "JavaDebugWireProtocol_JDWP" in s :
+                #
+                # add the debugger record
+                self.managerAlgorithm.addDebuggerRecord ( s )
+            #
             # other case
             case _ :
                 #
@@ -55,4 +73,5 @@ class Android ( GeneralSocket ) :
             else :
                 #
                 # we must skip it
-                pass
+                # pass
+                self.manageFile.writeIntoFile ( message )

@@ -112,11 +112,32 @@ class GeneralSocket :
             # in case of exception
             except socket.timeout :
                 #
-                # exit from listening mode
-                break
+                # if the actual socket is android
+                if self.name == "android" :
+                    #
+                    # do nothing because the device is stationary
+                    pass
+                #
+                # if the actual socket is ptracer
+                else :
+                    #
+                    # exit from listen mode
+                    break
         #
         # debug row that actual tcpSocket is terminated
         print ( self.name + " - Terminated" )
+        #
+        # if the actual socket is android
+        if self.name == "android" :
+            #
+            # set the android socket closed
+            self.managerAlgorithm.setAndroidSocketTerminated ( )
+        #
+        # if the actual socket is ptracer
+        else :
+            #
+            # set the ptracer socket closed
+            self.managerAlgorithm.setPtracerSocketTerminated ( )
     
     # function used to analyze the received data
     def analyzeInputData ( self , receivedMessageString: str ) :
