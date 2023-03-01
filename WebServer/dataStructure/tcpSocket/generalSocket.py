@@ -1,6 +1,6 @@
 import socket
 
-from algorithm.manager import Manager
+from algorithm.manager.manager import Manager
 from dataStructure.other.file import File
 from settings.settings import Settings
 
@@ -121,8 +121,17 @@ class GeneralSocket :
                 # if the actual socket is ptracer
                 else :
                     #
-                    # exit from listen mode
-                    break
+                    # if the android socket is closed
+                    if self.managerAlgorithm.flagAndroidSocket :
+                        #
+                        # exit from listen mode
+                        break
+                    #
+                    # if android is not terminated
+                    else :
+                        #
+                        # do nothing
+                        pass
         #
         # debug row that actual tcpSocket is terminated
         print ( self.name + " - Terminated" )

@@ -234,6 +234,11 @@ class SensorAlert :
         #
         # add the actual correctly used alert in the relative list
         self.manageAddAlert ( self.listCorrectlyUsed , correctlyUsed , startTimeStamp , True )
+        #
+        # add that there are not azimuth pitch and roll alert
+        self.addAzimuthAlert ( False , startTimeStamp )
+        self.addPitchAlert ( False , startTimeStamp )
+        self.addRollAlert ( False , startTimeStamp )
     
     # function used to get a specific sensor record using the timestamp
     def getSensorRecord ( self , timestamp: int ) -> list [ AlertRecord ] :

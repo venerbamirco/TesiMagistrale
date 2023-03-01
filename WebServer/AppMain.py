@@ -1,6 +1,6 @@
 from threading import Thread
 
-from algorithm.manager import Manager
+from algorithm.manager.manager import Manager
 from dataStructure.other.file import File
 from dataStructure.tcpSocket.android import Android
 from dataStructure.tcpSocket.ptracer import Ptracer

@@ -1,4 +1,4 @@
-from algorithm.manager import Manager
+from algorithm.manager.manager import Manager
 from dataStructure.other.file import File
 from dataStructure.tcpSocket.generalSocket import GeneralSocket
 from settings.settings import Settings

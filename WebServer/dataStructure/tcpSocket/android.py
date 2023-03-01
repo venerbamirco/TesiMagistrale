@@ -1,4 +1,4 @@
-from algorithm.manager import Manager
+from algorithm.manager.manager import Manager
 from dataStructure.other.file import File
 from dataStructure.tcpSocket.generalSocket import GeneralSocket
 from settings.settings import Settings
@@ -41,6 +41,36 @@ class Android ( GeneralSocket ) :
                 #
                 # add the debugger record
                 self.managerAlgorithm.addDebuggerRecord ( s )
+            #
+            # sensor alerts
+            case s if ("Azimuth" in s or "Pitch" in s or "Roll" in s or "Device" in s) and ("ok" in s or "alert" in s or "Device" in s) :
+                #
+                # add the debugger record
+                self.managerAlgorithm.addSensorAlertRecord ( s )
+            #
+            # calibration
+            case s if "Calibration" in s :
+                #
+                # add the calibration record
+                self.managerAlgorithm.addCalibrationRecord ( s )
+            #
+            # lifecycle
+            case s if "AppManagement" in s :
+                #
+                # add the lifecycle record
+                self.managerAlgorithm.addLifecycleRecord ( s )
+            #
+            # sensor number values
+            case s if "Numbers" in s :
+                #
+                # add the sensor number record
+                self.managerAlgorithm.addSensorNumberRecord ( s )
+            #
+            # sensor text values
+            case s if "Texts" in s :
+                #
+                # add the sensor number record
+                self.managerAlgorithm.addSensorTextRecord ( s )
             #
             # other case
             case _ :
