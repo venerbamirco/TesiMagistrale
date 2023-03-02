@@ -80,28 +80,3 @@ class Android ( GeneralSocket ) :
         #
         # return that is a valid string
         return True
-    
-    # function used to analyze each receive message
-    def analyzeInputData ( self , receivedMessageString ) :
-        #
-        # get the list of single row of ptracer
-        actualMessages = receivedMessageString.split ( "\n" )
-        #
-        # for each single row of the received message from the client
-        for message in actualMessages :
-            #
-            # call the relative manager if it is a valid message
-            valid = self.callManagerActualInput ( message )
-            #
-            # if it is valid
-            if valid :
-                #
-                # write the actual message in the log
-                self.manageFile.writeIntoFile ( message )
-            #
-            # if it is not valid
-            else :
-                #
-                # we must skip it
-                # pass
-                self.manageFile.writeIntoFile ( message )

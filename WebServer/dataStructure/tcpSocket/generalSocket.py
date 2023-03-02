@@ -150,10 +150,30 @@ class GeneralSocket :
     
     # function used to analyze the received data
     def analyzeInputData ( self , receivedMessageString: str ) :
-        pass
+        #
+        # get the list of single row of ptracer
+        actualMessages = receivedMessageString.split ( "\n" )
+        #
+        # for each single row of the received message from the client
+        for message in actualMessages :
+            #
+            # call the relative manager if it is a valid message
+            valid = self.callManagerActualInput ( message )
+            #
+            # if it is valid
+            if valid :
+                #
+                # write the actual message in the log
+                self.manageFile.writeIntoFile ( message )
+            #
+            # if it is not valid
+            else :
+                #
+                # we must skip it
+                pass
     
-    # function used to restrict the received data
-    def restrictInputMessages ( self ) :
+    # function used to call the single manager of each type of input
+    def callManagerActualInput ( self , message ) -> bool :
         pass
     
     # function used to close the tcp tcpSocket and the other

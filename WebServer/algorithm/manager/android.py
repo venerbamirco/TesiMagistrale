@@ -15,37 +15,37 @@ from utils.functions import strToBool
 class AndroidManager :
     
     # constructor to initialize the android manager
-    def __init__ ( self , settings: Settings ) :
+    def __init__ ( self , settings: Settings ) -> None :
         #
         # save the reference for settings
-        self.settings = settings
+        self.settings: Settings = settings
         #
         # initialize the charging manager
-        self.chargingManager = Charging ( )
+        self.chargingManager: Charging = Charging ( )
         #
         # initialize the developer options manager
-        self.developerOptionsManager = DeveloperOptions ( )
+        self.developerOptionsManager: DeveloperOptions = DeveloperOptions ( )
         #
         # initialize the debuggable applications manager
-        self.debuggableApplicationsManager = DebuggableApplications ( )
+        self.debuggableApplicationsManager: DebuggableApplications = DebuggableApplications ( )
         #
         # initialize the debuggers manager
-        self.debuggersManager = Debuggers ( )
+        self.debuggersManager: Debuggers = Debuggers ( )
         #
         # initialize the sensor alerts manager
-        self.sensorAlertsManager = SensorAlert ( )
+        self.sensorAlertsManager: SensorAlert = SensorAlert ( )
         #
         # initialize the sensor calibration manager
-        self.sensorCalibrationManager = SensorCalibration ( )
+        self.sensorCalibrationManager: SensorCalibration = SensorCalibration ( )
         #
         # initialize the lifecycle manager
-        self.lifecycleManager = Lifecycle ( )
+        self.lifecycleManager: Lifecycle = Lifecycle ( )
         #
         # initialize the sensor number manager
-        self.sensorNumberManager = SensorNumber ( )
+        self.sensorNumberManager: SensorNumber = SensorNumber ( )
         #
         # initialize the sensor text manager
-        self.sensorTextManager = SensorText ( )
+        self.sensorTextManager: SensorText = SensorText ( )
     
     # function used to add a record in charging
     def addChargingRecord ( self , record: str ) -> None :

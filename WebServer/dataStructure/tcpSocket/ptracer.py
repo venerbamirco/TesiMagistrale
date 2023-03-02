@@ -12,111 +12,78 @@ class Ptracer ( GeneralSocket ) :
         # initialize the general socket
         super ( ).__init__ ( name , host , port , clients , manageFile , settings , managerAlgorithm )
     
-    # temp function
-    def f1 ( self ) :
-        pass
-    
-    def f2 ( message: str ) :
-        pass
-    
-    # function to restrict the input messages
-    def restrictInputMessages ( self , message ) :
+    # function used to call the single manager of each type of input
+    def callManagerActualInput ( self , message ) -> bool :
         #
-        # select the right operations for actual input message
+        # select the right manager for actual input message
         match message :
             #
-            # ptracer start initial part
-            case "------------------ SYSCALL ENTRY START ------------------" :
-                #
-                # start operations
-                self.f1 ( )
-            #
-            # ptracer start final part
-            case "------------------ SYSCALL ENTRY STOP ------------------" :
-                #
-                # start operations
-                self.f1 ( )
-            #
-            # ptracer finish initial part
-            case "------------------ SYSCALL EXIT START ------------------" :
-                #
-                # start operations
-                self.f1 ( )
-            #
-            # ptracer finish final part
-            case "------------------ SYSCALL EXIT STOP ------------------" :
-                #
-                # start operations
-                self.f1 ( )
-            #
-            # initial pid to trace
+            # pid to trace
             case s if "PID to trace" in s :
                 #
-                # start operations
-                self.f1 ( )
+                # do nothing
+                pass
             #
-            # pid of actual ptracer
-            case s if "PID" in s :
+            # start a new instruction
+            case s if "SYSCALL ENTRY START" in s :
                 #
-                # start operations
-                self.f1 ( )
+                # start a new instruction
+                self.managerAlgorithm.startNewInstruction ( )
+                pass
             #
-            # spid of actual ptracer
-            case s if "SPID" in s :
+            # end of start a new instruction
+            case s if "SYSCALL ENTRY STOP" in s :
                 #
-                # start operations
-                self.f1 ( )
+                # do nothing
+                pass
             #
-            # timestamp of actual start or finish ptracer
-            case s if "Timestamp" in s :
+            # finish a new instruction
+            case s if "SYSCALL EXIT START" in s :
                 #
-                # start operations
-                self.f1 ( )
+                # finish actual instruction
+                self.managerAlgorithm.finishActualInstruction ( )
             #
-            # name of ptracer
-            case s if "Syscall" in s :
+            # end of finish a new instruction
+            case s if "SYSCALL EXIT STOP" in s :
                 #
-                # start operations
-                self.f1 ( )
+                # do nothing
+                pass
             #
-            # return value of ptracer
-            case s if "Return value" in s :
+            # pid
+            case s if "PID:" in s :
                 #
-                # start operations
-                self.f1 ( )
+                # set pid
+                self.managerAlgorithm.setPid (s )
+            #
+            # spid
+            case s if "SPID:" in s :
+                #
+                # set spid
+                self.managerAlgorithm.setSpid (s )
+            #
+            # timestamp
+            case s if "Timestamp:" in s :
+                #
+                # set timestamp
+                self.managerAlgorithm.setTimestamp (s )
+            #
+            # syscall
+            case s if "Syscall =" in s :
+                #
+                # set instruction
+                self.managerAlgorithm.setName ( )
+            #
+            # return value
+            case s if "Return value:" in s :
+                #
+                #
+                pass
             #
             # other case
             case _ :
                 #
-                # start operations
-                self.f1 ( )
-                #
                 # return that is a not important instruction
                 return False
         #
-        # return that is an important instruction
+        # return that is a valid string
         return True
-    
-    # function used to
-    def analyzeInputData ( self , receivedMessageString ) :
-        #
-        # get the list of single row of ptracer
-        actualmessages = receivedMessageString.split ( "\n" )
-        #
-        # for each single row of the received message from the client
-        for x in actualmessages :
-            #
-            # analyze the actual message
-            valid = self.restrictInputMessages ( x )
-            #
-            # if it is valid
-            if valid :
-                #
-                # write the actual message in the log other
-                self.manageFile.writeIntoFile ( x )
-            #
-            # if it is not valid
-            else :
-                #
-                # we must skip it
-                self.manageFile.writeIntoFile ( x )

@@ -8,8 +8,6 @@ ANALYSIS OF ALL INSTRUCTIONS
 		Average duration: 3.5
 		Variance: 2.9166666666666665
 		Number measurements: 6
-		Good terminations: 2
-		Bad terminations: 4
 		List measurements: [1, 2, 3, 4, 5, 6]
 """
 
@@ -41,17 +39,11 @@ class Instruction :
         # set the number of measurements
         self.numberMeasurements: int = 0
         #
-        # set the number of good terminations
-        self.numberGoodTerminations: int = 0
-        #
-        # set the number of bad terminations
-        self.numberBadTerminations: int = 0
-        #
         # set as empty the list of measurements of durations
         self.listMeasurements: list [ int ] = list ( )
     
     # function used to insert a new measure for the actual instruction
-    def addMeasurement ( self , duration: int , success: bool ) -> None :
+    def addMeasurement ( self , duration: int ) -> None :
         #
         # increment the number of measurements
         self.numberMeasurements: int = self.numberMeasurements + 1
@@ -70,18 +62,6 @@ class Instruction :
         #
         # update the variance of durations
         self.varianceMeasure: float = var ( self.listMeasurements )
-        #
-        # if the instruction is terminated in a good manner
-        if success :
-            #
-            # increment the counter of good terminations
-            self.numberGoodTerminations: int = self.numberGoodTerminations + 1
-        #
-        # if the instruction is terminated in a bad manner
-        else :
-            #
-            # increment the counter of bad terminations
-            self.numberBadTerminations: int = self.numberBadTerminations + 1
     
     # function used to print an instruction object
     def __str__ ( self ) -> str :
@@ -106,12 +86,6 @@ class Instruction :
         #
         # add number of measurements of duration
         output: str = f"{output}\t\tNumber measurements: {self.numberMeasurements}\n"
-        #
-        # add number of good terminations
-        output: str = f"{output}\t\tGood terminations: {self.numberGoodTerminations}\n"
-        #
-        # add number of bad terminations
-        output: str = f"{output}\t\tBad terminations: {self.numberBadTerminations}\n"
         #
         # add list of measurements
         output: str = f"{output}\t\tList measurements: {self.listMeasurements}\n"
@@ -144,7 +118,7 @@ class Analyses :
             self.listAllInstructions.sort ( key = lambda x : x.name )
     
     # function used to insert a new measurement for an instruction
-    def addMeasurement ( self , name: str , duration: int , success: bool ) -> None :
+    def addMeasurement ( self , name: str , duration: int ) -> None :
         #
         # if the instruction is not in the analyses list
         if not any ( instruction.name == name for instruction in self.listAllInstructions ) :
@@ -156,7 +130,7 @@ class Analyses :
         instruction: Instruction = [ obj for obj in self.listAllInstructions if obj.name == name ] [ 0 ]
         #
         # insert the new measurement in the right instruction
-        self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].addMeasurement ( duration , success )
+        self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].addMeasurement ( duration )
     
     # function used to get analyses of a specific instruction
     def getInstruction ( self , name: str ) -> Instruction :
@@ -187,10 +161,10 @@ class Analyses :
 
 if __name__ == "__main__" :
     d = Analyses ( )
-    d.addMeasurement ( "NameInstruction" , 1 , True )
-    d.addMeasurement ( "NameInstruction" , 2 , False )
-    d.addMeasurement ( "NameInstruction" , 3 , True )
-    d.addMeasurement ( "NameInstruction" , 4 , False )
-    d.addMeasurement ( "NameInstruction" , 5 , False )
-    d.addMeasurement ( "NameInstruction" , 6 , False )
+    d.addMeasurement ( "NameInstruction" , 1 )
+    d.addMeasurement ( "NameInstruction" , 2 )
+    d.addMeasurement ( "NameInstruction" , 3 )
+    d.addMeasurement ( "NameInstruction" , 4 )
+    d.addMeasurement ( "NameInstruction" , 5 )
+    d.addMeasurement ( "NameInstruction" , 6 )
     print ( d )
