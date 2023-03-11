@@ -24,3 +24,6 @@ class Instruction :
         #
         # set return value
         self.returnValue: int = None
+    
+    def __repr__ ( self ) :
+        return "pid " + str ( self.pid ) + " spid " + str ( self.spid ) + " name " + self.name + " start " + str ( self.startTimestamp ) + " finish " + str ( self.finishTimestamp ) + " duration " + str ( self.duration )
