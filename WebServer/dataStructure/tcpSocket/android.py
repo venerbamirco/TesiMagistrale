@@ -80,3 +80,51 @@ class Android ( GeneralSocket ) :
         #
         # return that is a valid string
         return True
+    
+    # function used to check input messages
+    def validOrInvalidInput ( self , message ) -> bool :
+        #
+        # select the right manager for actual input message
+        match message :
+            #
+            # charging
+            case s if "UsbChecker" in s :
+                return True
+            #
+            # developer options
+            case s if "DeveloperOptions" in s :
+                return True
+            #
+            # debuggable application
+            case s if "DebuggableApplications" in s :
+                return True
+            #
+            # debuggers
+            case s if "GnuDebugger_GDB" in s or "JavaDebugWireProtocol_JDWP" in s :
+                return True
+            #
+            # sensor alerts
+            case s if ("Azimuth" in s or "Pitch" in s or "Roll" in s or "Device" in s) and ("ok" in s or "alert" in s or "Device" in s) :
+                return True
+            #
+            # calibration
+            case s if "Calibration" in s :
+                return True
+            #
+            # lifecycle
+            case s if "AppManagement" in s :
+                return True
+            #
+            # sensor number values
+            case s if "Numbers" in s :
+                return True
+            #
+            # sensor text values
+            case s if "Texts" in s :
+                return True
+            #
+            # other case
+            case _ :
+                #
+                # return that is a not important instruction
+                return False

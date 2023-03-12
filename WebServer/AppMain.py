@@ -21,6 +21,8 @@ if __name__ == "__main__" :
     # create and open the other for the android logs
     androidLogs = File ( settings.getAndroidLogs ( ) , settings.howToOpenFiles )
     #
+    #
+    #
     # create the ptracer tcpSocket
     ptracerSocket = Ptracer ( "ptracer" , settings.hostname , settings.portSocketPtracer , settings.maximumNumberConnectedClients , ptracerLogs , settings , managerAlgorithm )
     #

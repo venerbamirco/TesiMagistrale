@@ -31,13 +31,13 @@ class Ptracer ( GeneralSocket ) :
         match message :
             #
             # pid to trace
-            case s if s.startswith ( "PID to trace:" ) and len ( s.split ( ) ) == 4 and s.split ( ) [ 3 ].isnumeric ( ) :
+            case s if s.startswith ( "PID to trace:" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
                 #
                 # do nothing
                 pass
             #
             # start a new instruction
-            case s if s == "------------------ SYSCALL ENTRY START ------------------" :
+            case s if "SYSCALL" in s and "ENTRY" in s and "START" in s :
                 #
                 # variables to manage if we have found all types of input details
                 self.pid = False
@@ -50,16 +50,22 @@ class Ptracer ( GeneralSocket ) :
                 pass
             #
             # end of start a new instruction
-            case s if s == "------------------ SYSCALL ENTRY STOP ------------------" :
+            case s if "SYSCALL" in s and "ENTRY" in s and "STOP" in s :
                 #
                 # if we not found all necessary data
                 if not self.pid or not self.spid or not self.timestamp or not self.syscall :
                     #
                     # delete the last instruction
                     self.managerAlgorithm.deleteNewInstruction ( )
+                #
+                # else if we found all necessary data
+                else:
+                    #
+                    #
+                    self.managerAlgorithm.setFirstPartInstruction()
             #
             # finish a new instruction
-            case s if s == "------------------ SYSCALL EXIT START ------------------" :
+            case s if "SYSCALL" in s and "EXIT" in s and "START" in s :
                 #
                 # variables to manage if we have found all types of input details
                 self.pid = False
@@ -71,7 +77,7 @@ class Ptracer ( GeneralSocket ) :
                 self.managerAlgorithm.finishActualInstruction ( )
             #
             # end of finish a new instruction
-            case s if s == "------------------ SYSCALL EXIT STOP ------------------" :
+            case s if "SYSCALL" in s and "EXIT" in s and "STOP" in s :
                 #
                 # if we found all necessary data
                 if self.pid and self.spid and self.timestamp and self.returnValue :
@@ -80,7 +86,7 @@ class Ptracer ( GeneralSocket ) :
                     self.managerAlgorithm.finishSpecificInstruction ( )
             #
             # pid
-            case s if s.startswith ( "PID:" ) and len ( s.split ( ) ) == 2 and s.split ( ) [ 1 ].isnumeric ( ) :
+            case s if s.startswith ( "PID:" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
                 #
                 # pid found
                 self.pid = True
@@ -89,7 +95,7 @@ class Ptracer ( GeneralSocket ) :
                 self.managerAlgorithm.setPid ( s )
             #
             # spid
-            case s if s.startswith ( "SPID:" ) and len ( s.split ( ) ) == 2 and s.split ( ) [ 1 ].isnumeric ( ) :
+            case s if s.startswith ( "SPID:" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
                 #
                 # spid found
                 self.spid = True
@@ -98,8 +104,7 @@ class Ptracer ( GeneralSocket ) :
                 self.managerAlgorithm.setSpid ( s )
             #
             # timestamp
-            case s if s.startswith ( "Timestamp:" ) and len ( s.split ( ) ) == 2 and len ( s.split ( ) [ 1 ] ) and s.split ( ) [ 1 ].isnumeric ( ) \
-                      and self.checkTimestamp < int ( s.split ( ) [ 1 ] ) :
+            case s if s.startswith ( "Timestamp:" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
                 #
                 # timestamp found
                 self.timestamp = True
@@ -108,8 +113,7 @@ class Ptracer ( GeneralSocket ) :
                 self.managerAlgorithm.setTimestamp ( s )
             #
             # syscall
-            case s if s.startswith ( "Syscall =" ) and len ( s.split ( ) ) == 4 and s.split ( ) [ 3 ].startswith ( "(" ) \
-                      and s.split ( ) [ 3 ].endswith ( ")" ) and s.split ( ) [ 3 ] [ 1 :-1 ].isnumeric ( ) :
+            case s if s.startswith ( "Syscall" ) and len ( s.split ( "=" ) ) == 2 :
                 #
                 # syscall found
                 self.syscall = True
@@ -118,7 +122,7 @@ class Ptracer ( GeneralSocket ) :
                 self.managerAlgorithm.setName ( s )
             #
             # return value
-            case s if s.startswith ( "Return value:" ) and len ( s.split ( ) ) == 3 and s.split ( ) [ 2 ].isnumeric ( ) :
+            case s if s.startswith ( "Return" ) and len ( s.split ( ":" ) ) == 2 :
                 #
                 # return value found
                 self.returnValue = True
@@ -127,10 +131,68 @@ class Ptracer ( GeneralSocket ) :
                 self.managerAlgorithm.setReturnValue ( s )
             #
             # other case
+            # case _ :
+            case s if "Notification" in s or "Authorized" in s or "Parameters" in s or "PC" in s or "unwinding" in s or "Follow" in s or "Tracee" in s or "Authorizer" in s or "Jumped" in s :
+                return False
             case _ :
                 #
                 # return that is a not important instruction
+                print ( "############################################" )
+                print ( repr ( message ) )
                 return False
         #
         # return that is a valid string
         return True
+    
+    # function used to check input messages
+    def validOrInvalidInput ( self , message ) -> bool :
+        #
+        # select the right manager for actual input message
+        match message :
+            #
+            # pid to trace
+            case s if s.startswith ( "PID to trace:" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
+                return True
+            #
+            # start a new instruction
+            case s if "SYSCALL" in s and "ENTRY" in s and "START" in s :
+                return True
+            #
+            # end of start a new instruction
+            case s if "SYSCALL" in s and "ENTRY" in s and "STOP" in s :
+                return True
+            #
+            # finish a new instruction
+            case s if "SYSCALL" in s and "EXIT" in s and "START" in s :
+                return True
+            #
+            # end of finish a new instruction
+            case s if "SYSCALL" in s and "EXIT" in s and "STOP" in s :
+                return True
+            #
+            # pid
+            case s if s.startswith ( "PID:" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
+                return True
+            #
+            # spid
+            case s if s.startswith ( "SPID:" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
+                return True
+            #
+            # timestamp
+            case s if s.startswith ( "Timestamp" ) and len ( s.split ( ":" ) ) == 2 and s.split ( ":" ) [ 1 ].strip ( ).isnumeric ( ) :
+                return True
+            #
+            # syscall
+            case s if s.startswith ( "Syscall" ) and len ( s.split ( "=" ) ) == 2 :
+                return True
+            #
+            # return value
+            case s if s.startswith ( "Return" ) and len ( s.split ( ":" ) ) == 2 :
+                return True
+            #
+            # other case
+            # case _ :
+            case s if "Notification" in s or "Authorized" in s or "Parameters" in s or "PC" in s or "unwinding" in s or "Follow" in s or "Tracee" in s or "Authorizer" in s or "Jumped" in s :
+                return False
+            case _ :
+                return False

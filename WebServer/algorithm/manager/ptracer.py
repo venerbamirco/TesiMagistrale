@@ -2,6 +2,7 @@
 from dataStructure.other.file import File
 from dataStructure.other.instruction import Instruction
 from dataStructure.ptracer.analyses import Analyses
+from dataStructure.ptracer.instructions import Instructions
 from settings.settings import Settings
 
 class PtracerManager :
@@ -17,6 +18,9 @@ class PtracerManager :
         #
         # initialize the analyses manager
         self.analyses: Analyses = Analyses ( )
+        #
+        # initialize the instruction manager
+        self.instructions: Instructions = Instructions ( self.analyses )
         #
         # variable used to say that we are in the start part or in the finish part of the instruction
         self.startPartInstructionLogs: bool = None
@@ -38,6 +42,20 @@ class PtracerManager :
         # append the new element in the list
         self.listInstruction.append ( instruction )
     
+    # function used to insert the first part of an instruction
+    def setFirstPartInstruction ( self ) -> None :
+        #
+        # input: ------------------ SYSCALL ENTRY STOP ------------------
+        #
+        # get last instruction from the list
+        instruction: Instruction = self.listInstruction [ -1 ]
+        #
+        # insert the instruction in the relative manager
+        self.instructions.addInstruction ( instruction.name , instruction.pid , instruction.spid , instruction.startTimestamp )
+        #
+        # delete from the list the actual instruction
+        self.listInstruction.remove ( instruction )
+    
     # function used to delete a new instruction
     def deleteNewInstruction ( self ) -> None :
         #
@@ -54,101 +72,68 @@ class PtracerManager :
         #
         # we are in the end part of the instruction
         self.startPartInstructionLogs = False
+        #
+        # create a new instruction element
+        instruction: Instruction = Instruction ( )
+        #
+        # append the new element in the list
+        self.listInstruction.append ( instruction )
     
     # function used to finish a specific instruction
     def finishSpecificInstruction ( self ) -> None :
         #
         # input: ------------------ SYSCALL EXIT STOP ------------------
         #
-        # find all instructions with right pid and spid and not terminated
-        listInstructions: list [ Instruction ] = [ obj for obj in self.listInstruction
-                                                   if obj.pid == self.finishInstruction.pid and
-                                                   obj.spid == self.finishInstruction.spid and
-                                                   not obj.finishTimestamp ]
+        # get last instruction from the list
+        instruction: Instruction = self.listInstruction [ -1 ]
         #
-        # if there is at least one instruction
-        if len ( listInstructions ) > 0 :
-            #
-            # get the first instruction
-            instruction: Instruction = listInstructions [ 0 ]
-            #
-            # save finish timestamp and return value
-            instruction.finishTimestamp = self.finishInstruction.finishTimestamp
-            instruction.returnValue = self.finishInstruction.returnValue
-            #
-            # calculate duration
-            instruction.duration: int = instruction.finishTimestamp - instruction.startTimestamp
-
-            print(instruction)
-            #
-            # add actual measure in analyses tool
-            self.analyses.addMeasurement ( instruction.name , instruction.duration )
+        # insert the instruction in the relative manager
+        self.instructions.finishInstruction ( instruction.pid , instruction.spid , instruction.returnValue , instruction.finishTimestamp )
+        #
+        # delete from the list the actual instruction
+        self.listInstruction.remove ( instruction )
     
     # function used to set pid
     def setPid ( self , record: str ) -> None :
         #
         # input: PID: 30074
         #
-        # split the input string using the space character
-        listInputWords: list [ str ] = record.split ( )
+        # split the input string using the : character
+        listInputWords: list [ str ] = record.split ( ":" )
         #
-        # if len is valid
-        if len ( listInputWords ) == 2 :
-            #
-            # save input pid
-            pid: int = int ( listInputWords [ 1 ] )
-            #
-            # if it is the start part
-            if self.startPartInstructionLogs :
-                #
-                # get last element of the list of instructions
-                instruction: Instruction = self.listInstruction [ -1 ]
-                #
-                # set pid of last instruction of the list
-                instruction.pid: int = pid
-            #
-            # else if it is the final part
-            else :
-                #
-                # set pid on finish instruction
-                self.finishInstruction.pid: int = pid
+        # save input pid
+        pid: int = int ( listInputWords [ 1 ] , 10 )
+        #
+        # get last element of the list of instructions
+        instruction: Instruction = self.listInstruction [ -1 ]
+        #
+        # set pid of last instruction of the list
+        instruction.pid: int = pid
     
     # function used to set spid
     def setSpid ( self , record: str ) -> None :
         #
         # input: SPID: 30074
         #
-        # split the input string using the space character
-        listInputWords: list [ str ] = record.split ( )
+        # split the input string using the : character
+        listInputWords: list [ str ] = record.split ( ":" )
         #
         # save input spid
-        spid: int = int ( listInputWords [ 1 ] )
+        spid: int = int ( listInputWords [ 1 ] , 10 )
         #
-        # if it is the start part
-        if self.startPartInstructionLogs :
-            #
-            # get last element of the list of instructions
-            instruction: Instruction = self.listInstruction [ -1 ]
-            #
-            # set spid of last instruction of the list
-            instruction.spid: int = spid
+        # get last element of the list of instructions
+        instruction: Instruction = self.listInstruction [ -1 ]
         #
-        # else if it is the final part
-        else :
-            #
-            # set spid on finish instruction
-            self.finishInstruction.spid: int = spid
+        # set spid of last instruction of the list
+        instruction.spid: int = spid
     
     # function used to set name
     def setName ( self , record: str ) -> None :
         #
         # input: Syscall = clock_gettime (113)
         #
-        # split the input string using the space character
-        listInputWords: list [ str ] = record.split ( )
-        #
         # save input name
-        name: str = listInputWords [ 2 ]
+        name: str = record.split ( "=" ) [ 1 ].split ( "(" ) [ 0 ].strip ( )
         #
         # get last element of the list of instructions
         instruction: Instruction = self.listInstruction [ -1 ]
@@ -161,17 +146,17 @@ class PtracerManager :
         #
         # input: Timestamp: 1677745254687394
         #
-        # split the input string using the space character
-        listInputWords: list [ str ] = record.split ( )
+        # split the input string using the : character
+        listInputWords: list [ str ] = record.split ( ":" )
         #
         # save input timestamp
-        timestamp: int = int ( listInputWords [ 1 ] )
+        timestamp: int = int ( listInputWords [ 1 ] , 10 )
+        #
+        # get last element of the list of instructions
+        instruction: Instruction = self.listInstruction [ -1 ]
         #
         # if it is the start part
         if self.startPartInstructionLogs :
-            #
-            # get last element of the list of instructions
-            instruction: Instruction = self.listInstruction [ -1 ]
             #
             # set start timestamp of last instruction of the list
             instruction.startTimestamp: int = timestamp
@@ -179,22 +164,37 @@ class PtracerManager :
         # else if it is the final part
         else :
             #
-            # set finish timestamp on finish instruction
-            self.finishInstruction.finishTimestamp: int = timestamp
+            # set finish timestamp of last instruction of the list
+            instruction.finishTimestamp: int = timestamp
     
     # function used to set return value
     def setReturnValue ( self , record: str ) -> None :
         #
         # input: Return value: 000000000000000000
         #
-        # split the input string using the space character
-        listInputWords: list [ str ] = record.split ( )
+        # split the input string using the : character
+        listInputWords: list [ str ] = record.split ( ":" )
         #
-        # save input return value
-        returnValue: int = int ( listInputWords [ 2 ] )
+        # get last element of the list of instructions
+        instruction: Instruction = self.listInstruction [ -1 ]
         #
-        # set return value on finish instruction
-        self.finishInstruction.returnValue: int = returnValue
+        # variable to store return value
+        returnValue: int = 0
+        #
+        # if the number is hex
+        if "x" in record :
+            #
+            # save input return value
+            returnValue: int = int ( listInputWords [ 1 ] , 16 )
+        #
+        # if the number is dec
+        else :
+            #
+            # save input return value
+            returnValue: int = int ( listInputWords [ 1 ] , 10 )
+        #
+        # set return value of last element of the list
+        instruction.returnValue: int = returnValue
     
     # function used to set duration
     def setDuration ( self ) -> None :
@@ -219,3 +219,7 @@ class PtracerManager :
         # create the file for analyses manager
         fileAnalysesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Analyses" + self.settings.extensionLogFile , "w" )
         fileAnalysesManager.writeIntoFile ( self.analyses )
+        #
+        # create the file for instructions manager
+        fileInstructionsManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Instructions" + self.settings.extensionLogFile , "w" )
+        fileInstructionsManager.writeIntoFile ( self.instructions )

@@ -39,6 +39,9 @@ class GeneralSocket :
         #
         # save the reference for the manager algorithm
         self.managerAlgorithm = managerAlgorithm
+        #
+        # variable to manage the last part of the previous message
+        self.finalPartLastMessage = ""
     
     # function used to create configure and start the tcpSocket
     def createConfigureStartSocket ( self ) :
@@ -151,29 +154,73 @@ class GeneralSocket :
     # function used to analyze the received data
     def analyzeInputData ( self , receivedMessageString: str ) :
         #
-        # get the list of single row of ptracer
-        actualMessages = receivedMessageString.split ( "\n" )
+        # only on ptracer socket
+        if self.name == "ptracer" :
+            #
+            # concatenate the final part of the last message
+            receivedMessageString = self.finalPartLastMessage + receivedMessageString
+            #
+            # get the list of single row of ptracer
+            actualMessages = receivedMessageString.split ( "\n" )
+            #
+            # for each single row of the received message from the client
+            for i in range ( 0 , len ( actualMessages ) ) :
+                #
+                # if first n-1 messages
+                if i < len ( actualMessages ) - 1 :
+                    #
+                    # call the relative manager if it is a valid message
+                    valid = self.callManagerActualInput ( actualMessages [ i ] )
+                    #
+                    # if it is valid
+                    if valid :
+                        #
+                        # write the actual message in the log
+                        self.manageFile.writeIntoFile ( repr ( actualMessages [ i ] ) )
+                        pass
+                    #
+                    # if it is not valid
+                    else :
+                        #
+                        # we must skip it
+                        pass
+                #
+                # else if it is the last message
+                else :
+                    #
+                    # save the message to concatenate then
+                    self.finalPartLastMessage = actualMessages [ i ]
         #
-        # for each single row of the received message from the client
-        for message in actualMessages :
+        # only on android socket
+        else :
             #
-            # call the relative manager if it is a valid message
-            valid = self.callManagerActualInput ( message )
+            # get the list of single row of ptracer
+            actualMessages = receivedMessageString.split ( "\n" )
             #
-            # if it is valid
-            if valid :
+            # for each single row of the received message from the client
+            for i in range ( 0 , len ( actualMessages ) ) :
                 #
-                # write the actual message in the log
-                self.manageFile.writeIntoFile ( message )
-            #
-            # if it is not valid
-            else :
+                # call the relative manager if it is a valid message
+                valid = self.callManagerActualInput ( actualMessages [ i ] )
                 #
-                # we must skip it
-                pass
+                # if it is valid
+                if valid :
+                    #
+                    # write the actual message in the log
+                    self.manageFile.writeIntoFile ( actualMessages [ i ] )
+                #
+                # if it is not valid
+                else :
+                    #
+                    # we must skip it
+                    pass
     
     # function used to call the single manager of each type of input
     def callManagerActualInput ( self , message ) -> bool :
+        pass
+    
+    # function used to check input messages
+    def validOrInvalidInput ( self , message ) -> bool :
         pass
     
     # function used to close the tcp tcpSocket and the other

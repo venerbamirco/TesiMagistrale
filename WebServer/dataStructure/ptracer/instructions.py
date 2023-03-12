@@ -20,6 +20,7 @@ LIST OF ALL TERMINATED INSTRUCTIONS
 		Duration: 2038920166946664
 		Return Value: 0
 """
+from dataStructure.ptracer.analyses import Analyses
 
 # class to manage the structure of a single instruction
 class Instruction :
@@ -124,13 +125,13 @@ class Instruction :
 class Instructions :
     
     # constructor to initialize the list of instructions
-    def __init__ ( self ) -> None :
+    def __init__ ( self , analyses: Analyses ) -> None :
+        #
+        # save the reference for analyses
+        self.analyses: Analyses = analyses
         #
         # create the list for all instructions both terminated and also not terminated
         self.listAllInstructions: list [ Instruction ] = list ( )
-        #
-        # create the list for not terminated instructions
-        self.listNotTerminatedInstructions: list [ Instruction ] = list ( )
     
     # function used to add a new instruction in the list
     def addInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> None :
@@ -140,26 +141,35 @@ class Instructions :
         #
         # append the instruction in the list of all instructions
         self.listAllInstructions.append ( instruction )
-        #
-        # append the instruction in the list of not terminated instructions
-        self.listNotTerminatedInstructions.append ( instruction )
-        #
-        # order the list of all instructions
-        self.listAllInstructions.sort ( key = lambda x : x.name )
-        #
-        # order the list of all not terminated instructions
-        self.listAllInstructions.sort ( key = lambda x : x.name )
     
     # function used to terminate instruction
     def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) -> None :
         #
-        # obtain the right instruction
-        instruction: Instruction = [ obj for obj in self.listAllInstructions
-                                     if obj.pid == pid and
-                                     obj.spid == spid ] [ 0 ]
+        # obtain the list of instructions
+        listInstructions: list [ Instruction ] = [ obj for obj in self.listAllInstructions if obj.pid == pid and
+                                                   obj.spid == spid and obj.finishTimestamp is None ]
         #
-        # terminated the right instruction in the list of all instructions
-        self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].finishInstruction ( returnValue , finishTimestamp )
+        # variable to store instruction
+        instruction: Instruction = None
+        #
+        # if there is only one instruction
+        if len ( listInstructions ) == 1 :
+            # obtain the right instruction
+            instruction: Instruction = listInstructions [ 0 ]
+        #
+        # if there are more than one instructions
+        elif len ( listInstructions ) > 1 :
+            # obtain the right instruction
+            instruction: Instruction = listInstructions [ -1 ]
+        #
+        # if instruction is valid
+        if instruction is not None :
+            #
+            # terminated the right instruction in the list of all instructions
+            instruction.finishInstruction ( returnValue , finishTimestamp )
+            #
+            # add measure of actual instruction
+            self.analyses.addMeasurement ( instruction.name , instruction.getDuration ( ) )
     
     # function used to get a specific instruction
     def getInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> Instruction :
@@ -180,15 +190,6 @@ class Instructions :
         # initialize as empty the output string
         output: str = ""
         #
-        # print debug row of all not terminated instructions
-        output: str = f"{output}\nLIST OF ALL NOT TERMINATED INSTRUCTIONS\n"
-        #
-        # for each not terminated instruction
-        for instruction in [ obj for obj in self.listAllInstructions if not obj.finished ] :
-            #
-            # print the actual not terminated instruction
-            output: str = f"{output}{instruction}"
-        #
         # print debug row of all terminated instructions
         output: str = f"{output}\nLIST OF ALL TERMINATED INSTRUCTIONS\n"
         #
@@ -196,6 +197,15 @@ class Instructions :
         for instruction in [ obj for obj in self.listAllInstructions if obj.finished ] :
             #
             # print the actual terminated instruction
+            output: str = f"{output}{instruction}"
+        #
+        # print debug row of all not terminated instructions
+        output: str = f"{output}\nLIST OF ALL NOT TERMINATED INSTRUCTIONS\n"
+        #
+        # for each not terminated instruction
+        for instruction in [ obj for obj in self.listAllInstructions if not obj.finished ] :
+            #
+            # print the actual not terminated instruction
             output: str = f"{output}{instruction}"
         #
         # return the output
