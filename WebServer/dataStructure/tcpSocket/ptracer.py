@@ -137,8 +137,8 @@ class Ptracer ( GeneralSocket ) :
             case _ :
                 #
                 # return that is a not important instruction
-                print ( "############################################" )
-                print ( repr ( message ) )
+                #print ( "############################################" )
+                #print ( repr ( message ) )
                 return False
         #
         # return that is a valid string

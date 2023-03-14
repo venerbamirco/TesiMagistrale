@@ -55,20 +55,23 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # get if it is charging
-        isCharging: bool = strToBool ( listInputWords [ 3 ] )
-        #
-        # get if it is charging using usb
-        usbCharging: bool = strToBool ( listInputWords [ 5 ] )
-        #
-        # get if it is charging using ac
-        acCharging: bool = strToBool ( listInputWords [ 7 ] )
-        #
-        # add the charging record in the relative manager
-        self.chargingManager.addChargingRecord ( isCharging , usbCharging , acCharging , timestamp )
+        # if all data are correctly typed
+        if listInputWords [ 0 ].isnumeric ( ) :
+            #
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
+            #
+            # get if it is charging
+            isCharging: bool = strToBool ( listInputWords [ 3 ] )
+            #
+            # get if it is charging using usb
+            usbCharging: bool = strToBool ( listInputWords [ 5 ] )
+            #
+            # get if it is charging using ac
+            acCharging: bool = strToBool ( listInputWords [ 7 ] )
+            #
+            # add the charging record in the relative manager
+            self.chargingManager.addChargingRecord ( isCharging , usbCharging , acCharging , timestamp )
     
     # function used to add a record in developer options
     def addDeveloperOptionsRecord ( self , record: str ) -> None :
@@ -78,17 +81,20 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # get if adb is enabled
-        adbEnabled: bool = strToBool ( listInputWords [ 3 ] )
-        #
-        # get if developer options are enabled
-        devOpsEnabled: bool = strToBool ( listInputWords [ 5 ] )
-        #
-        # add the developer options record in the relative manager
-        self.developerOptionsManager.addDeveloperOptionRecord ( devOpsEnabled , adbEnabled , timestamp )
+        # if all data are correctly typed
+        if listInputWords [ 0 ].isnumeric ( ) :
+            #
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
+            #
+            # get if adb is enabled
+            adbEnabled: bool = strToBool ( listInputWords [ 3 ] )
+            #
+            # get if developer options are enabled
+            devOpsEnabled: bool = strToBool ( listInputWords [ 5 ] )
+            #
+            # add the developer options record in the relative manager
+            self.developerOptionsManager.addDeveloperOptionRecord ( devOpsEnabled , adbEnabled , timestamp )
     
     # function used to add a record in debuggable applications
     def addDebuggableApplicationsRecord ( self , record: str ) -> None :
@@ -98,17 +104,20 @@ class AndroidManager :
         # split the input string using the : character
         listInputWords: list [ str ] = record.split ( ":" )
         #
-        # get name of the debuggable application
-        debuggableApplication: str = listInputWords [ 1 ].strip ( )
-        #
-        # split the input string using the space character
-        listInputWords: list [ str ] = record.split ( )
-        #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # add the debuggable application record in the relative manager
-        self.debuggableApplicationsManager.addDebuggableApplication ( debuggableApplication , timestamp )
+        # if all data are correctly typed
+        if record.split ( ) [ 0 ].isnumeric ( ) :
+            #
+            # get name of the debuggable application
+            debuggableApplication: str = listInputWords [ 1 ].strip ( )
+            #
+            # split the input string using the space character
+            listInputWords: list [ str ] = record.split ( )
+            #
+            # get timestamp
+            timestamp: int = int ( record.split ( ) [ 0 ] )
+            #
+            # add the debuggable application record in the relative manager
+            self.debuggableApplicationsManager.addDebuggableApplication ( debuggableApplication , timestamp )
     
     # function used to add a record in debuggers
     def addDebuggerRecord ( self , record: str ) -> None :
@@ -119,20 +128,23 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # if it is a gdb debugger
-        if "GnuDebugger_GDB" in record :
+        # if all data are correctly typed
+        if listInputWords [ 0 ].isnumeric ( ) :
             #
-            # set the gdb debugger in the relative manager
-            self.debuggersManager.setFoundGdbDebugger ( timestamp )
-        #
-        # if it is a jdwp debugger
-        elif "JavaDebugWireProtocol_JDWP" in record :
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
             #
-            # set the jdwp debugger in the relative manager
-            self.debuggersManager.setFoundJdwpDebugger ( timestamp )
+            # if it is a gdb debugger
+            if "GnuDebugger_GDB" in record :
+                #
+                # set the gdb debugger in the relative manager
+                self.debuggersManager.setFoundGdbDebugger ( timestamp )
+            #
+            # if it is a jdwp debugger
+            elif "JavaDebugWireProtocol_JDWP" in record :
+                #
+                # set the jdwp debugger in the relative manager
+                self.debuggersManager.setFoundJdwpDebugger ( timestamp )
     
     # function used to add a record in debuggers
     def addSensorAlertRecord ( self , record: str ) -> None :
@@ -145,35 +157,38 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get status of alert
-        status: bool = not "ok" in record
-        #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # if azimuth alert
-        if "Azimuth" in record :
+        # if all data are correctly typed
+        if listInputWords [ 0 ].isnumeric ( ) :
             #
-            # add azimuth alert record
-            self.sensorAlertsManager.addAzimuthAlert ( status , timestamp )
-        #
-        # if pitch alert
-        elif "Pitch" in record :
+            # get status of alert
+            status: bool = not "ok" in record
             #
-            # add pitch alert record
-            self.sensorAlertsManager.addPitchAlert ( status , timestamp )
-        #
-        # if roll alert
-        elif "Roll" in record :
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
             #
-            # add roll alert record
-            self.sensorAlertsManager.addRollAlert ( status , timestamp )
-        #
-        # if device correctly used
-        elif "Device" in record :
+            # if azimuth alert
+            if "Azimuth" in record :
+                #
+                # add azimuth alert record
+                self.sensorAlertsManager.addAzimuthAlert ( status , timestamp )
             #
-            # add device correctly used
-            self.sensorAlertsManager.addCorrectlyUsed ( True , timestamp )
+            # if pitch alert
+            elif "Pitch" in record :
+                #
+                # add pitch alert record
+                self.sensorAlertsManager.addPitchAlert ( status , timestamp )
+            #
+            # if roll alert
+            elif "Roll" in record :
+                #
+                # add roll alert record
+                self.sensorAlertsManager.addRollAlert ( status , timestamp )
+            #
+            # if device correctly used
+            elif "Device" in record :
+                #
+                # add device correctly used
+                self.sensorAlertsManager.addCorrectlyUsed ( True , timestamp )
     
     # function used to add a record in calibration
     def addCalibrationRecord ( self , record: str ) -> None :
@@ -184,11 +199,14 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # add the calibration record in the relative manager
-        self.sensorCalibrationManager.addCalibrationRecord ( True , timestamp )
+        # if all data are correctly typed
+        if listInputWords [ 0 ].isnumeric ( ) :
+            #
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
+            #
+            # add the calibration record in the relative manager
+            self.sensorCalibrationManager.addCalibrationRecord ( True , timestamp )
     
     # function used to add a record in lifecycle
     def addLifecycleRecord ( self , record: str ) -> None :
@@ -199,17 +217,20 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # get if on pause
-        onPause: bool = "onPause" in record
-        #
-        # get if on pause
-        onResume: bool = "onResume" in record
-        #
-        # add the lifecycle record in the relative manager
-        self.lifecycleManager.addLifecycleRecord ( onResume , onPause , timestamp )
+        # if all data are correctly typed
+        if listInputWords [ 0 ].isnumeric ( ) :
+            #
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
+            #
+            # get if on pause
+            onPause: bool = "onPause" in record
+            #
+            # get if on pause
+            onResume: bool = "onResume" in record
+            #
+            # add the lifecycle record in the relative manager
+            self.lifecycleManager.addLifecycleRecord ( onResume , onPause , timestamp )
     
     # function used to add a record in sensor numbers
     def addSensorNumberRecord ( self , record: str ) -> None :
@@ -219,20 +240,23 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # get azimuth
-        azimuth: int = int ( listInputWords [ 4 ] )
-        #
-        # get pitch
-        pitch: int = int ( listInputWords [ 6 ] )
-        #
-        # get roll
-        roll: int = int ( listInputWords [ 8 ] )
-        #
-        # add the lifecycle record in the relative manager
-        self.sensorNumberManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
+        # if all data are correctly typed
+        if listInputWords [ 0 ].strip ( "-" ).isnumeric ( ) and listInputWords [ 4 ].strip ( "-" ).isnumeric ( ) and listInputWords [ 6 ].strip ( "-" ).isnumeric ( ) and listInputWords [ 8 ].strip ( "-" ).isnumeric ( ) :
+            #
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
+            #
+            # get azimuth
+            azimuth: int = int ( listInputWords [ 4 ] )
+            #
+            # get pitch
+            pitch: int = int ( listInputWords [ 6 ] )
+            #
+            # get roll
+            roll: int = int ( listInputWords [ 8 ] )
+            #
+            # add the lifecycle record in the relative manager
+            self.sensorNumberManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
     
     # function used to add a record in sensor texts
     def addSensorTextRecord ( self , record: str ) -> None :
@@ -242,56 +266,59 @@ class AndroidManager :
         # split the input string using the space character
         listInputWords: list [ str ] = record.split ( )
         #
-        # get timestamp
-        timestamp: int = int ( listInputWords [ 0 ] )
-        #
-        # get azimuth
-        azimuth: str = listInputWords [ 4 ].lower ( )
-        #
-        # get pitch
-        pitch: str = listInputWords [ 6 ].lower ( )
-        #
-        # get roll
-        roll: str = listInputWords [ 8 ].lower ( )
-        #
-        # add the lifecycle record in the relative manager
-        self.sensorTextManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
+        # if all data are correctly typed
+        if listInputWords [ 0 ].isnumeric ( ) :
+            #
+            # get timestamp
+            timestamp: int = int ( listInputWords [ 0 ] )
+            #
+            # get azimuth
+            azimuth: str = listInputWords [ 4 ].lower ( )
+            #
+            # get pitch
+            pitch: str = listInputWords [ 6 ].lower ( )
+            #
+            # get roll
+            roll: str = listInputWords [ 8 ].lower ( )
+            #
+            # add the lifecycle record in the relative manager
+            self.sensorTextManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
     
     # function used to save the all android logs
     def saveAndroidLogs ( self , mainDirOutputStructureLogs: str ) :
         #
         # create the file for charging manager
-        fileChargingManager = File ( mainDirOutputStructureLogs + "\\android\\Charging" + self.settings.extensionLogFile , "w" )
+        fileChargingManager: File = File ( mainDirOutputStructureLogs + "\\android\\Charging" + self.settings.extensionLogFile , "w" )
         fileChargingManager.writeIntoFile ( self.chargingManager )
         #
         # create the file for developer options manager
-        fileDeveloperOptionsManager = File ( mainDirOutputStructureLogs + "\\android\\DeveloperOptions" + self.settings.extensionLogFile , "w" )
+        fileDeveloperOptionsManager: File = File ( mainDirOutputStructureLogs + "\\android\\DeveloperOptions" + self.settings.extensionLogFile , "w" )
         fileDeveloperOptionsManager.writeIntoFile ( self.developerOptionsManager )
         #
         # create the file for debuggable applications manager
-        fileDebuggableApplicationsManager = File ( mainDirOutputStructureLogs + "\\android\\DebuggableApplications" + self.settings.extensionLogFile , "w" )
+        fileDebuggableApplicationsManager: File = File ( mainDirOutputStructureLogs + "\\android\\DebuggableApplications" + self.settings.extensionLogFile , "w" )
         fileDebuggableApplicationsManager.writeIntoFile ( self.debuggableApplicationsManager )
         #
         # create the file for debuggers manager
-        fileDebuggersManager = File ( mainDirOutputStructureLogs + "\\android\\Debuggers" + self.settings.extensionLogFile , "w" )
+        fileDebuggersManager: File = File ( mainDirOutputStructureLogs + "\\android\\Debuggers" + self.settings.extensionLogFile , "w" )
         fileDebuggersManager.writeIntoFile ( self.debuggersManager )
         #
         # create the file for sensor alerts manager
-        fileSensorAlertsManager = File ( mainDirOutputStructureLogs + "\\android\\SensorAlerts" + self.settings.extensionLogFile , "w" )
+        fileSensorAlertsManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorAlerts" + self.settings.extensionLogFile , "w" )
         fileSensorAlertsManager.writeIntoFile ( self.sensorAlertsManager )
         #
         # create the file for calibration manager
-        fileSensorCalibrationManager = File ( mainDirOutputStructureLogs + "\\android\\SensorCalibration" + self.settings.extensionLogFile , "w" )
+        fileSensorCalibrationManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorCalibration" + self.settings.extensionLogFile , "w" )
         fileSensorCalibrationManager.writeIntoFile ( self.sensorCalibrationManager )
         #
         # create the file for lifecycle manager
-        fileLifecycleManager = File ( mainDirOutputStructureLogs + "\\android\\Lifecycle" + self.settings.extensionLogFile , "w" )
+        fileLifecycleManager: File = File ( mainDirOutputStructureLogs + "\\android\\Lifecycle" + self.settings.extensionLogFile , "w" )
         fileLifecycleManager.writeIntoFile ( self.lifecycleManager )
         #
         # create the file for sensor number manager
-        sensorNumberManager = File ( mainDirOutputStructureLogs + "\\android\\SensorNumber" + self.settings.extensionLogFile , "w" )
+        sensorNumberManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorNumber" + self.settings.extensionLogFile , "w" )
         sensorNumberManager.writeIntoFile ( self.sensorNumberManager )
         #
         # create the file for sensor text manager
-        sensorTextManager = File ( mainDirOutputStructureLogs + "\\android\\SensorText" + self.settings.extensionLogFile , "w" )
+        sensorTextManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorText" + self.settings.extensionLogFile , "w" )
         sensorTextManager.writeIntoFile ( self.sensorTextManager )

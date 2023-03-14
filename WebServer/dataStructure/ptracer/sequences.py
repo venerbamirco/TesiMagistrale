@@ -32,11 +32,14 @@ class Instruction :
         # create a simple instruction object
         instruction: Instruction = Instruction ( name )
         #
-        # append the instruction in the list of possible instructions
-        self.nextInstructions.append ( instruction )
-        #
-        # order the list of next instructions
-        self.nextInstructions.sort ( key = lambda x : x.name )
+        # if there is not the next instruction in the list
+        if not any ( instruction.name == name for instruction in self.nextInstructions ) :
+            #
+            # append the instruction in the list of possible instructions
+            self.nextInstructions.append ( instruction )
+            #
+            # order the list of next instructions
+            self.nextInstructions.sort ( key = lambda x : x.name )
     
     # function used to represent the object with only the name
     def __repr__ ( self ) -> str :
@@ -67,9 +70,21 @@ class Sequences :
         #
         # create a list of all instructions
         self.listInstructions: list [ Instruction ] = list ( )
+        #
+        # dictionary of list of instructions for each pair pid spid
+        self.dictionaryPidSpid: dict [ list [ str ] ] = dict ( )
     
     # function used to insert a new instruction in the dictionary
-    def addInstruction ( self , name: str ) -> None :
+    def addInstruction ( self , pid: int , spid: int , name: str ) -> None :
+        #
+        # if the pair pid spid is not in the dictionary
+        if (pid , spid) not in self.dictionaryPidSpid :
+            #
+            # insert in the actual position an empty list
+            self.dictionaryPidSpid [ pid , spid ]: list [ str ] = list ( )
+        #
+        # append in the right index the actual instruction
+        self.dictionaryPidSpid [ pid , spid ].append ( name )
         #
         # if the instruction is not in the list
         if not any ( instruction.name == name for instruction in self.listInstructions ) :
@@ -82,27 +97,21 @@ class Sequences :
             #
             # order instructions in the list
             self.listInstructions.sort ( key = lambda x : x.name )
-    
-    # function used to insert a next instruction for a specific instruction
-    def addNextInstruction ( self , previousInstruction: str , nextInstruction: str ) -> None :
         #
-        # if the previous instruction is not in dictionary
-        if not any ( instruction.name == previousInstruction for instruction in self.listInstructions ) :
+        # if there are other previous instructions of actual pair pid spid
+        if len ( self.dictionaryPidSpid [ pid , spid ] ) > 1 :
             #
-            # insert a new instruction in the dictionary for the previous instruction
-            self.addInstruction ( previousInstruction )
-        #
-        # if the next instruction is not in dictionary
-        elif not any ( instruction.name == nextInstruction for instruction in self.listInstructions ) :
+            # obtain the previous instruction
+            previousInstruction: str = self.dictionaryPidSpid [ pid , spid ] [ -2 ]
             #
-            # insert a new instruction in the dictionary for the next instruction
-            self.addInstruction ( nextInstruction )
-        #
-        # obtain the object in the list for the previous instruction
-        prevInstruction:Instruction = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
-        #
-        # add the next instruction in the actual instruction next instructions list
-        self.listInstructions [ self.listInstructions.index ( prevInstruction ) ].addNextInstruction ( nextInstruction )
+            # obtain the next instruction
+            nextInstruction: str = self.dictionaryPidSpid [ pid , spid ] [ -1 ]
+            #
+            # obtain the object in the list for the previous instruction
+            prev: Instruction = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
+            #
+            # add the next instruction in the actual instruction next instructions list
+            prev.addNextInstruction ( nextInstruction )
     
     # function used to get a specific instruction
     def getInstruction ( self , name: str ) -> Instruction :
@@ -133,7 +142,9 @@ class Sequences :
 
 if __name__ == "__main__" :
     d = Sequences ( )
-    d.addNextInstruction ( "nameinstruction" , "nameinstruction2" )
-    d.addNextInstruction ( "nameinstruction" , "nameinstruction1" )
-    d.addNextInstruction ( "nameinstruction1" , "nameinstruction2" )
+    d.addInstruction ( 1 , 1 , "nome1" )
+    d.addInstruction ( 1 , 1 , "nome2" )
+    d.addInstruction ( 1 , 2 , "nome3" )
+    d.addInstruction ( 1 , 2 , "nome4" )
+    d.addInstruction ( 1 , 1 , "nome5" )
     print ( d )

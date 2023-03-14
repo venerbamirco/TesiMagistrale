@@ -1,11 +1,14 @@
 package com.progetto.tesi.ptracer;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.progetto.tesi.settings.Settings;
 import com.progetto.tesi.socket.Client;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
 
 public class Ptracer extends Thread {
@@ -67,20 +70,33 @@ public class Ptracer extends Thread {
         try {
 
             /*execute ptracer with the pid of actual application*/
-            this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " | nc " + this.ipAddressAndPortWebServer } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
+            //this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " | nc " + this.ipAddressAndPortWebServer } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
 
-            /*send that ptracer is started*/
-            this.client.addElementToBeSent ( "Ptracer: started" );
+            File output = new File ( ContextCompat.getExternalFilesDirs ( this.appCompatActivity.getApplicationContext ( ) , "ptracer" )[ 0 ] , "/traces.txt" );
+            this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " &>" + output.getAbsolutePath ( ) } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
 
-            /*while the process of ptracer is alive*/
-            while ( this.process.isAlive ( ) ) {
-
-                /*do nothing*/
-
+            BufferedReader objReader = new BufferedReader ( new FileReader ( output ) );
+            String strCurrentLine = "";
+            int i = 1;
+            while ( true ) {
+                strCurrentLine = objReader.readLine ( );
+                /*se diverso da null, mando tutto al server pero con la porta di ptracer*/
+                System.out.println ( i + " " + strCurrentLine );
+                i = i + 1;
             }
 
+            /*send that ptracer is started*/
+            //this.client.addElementToBeSent ( "Ptracer: started" );
+
+            /*while the process of ptracer is alive*/
+            //while ( this.process.isAlive ( ) ) {
+
+            /*do nothing*/
+
+            //}
+
             /*send that ptracer is crashed*/
-            this.client.addElementToBeSent ( "Ptracer: crashed" );
+            //this.client.addElementToBeSent ( "Ptracer: crashed" );
 
         } catch ( IOException e ) {
 

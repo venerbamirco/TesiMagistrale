@@ -71,14 +71,18 @@ public class Client extends Thread {
         /*always*/
         while ( true ) {
 
-            /*if there are some messages to be sent*/
-            if ( ! this.dataToBeSent.isEmpty ( ) ) {
+            /*manage exception if no element in the list*/
+            try {
 
                 /*extract the actual element to send to the server*/
                 this.singleDataToBeSent = this.dataToBeSent.pop ( );
 
                 /*send data to the server*/
                 this.sendDataToServer ( this.singleDataToBeSent );
+
+            } catch ( Exception e ) {
+
+                /*do nothing*/
 
             }
 
@@ -148,7 +152,9 @@ public class Client extends Thread {
                 this.dataOutputStream.flush ( );
 
             } catch ( IOException e ) {
-                e.printStackTrace ( );
+
+                /*do nothing*/
+
             }
         }
 

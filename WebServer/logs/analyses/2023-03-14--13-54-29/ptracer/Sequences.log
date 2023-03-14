@@ -1,0 +1,143 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, close, connect, dup, epoll_pwait, fcntl, fstat, futex, getppid, gettimeofday, getuid, ioctl, mmap, mprotect, openat, pread64, read, recvfrom, write]
+
+	Instruction
+		Name: clone
+		Next: [rt_sigprocmask]
+
+	Instruction
+		Name: close
+		Next: [clock_gettime, dup, epoll_ctl, getuid, write]
+
+	Instruction
+		Name: connect
+		Next: [clock_gettime]
+
+	Instruction
+		Name: dup
+		Next: [close, write]
+
+	Instruction
+		Name: epoll_ctl
+		Next: [clock_gettime]
+
+	Instruction
+		Name: epoll_pwait
+		Next: [clock_gettime, futex, read, recvfrom]
+
+	Instruction
+		Name: exit
+		Next: []
+
+	Instruction
+		Name: fcntl
+		Next: [clock_gettime, close, fcntl, mmap]
+
+	Instruction
+		Name: fstat
+		Next: [fstat, ioctl, mmap]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, epoll_pwait, futex, gettimeofday, getuid, ioctl, madvise, munmap, prctl, read, recvfrom, rt_sigprocmask, sched_yield, write]
+
+	Instruction
+		Name: getppid
+		Next: [socket]
+
+	Instruction
+		Name: getpriority
+		Next: [setpriority]
+
+	Instruction
+		Name: getsockopt
+		Next: [close]
+
+	Instruction
+		Name: gettimeofday
+		Next: [clock_gettime, futex, getppid, gettimeofday, madvise, mprotect, munmap, read, recvfrom, sched_yield, sendto, write]
+
+	Instruction
+		Name: getuid
+		Next: [clock_gettime, epoll_pwait, fstat, futex, prctl, writev]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime, close, epoll_pwait, fcntl, fstat, futex, getuid, ioctl, sigaltstack, write]
+
+	Instruction
+		Name: madvise
+		Next: [futex, madvise, recvfrom]
+
+	Instruction
+		Name: mmap
+		Next: [close, getsockopt, ioctl, mprotect, munmap, prctl, rt_sigprocmask]
+
+	Instruction
+		Name: mprotect
+		Next: [futex, madvise, mmap, mprotect, munmap, rt_sigprocmask, sigaltstack]
+
+	Instruction
+		Name: munmap
+		Next: [clock_gettime, close, exit, futex, getuid, ioctl, rt_sigprocmask, set_tid_address]
+
+	Instruction
+		Name: openat
+		Next: [fstat, mprotect, openat]
+
+	Instruction
+		Name: prctl
+		Next: [clock_gettime, getpriority, mmap, mprotect, openat]
+
+	Instruction
+		Name: pread64
+		Next: [mmap, pread64]
+
+	Instruction
+		Name: read
+		Next: [clock_gettime, futex, gettimeofday, getuid, recvfrom, write]
+
+	Instruction
+		Name: recvfrom
+		Next: [clock_gettime, futex, gettimeofday, ioctl, recvfrom]
+
+	Instruction
+		Name: rt_sigprocmask
+		Next: [clock_gettime, clone, futex, getsockopt, madvise, mprotect, munmap, rt_sigprocmask]
+
+	Instruction
+		Name: sched_yield
+		Next: [clock_gettime, recvfrom]
+
+	Instruction
+		Name: sendto
+		Next: [recvfrom]
+
+	Instruction
+		Name: set_tid_address
+		Next: [munmap]
+
+	Instruction
+		Name: setpriority
+		Next: [futex]
+
+	Instruction
+		Name: sigaltstack
+		Next: [munmap, prctl]
+
+	Instruction
+		Name: socket
+		Next: [fcntl]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime, futex, getsockopt, recvfrom, write]
+
+	Instruction
+		Name: writev
+		Next: [clock_gettime, futex, gettimeofday, getuid, recvfrom]
+

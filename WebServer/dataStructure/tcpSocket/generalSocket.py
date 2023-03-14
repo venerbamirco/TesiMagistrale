@@ -156,9 +156,7 @@ class GeneralSocket :
         #
         # only on ptracer socket
         if self.name == "ptracer" :
-            #
-            # concatenate the final part of the last message
-            receivedMessageString = self.finalPartLastMessage + receivedMessageString
+            # self.manageFile.writeIntoFile ( repr ( receivedMessageString ) )
             #
             # get the list of single row of ptracer
             actualMessages = receivedMessageString.split ( "\n" )
@@ -166,8 +164,50 @@ class GeneralSocket :
             # for each single row of the received message from the client
             for i in range ( 0 , len ( actualMessages ) ) :
                 #
-                # if first n-1 messages
-                if i < len ( actualMessages ) - 1 :
+                # if first message
+                if i == 0 :
+                    #
+                    # see if valid or invalid
+                    valid = self.validOrInvalidInput ( actualMessages [ i ] )
+                    #
+                    # if it is valid
+                    if valid :
+                        #
+                        # call the relative manager if it is a valid message
+                        valid = self.callManagerActualInput ( self.finalPartLastMessage )
+                        #
+                        # if it is valid
+                        if valid :
+                            #
+                            # write the actual message in the log
+                            self.manageFile.writeIntoFile ( repr ( self.finalPartLastMessage ) )
+                        #
+                        # call the relative manager if it is a valid message
+                        valid = self.callManagerActualInput ( actualMessages [ i ] )
+                        #
+                        # if it is valid
+                        if valid :
+                            #
+                            # write the actual message in the log
+                            self.manageFile.writeIntoFile ( repr ( actualMessages [ i ] ) )
+                    #
+                    # if it is not valid
+                    else :
+                        #
+                        # concatenate the final part of the last message
+                        actualMessages [ i ] = self.finalPartLastMessage + actualMessages [ i ]
+                        #
+                        # call the relative manager if it is a valid message
+                        valid = self.callManagerActualInput ( actualMessages [ i ] )
+                        #
+                        # if it is valid
+                        if valid :
+                            #
+                            # write the actual message in the log
+                            self.manageFile.writeIntoFile ( repr ( actualMessages [ i ] ) )
+                            #
+                # if first 1 -> n-1 messages
+                elif 0 < i < len ( actualMessages ) - 1 :
                     #
                     # call the relative manager if it is a valid message
                     valid = self.callManagerActualInput ( actualMessages [ i ] )
@@ -177,13 +217,6 @@ class GeneralSocket :
                         #
                         # write the actual message in the log
                         self.manageFile.writeIntoFile ( repr ( actualMessages [ i ] ) )
-                        pass
-                    #
-                    # if it is not valid
-                    else :
-                        #
-                        # we must skip it
-                        pass
                 #
                 # else if it is the last message
                 else :
