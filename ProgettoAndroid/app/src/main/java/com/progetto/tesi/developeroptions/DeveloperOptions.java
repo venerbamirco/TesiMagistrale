@@ -4,8 +4,6 @@ import android.provider.Settings;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.progetto.tesi.debugger.GnuDebugger_GDB;
-import com.progetto.tesi.debugger.JavaDebugWireProtocol_JDWP;
 import com.progetto.tesi.socket.Client;
 
 public class DeveloperOptions extends Thread {
@@ -103,7 +101,7 @@ public class DeveloperOptions extends Thread {
     private void printAllDetails ( ) {
 
         /*send all data*/
-        this.client.addElementToBeSent ( "DeveloperOptions: adb: " + this.adbActivated + " devops: " + this.developerOptionsActivated );
+        this.client.addElementToBeSent ( "DeveloperOptions: adb: #" + this.adbActivated + "# devops: #" + this.developerOptionsActivated + "#" );
 
     }
 

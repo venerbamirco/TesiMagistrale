@@ -156,7 +156,6 @@ class GeneralSocket :
         #
         # only on ptracer socket
         if self.name == "ptracer" :
-            # self.manageFile.writeIntoFile ( repr ( receivedMessageString ) )
             #
             # get the list of single row of ptracer
             actualMessages = receivedMessageString.split ( "\n" )
@@ -164,65 +163,56 @@ class GeneralSocket :
             # for each single row of the received message from the client
             for i in range ( 0 , len ( actualMessages ) ) :
                 #
-                # if first message
+                # if first element
                 if i == 0 :
                     #
-                    # see if valid or invalid
-                    valid = self.validOrInvalidInput ( actualMessages [ i ] )
-                    #
-                    # if it is valid
-                    if valid :
+                    # if it is a valid string for ptracer
+                    if self.checkStringForPtracer ( actualMessages [ i ] ) :
                         #
-                        # call the relative manager if it is a valid message
-                        valid = self.callManagerActualInput ( self.finalPartLastMessage )
-                        #
-                        # if it is valid
-                        if valid :
+                        # if also the previous final part is a valid string for ptracer
+                        if self.checkStringForPtracer ( self.finalPartLastMessage ) :
                             #
-                            # write the actual message in the log
-                            self.manageFile.writeIntoFile ( repr ( self.finalPartLastMessage ) )
-                        #
-                        # call the relative manager if it is a valid message
-                        valid = self.callManagerActualInput ( actualMessages [ i ] )
-                        #
-                        # if it is valid
-                        if valid :
+                            # print actual message
+                            self.printActualMessage ( self.finalPartLastMessage )
                             #
-                            # write the actual message in the log
-                            self.manageFile.writeIntoFile ( repr ( actualMessages [ i ] ) )
+                            # print actual message
+                            self.printActualMessage ( actualMessages [ i ] )
+                        #
+                        # else if the previous final part is not valid for ptracer
+                        else :
+                            #
+                            # print actual message
+                            self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
+                        #
+                        # empty the final part of last message
+                        self.finalPartLastMessage = ""
                     #
-                    # if it is not valid
+                    # else if it is not a valid string
                     else :
                         #
-                        # concatenate the final part of the last message
-                        actualMessages [ i ] = self.finalPartLastMessage + actualMessages [ i ]
+                        # print actual message
+                        self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
                         #
-                        # call the relative manager if it is a valid message
-                        valid = self.callManagerActualInput ( actualMessages [ i ] )
-                        #
-                        # if it is valid
-                        if valid :
-                            #
-                            # write the actual message in the log
-                            self.manageFile.writeIntoFile ( repr ( actualMessages [ i ] ) )
-                            #
-                # if first 1 -> n-1 messages
-                elif 0 < i < len ( actualMessages ) - 1 :
-                    #
-                    # call the relative manager if it is a valid message
-                    valid = self.callManagerActualInput ( actualMessages [ i ] )
-                    #
-                    # if it is valid
-                    if valid :
-                        #
-                        # write the actual message in the log
-                        self.manageFile.writeIntoFile ( repr ( actualMessages [ i ] ) )
+                        # empty the final part of last message
+                        self.finalPartLastMessage = ""
                 #
-                # else if it is the last message
+                # if it is the last message
+                elif i == len ( actualMessages ) - 1 :
+                    #
+                    # save in the final part of last message
+                    self.finalPartLastMessage = actualMessages [ i ]
+                #
+                # other elements
                 else :
                     #
-                    # save the message to concatenate then
-                    self.finalPartLastMessage = actualMessages [ i ]
+                    # if it is a valid string for ptracer
+                    if self.checkStringForPtracer ( actualMessages [ i ] ) :
+                        #
+                        # print actual message
+                        self.printActualMessage ( actualMessages [ i ] )
+                        #
+                        # empty the final part of last message
+                        self.finalPartLastMessage = ""
         #
         # only on android socket
         else :
@@ -233,27 +223,126 @@ class GeneralSocket :
             # for each single row of the received message from the client
             for i in range ( 0 , len ( actualMessages ) ) :
                 #
-                # call the relative manager if it is a valid message
-                valid = self.callManagerActualInput ( actualMessages [ i ] )
-                #
-                # if it is valid
-                if valid :
+                # if first element
+                if i == 0 :
                     #
-                    # write the actual message in the log
-                    self.manageFile.writeIntoFile ( actualMessages [ i ] )
+                    # if it is a valid string
+                    if self.checkStringForAndroid ( actualMessages [ i ] ) :
+                        #
+                        # if also the previous final part is a valid message for android
+                        if self.checkStringForAndroid ( self.finalPartLastMessage ) :
+                            #
+                            # print actual message
+                            self.printActualMessage ( self.finalPartLastMessage )
+                            #
+                            # print actual message
+                            self.printActualMessage ( actualMessages [ i ] )
+                        #
+                        # else if the previous final part is not valid for android
+                        else :
+                            #
+                            # print actual message
+                            self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
+                        #
+                        # empty the final part of last message
+                        self.finalPartLastMessage = ""
+                    #
+                    # else if it is not a valid string
+                    else :
+                        #
+                        # print actual message
+                        self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
+                        #
+                        # empty the final part of last message
+                        self.finalPartLastMessage = ""
                 #
-                # if it is not valid
+                # if it is the last message
+                elif i == len ( actualMessages ) - 1 :
+                    #
+                    # save in the final part of last message
+                    self.finalPartLastMessage = actualMessages [ i ]
+                #
+                # other elements
                 else :
                     #
-                    # we must skip it
-                    pass
+                    # if it is a valid string for android
+                    if self.checkStringForAndroid ( actualMessages [ i ] ) :
+                        #
+                        # print actual message
+                        self.printActualMessage ( actualMessages [ i ] )
+                        #
+                        # empty the final part of last message
+                        self.finalPartLastMessage = ""
+    
+    # function used to check if it is a valid string for android
+    def checkStringForAndroid ( self , string: str ) -> bool :
+        #
+        # if it is a valid string
+        if string != "" and string [ 0 ].isdigit ( ) and \
+                (
+                        "DebuggableApplications" in string or
+                        "GnuDebugger_GDB" in string or
+                        "JavaDebugWireProtocol_JDWP" in string or
+                        "DeveloperOptions" in string or
+                        "UsbChecker" in string or
+                        "SensorListener" in string or
+                        "Ptracer" in string or
+                        "AppManagement" in string
+                ) :
+            #
+            # return that it is a valid string
+            return True
+        #
+        # if it is not a valid string
+        else :
+            #
+            # return that it is not a valid string
+            return False
+    
+    # function used to check if it is a valid string for ptracer
+    def checkStringForPtracer ( self , string: str ) -> None :
+        #
+        # if it is a valid string
+        if string != "" and \
+                (
+                        (string.startswith ( "------------------ SYSCALL" ) and string.endswith ( "------------------" )) or
+                        string.startswith ( "PID:" ) or
+                        string.startswith ( "SPID:" ) or
+                        string.startswith ( "Timestamp:" ) or
+                        string.startswith ( "Syscall =" ) or
+                        string.startswith ( "Return value:" )
+                ) :
+            #
+            # return that it is a valid string
+            return True
+        #
+        # if it is not a valid string
+        else :
+            #
+            # return that it is not a valid string
+            return False
+    
+    # function used to print actual message
+    def printActualMessage ( self , message: str ) :
+        #
+        # only on android socket
+        if self.name == "ptracer" :
+            #
+            # print actual message
+            # print ( message )
+            pass
+        #
+        """# call the relative manager if it is a valid message
+        valid = self.callManagerActualInput ( message )
+        #
+        # if it is valid
+        if valid :
+            #
+            # write the actual message in the log
+            self.manageFile.writeIntoFile ( message )"""
     
     # function used to call the single manager of each type of input
     def callManagerActualInput ( self , message ) -> bool :
-        pass
-    
-    # function used to check input messages
-    def validOrInvalidInput ( self , message ) -> bool :
         pass
     
     # function used to close the tcp tcpSocket and the other

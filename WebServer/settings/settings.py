@@ -42,7 +42,7 @@ class Settings :
         self.hostname = socket.gethostname ( )
         #
         # variable to define the max dimension of tcpSocket data
-        self.dimensionSocketData = 10240
+        self.dimensionSocketData = 100
         #
         # variable to define the timeout for connection
         self.timeout = 3

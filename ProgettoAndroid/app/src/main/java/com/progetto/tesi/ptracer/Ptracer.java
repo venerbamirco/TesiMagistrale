@@ -31,25 +31,31 @@ public class Ptracer extends Thread {
     /*pid for actual process*/
     private int pid;
 
-    /*variable to manage the client connection*/
-    private Client client;
+    /*variable to manage the client connection of android*/
+    private Client clientAndroid;
+
+    /*variable to manage the client connection of ptracer*/
+    private Client clientPtracer;
 
     /*public constructor*/
-    public Ptracer ( AppCompatActivity appCompatActivity , Client client ) {
+    public Ptracer ( AppCompatActivity appCompatActivity , Client clientAndroid , Client clientPtracer ) {
 
         /*initialize all usefully variables*/
-        this.initializeAllVariables ( appCompatActivity , client );
+        this.initializeAllVariables ( appCompatActivity , clientAndroid , clientPtracer );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Client client ) {
+    private void initializeAllVariables ( AppCompatActivity appCompatActivity , Client clientAndroid , Client clientPtracer ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
 
-        /*save the reference for the client*/
-        this.client = client;
+        /*save the reference for the client of android*/
+        this.clientAndroid = clientAndroid;
+
+        /*save the reference for the client of ptracer*/
+        this.clientPtracer = clientPtracer;
 
         /*save the pid of the application*/
         this.pid = android.os.Process.myPid ( );
@@ -74,19 +80,30 @@ public class Ptracer extends Thread {
 
             File output = new File ( ContextCompat.getExternalFilesDirs ( this.appCompatActivity.getApplicationContext ( ) , "ptracer" )[ 0 ] , "/traces.txt" );
             this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " &>" + output.getAbsolutePath ( ) } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
+            //this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " | nc 192.168.1.10 1500" } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
+
+            /*send that ptracer is started*/
+            this.clientAndroid.addElementToBeSent ( "Ptracer: #started#" );
 
             BufferedReader objReader = new BufferedReader ( new FileReader ( output ) );
             String strCurrentLine = "";
             int i = 1;
+
             while ( true ) {
+
                 strCurrentLine = objReader.readLine ( );
-                /*se diverso da null, mando tutto al server pero con la porta di ptracer*/
-                System.out.println ( i + " " + strCurrentLine );
-                i = i + 1;
+
+                if ( strCurrentLine != null ) {
+
+                    if ( strCurrentLine.contains ( "PID:" ) || strCurrentLine.contains ( "SPID:" ) || strCurrentLine.contains ( "Timestamp:" ) || strCurrentLine.contains ( "Syscall =" ) || strCurrentLine.contains ( "Return value:" ) || strCurrentLine.contains ( "------------------" ) ) {
+                        this.clientPtracer.sendDataToServer ( strCurrentLine + "\n" );
+                    }
+
+
+                }
             }
 
-            /*send that ptracer is started*/
-            //this.client.addElementToBeSent ( "Ptracer: started" );
+
 
             /*while the process of ptracer is alive*/
             //while ( this.process.isAlive ( ) ) {
@@ -101,9 +118,7 @@ public class Ptracer extends Thread {
         } catch ( IOException e ) {
 
             /*send that ptracer is not started*/
-            this.client.addElementToBeSent ( "Ptracer: not started" );
-
-            e.printStackTrace ( );
+            this.clientAndroid.addElementToBeSent ( "Ptracer: #notstarted#" );
         }
 
     }

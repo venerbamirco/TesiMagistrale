@@ -1,7 +1,5 @@
 package com.progetto.tesi.socket;
 
-import com.progetto.tesi.settings.Settings;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -35,8 +33,16 @@ public class Client extends Thread {
     /*variable used to extract an element from the input stream*/
     private String singleDataToBeSent;
 
+
+    int i = 1;
+
+
     /*constructor to initialize the client socket*/
-    public Client ( ) {
+    public Client ( String address , int port ) {
+
+        this.addressServerSocket = address;
+
+        this.portServerSocket = port;
 
         /*start the client*/
         this.start ( );
@@ -45,10 +51,6 @@ public class Client extends Thread {
 
     /*function used to initialize all necessary variables*/
     private void initializeAllVariables ( ) {
-
-        this.addressServerSocket = Settings.ipAddress;
-
-        this.portServerSocket = Settings.portAndroid;
 
         /*create the queue for the messages using the socket*/
         this.dataToBeSent = new LinkedList < String > ( );
@@ -82,7 +84,7 @@ public class Client extends Thread {
 
             } catch ( Exception e ) {
 
-                /*do nothing*/
+                //e.printStackTrace ( );
 
             }
 
@@ -116,6 +118,7 @@ public class Client extends Thread {
 
             /*create the socket to connect to the server*/
             this.socket = new Socket ( this.addressServerSocket , this.portServerSocket );
+            //socket.setSoTimeout ( 3600000 );
 
         } catch ( IOException e ) {
             e.printStackTrace ( );
@@ -132,13 +135,16 @@ public class Client extends Thread {
             /*create the output stream*/
             this.dataOutputStream = new DataOutputStream ( new BufferedOutputStream ( this.socket.getOutputStream ( ) ) );
 
+
         } catch ( IOException e ) {
-            e.printStackTrace ( );
+
+            /*do nothing*/
+
         }
     }
 
     /*function used to send data to the server*/
-    private void sendDataToServer ( String dataToSend ) {
+    public void sendDataToServer ( String dataToSend ) {
 
         /*if there is a valid string to be sent*/
         if ( dataToSend != null && dataToSend != "" ) {
@@ -164,7 +170,7 @@ public class Client extends Thread {
     public void addElementToBeSent ( String dataToBeSent ) {
 
         /*add current string to the linkedlist with its timestamp*/
-        this.dataToBeSent.push ( Instant.now ( ).toEpochMilli ( ) + " " + dataToBeSent + "\n" );
+        this.dataToBeSent.add ( Instant.now ( ).toEpochMilli ( ) + " " + dataToBeSent + "\n" );
 
     }
 
