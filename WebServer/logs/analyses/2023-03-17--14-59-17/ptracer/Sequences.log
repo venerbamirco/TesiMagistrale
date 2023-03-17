@@ -1,0 +1,71 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, close, connect, futex, gettimeofday, getuid, ioctl, mprotect, recvfrom, write]
+
+	Instruction
+		Name: close
+		Next: [clock_gettime]
+
+	Instruction
+		Name: connect
+		Next: [clock_gettime]
+
+	Instruction
+		Name: fcntl
+		Next: [clock_gettime]
+
+	Instruction
+		Name: fstat
+		Next: [ioctl]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, futex, getuid]
+
+	Instruction
+		Name: getppid
+		Next: [socket]
+
+	Instruction
+		Name: gettimeofday
+		Next: [clock_gettime, getppid, read, write]
+
+	Instruction
+		Name: getuid
+		Next: [clock_gettime, sched_yield, writev]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime, fstat, futex, ioctl]
+
+	Instruction
+		Name: mprotect
+		Next: [futex, mprotect]
+
+	Instruction
+		Name: read
+		Next: [clock_gettime]
+
+	Instruction
+		Name: recvfrom
+		Next: [clock_gettime, ioctl, recvfrom]
+
+	Instruction
+		Name: sched_yield
+		Next: [fstat, sched_yield]
+
+	Instruction
+		Name: socket
+		Next: [fcntl]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime]
+
+	Instruction
+		Name: writev
+		Next: [clock_gettime, getuid]
+

@@ -1,5 +1,3 @@
-import time
-
 from algorithm.manager.manager import Manager
 from dataStructure.other.file import File
 from dataStructure.tcpSocket.generalSocket import GeneralSocket
@@ -20,12 +18,9 @@ class Ptracer ( GeneralSocket ) :
         self.timestamp = None
         self.syscall = None
         self.returnValue = None
-        #
-        # initial timestamp to check other timestamp
-        self.checkTimestamp = time.time_ns ( ) / 1000
     
     # function used to call the single manager of each type of input
-    def callManagerActualInput ( self , message ) -> bool :
+    def callManagerActualInput ( self , message ) -> None :
         #
         # select the right manager for actual input message
         match message :
@@ -136,10 +131,28 @@ class Ptracer ( GeneralSocket ) :
                 return False
             case _ :
                 #
-                # return that is a not important instruction
-                # print ( "############################################" )
-                # print ( repr ( message ) )
-                return False
+                # do nothing for the moment
+                pass
+    
+    # function used to check if it is a valid string for actual type of socket
+    def checkStringForActualSocket ( self , string: str ) -> bool :
         #
-        # return that is a valid string
-        return True
+        # if it is a valid string
+        if string != "" and \
+                (
+                        (string.startswith ( "------------------ SYSCALL" ) and string.endswith ( "------------------" )) or
+                        string.startswith ( "PID:" ) or
+                        string.startswith ( "SPID:" ) or
+                        string.startswith ( "Timestamp:" ) or
+                        string.startswith ( "Syscall =" ) or
+                        string.startswith ( "Return value:" )
+                ) :
+            #
+            # return that it is a valid string
+            return True
+        #
+        # if it is not a valid string
+        else :
+            #
+            # return that it is not a valid string
+            return False

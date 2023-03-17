@@ -45,7 +45,7 @@ class Settings :
         self.dimensionSocketData = 100
         #
         # variable to define the timeout for connection
-        self.timeout = 3
+        self.timeout = 1
         #
         # ----------------------------------------------------------------------- OTHER
         #

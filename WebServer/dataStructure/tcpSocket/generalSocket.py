@@ -91,6 +91,15 @@ class GeneralSocket :
             # manage the exception in conn.recv
             try :
                 #
+                # if the actual socket is ptracer
+                if self.name == "ptracer" :
+                    #
+                    # if the android socket is closed
+                    if self.managerAlgorithm.flagAndroidSocket :
+                        #
+                        # exit from listen mode
+                        break
+                #
                 # receive data stream, it won't accept data packet greater than 10240 bytes
                 receivedMessageBytes = self.conn.recv ( self.settings.dimensionSocketData )
                 #
@@ -154,203 +163,88 @@ class GeneralSocket :
     # function used to analyze the received data
     def analyzeInputData ( self , receivedMessageString: str ) :
         #
-        # only on ptracer socket
-        if self.name == "ptracer" :
+        # get the list of single row of ptracer
+        actualMessages = receivedMessageString.split ( "\n" )
+        #
+        # for each single row of the received message from the client
+        for i in range ( 0 , len ( actualMessages ) ) :
             #
-            # get the list of single row of ptracer
-            actualMessages = receivedMessageString.split ( "\n" )
-            #
-            # for each single row of the received message from the client
-            for i in range ( 0 , len ( actualMessages ) ) :
+            # if first element
+            if i == 0 :
                 #
-                # if first element
-                if i == 0 :
+                # if it is a valid string for ptracer
+                if self.checkStringForActualSocket ( actualMessages [ i ] ) :
                     #
-                    # if it is a valid string for ptracer
-                    if self.checkStringForPtracer ( actualMessages [ i ] ) :
+                    # if also the previous final part is a valid string for ptracer
+                    if self.checkStringForActualSocket ( self.finalPartLastMessage ) :
                         #
-                        # if also the previous final part is a valid string for ptracer
-                        if self.checkStringForPtracer ( self.finalPartLastMessage ) :
-                            #
-                            # print actual message
-                            self.printActualMessage ( self.finalPartLastMessage )
-                            #
-                            # print actual message
-                            self.printActualMessage ( actualMessages [ i ] )
+                        # print actual message
+                        self.printActualMessage ( self.finalPartLastMessage )
                         #
-                        # else if the previous final part is not valid for ptracer
-                        else :
-                            #
-                            # print actual message
-                            self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
-                        #
-                        # empty the final part of last message
-                        self.finalPartLastMessage = ""
+                        # print actual message
+                        self.printActualMessage ( actualMessages [ i ] )
                     #
-                    # else if it is not a valid string
+                    # else if the previous final part is not valid for ptracer
                     else :
                         #
                         # print actual message
                         self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
-                        #
-                        # empty the final part of last message
-                        self.finalPartLastMessage = ""
-                #
-                # if it is the last message
-                elif i == len ( actualMessages ) - 1 :
                     #
-                    # save in the final part of last message
-                    self.finalPartLastMessage = actualMessages [ i ]
+                    # empty the final part of last message
+                    self.finalPartLastMessage = ""
                 #
-                # other elements
+                # else if it is not a valid string
                 else :
                     #
-                    # if it is a valid string for ptracer
-                    if self.checkStringForPtracer ( actualMessages [ i ] ) :
-                        #
-                        # print actual message
-                        self.printActualMessage ( actualMessages [ i ] )
-                        #
-                        # empty the final part of last message
-                        self.finalPartLastMessage = ""
-        #
-        # only on android socket
-        else :
+                    # print actual message
+                    self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
+                    #
+                    # empty the final part of last message
+                    self.finalPartLastMessage = ""
             #
-            # get the list of single row of ptracer
-            actualMessages = receivedMessageString.split ( "\n" )
-            #
-            # for each single row of the received message from the client
-            for i in range ( 0 , len ( actualMessages ) ) :
+            # if it is the last message
+            elif i == len ( actualMessages ) - 1 :
                 #
-                # if first element
-                if i == 0 :
-                    #
-                    # if it is a valid string
-                    if self.checkStringForAndroid ( actualMessages [ i ] ) :
-                        #
-                        # if also the previous final part is a valid message for android
-                        if self.checkStringForAndroid ( self.finalPartLastMessage ) :
-                            #
-                            # print actual message
-                            self.printActualMessage ( self.finalPartLastMessage )
-                            #
-                            # print actual message
-                            self.printActualMessage ( actualMessages [ i ] )
-                        #
-                        # else if the previous final part is not valid for android
-                        else :
-                            #
-                            # print actual message
-                            self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
-                        #
-                        # empty the final part of last message
-                        self.finalPartLastMessage = ""
-                    #
-                    # else if it is not a valid string
-                    else :
-                        #
-                        # print actual message
-                        self.printActualMessage ( self.finalPartLastMessage + actualMessages [ i ] )
-                        #
-                        # empty the final part of last message
-                        self.finalPartLastMessage = ""
+                # save in the final part of last message
+                self.finalPartLastMessage = actualMessages [ i ]
+            #
+            # other elements
+            else :
                 #
-                # if it is the last message
-                elif i == len ( actualMessages ) - 1 :
+                # if it is a valid string for ptracer
+                if self.checkStringForActualSocket ( actualMessages [ i ] ) :
                     #
-                    # save in the final part of last message
-                    self.finalPartLastMessage = actualMessages [ i ]
-                #
-                # other elements
-                else :
+                    # print actual message
+                    self.printActualMessage ( actualMessages [ i ] )
                     #
-                    # if it is a valid string for android
-                    if self.checkStringForAndroid ( actualMessages [ i ] ) :
-                        #
-                        # print actual message
-                        self.printActualMessage ( actualMessages [ i ] )
-                        #
-                        # empty the final part of last message
-                        self.finalPartLastMessage = ""
-    
-    # function used to check if it is a valid string for android
-    def checkStringForAndroid ( self , string: str ) -> bool :
-        #
-        # if it is a valid string
-        if string != "" and string [ 0 ].isdigit ( ) and \
-                (
-                        "DebuggableApplications" in string or
-                        "GnuDebugger_GDB" in string or
-                        "JavaDebugWireProtocol_JDWP" in string or
-                        "DeveloperOptions" in string or
-                        "UsbChecker" in string or
-                        "SensorListener" in string or
-                        "Ptracer" in string or
-                        "AppManagement" in string
-                ) :
-            #
-            # return that it is a valid string
-            return True
-        #
-        # if it is not a valid string
-        else :
-            #
-            # return that it is not a valid string
-            return False
-    
-    # function used to check if it is a valid string for ptracer
-    def checkStringForPtracer ( self , string: str ) -> None :
-        #
-        # if it is a valid string
-        if string != "" and \
-                (
-                        (string.startswith ( "------------------ SYSCALL" ) and string.endswith ( "------------------" )) or
-                        string.startswith ( "PID:" ) or
-                        string.startswith ( "SPID:" ) or
-                        string.startswith ( "Timestamp:" ) or
-                        string.startswith ( "Syscall =" ) or
-                        string.startswith ( "Return value:" )
-                ) :
-            #
-            # return that it is a valid string
-            return True
-        #
-        # if it is not a valid string
-        else :
-            #
-            # return that it is not a valid string
-            return False
+                    # empty the final part of last message
+                    self.finalPartLastMessage = ""
     
     # function used to print actual message
     def printActualMessage ( self , message: str ) :
         #
-        # only on android socket
-        if self.name == "ptracer" :
-            #
-            # print actual message
-            # print ( message )
-            pass
+        # call the relative manager if it is a valid message
+        self.callManagerActualInput ( message )
         #
-        """# call the relative manager if it is a valid message
-        valid = self.callManagerActualInput ( message )
-        #
-        # if it is valid
-        if valid :
-            #
-            # write the actual message in the log
-            self.manageFile.writeIntoFile ( message )"""
+        # write the actual message in the log
+        self.manageFile.writeIntoFile ( message )
     
     # function used to call the single manager of each type of input
-    def callManagerActualInput ( self , message ) -> bool :
+    def callManagerActualInput ( self , message ) -> None :
+        pass
+    
+    # function used to check if it is a valid string for actual type of socket
+    def checkStringForActualSocket ( self , message ) -> bool :
         pass
     
     # function used to close the tcp tcpSocket and the other
     def closeAll ( self ) :
         #
-        # close the other
+        # close the file
         self.manageFile.closeFile ( )
+        #
         # close the connection
         self.conn.close ( )
+        #
         # close the management of tcpSocket
         self.serversocket.close ( )

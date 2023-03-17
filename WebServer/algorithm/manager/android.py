@@ -50,19 +50,19 @@ class AndroidManager :
     # function used to add a record in charging
     def addChargingRecord ( self , record: str ) -> None :
         #
-        # input: 1677155940999 UsbChecker: ischarg: false usbcharg: false accharg: false
+        # input: 1679045438927 UsbChecker: ischarg: #true# usbcharg: #false# accharg: #true#
         #
         # get timestamp
         timestamp: int = int ( record.split ( ) [ 0 ] )
         #
         # get if it is charging
-        isCharging: bool = strToBool ( record.split ( ":" ) [ 2 ].strip ( ).split ( " " ) [ 0 ] )
+        isCharging: bool = strToBool ( record.split ( "#" ) [ 1 ].strip ( ) )
         #
         # get if it is charging using usb
-        usbCharging: bool = strToBool ( record.split ( ":" ) [ 3 ].strip ( ).split ( " " ) [ 0 ] )
+        usbCharging: bool = strToBool ( record.split ( "#" ) [ 3 ].strip ( ) )
         #
         # get if it is charging using ac
-        acCharging: bool = strToBool ( record.split ( ":" ) [ 4 ].strip ( ).split ( " " ) [ 0 ] )
+        acCharging: bool = strToBool ( record.split ( "#" ) [ 5 ].strip ( ) )
         #
         # add the charging record in the relative manager
         self.chargingManager.addChargingRecord ( isCharging , usbCharging , acCharging , timestamp )
@@ -70,16 +70,16 @@ class AndroidManager :
     # function used to add a record in developer options
     def addDeveloperOptionsRecord ( self , record: str ) -> None :
         #
-        # input: 1677574950586 DeveloperOptions: adb: true devops: true
+        # input: 1679045438874 DeveloperOptions: adb: #true# devops: #true#
         #
         # get timestamp
         timestamp: int = int ( record.split ( ) [ 0 ] )
         #
         # get if adb is enabled
-        adbEnabled: bool = strToBool ( record.split ( ":" ) [ 2 ].strip ( ).split ( " " ) [ 0 ] )
+        adbEnabled: bool = strToBool ( record.split ( "#" ) [ 1 ].strip ( ) )
         #
         # get if developer options are enabled
-        devOpsEnabled: bool = strToBool ( record.split ( ":" ) [ 3 ].strip ( ).split ( " " ) [ 0 ] )
+        devOpsEnabled: bool = strToBool ( record.split ( "#" ) [ 3 ].strip ( ) )
         #
         # add the developer options record in the relative manager
         self.developerOptionsManager.addDeveloperOptionRecord ( devOpsEnabled , adbEnabled , timestamp )
@@ -93,7 +93,7 @@ class AndroidManager :
         timestamp: int = int ( record.split ( ) [ 0 ] )
         #
         # get name of the debuggable application
-        debuggableApplication: str = record.split ( ":" ) [ 1 ].strip ( )
+        debuggableApplication: str = record.split ( "#" ) [ 1 ].strip ( )
         #
         # add the debuggable application record in the relative manager
         self.debuggableApplicationsManager.addDebuggableApplication ( debuggableApplication , timestamp )
@@ -122,9 +122,9 @@ class AndroidManager :
     # function used to add a record in debuggers
     def addSensorAlertRecord ( self , record: str ) -> None :
         #
-        # input: 1677589219936 SensorListener: Azimuth alert
-        # input: 1677589219938 SensorListener: Pitch ok
-        # input: 1677589220855 SensorListener: Device is correctly used
+        # input: 1679046491187 SensorListener: #azimuthok#
+        # input: 1679046491189 SensorListener: #rollalert#
+        # input: 1679046491769 SensorListener: #deviceiscorrectlyused#
         #
         # get timestamp
         timestamp: int = int ( record.split ( ) [ 0 ] )
@@ -133,25 +133,25 @@ class AndroidManager :
         status: bool = not "ok" in record
         #
         # if azimuth alert
-        if "Azimuth" in record :
+        if "azimuth" in record :
             #
             # add azimuth alert record
             self.sensorAlertsManager.addAzimuthAlert ( status , timestamp )
         #
         # if pitch alert
-        elif "Pitch" in record :
+        elif "pitch" in record :
             #
             # add pitch alert record
             self.sensorAlertsManager.addPitchAlert ( status , timestamp )
         #
         # if roll alert
-        elif "Roll" in record :
+        elif "roll" in record :
             #
             # add roll alert record
             self.sensorAlertsManager.addRollAlert ( status , timestamp )
         #
         # if device correctly used
-        elif "Device" in record :
+        elif "device" in record :
             #
             # add device correctly used
             self.sensorAlertsManager.addCorrectlyUsed ( True , timestamp )
@@ -159,8 +159,8 @@ class AndroidManager :
     # function used to add a record in calibration
     def addCalibrationRecord ( self , record: str ) -> None :
         #
-        # input: 1677592653070 SensorListener: First calibration done
-        # input: 1677592653150 SensorListener: Calibration done
+        # input: 1679046487172 SensorListener: #firstcalibrationdone#
+        # input: 1679046487215 SensorListener: #calibrationdone#
         #
         # get timestamp
         timestamp: int = int ( record.split ( ) [ 0 ] )
@@ -171,17 +171,17 @@ class AndroidManager :
     # function used to add a record in lifecycle
     def addLifecycleRecord ( self , record: str ) -> None :
         #
-        # input: 1677660027357 AppManagement: onPause
-        # input: 1677660057538 AppManagement: onResume
+        # input: 1679045453213 AppManagement: #onpause#
+        # input: 1679046485211 AppManagement: #onresume#
         #
         # get timestamp
         timestamp: int = int ( record.split ( ) [ 0 ] )
         #
         # get if on pause
-        onPause: bool = "onPause" in record
+        onPause: bool = "onpause" in record
         #
         # get if on pause
-        onResume: bool = "onResume" in record
+        onResume: bool = "onresume" in record
         #
         # add the lifecycle record in the relative manager
         self.lifecycleManager.addLifecycleRecord ( onResume , onPause , timestamp )
@@ -189,19 +189,19 @@ class AndroidManager :
     # function used to add a record in sensor numbers
     def addSensorNumberRecord ( self , record: str ) -> None :
         #
-        # input: 1677662216435 SensorListener: Numbers: Azimuth 89 Pitch 0 Roll 0
+        # input: 1679046489462 SensorListener: Numbers: Azimuth #192# Pitch #-52# Roll #182#
         #
         # get timestamp
         timestamp: int = int ( record.split ( ) [ 0 ] )
         #
         # get azimuth
-        azimuth: int = int ( record.split ( ":" ) [ 2 ].strip ( ).split ( ) [ 1 ] )
+        azimuth: int = int ( record.split ( "#" ) [ 1 ].strip ( ) )
         #
         # get pitch
-        pitch: int = int ( record.split ( ":" ) [ 2 ].strip ( ).split ( ) [ 3 ] )
+        pitch: int = int ( record.split ( "#" ) [ 3 ].strip ( ) )
         #
         # get roll
-        roll: int = int ( record.split ( ":" ) [ 2 ].strip ( ).split ( ) [ 5 ] )
+        roll: int = int ( record.split ( "#" ) [ 5 ].strip ( ) )
         #
         # add the lifecycle record in the relative manager
         self.sensorNumberManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
@@ -209,19 +209,19 @@ class AndroidManager :
     # function used to add a record in sensor texts
     def addSensorTextRecord ( self , record: str ) -> None :
         #
-        # input: 1677662615922 SensorListener: Texts: Azimuth NORTH Pitch EAST Roll NORTH
+        # input: 1679045442524 SensorListener: Texts: Azimuth #EAST# Pitch #NORTH# Roll #NORTH#
         #
         # get timestamp
         timestamp: int = int ( record.split ( ) [ 0 ] )
         #
         # get azimuth
-        azimuth: str = record.split ( ":" ) [ 2 ].strip ( ).split ( ) [ 1 ].lower ( )
+        azimuth: str = record.split ( "#" ) [ 1 ].strip ( ).lower ( )
         #
         # get pitch
-        pitch: str = record.split ( ":" ) [ 2 ].strip ( ).split ( ) [ 3 ].lower ( )
+        pitch: str = record.split ( "#" ) [ 3 ].strip ( ).lower ( )
         #
         # get roll
-        roll: str = record.split ( ":" ) [ 2 ].strip ( ).split ( ) [ 5 ].lower ( )
+        roll: str = record.split ( "#" ) [ 5 ].strip ( ).lower ( )
         #
         # add the lifecycle record in the relative manager
         self.sensorTextManager.addSensorRecord ( azimuth , pitch , roll , timestamp )

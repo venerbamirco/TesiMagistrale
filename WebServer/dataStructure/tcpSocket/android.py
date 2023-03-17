@@ -13,7 +13,7 @@ class Android ( GeneralSocket ) :
         super ( ).__init__ ( name , host , port , clients , manageFile , settings , managerAlgorithm )
     
     # function used to call the single manager of each type of input
-    def callManagerActualInput ( self , message ) -> bool :
+    def callManagerActualInput ( self , message ) -> None :
         #
         # select the right manager for actual input message
         match message :
@@ -43,13 +43,13 @@ class Android ( GeneralSocket ) :
                 self.managerAlgorithm.addDebuggerRecord ( s )
             #
             # sensor alerts
-            case s if ("Azimuth" in s or "Pitch" in s or "Roll" in s or "Device" in s) and ("ok" in s or "alert" in s or "Device" in s) :
+            case s if ("azimuth" in s or "pitch" in s or "roll" in s or "device" in s) and ("ok" in s or "alert" in s or "device" in s) :
                 #
                 # add the debugger record
                 self.managerAlgorithm.addSensorAlertRecord ( s )
             #
             # calibration
-            case s if "Calibration" in s :
+            case s if "calibration" in s :
                 #
                 # add the calibration record
                 self.managerAlgorithm.addCalibrationRecord ( s )
@@ -75,8 +75,30 @@ class Android ( GeneralSocket ) :
             # other case
             case _ :
                 #
-                # return that is a not important instruction
-                return False
+                # do nothing for the moment
+                pass
+    
+    # function used to check if it is a valid string for actual type of socket
+    def checkStringForActualSocket ( self , string: str ) -> bool :
         #
-        # return that is a valid string
-        return True
+        # if it is a valid string
+        if string != "" and string [ 0 ].isdigit ( ) and \
+                (
+                        "DebuggableApplications" in string or
+                        "GnuDebugger_GDB" in string or
+                        "JavaDebugWireProtocol_JDWP" in string or
+                        "DeveloperOptions" in string or
+                        "UsbChecker" in string or
+                        "SensorListener" in string or
+                        "Ptracer" in string or
+                        "AppManagement" in string
+                ) :
+            #
+            # return that it is a valid string
+            return True
+        #
+        # if it is not a valid string
+        else :
+            #
+            # return that it is not a valid string
+            return False

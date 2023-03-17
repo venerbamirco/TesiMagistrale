@@ -114,57 +114,45 @@ class PtracerManager :
         #
         # input: PID: 30074
         #
-        # split the input string using the : character
-        listInputWords: list [ str ] = record.split ( ":" )
-        #
-        # if all data are correctly typed
-        if listInputWords [ 0 ].strip ( " " ).isnumeric ( ) :
+        # if there are more than one instruction in the list
+        if len ( self.listInstruction ) > 0 :
             #
             # save input pid
-            pid: int = int ( listInputWords [ 1 ] , 10 )
+            pid: int = int ( record.split ( ":" ) [ 1 ].strip ( ) , 10 )
             #
-            # if there are more than one instruction in the list
-            if len ( self.listInstruction ) > 0 :
-                #
-                # get last element of the list of instructions
-                instruction: Instruction = self.listInstruction [ -1 ]
-                #
-                # set pid of last instruction of the list
-                instruction.pid: int = pid
+            # get last element of the list of instructions
+            instruction: Instruction = self.listInstruction [ -1 ]
+            #
+            # set pid of last instruction of the list
+            instruction.pid: int = pid
     
     # function used to set spid
     def setSpid ( self , record: str ) -> None :
         #
         # input: SPID: 30074
         #
-        # split the input string using the : character
-        listInputWords: list [ str ] = record.split ( ":" )
-        #
-        # if all data are correctly typed
-        if listInputWords [ 1 ].strip ( " " ).isnumeric ( ) :
+        # if there are more than one instruction in the list
+        if len ( self.listInstruction ) > 0 :
             #
             # save input spid
-            spid: int = int ( listInputWords [ 1 ] , 10 )
+            spid: int = int ( record.split ( ":" ) [ 1 ].strip ( ) , 10 )
             #
-            # if there are more than one instruction in the list
-            if len ( self.listInstruction ) > 0 :
-                #
-                # get last element of the list of instructions
-                instruction: Instruction = self.listInstruction [ -1 ]
-                #
-                # set spid of last instruction of the list
-                instruction.spid: int = spid
+            # get last element of the list of instructions
+            instruction: Instruction = self.listInstruction [ -1 ]
+            #
+            # set spid of last instruction of the list
+            instruction.spid: int = spid
     
     # function used to set name
     def setName ( self , record: str ) -> None :
         #
         # input: Syscall = clock_gettime (113)
         #
-        # save input name
-        name: str = record.split ( "=" ) [ 1 ].split ( "(" ) [ 0 ].strip ( )
-        #
         # if there are more than one instruction in the list
         if len ( self.listInstruction ) > 0 :
+            #
+            # save input name
+            name: str = record.split ( "=" ) [ 1 ].split ( "(" ) [ 0 ].strip ( )
             #
             # get last element of the list of instructions
             instruction: Instruction = self.listInstruction [ -1 ]
@@ -177,40 +165,31 @@ class PtracerManager :
         #
         # input: Timestamp: 1677745254687394
         #
-        # split the input string using the : character
-        listInputWords: list [ str ] = record.split ( ":" )
-        #
-        # if all data are correctly typed
-        if listInputWords [ 1 ].strip ( " " ).isnumeric ( ) :
+        # if there are more than one instruction in the list
+        if len ( self.listInstruction ) > 0 :
             #
             # save input timestamp
-            timestamp: int = int ( listInputWords [ 1 ] , 10 )
+            timestamp: int = int ( record.split ( ":" ) [ 1 ].strip ( ) , 10 )
             #
-            # if there are more than one instruction in the list
-            if len ( self.listInstruction ) > 0 :
+            # get last element of the list of instructions
+            instruction: Instruction = self.listInstruction [ -1 ]
+            #
+            # if it is the start part
+            if self.startPartInstructionLogs :
                 #
-                # get last element of the list of instructions
-                instruction: Instruction = self.listInstruction [ -1 ]
+                # set start timestamp of last instruction of the list
+                instruction.startTimestamp: int = timestamp
+            #
+            # else if it is the final part
+            else :
                 #
-                # if it is the start part
-                if self.startPartInstructionLogs :
-                    #
-                    # set start timestamp of last instruction of the list
-                    instruction.startTimestamp: int = timestamp
-                #
-                # else if it is the final part
-                else :
-                    #
-                    # set finish timestamp of last instruction of the list
-                    instruction.finishTimestamp: int = timestamp
+                # set finish timestamp of last instruction of the list
+                instruction.finishTimestamp: int = timestamp
     
     # function used to set return value
     def setReturnValue ( self , record: str ) -> None :
         #
         # input: Return value: 000000000000000000
-        #
-        # split the input string using the : character
-        listInputWords: list [ str ] = record.split ( ":" )
         #
         # if there are more than one instruction in the list
         if len ( self.listInstruction ) > 0 :
@@ -225,13 +204,13 @@ class PtracerManager :
             if "x" in record :
                 #
                 # save input return value
-                returnValue: int = int ( listInputWords [ 1 ] , 16 )
+                returnValue: int = int ( record.split ( ":" ) [ 1 ].strip ( ) , 16 )
             #
             # if the number is dec
-            elif listInputWords [ 1 ].strip ( " " ).strip ( "-" ).isnumeric ( ) :
+            else :
                 #
                 # save input return value
-                returnValue: int = int ( listInputWords [ 1 ] , 10 )
+                returnValue: int = int ( record.split ( ":" ) [ 1 ].strip ( ) , 10 )
             #
             # set return value of last element of the list
             instruction.returnValue: int = returnValue
