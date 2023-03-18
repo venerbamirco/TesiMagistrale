@@ -1,8 +1,6 @@
 package com.progetto.training;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +10,7 @@ public class MainActivity extends AppCompatActivity {
     private DataManagement dataManagement;
 
     /*handler to manage the change of activities*/
-    private Handler handler;
+    //private Handler handler;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -27,10 +25,10 @@ public class MainActivity extends AppCompatActivity {
     private void initializeVariables ( ) {
 
         /*initialize the handler with the main looper*/
-        this.handler = new Handler ( Looper.getMainLooper ( ) );
+        //this.handler = new Handler ( Looper.getMainLooper ( ) );
 
         /*initialize the data management class object*/
-        this.dataManagement = new DataManagement ( this , this.handler );
+        this.dataManagement = new DataManagement ( this );
 
     }
 

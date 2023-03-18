@@ -199,6 +199,8 @@ public class GnuDebugger_GDB extends Thread {
             /*exception on buffered reader means that i found a possible debugger attached*/
             this.gnuDebugger_GDB_found = true;
 
+            e.printStackTrace ( );
+
             /*send that a gdb debugger is found*/
             this.client.addElementToBeSent ( "GnuDebugger_GDB: Debugger found" );
 

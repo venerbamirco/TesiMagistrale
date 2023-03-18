@@ -41,4 +41,5 @@ public class ManagementPitch {
     public int getPitchInt ( ) {
         return this.pitchInt;
     }
+
 }

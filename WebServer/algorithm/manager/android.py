@@ -50,10 +50,10 @@ class AndroidManager :
     # function used to add a record in charging
     def addChargingRecord ( self , record: str ) -> None :
         #
-        # input: 1679045438927 UsbChecker: ischarg: #true# usbcharg: #false# accharg: #true#
+        # input: 1679045438927@UsbChecker: ischarg: #true# usbcharg: #false# accharg: #true#
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # get if it is charging
         isCharging: bool = strToBool ( record.split ( "#" ) [ 1 ].strip ( ) )
@@ -70,10 +70,10 @@ class AndroidManager :
     # function used to add a record in developer options
     def addDeveloperOptionsRecord ( self , record: str ) -> None :
         #
-        # input: 1679045438874 DeveloperOptions: adb: #true# devops: #true#
+        # input: 1679045438874@DeveloperOptions: adb: #true# devops: #true#
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # get if adb is enabled
         adbEnabled: bool = strToBool ( record.split ( "#" ) [ 1 ].strip ( ) )
@@ -87,10 +87,10 @@ class AndroidManager :
     # function used to add a record in debuggable applications
     def addDebuggableApplicationsRecord ( self , record: str ) -> None :
         #
-        # input: 1677576249603 DebuggableApplications: Progetto Android
+        # input: 1677576249603@DebuggableApplications: Progetto Android
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # get name of the debuggable application
         debuggableApplication: str = record.split ( "#" ) [ 1 ].strip ( )
@@ -101,11 +101,11 @@ class AndroidManager :
     # function used to add a record in debuggers
     def addDebuggerRecord ( self , record: str ) -> None :
         #
-        # input: 1677577421696 GnuDebugger_GDB: Debugger found
-        # input: 1677577421696 JavaDebugWireProtocol_JDWP: Debugger found
+        # input: 1677577421696@GnuDebugger_GDB: Debugger found
+        # input: 1677577421696@JavaDebugWireProtocol_JDWP: Debugger found
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # if it is a gdb debugger
         if "GnuDebugger_GDB" in record :
@@ -122,12 +122,12 @@ class AndroidManager :
     # function used to add a record in debuggers
     def addSensorAlertRecord ( self , record: str ) -> None :
         #
-        # input: 1679046491187 SensorListener: #azimuthok#
-        # input: 1679046491189 SensorListener: #rollalert#
-        # input: 1679046491769 SensorListener: #deviceiscorrectlyused#
+        # input: 1679046491187@SensorListener: #azimuthok#
+        # input: 1679046491189@SensorListener: #rollalert#
+        # input: 1679046491769@SensorListener: #deviceiscorrectlyused#
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # get status of alert
         status: bool = not "ok" in record
@@ -159,11 +159,11 @@ class AndroidManager :
     # function used to add a record in calibration
     def addCalibrationRecord ( self , record: str ) -> None :
         #
-        # input: 1679046487172 SensorListener: #firstcalibrationdone#
-        # input: 1679046487215 SensorListener: #calibrationdone#
+        # input: 1679046487172@SensorListener: #firstcalibrationdone#
+        # input: 1679046487215@SensorListener: #calibrationdone#
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # add the calibration record in the relative manager
         self.sensorCalibrationManager.addCalibrationRecord ( True , timestamp )
@@ -171,11 +171,11 @@ class AndroidManager :
     # function used to add a record in lifecycle
     def addLifecycleRecord ( self , record: str ) -> None :
         #
-        # input: 1679045453213 AppManagement: #onpause#
-        # input: 1679046485211 AppManagement: #onresume#
+        # input: 1679045453213@AppManagement: #onpause#
+        # input: 1679046485211@AppManagement: #onresume#
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # get if on pause
         onPause: bool = "onpause" in record
@@ -189,10 +189,10 @@ class AndroidManager :
     # function used to add a record in sensor numbers
     def addSensorNumberRecord ( self , record: str ) -> None :
         #
-        # input: 1679046489462 SensorListener: Numbers: Azimuth #192# Pitch #-52# Roll #182#
+        # input: 1679046489462@SensorListener: Numbers: Azimuth #192# Pitch #-52# Roll #182#
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # get azimuth
         azimuth: int = int ( record.split ( "#" ) [ 1 ].strip ( ) )
@@ -209,10 +209,10 @@ class AndroidManager :
     # function used to add a record in sensor texts
     def addSensorTextRecord ( self , record: str ) -> None :
         #
-        # input: 1679045442524 SensorListener: Texts: Azimuth #EAST# Pitch #NORTH# Roll #NORTH#
+        # input: 1679045442524@SensorListener: Texts: Azimuth #EAST# Pitch #NORTH# Roll #NORTH#
         #
         # get timestamp
-        timestamp: int = int ( record.split ( ) [ 0 ] )
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
         #
         # get azimuth
         azimuth: str = record.split ( "#" ) [ 1 ].strip ( ).lower ( )

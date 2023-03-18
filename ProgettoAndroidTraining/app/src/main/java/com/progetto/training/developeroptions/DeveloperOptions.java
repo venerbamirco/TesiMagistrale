@@ -101,7 +101,7 @@ public class DeveloperOptions extends Thread {
     private void printAllDetails ( ) {
 
         /*send all data*/
-        this.client.addElementToBeSent ( "DeveloperOptions: adb: " + this.adbActivated + " devops: " + this.developerOptionsActivated );
+        this.client.addElementToBeSent ( "DeveloperOptions: adb: #" + this.adbActivated + "# devops: #" + this.developerOptionsActivated + "#" );
 
     }
 

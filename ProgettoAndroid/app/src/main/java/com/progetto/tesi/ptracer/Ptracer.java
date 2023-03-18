@@ -3,7 +3,6 @@ package com.progetto.tesi.ptracer;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
-import com.progetto.tesi.settings.Settings;
 import com.progetto.tesi.socket.Client;
 
 import java.io.BufferedReader;
@@ -18,9 +17,6 @@ public class Ptracer extends Thread {
 
     /*process of ptracer*/
     private Process process;
-
-    /*ip address of the web server*/
-    private String ipAddressAndPortWebServer;
 
     /*executable name*/
     private String executableName;
@@ -62,7 +58,6 @@ public class Ptracer extends Thread {
 
         /*set all parameters for the execution*/
         this.executableName = " ./ptracer ";
-        this.ipAddressAndPortWebServer = " " + Settings.ipAddress + " " + Settings.portPtracer + " ";
         this.flagsExecution = " --follow-threads true --follow-children true --decoders false --backtrace false --pid " + this.pid + " ";
 
         /*start ptracer*/
@@ -73,53 +68,65 @@ public class Ptracer extends Thread {
     @Override
     public void run ( ) {
 
+        /*try to do the following*/
         try {
 
-            /*execute ptracer with the pid of actual application*/
-            //this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " | nc " + this.ipAddressAndPortWebServer } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
-
+            /*create the file for ptracer logs*/
             File output = new File ( ContextCompat.getExternalFilesDirs ( this.appCompatActivity.getApplicationContext ( ) , "ptracer" )[ 0 ] , "/traces.txt" );
+
+            /*execute the process of ptracer redirecting the output to the previous file*/
             this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " &>" + output.getAbsolutePath ( ) } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
-            //this.process = Runtime.getRuntime ( ).exec ( new String[] { "/bin/sh" , "-c" , this.executableName + this.flagsExecution + " | nc 192.168.1.10 1500" } , null , new File ( this.appCompatActivity.getApplicationInfo ( ).nativeLibraryDir ) );
 
             /*send that ptracer is started*/
             this.clientAndroid.addElementToBeSent ( "Ptracer: #started#" );
 
+            /*create the stream to read from the previous file*/
             BufferedReader objReader = new BufferedReader ( new FileReader ( output ) );
-            String strCurrentLine = "";
-            int i = 1;
 
+            /*create a temporary string*/
+            String strCurrentLine = "";
+
+            /*while true*/
             while ( true ) {
 
+                /*read actual line*/
                 strCurrentLine = objReader.readLine ( );
 
+                /*if it is a valid string*/
                 if ( strCurrentLine != null ) {
 
-                    if ( strCurrentLine.contains ( "PID:" ) || strCurrentLine.contains ( "SPID:" ) || strCurrentLine.contains ( "Timestamp:" ) || strCurrentLine.contains ( "Syscall =" ) || strCurrentLine.contains ( "Return value:" ) || strCurrentLine.contains ( "------------------" ) ) {
+                    /*if actual string is valid*/
+                    if ( this.filterPtracerLogs ( strCurrentLine ) ) {
+
+                        /*send to the server the actual string*/
                         this.clientPtracer.sendDataToServer ( strCurrentLine + "\n" );
                     }
 
-
                 }
+
             }
-
-
-
-            /*while the process of ptracer is alive*/
-            //while ( this.process.isAlive ( ) ) {
-
-            /*do nothing*/
-
-            //}
-
-            /*send that ptracer is crashed*/
-            //this.client.addElementToBeSent ( "Ptracer: crashed" );
 
         } catch ( IOException e ) {
 
             /*send that ptracer is not started*/
-            this.clientAndroid.addElementToBeSent ( "Ptracer: #notstarted#" );
+            this.clientAndroid.addElementToBeSent ( "Ptracer: #error#" );
         }
+
+    }
+
+    /*function used to filter ptracer logs*/
+    private boolean filterPtracerLogs ( String string ) {
+
+        /*if the actual string is valid*/
+        if ( string.contains ( "PID:" ) || string.contains ( "SPID:" ) || string.contains ( "Timestamp:" ) || string.contains ( "Syscall =" ) || string.contains ( "Return value:" ) || string.contains ( "------------------" ) ) {
+
+            /*return that is a valid string*/
+            return true;
+
+        }
+
+        /*otherwise return that is not a valid string*/
+        return false;
 
     }
 

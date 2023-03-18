@@ -40,8 +40,8 @@ public class Client extends Thread {
     /*constructor to initialize the client socket*/
     public Client ( String address , int port ) {
 
+        /*save the info of actual server socket*/
         this.addressServerSocket = address;
-
         this.portServerSocket = port;
 
         /*start the client*/
@@ -84,29 +84,10 @@ public class Client extends Thread {
 
             } catch ( Exception e ) {
 
-                //e.printStackTrace ( );
+                /*do nothing for the moment*/
 
             }
 
-        }
-
-    }
-
-    /*function used to close all socket channel*/
-    public void closeSocketChannels ( ) {
-
-        try {
-            /*close input channel*/
-            this.dataInputStream.close ( );
-
-            /*close output channel*/
-            this.dataOutputStream.close ( );
-
-            /*close socket channel*/
-            this.socket.close ( );
-
-        } catch ( IOException e ) {
-            e.printStackTrace ( );
         }
 
     }
@@ -118,15 +99,17 @@ public class Client extends Thread {
 
             /*create the socket to connect to the server*/
             this.socket = new Socket ( this.addressServerSocket , this.portServerSocket );
-            //socket.setSoTimeout ( 3600000 );
 
         } catch ( IOException e ) {
-            e.printStackTrace ( );
+
+            /*do nothing for the moment*/
+
         }
     }
 
     /*function used to create the two streams*/
     private void createStreams ( ) {
+
         try {
 
             /*create the input stream*/
@@ -138,7 +121,7 @@ public class Client extends Thread {
 
         } catch ( IOException e ) {
 
-            /*do nothing*/
+            /*do nothing for the moment*/
 
         }
     }
@@ -159,7 +142,7 @@ public class Client extends Thread {
 
             } catch ( IOException e ) {
 
-                /*do nothing*/
+                /*do nothing for the moment*/
 
             }
         }
@@ -170,7 +153,7 @@ public class Client extends Thread {
     public void addElementToBeSent ( String dataToBeSent ) {
 
         /*add current string to the linkedlist with its timestamp*/
-        this.dataToBeSent.add ( Instant.now ( ).toEpochMilli ( ) + " " + dataToBeSent + "\n" );
+        this.dataToBeSent.add ( Instant.now ( ).toEpochMilli ( ) + "@" + dataToBeSent + "\n" );
 
     }
 

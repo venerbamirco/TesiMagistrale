@@ -106,4 +106,5 @@ public class ManagementRoll {
     public int getRollInt ( ) {
         return this.rollInt;
     }
+
 }

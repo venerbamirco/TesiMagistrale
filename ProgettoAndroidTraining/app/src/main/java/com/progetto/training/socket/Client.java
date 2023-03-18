@@ -1,7 +1,5 @@
 package com.progetto.training.socket;
 
-import com.progetto.training.settings.Settings;
-
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.DataInputStream;
@@ -35,8 +33,16 @@ public class Client extends Thread {
     /*variable used to extract an element from the input stream*/
     private String singleDataToBeSent;
 
+
+    int i = 1;
+
+
     /*constructor to initialize the client socket*/
-    public Client ( ) {
+    public Client ( String address , int port ) {
+
+        /*save the info of actual server socket*/
+        this.addressServerSocket = address;
+        this.portServerSocket = port;
 
         /*start the client*/
         this.start ( );
@@ -45,10 +51,6 @@ public class Client extends Thread {
 
     /*function used to initialize all necessary variables*/
     private void initializeAllVariables ( ) {
-
-        this.addressServerSocket = Settings.ipAddress;
-
-        this.portServerSocket = Settings.portAndroidTraining;
 
         /*create the queue for the messages using the socket*/
         this.dataToBeSent = new LinkedList < String > ( );
@@ -71,8 +73,8 @@ public class Client extends Thread {
         /*always*/
         while ( true ) {
 
-            /*if there are some messages to be sent*/
-            if ( ! this.dataToBeSent.isEmpty ( ) ) {
+            /*manage exception if no element in the list*/
+            try {
 
                 /*extract the actual element to send to the server*/
                 this.singleDataToBeSent = this.dataToBeSent.pop ( );
@@ -80,27 +82,12 @@ public class Client extends Thread {
                 /*send data to the server*/
                 this.sendDataToServer ( this.singleDataToBeSent );
 
+            } catch ( Exception e ) {
+
+                /*do nothing for the moment*/
+
             }
 
-        }
-
-    }
-
-    /*function used to close all socket channel*/
-    public void closeSocketChannels ( ) {
-
-        try {
-            /*close input channel*/
-            this.dataInputStream.close ( );
-
-            /*close output channel*/
-            this.dataOutputStream.close ( );
-
-            /*close socket channel*/
-            this.socket.close ( );
-
-        } catch ( IOException e ) {
-            e.printStackTrace ( );
         }
 
     }
@@ -114,12 +101,15 @@ public class Client extends Thread {
             this.socket = new Socket ( this.addressServerSocket , this.portServerSocket );
 
         } catch ( IOException e ) {
-            e.printStackTrace ( );
+
+            /*do nothing for the moment*/
+
         }
     }
 
     /*function used to create the two streams*/
     private void createStreams ( ) {
+
         try {
 
             /*create the input stream*/
@@ -128,13 +118,16 @@ public class Client extends Thread {
             /*create the output stream*/
             this.dataOutputStream = new DataOutputStream ( new BufferedOutputStream ( this.socket.getOutputStream ( ) ) );
 
+
         } catch ( IOException e ) {
-            e.printStackTrace ( );
+
+            /*do nothing for the moment*/
+
         }
     }
 
     /*function used to send data to the server*/
-    private void sendDataToServer ( String dataToSend ) {
+    public void sendDataToServer ( String dataToSend ) {
 
         /*if there is a valid string to be sent*/
         if ( dataToSend != null && dataToSend != "" ) {
@@ -148,7 +141,9 @@ public class Client extends Thread {
                 this.dataOutputStream.flush ( );
 
             } catch ( IOException e ) {
-                e.printStackTrace ( );
+
+                /*do nothing for the moment*/
+
             }
         }
 
@@ -158,7 +153,7 @@ public class Client extends Thread {
     public void addElementToBeSent ( String dataToBeSent ) {
 
         /*add current string to the linkedlist with its timestamp*/
-        this.dataToBeSent.push ( Instant.now ( ).toEpochMilli ( ) + " " + dataToBeSent + "\n" );
+        this.dataToBeSent.add ( Instant.now ( ).toEpochMilli ( ) + "@" + dataToBeSent + "\n" );
 
     }
 

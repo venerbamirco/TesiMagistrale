@@ -1,0 +1,91 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, fcntl, futex, gettimeofday, getuid, ioctl, mprotect, read, recvfrom, rt_sigprocmask, write]
+
+	Instruction
+		Name: close
+		Next: [dup, epoll_ctl, write]
+
+	Instruction
+		Name: dup
+		Next: [write]
+
+	Instruction
+		Name: epoll_ctl
+		Next: [clock_gettime]
+
+	Instruction
+		Name: epoll_pwait
+		Next: [clock_gettime, read, recvfrom]
+
+	Instruction
+		Name: fcntl
+		Next: [close, fcntl]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, futex, write]
+
+	Instruction
+		Name: getsockopt
+		Next: [close]
+
+	Instruction
+		Name: gettimeofday
+		Next: [clock_gettime, read, recvfrom, sendto]
+
+	Instruction
+		Name: getuid
+		Next: [clock_gettime, epoll_pwait, prctl, writev]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime, write]
+
+	Instruction
+		Name: mmap
+		Next: [prctl]
+
+	Instruction
+		Name: mprotect
+		Next: [futex, mmap, mprotect, munmap]
+
+	Instruction
+		Name: munmap
+		Next: [futex]
+
+	Instruction
+		Name: openat
+		Next: [mprotect, openat]
+
+	Instruction
+		Name: prctl
+		Next: [mprotect, openat]
+
+	Instruction
+		Name: read
+		Next: [clock_gettime, getuid, recvfrom, write]
+
+	Instruction
+		Name: recvfrom
+		Next: [clock_gettime, ioctl, recvfrom]
+
+	Instruction
+		Name: rt_sigprocmask
+		Next: [clock_gettime, rt_sigprocmask]
+
+	Instruction
+		Name: sendto
+		Next: [clock_gettime]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime, futex, getsockopt, write]
+
+	Instruction
+		Name: writev
+		Next: [clock_gettime, getuid]
+

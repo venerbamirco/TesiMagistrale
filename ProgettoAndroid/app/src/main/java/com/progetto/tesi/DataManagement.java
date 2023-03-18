@@ -1,7 +1,5 @@
 package com.progetto.tesi;
 
-import android.os.Handler;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.tesi.debuggableapplications.DebuggableApplications;
@@ -37,9 +35,6 @@ public class DataManagement extends Thread {
     /*variable to manage the developer options detection*/
     private DeveloperOptions developerOptions;
 
-    /*handler to manage the change of activities*/
-    private Handler handler;
-
     /*socket for the communication of android*/
     private Client clientAndroid;
 
@@ -50,21 +45,18 @@ public class DataManagement extends Thread {
     private Ptracer ptracer;
 
     /*public constructor to initialize the data management class*/
-    public DataManagement ( AppCompatActivity appCompatActivity , Handler handler ) {
+    public DataManagement ( AppCompatActivity appCompatActivity ) {
 
         /*initialize all necessary variables*/
-        this.initializeVariables ( appCompatActivity , handler );
+        this.initializeVariables ( appCompatActivity );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeVariables ( AppCompatActivity appCompatActivity , Handler handler ) {
+    private void initializeVariables ( AppCompatActivity appCompatActivity ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
-
-        /*save the reference for the main handler*/
-        this.handler = handler;
 
         /*initialize the socket of android*/
         this.clientAndroid = new Client ( Settings.ipAddress , Settings.portAndroid );

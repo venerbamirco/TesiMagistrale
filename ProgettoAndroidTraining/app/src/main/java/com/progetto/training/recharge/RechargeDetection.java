@@ -2,9 +2,12 @@ package com.progetto.training.recharge;
 
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.progetto.training.debugger.GnuDebugger_GDB;
+import com.progetto.training.debugger.JavaDebugWireProtocol_JDWP;
 import com.progetto.training.socket.Client;
 
 public class RechargeDetection {

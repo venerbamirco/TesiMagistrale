@@ -1,7 +1,5 @@
 package com.progetto.training;
 
-import android.os.Handler;
-
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.progetto.training.debuggableapplications.DebuggableApplications;
@@ -11,6 +9,7 @@ import com.progetto.training.developeroptions.DeveloperOptions;
 import com.progetto.training.ptracer.Ptracer;
 import com.progetto.training.recharge.RechargeDetection;
 import com.progetto.training.sensors.gamerotationvector.SensorsManagement;
+import com.progetto.training.settings.Settings;
 import com.progetto.training.socket.Client;
 
 public class DataManagement extends Thread {
@@ -36,55 +35,55 @@ public class DataManagement extends Thread {
     /*variable to manage the developer options detection*/
     private DeveloperOptions developerOptions;
 
-    /*handler to manage the change of activities*/
-    private Handler handler;
+    /*socket for the communication of android*/
+    private Client clientAndroid;
 
-    /*socket for the communication*/
-    private Client client;
+    /*socket for the communication of ptracer*/
+    private Client clientPtracer;
 
     /*ptracer process*/
     private Ptracer ptracer;
 
     /*public constructor to initialize the data management class*/
-    public DataManagement ( AppCompatActivity appCompatActivity , Handler handler ) {
+    public DataManagement ( AppCompatActivity appCompatActivity ) {
 
         /*initialize all necessary variables*/
-        this.initializeVariables ( appCompatActivity , handler );
+        this.initializeVariables ( appCompatActivity );
 
     }
 
     /*function used to initialize all necessary variables*/
-    private void initializeVariables ( AppCompatActivity appCompatActivity , Handler handler ) {
+    private void initializeVariables ( AppCompatActivity appCompatActivity ) {
 
         /*save the reference for the main activity*/
         this.appCompatActivity = appCompatActivity;
 
-        /*save the reference for the main handler*/
-        this.handler = handler;
+        /*initialize the socket of android*/
+        this.clientAndroid = new Client ( Settings.ipAddress , Settings.portAndroid );
 
-        /*initialize the socket*/
-        this.client = new Client ( );
+        /*initialize the socket of ptracer*/
+        this.clientPtracer = new Client ( Settings.ipAddress , Settings.portPtracer );
 
         /*initialize the debuggable applications class passing the context to access then the package manager*/
-        this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity , this.client );
+        this.debuggableApplications = new DebuggableApplications ( this.appCompatActivity , this.clientAndroid );
 
         /*initialize and start the gdb debugger detection thread*/
-        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this.appCompatActivity , this.client );
+        this.gnuDebugger_gdb = new GnuDebugger_GDB ( this.appCompatActivity , this.clientAndroid );
 
         /*initialize and start the jdwp debugger detection thread*/
-        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.client );
+        this.javaDebugWireProtocol_jdwp = new JavaDebugWireProtocol_JDWP ( this.clientAndroid );
 
         /*initialize the sensor manager class*/
-        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.client );
+        this.sensorsManagement = new SensorsManagement ( this.appCompatActivity , this.clientAndroid );
 
         /*initialize the usb checker*/
-        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.client );
+        this.rechargeDetection = new RechargeDetection ( this.appCompatActivity , this.clientAndroid );
 
         /*initialize the detection for developer options*/
-        this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.client );
+        this.developerOptions = new DeveloperOptions ( this.appCompatActivity , this.clientAndroid );
 
         /*create and start the ptracer object passing the reference for the activity*/
-        this.ptracer = new Ptracer ( this.appCompatActivity , this.client );
+        this.ptracer = new Ptracer ( this.appCompatActivity , this.clientAndroid , this.clientPtracer );
 
     }
 
@@ -92,7 +91,7 @@ public class DataManagement extends Thread {
     public void onResume ( ) {
 
         /*send that application in on resume*/
-        this.client.addElementToBeSent ( "AppManagement: onResume" );
+        this.clientAndroid.addElementToBeSent ( "AppManagement: #onresume#" );
 
         /*when the application start again register sensor listener*/
         this.sensorsManagement.registerListener ( );
@@ -104,7 +103,7 @@ public class DataManagement extends Thread {
     public void onPause ( ) {
 
         /*send that application in on pause*/
-        this.client.addElementToBeSent ( "AppManagement: onPause" );
+        this.clientAndroid.addElementToBeSent ( "AppManagement: #onpause#" );
 
         /*when the application go on pause unregister sensor listener*/
         this.sensorsManagement.unregisterListener ( );
