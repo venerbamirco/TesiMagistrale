@@ -29,11 +29,11 @@ class Instruction :
     # function used to add an instruction
     def addNextInstruction ( self , name: str ) -> None :
         #
-        # create a simple instruction object
-        instruction: Instruction = Instruction ( name )
-        #
         # if there is not the next instruction in the list
         if not any ( instruction.name == name for instruction in self.nextInstructions ) :
+            #
+            # create a simple instruction object
+            instruction: Instruction = Instruction ( name )
             #
             # append the instruction in the list of possible instructions
             self.nextInstructions.append ( instruction )
@@ -122,6 +122,45 @@ class Sequences :
         # return the specific instruction
         return instruction
     
+    # function used to insert a new instruction in the analyses
+    def insertInstruction ( self , name: str ) -> None :
+        #
+        # if instruction not in the list
+        if not any ( instruction.name == name for instruction in self.listInstructions ) :
+            #
+            # create a new instruction object with an empty list of next instructions
+            i: Instruction = Instruction ( name )
+            #
+            # append the actual instruction in the list of all instructions
+            self.listInstructions.append ( i )
+            #
+            # order instructions in the list
+            self.listInstructions.sort ( key = lambda x : x.name )
+    
+    # function used to insert a next instruction in the analyses
+    def insertNextInstruction ( self , previousInstruction: str , nextInstruction: str ) -> None :
+        #
+        # if previous instruction not in the list
+        if not any ( instruction.name == previousInstruction for instruction in self.listInstructions ) :
+            #
+            # add previous instruction in the list
+            self.listInstructions.append ( Instruction ( previousInstruction ) )
+        #
+        # if next instruction not in the list
+        if not any ( instruction.name == nextInstruction for instruction in self.listInstructions ) :
+            #
+            # add nextInstruction instruction in the list
+            self.listInstructions.append ( Instruction ( nextInstruction ) )
+        #
+        # obtain the right instruction
+        instruction: Instruction = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
+        #
+        # add the next instruction in the actual instruction list
+        instruction.addNextInstruction ( nextInstruction )
+        #
+        # order instructions in the list
+        self.listInstructions.sort ( key = lambda x : x.name )
+    
     # function used to print the dictionary of sequences of each instruction
     def __str__ ( self ) -> str :
         #
@@ -142,9 +181,8 @@ class Sequences :
 
 if __name__ == "__main__" :
     d = Sequences ( )
-    d.addInstruction ( 1 , 1 , "nome1" )
-    d.addInstruction ( 1 , 1 , "nome2" )
-    d.addInstruction ( 1 , 2 , "nome3" )
-    d.addInstruction ( 1 , 2 , "nome4" )
-    d.addInstruction ( 1 , 1 , "nome5" )
+    d.insertInstruction ( "Nome" )
+    d.insertNextInstruction ( "Nome" , "nome1" )
+    d.insertNextInstruction ( "Nome" , "nome2" )
+    d.insertNextInstruction ( "nome2" , "nome3" )
     print ( d )

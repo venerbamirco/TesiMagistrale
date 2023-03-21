@@ -1,14 +1,19 @@
-from threading import Thread
+"""from threading import Thread
 
 from algorithm.manager.manager import Manager
 from dataStructure.other.file import File
 from dataStructure.tcpSocket.android import Android
 from dataStructure.tcpSocket.ptracer import Ptracer
-from settings.settings import Settings
+from settings.settings import Setting"""
+from algorithm.training.recover import Recover
 
 # main method to start the web server
 if __name__ == "__main__" :
     #
+    # object used to load all training data
+    recover: Recover = Recover ( )
+    
+    """#
     # create the object for settings to get all constant values
     settings = Settings ( )
     #
@@ -36,4 +41,4 @@ if __name__ == "__main__" :
     threadAndroid.start ( )
     #
     # save all the logs structure
-    managerAlgorithm.saveLogsEachManager ( )
+    managerAlgorithm.saveLogsEachManager ( )"""

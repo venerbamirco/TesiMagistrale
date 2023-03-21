@@ -3,6 +3,7 @@ from dataStructure.android.debuggableApplications import DebuggableApplications
 from dataStructure.android.debuggers import Debuggers
 from dataStructure.android.developerOptions import DeveloperOptions
 from dataStructure.android.lifecycle import Lifecycle
+from dataStructure.android.ptracer import Ptracer
 from dataStructure.android.sensorAlert import SensorAlert
 from dataStructure.android.sensorCalibration import SensorCalibration
 from dataStructure.android.sensorNumber import SensorNumber
@@ -46,6 +47,9 @@ class AndroidManager :
         #
         # initialize the sensor text manager
         self.sensorTextManager: SensorText = SensorText ( )
+        #
+        # initialize the ptracer manager
+        self.ptracerManager: Ptracer = Ptracer ( )
     
     # function used to add a record in charging
     def addChargingRecord ( self , record: str ) -> None :
@@ -226,6 +230,27 @@ class AndroidManager :
         # add the lifecycle record in the relative manager
         self.sensorTextManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
     
+    # function used to add a record in ptracer
+    def addPtracerRecord ( self , record: str ) -> None :
+        #
+        # input: 1679150488434@Ptracer: #started#
+        # input: 1679150437214@Ptracer: #error#
+        #
+        # get timestamp
+        timestamp: int = int ( record.split ( "@" ) [ 0 ] )
+        #
+        # if ptracer process is started
+        if "started" in record :
+            #
+            # set started status on ptracer
+            self.ptracerManager.setStartedPtracerProcess ( timestamp )
+        #
+        # else if ptracer process is crashed
+        elif "error" in record :
+            #
+            # set crashed status on ptracer
+            self.ptracerManager.setCrashedPtracerProcess ( timestamp )
+    
     # function used to save the all android logs
     def saveAndroidLogs ( self , mainDirOutputStructureLogs: str ) :
         #
@@ -258,9 +283,13 @@ class AndroidManager :
         fileLifecycleManager.writeIntoFile ( self.lifecycleManager )
         #
         # create the file for sensor number manager
-        sensorNumberManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorNumber" + self.settings.extensionLogFile , "w" )
-        sensorNumberManager.writeIntoFile ( self.sensorNumberManager )
+        fileSensorNumberManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorNumber" + self.settings.extensionLogFile , "w" )
+        fileSensorNumberManager.writeIntoFile ( self.sensorNumberManager )
         #
         # create the file for sensor text manager
-        sensorTextManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorText" + self.settings.extensionLogFile , "w" )
-        sensorTextManager.writeIntoFile ( self.sensorTextManager )
+        fileSensorTextManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorText" + self.settings.extensionLogFile , "w" )
+        fileSensorTextManager.writeIntoFile ( self.sensorTextManager )
+        #
+        # create the file for ptracer manager
+        filePtracerManager: File = File ( mainDirOutputStructureLogs + "\\android\\Ptracer" + self.settings.extensionLogFile , "w" )
+        filePtracerManager.writeIntoFile ( self.ptracerManager )

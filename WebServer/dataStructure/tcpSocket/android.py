@@ -72,6 +72,12 @@ class Android ( GeneralSocket ) :
                 # add the sensor number record
                 self.managerAlgorithm.addSensorTextRecord ( s )
             #
+            # ptracer
+            case s if "Ptracer" in s :
+                #
+                # add the ptracer record
+                self.managerAlgorithm.addPtracerRecord ( s )
+            #
             # other case
             case _ :
                 #
