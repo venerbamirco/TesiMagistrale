@@ -3,6 +3,7 @@ from datetime import datetime
 
 from algorithm.manager.android import AndroidManager
 from algorithm.manager.ptracer import PtracerManager
+from algorithm.training.training import Training
 from settings.settings import Settings
 
 # class used to manage all the parts of the algorithm
@@ -11,11 +12,14 @@ class Manager ( AndroidManager , PtracerManager ) :
     # constructor to initialize the manager
     def __init__ ( self , settings: Settings ) -> None :
         #
+        # initialize training manager
+        self.training: Training = Training ( )
+        #
         # initialize android manager
         AndroidManager.__init__ ( self , settings )
         #
         # initialize ptracer manager
-        PtracerManager.__init__ ( self , settings )
+        PtracerManager.__init__ ( self , settings , self.training )
         #
         # flag to check if android socket is terminated
         self.flagAndroidSocket = False

@@ -143,7 +143,7 @@ class Instructions :
         self.listAllInstructions.append ( instruction )
     
     # function used to terminate instruction
-    def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) -> None :
+    def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) -> str :
         #
         # obtain the list of instructions
         listInstructions: list [ Instruction ] = [ obj for obj in self.listAllInstructions if obj.pid == pid and
@@ -154,11 +154,13 @@ class Instructions :
         #
         # if there is only one instruction
         if len ( listInstructions ) == 1 :
+            #
             # obtain the right instruction
             instruction: Instruction = listInstructions [ 0 ]
         #
         # if there are more than one instructions
         elif len ( listInstructions ) > 1 :
+            #
             # obtain the right instruction
             instruction: Instruction = listInstructions [ -1 ]
         #
@@ -170,6 +172,15 @@ class Instructions :
             #
             # add measure of actual instruction
             self.analyses.addMeasurement ( instruction.name , instruction.getDuration ( ) )
+            #
+            # return the name of the instruction
+            return instruction.name
+        #
+        # else if the instruction is not valid
+        else :
+            #
+            # return None
+            return None
     
     # function used to get a specific instruction
     def getInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> Instruction :

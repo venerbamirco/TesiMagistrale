@@ -1,20 +1,20 @@
-# class used to recover all training data
 import os
 
 from dataStructure.other.file import File
 from dataStructure.ptracer.analyses import Analyses
 from dataStructure.ptracer.sequences import Sequences
 
+# class used to recover all training data
 class Recover :
     
     # constructor to initialize the recover object
-    def __init__ ( self ) -> None :
+    def __init__ ( self , analyses: Analyses , sequences: Sequences ) -> None :
         #
-        # initialize the analyses manager
-        self.analyses: Analyses = Analyses ( )
+        # save the reference for analyses manager
+        self.analyses: Analyses = analyses
         #
-        # initialize the sequences manager
-        self.sequences: Sequences = Sequences ( )
+        # save the reference for sequences manager
+        self.sequences: Sequences = sequences
         #
         # file used for instructions analyses
         self.fileInstruction: File = File ( os.path.abspath ( "./logs/training/ptracer/Analyses.log" ) , "r" )

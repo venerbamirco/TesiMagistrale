@@ -222,9 +222,6 @@ class GeneralSocket :
     
     # function used to print actual message
     def printActualMessage ( self , message: str ) :
-        
-        if self.name == "android" :
-            print ( message )
         #
         # call the relative manager if it is a valid message
         self.callManagerActualInput ( message )

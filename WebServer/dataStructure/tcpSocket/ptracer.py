@@ -144,8 +144,8 @@ class Ptracer ( GeneralSocket ) :
                         string.startswith ( "PID:" ) or
                         string.startswith ( "SPID:" ) or
                         string.startswith ( "Timestamp:" ) or
-                        string.startswith ( "Syscall =" ) or
-                        string.startswith ( "Return value:" )
+                        string.startswith ( "Syscall" ) or
+                        string.startswith ( "Return" )
                 ) :
             #
             # return that it is a valid string

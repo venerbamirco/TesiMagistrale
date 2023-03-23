@@ -1,0 +1,55 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, close, connect, futex, gettimeofday, getuid, ioctl]
+
+	Instruction
+		Name: close
+		Next: [clock_gettime]
+
+	Instruction
+		Name: connect
+		Next: [clock_gettime]
+
+	Instruction
+		Name: fcntl
+		Next: [clock_gettime]
+
+	Instruction
+		Name: fstat
+		Next: [ioctl]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, getuid]
+
+	Instruction
+		Name: getppid
+		Next: [socket]
+
+	Instruction
+		Name: gettimeofday
+		Next: [getppid]
+
+	Instruction
+		Name: getuid
+		Next: [clock_gettime, fstat, writev]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime, fstat, futex, write]
+
+	Instruction
+		Name: socket
+		Next: [fcntl]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime, write]
+
+	Instruction
+		Name: writev
+		Next: [clock_gettime, getuid]
+

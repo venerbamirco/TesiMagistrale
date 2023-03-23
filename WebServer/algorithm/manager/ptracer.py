@@ -1,4 +1,5 @@
 # class used for the ptracer manager
+from algorithm.training.training import Training
 from dataStructure.other.file import File
 from dataStructure.other.instruction import Instruction
 from dataStructure.ptracer.analyses import Analyses
@@ -9,7 +10,10 @@ from settings.settings import Settings
 class PtracerManager :
     
     # constructor to initialize the ptracer manager
-    def __init__ ( self , settings: Settings ) -> None :
+    def __init__ ( self , settings: Settings , training: Training ) -> None :
+        #
+        # save the reference for training manager
+        self.training: Training = training
         #
         # save the reference for settings
         self.settings: Settings = settings
@@ -103,8 +107,10 @@ class PtracerManager :
             # get last instruction from the list
             instruction: Instruction = self.listInstruction [ -1 ]
             #
-            # insert the instruction in the relative manager
-            self.instructions.finishInstruction ( instruction.pid , instruction.spid , instruction.returnValue , instruction.finishTimestamp )
+            # insert the instruction in the relative manager and save the name of actual instruction
+            actualInstruction: str = self.instructions.finishInstruction ( instruction.pid , instruction.spid , instruction.returnValue , instruction.finishTimestamp )
+            self.training.sequencesTraining.f ( instruction , actualInstruction )
+            
             #
             # delete from the list the actual instruction
             self.listInstruction.remove ( instruction )
