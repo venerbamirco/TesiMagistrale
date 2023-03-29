@@ -134,11 +134,16 @@ public class Client extends Thread {
 
             try {
 
-                /*send data to the server*/
-                this.dataOutputStream.writeBytes ( dataToSend );
+                /*if socket and its channel are valid*/
+                if ( this.dataOutputStream != null ) {
 
-                /*force data to be sent*/
-                this.dataOutputStream.flush ( );
+                    /*send data to the server*/
+                    this.dataOutputStream.writeBytes ( dataToSend );
+
+                    /*force data to be sent*/
+                    this.dataOutputStream.flush ( );
+
+                }
 
             } catch ( IOException e ) {
 

@@ -16,7 +16,7 @@ from statistics import mean
 from numpy import var
 
 # class to manage the analyses for each instruction
-class Instruction :
+class AnalysesRecord :
     
     # constructor to initialize the analyses of actual instruction
     def __init__ ( self , name: str ) -> None :
@@ -100,7 +100,7 @@ class Analyses :
     def __init__ ( self ) -> None :
         #
         # create an empty list of analyses instructions
-        self.listAllInstructions: list [ Instruction ] = list ( )
+        self.listAllInstructions: list [ AnalysesRecord ] = list ( )
     
     # function used to insert a new instruction into analyses
     def addInstruction ( self , name: str ) -> None :
@@ -109,7 +109,7 @@ class Analyses :
         if not any ( instruction.name == name for instruction in self.listAllInstructions ) :
             #
             # create a new instruction
-            instruction: Instruction = Instruction ( name )
+            instruction: AnalysesRecord = AnalysesRecord ( name )
             #
             # append in the list the new instruction
             self.listAllInstructions.append ( instruction )
@@ -127,19 +127,31 @@ class Analyses :
             self.addInstruction ( name )
         #
         # obtain the right instruction
-        instruction: Instruction = [ obj for obj in self.listAllInstructions if obj.name == name ] [ 0 ]
+        instruction: AnalysesRecord = [ obj for obj in self.listAllInstructions if obj.name == name ] [ 0 ]
         #
         # insert the new measurement in the right instruction
-        self.listAllInstructions [ self.listAllInstructions.index ( instruction ) ].addMeasurement ( duration )
+        instruction.addMeasurement ( duration )
     
     # function used to get analyses of a specific instruction
-    def getInstruction ( self , name: str ) -> Instruction :
+    def getInstruction ( self , name: str ) -> AnalysesRecord :
         #
-        # obtain the right instruction
-        instruction: Instruction = [ obj for obj in self.listAllInstructions if obj.name == name ] [ 0 ]
+        # obtain the list of possible instructions
+        listInstructions: list [ AnalysesRecord ] = [ obj for obj in self.listAllInstructions if obj.name == name ]
         #
-        # return the instruction
-        return instruction
+        # if there is at least one instruction
+        if len ( listInstructions ) > 0 :
+            #
+            # get right instruction
+            instruction: AnalysesRecord = [ obj for obj in self.listAllInstructions if obj.name == name ] [ 0 ]
+            #
+            # return the instruction
+            return instruction
+        #
+        # else if there is no element
+        else :
+            #
+            # return none
+            return None
     
     # function used to print the analyses of statistics of each instruction
     def __str__ ( self ) -> str :

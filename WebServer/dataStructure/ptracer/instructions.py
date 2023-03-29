@@ -23,7 +23,7 @@ LIST OF ALL TERMINATED INSTRUCTIONS
 from dataStructure.ptracer.analyses import Analyses
 
 # class to manage the structure of a single instruction
-class Instruction :
+class InstructionRecord :
     
     # constructor to initialize an instruction
     def __init__ ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> None :
@@ -131,41 +131,29 @@ class Instructions :
         self.analyses: Analyses = analyses
         #
         # create the list for all instructions both terminated and also not terminated
-        self.listAllInstructions: list [ Instruction ] = list ( )
+        self.listAllInstructions: list [ InstructionRecord ] = list ( )
     
     # function used to add a new instruction in the list
     def addInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> None :
         #
         # create the instruction
-        instruction: Instruction = Instruction ( name , pid , spid , startTimestamp )
+        instruction: InstructionRecord = InstructionRecord ( name , pid , spid , startTimestamp )
         #
         # append the instruction in the list of all instructions
         self.listAllInstructions.append ( instruction )
     
     # function used to terminate instruction
-    def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) -> str :
+    def finishInstruction ( self , pid: int , spid: int , returnValue: int , finishTimestamp: int ) -> (str , int) :
         #
-        # obtain the list of instructions
-        listInstructions: list [ Instruction ] = [ obj for obj in self.listAllInstructions if obj.pid == pid and
-                                                   obj.spid == spid and obj.finishTimestamp is None ]
+        # obtain the list of not terminated instructions
+        listInstructions: list [ InstructionRecord ] = [ obj for obj in self.listAllInstructions if obj.pid == pid and
+                                                         obj.spid == spid and obj.finishTimestamp is None ]
         #
-        # variable to store instruction
-        instruction: Instruction = None
-        #
-        # if there is only one instruction
-        if len ( listInstructions ) == 1 :
+        # if there is at least one instruction in the list
+        if len ( listInstructions ) > 0 :
             #
             # obtain the right instruction
-            instruction: Instruction = listInstructions [ 0 ]
-        #
-        # if there are more than one instructions
-        elif len ( listInstructions ) > 1 :
-            #
-            # obtain the right instruction
-            instruction: Instruction = listInstructions [ -1 ]
-        #
-        # if instruction is valid
-        if instruction is not None :
+            instruction: InstructionRecord = listInstructions [ -1 ]
             #
             # terminated the right instruction in the list of all instructions
             instruction.finishInstruction ( returnValue , finishTimestamp )
@@ -174,23 +162,23 @@ class Instructions :
             self.analyses.addMeasurement ( instruction.name , instruction.getDuration ( ) )
             #
             # return the name of the instruction
-            return instruction.name
+            return instruction.name , instruction.getDuration ( )
         #
-        # else if the instruction is not valid
+        # else if there are not instructions
         else :
             #
             # return None
-            return None
+            return None , None
     
     # function used to get a specific instruction
-    def getInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> Instruction :
+    def getInstruction ( self , name: str , pid: int , spid: int , startTimestamp: int ) -> InstructionRecord :
         #
         # obtain the right instruction
-        instruction: Instruction = [ obj for obj in self.listAllInstructions
-                                     if obj.name == name and
-                                     obj.pid == pid and
-                                     obj.spid == spid and
-                                     obj.startTimestamp == startTimestamp ] [ 0 ]
+        instruction: InstructionRecord = [ obj for obj in self.listAllInstructions
+                                           if obj.name == name and
+                                           obj.pid == pid and
+                                           obj.spid == spid and
+                                           obj.startTimestamp == startTimestamp ] [ 0 ]
         #
         # return the specific instruction
         return instruction

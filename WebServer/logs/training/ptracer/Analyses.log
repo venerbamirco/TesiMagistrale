@@ -49,11 +49,11 @@ ANALYSIS OF ALL INSTRUCTIONS
 	Instruction
 		Name: epoll_pwait
 		Minimum duration: 190
-		Maximum duration: 39466
+		Maximum duration: 196818
 		Average duration: 4073.866666666667
 		Variance: 71267276.51555555
 		Number measurements: 30
-		List measurements: [195, 190, 3504, 198, 262, 191, 1257, 202, 990, 894, 2459, 6313, 790, 840, 755, 604, 1823, 858, 686, 798, 766, 869, 959, 2363, 5966, 27637, 7796, 729, 39466, 11856]
+		List measurements: [196818, 190, 3504, 198, 262, 191, 1257, 202, 990, 894, 2459, 6313, 790, 840, 755, 604, 1823, 858, 686, 798, 766, 869, 959, 2363, 5966, 27637, 7796, 729, 39466, 11856]
 
 	Instruction
 		Name: fcntl

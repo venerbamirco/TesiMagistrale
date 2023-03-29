@@ -1,3 +1,4 @@
+from algorithm.trainingAndCheck.training import Training
 from dataStructure.android.charging import Charging
 from dataStructure.android.debuggableApplications import DebuggableApplications
 from dataStructure.android.debuggers import Debuggers
@@ -16,7 +17,10 @@ from utils.functions import strToBool
 class AndroidManager :
     
     # constructor to initialize the android manager
-    def __init__ ( self , settings: Settings ) -> None :
+    def __init__ ( self , settings: Settings , training: Training ) -> None :
+        #
+        # save the reference for trainingAndCheck manager
+        self.training: Training = training
         #
         # save the reference for settings
         self.settings: Settings = settings
@@ -122,6 +126,9 @@ class AndroidManager :
             #
             # set the jdwp debugger in the relative manager
             self.debuggersManager.setFoundJdwpDebugger ( timestamp )
+        #
+        # print that a debugger is found
+        self.training.debuggerCheck.sayDebuggerFound ( )
     
     # function used to add a record in debuggers
     def addSensorAlertRecord ( self , record: str ) -> None :

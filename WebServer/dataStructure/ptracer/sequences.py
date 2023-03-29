@@ -15,7 +15,7 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 """
 
 # class to manage the single instruction
-class Instruction :
+class SequenceRecord :
     
     # constructor to initialize a single instruction
     def __init__ ( self , name: str ) -> None :
@@ -24,7 +24,7 @@ class Instruction :
         self.name: str = name
         #
         # empty list of possible next instructions
-        self.nextInstructions: list [ Instruction ] = list ( )
+        self.nextInstructions: list [ SequenceRecord ] = list ( )
     
     # function used to add an instruction
     def addNextInstruction ( self , name: str ) -> None :
@@ -33,7 +33,7 @@ class Instruction :
         if not any ( instruction.name == name for instruction in self.nextInstructions ) :
             #
             # create a simple instruction object
-            instruction: Instruction = Instruction ( name )
+            instruction: SequenceRecord = SequenceRecord ( name )
             #
             # append the instruction in the list of possible instructions
             self.nextInstructions.append ( instruction )
@@ -69,7 +69,7 @@ class Sequences :
     def __init__ ( self ) -> None :
         #
         # create a list of all instructions
-        self.listInstructions: list [ Instruction ] = list ( )
+        self.listInstructions: list [ SequenceRecord ] = list ( )
         #
         # dictionary of list of instructions for each pair pid spid
         self.dictionaryPidSpid: dict [ list [ str ] ] = dict ( )
@@ -90,7 +90,7 @@ class Sequences :
         if not any ( instruction.name == name for instruction in self.listInstructions ) :
             #
             # create a new instruction object with an empty list of next instructions
-            instruction: Instruction = Instruction ( name )
+            instruction: SequenceRecord = SequenceRecord ( name )
             #
             # append the actual instruction in the list of all instructions
             self.listInstructions.append ( instruction )
@@ -98,7 +98,7 @@ class Sequences :
             # order instructions in the list
             self.listInstructions.sort ( key = lambda x : x.name )
         #
-        # if there are other previous instructions of actual pair pid spid
+        # if there are other previous instructions of actual pid spid pair
         if len ( self.dictionaryPidSpid [ pid , spid ] ) > 1 :
             #
             # obtain the previous instruction
@@ -108,19 +108,28 @@ class Sequences :
             nextInstruction: str = self.dictionaryPidSpid [ pid , spid ] [ -1 ]
             #
             # obtain the object in the list for the previous instruction
-            prev: Instruction = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
+            prev: SequenceRecord = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
             #
             # add the next instruction in the actual instruction next instructions list
             prev.addNextInstruction ( nextInstruction )
     
     # function used to get a specific instruction
-    def getInstruction ( self , name: str ) -> Instruction :
+    def getInstruction ( self , name: str ) -> SequenceRecord :
         #
-        # obtain the right instruction
-        instruction: Instruction = [ obj for obj in self.listInstructions if obj.name == name ] [ 0 ]
+        # obtain the list of possible instructions
+        instructionsList: list [ SequenceRecord ] = [ obj for obj in self.listInstructions if obj.name == name ]
         #
-        # return the specific instruction
-        return instruction
+        # if there is one instruction
+        if len ( instructionsList ) > 0 :
+            #
+            # return the first element
+            return instructionsList [ 0 ]
+        #
+        # else if there are no instructions
+        else :
+            #
+            # return None
+            return None
     
     # function used to insert a new instruction in the analyses
     def insertInstruction ( self , name: str ) -> None :
@@ -129,7 +138,7 @@ class Sequences :
         if not any ( instruction.name == name for instruction in self.listInstructions ) :
             #
             # create a new instruction object with an empty list of next instructions
-            i: Instruction = Instruction ( name )
+            i: SequenceRecord = SequenceRecord ( name )
             #
             # append the actual instruction in the list of all instructions
             self.listInstructions.append ( i )
@@ -144,16 +153,16 @@ class Sequences :
         if not any ( instruction.name == previousInstruction for instruction in self.listInstructions ) :
             #
             # add previous instruction in the list
-            self.listInstructions.append ( Instruction ( previousInstruction ) )
+            self.listInstructions.append ( SequenceRecord ( previousInstruction ) )
         #
         # if next instruction not in the list
         if not any ( instruction.name == nextInstruction for instruction in self.listInstructions ) :
             #
             # add nextInstruction instruction in the list
-            self.listInstructions.append ( Instruction ( nextInstruction ) )
+            self.listInstructions.append ( SequenceRecord ( nextInstruction ) )
         #
         # obtain the right instruction
-        instruction: Instruction = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
+        instruction: SequenceRecord = [ obj for obj in self.listInstructions if obj.name == previousInstruction ] [ 0 ]
         #
         # add the next instruction in the actual instruction list
         instruction.addNextInstruction ( nextInstruction )

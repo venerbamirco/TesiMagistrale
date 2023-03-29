@@ -1,5 +1,5 @@
 # class used for the ptracer manager
-from algorithm.training.training import Training
+from algorithm.trainingAndCheck.training import Training
 from dataStructure.other.file import File
 from dataStructure.other.instruction import Instruction
 from dataStructure.ptracer.analyses import Analyses
@@ -12,7 +12,7 @@ class PtracerManager :
     # constructor to initialize the ptracer manager
     def __init__ ( self , settings: Settings , training: Training ) -> None :
         #
-        # save the reference for training manager
+        # save the reference for trainingAndCheck manager
         self.training: Training = training
         #
         # save the reference for settings
@@ -108,9 +108,16 @@ class PtracerManager :
             instruction: Instruction = self.listInstruction [ -1 ]
             #
             # insert the instruction in the relative manager and save the name of actual instruction
-            actualInstruction: str = self.instructions.finishInstruction ( instruction.pid , instruction.spid , instruction.returnValue , instruction.finishTimestamp )
-            self.training.sequencesTraining.f ( instruction , actualInstruction )
-            
+            actualInstruction , actualDuration = self.instructions.finishInstruction ( instruction.pid , instruction.spid , instruction.returnValue , instruction.finishTimestamp )
+            #
+            # if actual instruction valid
+            if actualInstruction is not None :
+                #
+                # check sequence
+                self.training.sequencesTraining.getActualSequence ( instruction , actualInstruction )
+                #
+                # check duration
+                self.training.analysesTraining.checkDurationActualInstruction ( actualInstruction , actualDuration )
             #
             # delete from the list the actual instruction
             self.listInstruction.remove ( instruction )

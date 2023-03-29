@@ -29,10 +29,10 @@ class Settings :
         # variable to define the port to receive data from android application
         self.portSocketAndroid = 1501
         #
-        # variable to define the port to receive data from ptracer in training mode
+        # variable to define the port to receive data from ptracer in trainingAndCheck mode
         self.portSocketPtracerTraining = 1502
         #
-        # variable to define the port to receive data from android application in training mode
+        # variable to define the port to receive data from android application in trainingAndCheck mode
         self.portSocketAndroidTraining = 1503
         #
         # variable used to set the maximum number of connected clients
