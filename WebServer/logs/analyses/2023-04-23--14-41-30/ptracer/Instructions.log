@@ -1,0 +1,155 @@
+
+LIST OF ALL TERMINATED INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509454704
+		Finish: 1682252509459299
+		Duration: 4595
+		Return Value: 0
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509460210
+		Finish: 1682252509467029
+		Duration: 6819
+		Return Value: 2
+
+	Instruction
+		Name: recvfrom
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509467147
+		Finish: 1682252509468118
+		Duration: 971
+		Return Value: 64
+
+	Instruction
+		Name: recvfrom
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509468176
+		Finish: 1682252509469025
+		Duration: 849
+		Return Value: 18446744073709551605
+
+	Instruction
+		Name: clock_gettime
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509469169
+		Finish: 1682252509469965
+		Duration: 796
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509471897
+		Finish: 1682252509472771
+		Duration: 874
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509472898
+		Finish: 1682252509473067
+		Duration: 169
+		Return Value: 0
+
+	Instruction
+		Name: write
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509473177
+		Finish: 1682252509474173
+		Duration: 996
+		Return Value: 8
+
+	Instruction
+		Name: recvfrom
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509474370
+		Finish: 1682252509474802
+		Duration: 432
+		Return Value: 16
+
+	Instruction
+		Name: clock_gettime
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509474934
+		Finish: 1682252509475121
+		Duration: 187
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509475312
+		Finish: 1682252509475482
+		Duration: 170
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509475533
+		Finish: 1682252509475722
+		Duration: 189
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509475755
+		Finish: 1682252509475938
+		Duration: 183
+		Return Value: 0
+
+	Instruction
+		Name: sendto
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509475991
+		Finish: 1682252509476210
+		Duration: 219
+		Return Value: 24
+
+	Instruction
+		Name: recvfrom
+		Pid: 30642
+		Spid: 30642
+		Status: Finished
+		Start: 1682252509476253
+		Finish: 1682252509476454
+		Duration: 201
+		Return Value: 18446744073709551605
+
+LIST OF ALL NOT TERMINATED INSTRUCTIONS
+

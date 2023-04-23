@@ -1,18 +1,20 @@
-# class used for the ptracer manager
-from algorithm.trainingAndCheck.training import Training
-from dataStructure.other.file import File
-from dataStructure.other.instruction import Instruction
-from dataStructure.ptracer.analyses import Analyses
-from dataStructure.ptracer.instructions import Instructions
-from dataStructure.ptracer.sequences import Sequences
-from settings.settings import Settings
+import os
 
+from algorithm.dataStructure.other.file import File
+from algorithm.dataStructure.other.instruction import Instruction
+from algorithm.dataStructure.ptracer.analyses import Analyses
+from algorithm.dataStructure.ptracer.instructions import Instructions
+from algorithm.dataStructure.ptracer.sequences import Sequences
+from algorithm.settings.settings import Settings
+from algorithm.training.training import Training
+
+# class used for the ptracer manager
 class PtracerManager :
     
     # constructor to initialize the ptracer manager
     def __init__ ( self , settings: Settings , training: Training ) -> None :
         #
-        # save the reference for trainingAndCheck manager
+        # save the reference for training manager
         self.training: Training = training
         #
         # save the reference for settings
@@ -22,13 +24,13 @@ class PtracerManager :
         self.listInstruction: list [ Instruction ] = list ( )
         #
         # initialize the analyses manager
-        self.analyses: Analyses = Analyses ( )
+        self.analyses: Analyses = Analyses ( self.settings )
         #
         # initialize the instruction manager
         self.instructions: Instructions = Instructions ( self.analyses )
         #
         # initialize the sequences manager
-        self.sequences: Sequences = Sequences ( )
+        self.sequences: Sequences = Sequences ( self.settings )
         #
         # variable used to say that we are in the start part or in the finish part of the instruction
         self.startPartInstructionLogs: bool = None
@@ -114,10 +116,10 @@ class PtracerManager :
             if actualInstruction is not None :
                 #
                 # check sequence
-                self.training.sequencesTraining.getActualSequence ( instruction , actualInstruction )
+                self.training.sequences.getActualSequence ( instruction , actualInstruction )
                 #
                 # check duration
-                self.training.analysesTraining.checkDurationActualInstruction ( actualInstruction , actualDuration )
+                self.training.analyses.checkDurationActualInstruction ( actualInstruction , actualDuration )
             #
             # delete from the list the actual instruction
             self.listInstruction.remove ( instruction )
@@ -257,3 +259,9 @@ class PtracerManager :
         # create the file for instructions manager
         fileSequencesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Sequences" + self.settings.extensionLogFile , "w" )
         fileSequencesManager.writeIntoFile ( self.sequences )
+        
+        fileSequencesTraining: File = File ( os.path.abspath ( "./logs/training/ptracer/Sequences.log" ) , "w" )
+        fileSequencesTraining.writeIntoFile ( str ( self.sequences ) )
+        
+        
+        

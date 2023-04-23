@@ -1,0 +1,57 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 170
+		Maximum duration: 4595
+		Average duration: 1135.1666666666667
+		Variance: 2479914.472222222
+		Number measurements: 6
+		List measurements: [4595, 796, 874, 187, 170, 189]
+
+	Instruction
+		Name: epoll_pwait
+		Minimum duration: 6819
+		Maximum duration: 6819
+		Average duration: 6819
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [6819]
+
+	Instruction
+		Name: gettimeofday
+		Minimum duration: 169
+		Maximum duration: 183
+		Average duration: 176
+		Variance: 49.0
+		Number measurements: 2
+		List measurements: [169, 183]
+
+	Instruction
+		Name: recvfrom
+		Minimum duration: 201
+		Maximum duration: 971
+		Average duration: 613.25
+		Variance: 96591.1875
+		Number measurements: 4
+		List measurements: [971, 849, 432, 201]
+
+	Instruction
+		Name: sendto
+		Minimum duration: 219
+		Maximum duration: 219
+		Average duration: 219
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [219]
+
+	Instruction
+		Name: write
+		Minimum duration: 996
+		Maximum duration: 996
+		Average duration: 996
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [996]
+

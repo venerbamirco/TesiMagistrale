@@ -1,10 +1,10 @@
 from threading import Thread
 
 from algorithm.manager.manager import Manager
-from dataStructure.other.file import File
-from dataStructure.tcpSocket.android import Android
-from dataStructure.tcpSocket.ptracer import Ptracer
-from settings.settings import Settings
+from algorithm.dataStructure.other.file import File
+from algorithm.dataStructure.tcpSocket.android import Android
+from algorithm.dataStructure.tcpSocket.ptracer import Ptracer
+from algorithm.settings.settings import Settings
 
 # main method to start the web server
 if __name__ == "__main__" :

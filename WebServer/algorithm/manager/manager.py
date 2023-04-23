@@ -3,8 +3,8 @@ from datetime import datetime
 
 from algorithm.manager.android import AndroidManager
 from algorithm.manager.ptracer import PtracerManager
-from algorithm.trainingAndCheck.training import Training
-from settings.settings import Settings
+from algorithm.settings.settings import Settings
+from algorithm.training.training import Training
 
 # class used to manage all the parts of the algorithm
 class Manager ( AndroidManager , PtracerManager ) :
@@ -12,11 +12,11 @@ class Manager ( AndroidManager , PtracerManager ) :
     # constructor to initialize the manager
     def __init__ ( self , settings: Settings ) -> None :
         #
-        # initialize trainingAndCheck manager
-        self.training: Training = Training ( )
+        # initialize training manager
+        self.training: Training = Training ( settings )
         #
         # initialize android manager
-        AndroidManager.__init__ ( self , settings , self.training)
+        AndroidManager.__init__ ( self , settings , self.training )
         #
         # initialize ptracer manager
         PtracerManager.__init__ ( self , settings , self.training )

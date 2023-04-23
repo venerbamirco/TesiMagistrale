@@ -1,16 +1,16 @@
-from algorithm.trainingAndCheck.training import Training
-from dataStructure.android.charging import Charging
-from dataStructure.android.debuggableApplications import DebuggableApplications
-from dataStructure.android.debuggers import Debuggers
-from dataStructure.android.developerOptions import DeveloperOptions
-from dataStructure.android.lifecycle import Lifecycle
-from dataStructure.android.ptracer import Ptracer
-from dataStructure.android.sensorAlert import SensorAlert
-from dataStructure.android.sensorCalibration import SensorCalibration
-from dataStructure.android.sensorNumber import SensorNumber
-from dataStructure.android.sensorText import SensorText
-from dataStructure.other.file import File
-from settings.settings import Settings
+from algorithm.dataStructure.android.charging import Charging
+from algorithm.dataStructure.android.debuggableApplications import DebuggableApplications
+from algorithm.dataStructure.android.debuggers import Debuggers
+from algorithm.dataStructure.android.developerOptions import DeveloperOptions
+from algorithm.dataStructure.android.lifecycle import Lifecycle
+from algorithm.dataStructure.android.ptracer import Ptracer
+from algorithm.dataStructure.android.sensorAlert import SensorAlert
+from algorithm.dataStructure.android.sensorCalibration import SensorCalibration
+from algorithm.dataStructure.android.sensorNumber import SensorNumber
+from algorithm.dataStructure.android.sensorText import SensorText
+from algorithm.dataStructure.other.file import File
+from algorithm.settings.settings import Settings
+from algorithm.training.training import Training
 from utils.functions import strToBool
 
 # class used for the android manager
@@ -19,7 +19,7 @@ class AndroidManager :
     # constructor to initialize the android manager
     def __init__ ( self , settings: Settings , training: Training ) -> None :
         #
-        # save the reference for trainingAndCheck manager
+        # save the reference for training manager
         self.training: Training = training
         #
         # save the reference for settings
@@ -128,7 +128,7 @@ class AndroidManager :
             self.debuggersManager.setFoundJdwpDebugger ( timestamp )
         #
         # print that a debugger is found
-        self.training.debuggerCheck.sayDebuggerFound ( )
+        self.check.debuggerCheck.sayDebuggerFound ( )
     
     # function used to add a record in debuggers
     def addSensorAlertRecord ( self , record: str ) -> None :

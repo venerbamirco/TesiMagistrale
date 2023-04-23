@@ -95,15 +95,6 @@ public class MainActivity extends AppCompatActivity {
         /*initialize the data management class object*/
         this.dataManagement = new DataManagement ( this );
 
-        new Thread ( ( ) -> {
-            while ( true ) {
-                int a = 1;
-                a++;
-                int b = a * 5;
-                System.out.println ( a );
-            }
-        } ).start ( );
-
     }
 
     @Override

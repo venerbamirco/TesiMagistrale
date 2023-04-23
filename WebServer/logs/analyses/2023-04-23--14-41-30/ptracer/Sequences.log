@@ -1,0 +1,27 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, epoll_pwait, gettimeofday]
+
+	Instruction
+		Name: epoll_pwait
+		Next: [recvfrom]
+
+	Instruction
+		Name: gettimeofday
+		Next: [sendto, write]
+
+	Instruction
+		Name: recvfrom
+		Next: [clock_gettime, recvfrom]
+
+	Instruction
+		Name: sendto
+		Next: [recvfrom]
+
+	Instruction
+		Name: write
+		Next: [recvfrom]
+

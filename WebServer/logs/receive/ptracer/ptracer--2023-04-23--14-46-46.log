@@ -1,0 +1,23 @@
+------------------ SYSCALL ENTRY START ------------------
+PID: 31223
+SPID: 31223
+Timestamp: 1682253886199695
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 31223
+SPID: 31223
+Timestamp: 1682253886203540
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 31223
+SPID: 31223
+Timestamp: 1682253886203741
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 31223
+SPID: 31223
+Timestamp: 1682253886204314
+Return value: 0x0000000000000001
