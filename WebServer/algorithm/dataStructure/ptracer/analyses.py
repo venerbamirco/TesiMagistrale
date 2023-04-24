@@ -186,23 +186,35 @@ class Analyses :
         # if there is an instruction
         if instruction is not None :
             #
-            # if shorter duration
-            if actualDuration < instruction.minimumMeasure :
+            # if training mode enabled
+            if self.settings.training :
                 #
-                # do nothing because is not possible debugger
-                pass
+                # add measure of actual instruction
+                self.addMeasurement ( actualInstruction , actualDuration )
             #
-            # if longer duration
-            if actualDuration > instruction.maximumMeasure :
+            # else if not training mode
+            else :
                 #
+                # if shorter duration
+                if actualDuration < instruction.minimumMeasure :
+                    #
+                    # do nothing because is not possible debugger
+                    pass
                 #
-                print ( "----------------------------------------------------------------" )
-                print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                print ( actualInstruction + " has longer duration: " + str ( actualDuration ) + " vs " +
-                        str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                # if longer duration
+                if actualDuration > instruction.maximumMeasure :
+                    #
+                    #
+                    print ( "----------------------------------------------------------------" )
+                    print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+                    print ( actualInstruction + " has longer duration: " + str ( actualDuration ) + " vs " +
+                            str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
         #
         # else if the instruction is not mapped
         else :
+            #
+            # map actual instruction
+            self.addInstruction ( actualInstruction )
             #
             # instruction not mapped
             print ( "----------------------------------------------------------------" )

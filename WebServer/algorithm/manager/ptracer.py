@@ -259,9 +259,11 @@ class PtracerManager :
         # create the file for instructions manager
         fileSequencesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Sequences" + self.settings.extensionLogFile , "w" )
         fileSequencesManager.writeIntoFile ( self.sequences )
-        
+        #
+        # update training data of sequences
         fileSequencesTraining: File = File ( os.path.abspath ( "./logs/training/ptracer/Sequences.log" ) , "w" )
-        fileSequencesTraining.writeIntoFile ( str ( self.sequences ) )
-        
-        
-        
+        fileSequencesTraining.writeIntoFile ( str ( self.training.sequences ) )
+        #
+        # update training data of analyses
+        fileAnalysesTraining: File = File ( os.path.abspath ( "./logs/training/ptracer/Analyses.log" ) , "w" )
+        fileAnalysesTraining.writeIntoFile ( str ( self.training.analyses ) )

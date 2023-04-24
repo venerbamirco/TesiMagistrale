@@ -71,7 +71,7 @@ class SequenceRecord :
 class Sequences :
     
     # constructor to initialize the structure for sequences
-    def __init__ ( self, settings: Settings  ) -> None :
+    def __init__ ( self , settings: Settings ) -> None :
         #
         # create a list of all instructions
         self.listInstructions: list [ SequenceRecord ] = list ( )
@@ -279,29 +279,16 @@ class Sequences :
         # else if the instruction is not mapped
         else :
             #
-            # if training mode enabled
-            if self.settings.training :
-                #
-                # insert in input if we want to map this instruction
-                mapThisInstruction = input ( "Map " + previousInstruction + " instruction? [yes/no] " )
-                #
-                # if we want to map this instruction
-                if mapThisInstruction == "yes" :
-                    #
-                    # map actual instruction
-                    self.insertInstruction ( previousInstruction )
-                    print ( "mapped" )
+            # map actual instruction
+            self.insertInstruction ( previousInstruction )
             #
-            # if not training mode
-            else :
-                #
-                # instruction not mapped
-                print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
-                print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                print ( "Instruction " + previousInstruction + " not mapped" )
-                #
-                # print statistics
-                self.printStatistics ( )
+            # instruction not mapped
+            print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
+            print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+            print ( "Instruction " + previousInstruction + " not mapped" )
+            #
+            # print statistics
+            self.printStatistics ( )
     
     # function used to print statistics
     def printStatistics ( self ) :
