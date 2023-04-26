@@ -2,8 +2,8 @@ from threading import Thread
 
 from algorithm.manager.manager import Manager
 from algorithm.dataStructure.other.file import File
-from algorithm.dataStructure.tcpSocket.android import Android
-from algorithm.dataStructure.tcpSocket.ptracer import Ptracer
+from algorithm.tcpSocket.android import Android
+from algorithm.tcpSocket.ptracer import Ptracer
 from algorithm.settings.settings import Settings
 
 # main method to start the web server

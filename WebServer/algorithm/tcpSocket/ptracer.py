@@ -1,6 +1,6 @@
 from algorithm.manager.manager import Manager
 from algorithm.dataStructure.other.file import File
-from algorithm.dataStructure.tcpSocket.generalSocket import GeneralSocket
+from algorithm.tcpSocket.generalSocket import GeneralSocket
 from algorithm.settings.settings import Settings
 
 # class for the ptracer socket

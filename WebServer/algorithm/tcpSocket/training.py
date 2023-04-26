@@ -1,6 +1,6 @@
 from algorithm.dataStructure.other.file import File
 from algorithm.settings.settings import Settings
-from algorithm.dataStructure.tcpSocket.generalSocket import GeneralSocket
+from algorithm.tcpSocket.generalSocket import GeneralSocket
 
 # class for the ptracer socket
 class Training ( GeneralSocket ) :
