@@ -264,7 +264,6 @@ class Sequences :
                         #
                         # map actual instruction
                         self.insertNextInstruction ( previousInstruction , nextInstruction )
-                        print ( "Inserted" )
                 #
                 # if not training mode
                 else :  #
@@ -282,10 +281,13 @@ class Sequences :
             # map actual instruction
             self.insertInstruction ( previousInstruction )
             #
-            # instruction not mapped
-            print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
-            print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-            print ( "Instruction " + previousInstruction + " not mapped" )
+            # if training mode not enabled
+            if not self.settings.training :
+                #
+                # instruction not mapped
+                print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
+                print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+                print ( "Instruction " + previousInstruction + " not mapped" )
             #
             # print statistics
             self.printStatistics ( )

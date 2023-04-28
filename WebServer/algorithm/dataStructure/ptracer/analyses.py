@@ -189,6 +189,22 @@ class Analyses :
             # if training mode enabled
             if self.settings.training :
                 #
+                # if shorter duration
+                if actualDuration < instruction.minimumMeasure :
+                    #
+                    # new minimum duration actual instruction
+                    print ( "----------------------------------------------------------------" )
+                    print ( actualInstruction + " has new minimum duration: " + str ( actualDuration ) + " vs " +
+                            str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                #
+                # if longer duration
+                elif actualDuration > instruction.maximumMeasure :
+                    #
+                    # new minimum duration actual instruction
+                    print ( "----------------------------------------------------------------" )
+                    print ( actualInstruction + " has new maximum duration: " + str ( actualDuration ) + " vs " +
+                            str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                #
                 # add measure of actual instruction
                 self.addMeasurement ( actualInstruction , actualDuration )
             #

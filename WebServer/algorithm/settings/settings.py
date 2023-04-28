@@ -54,6 +54,22 @@ class Settings :
         #
         # training mode
         self.training = True
+        #
+        # ----------------------------------------------------------------------- SECURITY LELEL
+        #
+        # possible security levels
+        self.possibleSecurityLevel = [
+            "Debuggable applications" ,
+            "Developer options" ,
+            "Charging type" ,
+            "Ptracer Started" ,
+            "Stationary device" ,
+            "Sensor alerts" ,
+            "Debugger found" ,
+            "Instructions much time" ,
+            "Subsequences found" ,
+            "Sequence not secure"
+        ]
     
     # function used to get the folder and other for ptracer logs
     def getPtracerLogs ( self ) :
