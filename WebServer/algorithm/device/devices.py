@@ -197,26 +197,14 @@ class Devices :
                     # increment security level
                     device.incrementSecurityLevel ( type )
                     #
-                    # if device in safe list
-                    if device in self.listSafeDevices :
-                        #
-                        # remove from safe list
-                        self.listSafeDevices.remove ( device )
-                    #
-                    # if device in normal list
-                    elif device in self.listNormalDevices :
-                        #
-                        # remove from normal list
-                        self.listNormalDevices.remove ( device )
-                    #
-                    # if device in warning list
-                    elif device in self.listWarningDevices :
-                        #
-                        # remove from warning list
-                        self.listWarningDevices.remove ( device )
-                    #
                     # if normal level
                     if device.securityLevel.securityLevel == 1 :
+                        #
+                        # if device in safe list
+                        if device in self.listSafeDevices :
+                            #
+                            # remove from safe list
+                            self.listSafeDevices.remove ( device )
                         #
                         # add in normal device list
                         self.listNormalDevices.append ( device )
@@ -224,14 +212,53 @@ class Devices :
                     # if warning level
                     elif device.securityLevel.securityLevel == 5 :
                         #
+                        # if device in normal list
+                        if device in self.listNormalDevices :
+                            #
+                            # remove from normal list
+                            self.listNormalDevices.remove ( device )
+                        #
                         # add in warning device list
                         self.listWarningDevices.append ( device )
                     #
                     # if blocked level
                     elif 9 <= device.securityLevel.securityLevel <= 10 :
                         #
+                        # if device in safe list
+                        if device in self.listSafeDevices :
+                            #
+                            # remove from safe list
+                            self.listSafeDevices.remove ( device )
+                        #
+                        # if device in normal list
+                        elif device in self.listNormalDevices :
+                            #
+                            # remove from normal list
+                            self.listNormalDevices.remove ( device )
+                        #
+                        # if device in warning list
+                        elif device in self.listWarningDevices :
+                            #
+                            # remove from warning list
+                            self.listWarningDevices.remove ( device )
+                        #
                         # add in blocked device list
                         self.listBlockedDevices.append ( device )
+    
+    # function used to check a presence of a device
+    def checkPresenceDevice ( self , ipAddress: str ) -> bool :
+        #
+        # for each device
+        for device in self.listDevices :
+            #
+            # if actual ip address is the right address
+            if device.ipAddress == ipAddress :
+                #
+                # device found
+                return True
+        #
+        # device not found
+        return False
     
     # function used for the representation of list of devices
     def __str__ ( self ) -> str :
