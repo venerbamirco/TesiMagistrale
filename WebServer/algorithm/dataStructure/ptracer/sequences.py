@@ -281,8 +281,8 @@ class Sequences :
             # map actual instruction
             self.insertInstruction ( previousInstruction )
             #
-            # if training mode not enabled
-            if not self.settings.training :
+            # if training mode enabled
+            if self.settings.training :
                 #
                 # instruction not mapped
                 print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )

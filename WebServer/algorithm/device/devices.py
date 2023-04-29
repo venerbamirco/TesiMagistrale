@@ -66,20 +66,26 @@ class SecurityLevel :
     # function used to increment the security level
     def incrementSecurityLevel ( self , type: str ) -> int :
         #
-        # if type is correct
-        if type in self.settings.possibleSecurityLevel :
+        # if the debugger is found
+        if type == "Debugger found" :
+            #
+            # block the device immediately
+            self.securityLevel = 10
+        #
+        # else if debugger is not found
+        else :
             #
             # increment actual security level
             self.securityLevel = self.securityLevel + 1
-            #
-            # add in bad thing current type
-            self.badThings.append ( type )
-            #
-            # remove from good current type
-            self.goodThings.remove ( type )
-            #
-            # return count bad things
-            return len ( self.badThings )
+        #
+        # add in bad thing current type
+        self.badThings.append ( type )
+        #
+        # remove from good current type
+        self.goodThings.remove ( type )
+        #
+        # return security level
+        return self.securityLevel
     
     # function used for the representation of security level
     def __str__ ( self ) -> str :
@@ -155,8 +161,8 @@ class Devices :
         # list of safe devices initially empty
         self.listSafeDevices: list [ Device ] = list ( )
         #
-        # list of good devices initially empty
-        self.listGoodDevices: list [ Device ] = list ( )
+        # list of normal devices initially empty
+        self.listNormalDevices: list [ Device ] = list ( )
         #
         # list of warning devices initially empty
         self.listWarningDevices: list [ Device ] = list ( )
@@ -174,31 +180,97 @@ class Devices :
         self.listDevices.append ( device )
         #
         # append the new device in the list of good things
-        self.listGoodDevices.append ( device )
+        self.listSafeDevices.append ( device )
     
     # function used to increment level of security
     def incrementLevelSecurity ( self , ipAdress: str , type: str ) -> None :
         #
-        # for each device
-        for device in self.listDevices :
+        # if type is correct
+        if type in self.settings.possibleSecurityLevel :
             #
-            # if it is the right device
-            if device.ipAddress == ipAdress :
+            # for each device
+            for device in self.listDevices :
                 #
-                # increment security level
-                device.incrementSecurityLevel ( type )
+                # if it is the right device
+                if device.ipAddress == ipAdress :
+                    #
+                    # increment security level
+                    device.incrementSecurityLevel ( type )
+                    #
+                    # if device in safe list
+                    if device in self.listSafeDevices :
+                        #
+                        # remove from safe list
+                        self.listSafeDevices.remove ( device )
+                    #
+                    # if device in normal list
+                    elif device in self.listNormalDevices :
+                        #
+                        # remove from normal list
+                        self.listNormalDevices.remove ( device )
+                    #
+                    # if device in warning list
+                    elif device in self.listWarningDevices :
+                        #
+                        # remove from warning list
+                        self.listWarningDevices.remove ( device )
+                    #
+                    # if normal level
+                    if device.securityLevel.securityLevel == 1 :
+                        #
+                        # add in normal device list
+                        self.listNormalDevices.append ( device )
+                    #
+                    # if warning level
+                    elif device.securityLevel.securityLevel == 5 :
+                        #
+                        # add in warning device list
+                        self.listWarningDevices.append ( device )
+                    #
+                    # if blocked level
+                    elif 9 <= device.securityLevel.securityLevel <= 10 :
+                        #
+                        # add in blocked device list
+                        self.listBlockedDevices.append ( device )
     
     # function used for the representation of list of devices
     def __str__ ( self ) -> str :
         #
-        # print debug row of security level
-        output: str = f"\nLIST OF ALL DEVICES\n"
+        # print debug row of safe security level
+        output: str = f"\nLIST OF ALL DEVICES SAFE DEVICES, LEVEL=0\n"
         #
-        # for each devices
-        for device in self.listDevices :
+        # for each safe device
+        for device in self.listSafeDevices :
             #
             # print actual device
-            output: str = f"{output}\n\tDevice\n{device}"
+            output: str = f"{output}\n\tDevice\n{device}\n"
+        #
+        # print debug row of normal security level
+        output: str = f"{output}\nLIST OF ALL DEVICES NORMAL DEVICES, LEVEL=1-4\n"
+        #
+        # for each normal device
+        for device in self.listNormalDevices :
+            #
+            # print actual device
+            output: str = f"{output}\n\tDevice\n{device}\n"
+        #
+        # print debug row of warning security level
+        output: str = f"{output}\nLIST OF ALL DEVICES WARNING DEVICES, LEVEL=5-8\n"
+        #
+        # for each warning device
+        for device in self.listWarningDevices :
+            #
+            # print actual device
+            output: str = f"{output}\n\tDevice\n{device}\n"
+        #
+        # print debug row of blocked security level
+        output: str = f"{output}\nLIST OF ALL DEVICES BLOCKED DEVICES, LEVEL=9-10\n"
+        #
+        # for each blocked device
+        for device in self.listBlockedDevices :
+            #
+            # print actual device
+            output: str = f"{output}\n\tDevice\n{device}\n"
         #
         # return the output
         return output
@@ -207,5 +279,5 @@ if __name__ == "__main__" :
     settings = Settings ( )
     deviceList = Devices ( settings )
     deviceList.addDevice ( "192.168.1.1" )
-    deviceList.incrementLevelSecurity ( "192.168.1.1" , "Charging type" )
+    deviceList.incrementLevelSecurity ( "192.168.1.1" , "Debugger found" )
     print ( str ( deviceList ) )

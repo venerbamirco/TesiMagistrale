@@ -1,6 +1,8 @@
 import os
 from datetime import datetime
 
+from algorithm.dataStructure.other.file import File
+from algorithm.device.devices import Devices
 from algorithm.manager.android import AndroidManager
 from algorithm.manager.ptracer import PtracerManager
 from algorithm.settings.settings import Settings
@@ -12,14 +14,21 @@ class Manager ( AndroidManager , PtracerManager ) :
     # constructor to initialize the manager
     def __init__ ( self , settings: Settings ) -> None :
         #
+        # save the reference of settings
+        self.settings: Settings = settings
+        #
+        # create the list of devices
+        self.devices: Devices = Devices ( self.settings )
+        self.devices.addDevice ( "192.168.1.1" )
+        #
         # initialize training manager
-        self.training: Training = Training ( settings )
+        self.training: Training = Training ( self.settings )
         #
         # initialize android manager
-        AndroidManager.__init__ ( self , settings , self.training )
+        AndroidManager.__init__ ( self , self.settings , self.training )
         #
         # initialize ptracer manager
-        PtracerManager.__init__ ( self , settings , self.training )
+        PtracerManager.__init__ ( self , self.settings , self.training )
         #
         # flag to check if android socket is terminated
         self.flagAndroidSocket = False
@@ -57,6 +66,13 @@ class Manager ( AndroidManager , PtracerManager ) :
         #
         # create the subdirectory for ptracer logs
         os.mkdir ( os.path.join ( mainDirOutputStructureLogs , "ptracer" ) )
+        #
+        # create the subdirectory for other logs
+        os.mkdir ( os.path.join ( mainDirOutputStructureLogs , "other" ) )
+        #
+        # save list of device
+        fileDevices: File = File ( mainDirOutputStructureLogs + "\\other\\Devices" + self.settings.extensionLogFile , "w" )
+        fileDevices.writeIntoFile ( str ( self.devices ) )
         #
         # save all android logs
         self.saveAndroidLogs ( mainDirOutputStructureLogs )

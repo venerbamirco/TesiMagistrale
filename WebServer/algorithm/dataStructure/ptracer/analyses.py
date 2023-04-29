@@ -229,13 +229,19 @@ class Analyses :
         # else if the instruction is not mapped
         else :
             #
-            # map actual instruction
-            self.addInstruction ( actualInstruction )
-            #
-            # instruction not mapped
-            print ( "----------------------------------------------------------------" )
-            print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-            print ( "Instruction " + actualInstruction + " not mapped" )
+            # if training mode enabled
+            if self.settings.training :
+                #
+                # map actual instruction
+                self.addInstruction ( actualInstruction )
+                #
+                # add measure of actual instruction
+                self.addMeasurement ( actualInstruction , actualDuration )
+                #
+                # instruction not mapped
+                print ( "----------------------------------------------------------------" )
+                print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+                print ( "Instruction " + actualInstruction + " not mapped" )
 
 if __name__ == "__main__" :
     d = Analyses ( )

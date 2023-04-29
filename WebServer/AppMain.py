@@ -15,7 +15,7 @@ if __name__ == "__main__" :
     # create the manager algorithm
     managerAlgorithm = Manager ( settings )
     #
-    # create and open the other for the ptracer logs
+    # create and open the other for the ptracer yeslogs
     ptracerLogs = File ( settings.getPtracerLogs ( ) , settings.howToOpenFiles )
     #
     # create and open the other for the android logs

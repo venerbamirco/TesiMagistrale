@@ -1,0 +1,120 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 168
+		Maximum duration: 12070
+		Average duration: 1270.7205882352941
+		Variance: 4841754.995458478
+		Number measurements: 68
+		List measurements: [7530, 204, 743, 170, 565, 613, 714, 1232, 618, 572, 736, 552, 749, 569, 533, 589, 12070, 591, 991, 579, 580, 545, 482, 515, 519, 520, 522, 553, 533, 617, 869, 1440, 3711, 10667, 804, 1026, 802, 627, 951, 2303, 806, 1530, 716, 710, 691, 184, 179, 181, 1578, 182, 168, 172, 647, 1940, 1674, 7871, 929, 840, 741, 619, 2686, 289, 239, 317, 346, 263, 187, 218]
+
+	Instruction
+		Name: close
+		Minimum duration: 538
+		Maximum duration: 538
+		Average duration: 538
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [538]
+
+	Instruction
+		Name: epoll_pwait
+		Minimum duration: 182
+		Maximum duration: 735
+		Average duration: 485.7142857142857
+		Variance: 61005.918367346945
+		Number measurements: 7
+		List measurements: [718, 735, 704, 635, 210, 216, 182]
+
+	Instruction
+		Name: fcntl
+		Minimum duration: 1158
+		Maximum duration: 1158
+		Average duration: 1158
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [1158]
+
+	Instruction
+		Name: futex
+		Minimum duration: 343
+		Maximum duration: 2932
+		Average duration: 1198.7142857142858
+		Variance: 648607.3469387756
+		Number measurements: 7
+		List measurements: [990, 1488, 343, 2932, 708, 1369, 561]
+
+	Instruction
+		Name: gettimeofday
+		Minimum duration: 162
+		Maximum duration: 947
+		Average duration: 549.6
+		Variance: 71717.63999999998
+		Number measurements: 10
+		List measurements: [189, 668, 573, 868, 631, 649, 947, 633, 176, 162]
+
+	Instruction
+		Name: getuid
+		Minimum duration: 186
+		Maximum duration: 1460
+		Average duration: 687.4285714285714
+		Variance: 223473.10204081633
+		Number measurements: 7
+		List measurements: [1316, 1460, 646, 603, 380, 186, 221]
+
+	Instruction
+		Name: ioctl
+		Minimum duration: 204
+		Maximum duration: 2071
+		Average duration: 846.25
+		Variance: 528863.6875
+		Number measurements: 8
+		List measurements: [2071, 637, 1960, 411, 215, 213, 204, 1059]
+
+	Instruction
+		Name: read
+		Minimum duration: 160
+		Maximum duration: 11249
+		Average duration: 1513
+		Variance: 7642377.0
+		Number measurements: 14
+		List measurements: [629, 684, 1720, 531, 926, 726, 2321, 1046, 633, 11249, 161, 171, 160, 225]
+
+	Instruction
+		Name: recvfrom
+		Minimum duration: 243
+		Maximum duration: 989
+		Average duration: 664.1428571428571
+		Variance: 41438.4081632653
+		Number measurements: 7
+		List measurements: [653, 243, 682, 989, 746, 669, 667]
+
+	Instruction
+		Name: sendto
+		Minimum duration: 842
+		Maximum duration: 842
+		Average duration: 842
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [842]
+
+	Instruction
+		Name: write
+		Minimum duration: 179
+		Maximum duration: 1357
+		Average duration: 740
+		Variance: 182873.14285714287
+		Number measurements: 7
+		List measurements: [179, 1054, 462, 654, 1357, 289, 1185]
+
+	Instruction
+		Name: writev
+		Minimum duration: 713
+		Maximum duration: 713
+		Average duration: 713
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [713]
+

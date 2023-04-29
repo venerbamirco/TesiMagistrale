@@ -67,14 +67,14 @@ class InstructionRecord :
         # if the instruction is finished
         if self.finished :
             #
-            # return the duration in milliseconds
-            return self.finishTimestamp - self.startTimestamp
+            # if valid finish and start timestamp
+            if self.finishTimestamp is not None and self.startTimestamp is not None :
+                #
+                # return the duration in milliseconds
+                return self.finishTimestamp - self.startTimestamp
         #
-        # else if the instruction is not finished
-        else :
-            #
-            # return a zero duration
-            return 0
+        # return a zero duration
+        return 0
     
     # function used to print an instruction object
     def __str__ ( self ) -> str :

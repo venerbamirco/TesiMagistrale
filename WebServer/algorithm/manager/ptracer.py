@@ -256,9 +256,14 @@ class PtracerManager :
         fileInstructionsManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Instructions" + self.settings.extensionLogFile , "w" )
         fileInstructionsManager.writeIntoFile ( self.instructions )
         #
-        # create the file for instructions manager
+        # create the file for sequences manager
         fileSequencesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Sequences" + self.settings.extensionLogFile , "w" )
         fileSequencesManager.writeIntoFile ( self.sequences )
+        #
+        # create the file for instructions list manager
+        fileInstructionsListManager = File ( mainDirOutputStructureLogs + "\\ptracer\\InstructionsList" + self.settings.extensionLogFile , "w" )
+        for pair in self.sequences.dictionaryPidSpid :
+            fileInstructionsListManager.writeIntoFile ( str ( pair ) + " -> " + str ( self.sequences.dictionaryPidSpid [ pair ] ) )
         #
         # update training data of sequences
         fileSequencesTraining: File = File ( os.path.abspath ( "./logs/training/ptracer/Sequences.log" ) , "w" )
@@ -267,3 +272,8 @@ class PtracerManager :
         # update training data of analyses
         fileAnalysesTraining: File = File ( os.path.abspath ( "./logs/training/ptracer/Analyses.log" ) , "w" )
         fileAnalysesTraining.writeIntoFile ( str ( self.training.analyses ) )
+        #
+        # create the file for instructions list manager
+        fileInstructionsListManager = File ( os.path.abspath ( "./logs/training/ptracer/InstructionsList.log" ) , "a" )
+        for pair in self.sequences.dictionaryPidSpid :
+            fileInstructionsListManager.writeIntoFile ( str ( self.sequences.dictionaryPidSpid [ pair ] ) )
