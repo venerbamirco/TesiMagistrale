@@ -59,16 +59,16 @@ class Settings :
         #
         # possible security levels
         self.possibleSecurityLevel = [
-            "Debuggable applications" ,
-            "Developer options" ,
-            "Charging type" ,
+            "Debuggable applications" ,  #
+            "Developer options" ,  #
+            "Charging type" ,  #
             "Ptracer Started" ,
             "Stationary device" ,
-            "Sensor alerts" ,
-            "Debugger found" ,
-            "Instructions much time" ,
+            "Sensor alerts" ,  #
+            "Debugger found" ,  #
+            "Instructions much time" ,  #
             "Subsequences found" ,
-            "Sequence not secure"
+            "Sequence not secure"#
         ]
     
     # function used to get the folder and other for ptracer logs

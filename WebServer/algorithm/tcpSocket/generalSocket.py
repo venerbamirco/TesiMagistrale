@@ -1,7 +1,7 @@
 import socket
 
-from algorithm.manager.manager import Manager
 from algorithm.dataStructure.other.file import File
+from algorithm.manager.manager import Manager
 from algorithm.settings.settings import Settings
 
 # class to manage the general tcp socket
@@ -79,8 +79,14 @@ class GeneralSocket :
         # set timeout for connection
         self.conn.settimeout ( self.settings.timeout )
         #
+        # save the ip address of actual device
+        ipaddress: str = str ( self.address ).strip ( "#()#\n" ).split ( "," ) [ 0 ].strip ( "''" )
+        #
+        # add current device in the list
+        self.managerAlgorithm.training.devices.addDevice ( ipaddress )
+        #
         # debug row for a connection
-        print ( self.name + " - Connection from: " + str ( self.address ) )
+        print ( self.name + " - Connection from: #" + str ( self.address ) + "#" )
     
     # function to receive data from the manageSocket
     def listenMessageIntoSocket ( self ) :

@@ -1,16 +1,17 @@
 import os
 
+from algorithm.dataStructure.device.devices import Devices
 from algorithm.dataStructure.other.file import File
 from algorithm.dataStructure.ptracer.analyses import Analyses
+from algorithm.dataStructure.ptracer.instructionsLists import InstructionsLists
 from algorithm.dataStructure.ptracer.sequences import Sequences
-from algorithm.device.devices import Devices
 from algorithm.settings.settings import Settings
 
 # class used to recover all check data
 class Recover :
     
     # constructor to initialize the recover object
-    def __init__ ( self , analyses: Analyses , sequences: Sequences , devices: Devices , settings: Settings ) -> None :
+    def __init__ ( self , analyses: Analyses , sequences: Sequences , devices: Devices , instructionsLists: InstructionsLists , settings: Settings ) -> None :
         #
         # save the reference for analyses manager
         self.analyses: Analyses = analyses
@@ -21,14 +22,20 @@ class Recover :
         # save the reference for devices manager
         self.devices: Devices = devices
         #
-        # file used for instructions analyses
-        self.fileInstruction: File = File ( os.path.abspath ( "../../logs/training/ptracer/Analyses.log" ) , "r" )
+        # save the reference for instructions lists manager
+        self.instructionsLists: InstructionsLists = instructionsLists
         #
         # file used for instructions analyses
-        self.fileSequences: File = File ( os.path.abspath ( "../../logs/training/ptracer/Sequences.log" ) , "r" )
+        self.fileInstruction: File = File ( os.path.abspath ( "./logs/training/ptracer/Analyses.log" ) , "r" )
+        #
+        # file used for instructions analyses
+        self.fileSequences: File = File ( os.path.abspath ( "./logs/training/ptracer/Sequences.log" ) , "r" )
         #
         # file used for devices analyses
-        self.fileDevices: File = File ( os.path.abspath ( "../../logs/training/other/Devices.log" ) , "r" )
+        self.fileDevices: File = File ( os.path.abspath ( "./logs/training/other/Devices.log" ) , "r" )
+        #
+        # file used for instructions lists analyses
+        self.fileInstructionsLists: File = File ( os.path.abspath ( "./logs/training/ptracer/InstructionsLists.log" ) , "r" )
         #
         # recover of instruction analyses
         self.recoverInformationsInstruction ( )
@@ -38,6 +45,9 @@ class Recover :
         #
         # recover of devices
         self.recoverDevices ( )
+        #
+        # recover lists of instructions
+        self.recoverInstructionsLists ( )
     
     # function used to recover all informations about each instruction
     def recoverInformationsInstruction ( self ) -> None :
@@ -175,11 +185,46 @@ class Recover :
                 # if bad things enabled
                 if badThings :
                     self.devices.incrementLevelSecurity ( ipAddress , line.strip ( ) )
+    
+    # function used to recover all informations about instructions lists
+    def recoverInstructionsLists ( self ) -> None :
+        #
+        # until the file is not finished
+        while True :
+            #
+            # get next line from file
+            line: str = self.fileInstructionsLists.file.readline ( )
+            #
+            # if the end of file is reached
+            if not line :
+                #
+                # break the loop
+                break
+            # if start line of paragraph
+            elif "LIST OF ALL" in line :
+                #
+                # do nothing
+                pass
+            # if start a new line
+            elif "[" in line :
+                #
+                # create a new list for actual line
+                self.instructionsLists.appendNewListInstructions ( )
+                #
+                # list of instructions
+                listInstructions: list [ str ] = line.strip ( "\t['']\n" ).split("', '")
+                #
+                # for each instruction in the list
+                for instruction in listInstructions :
+                    #
+                    # append actual instruction in the last list
+                    self.instructionsLists.appendElementLastList ( instruction )
 
 if __name__ == "__main__" :
     settings = Settings ( )
     analyses = Analyses ( settings )
     sequences = Sequences ( settings )
     devices = Devices ( settings )
-    rec = Recover ( analyses , sequences , devices , settings )
+    instructionsLists = InstructionsLists ( )
+    rec = Recover ( analyses , sequences , devices , instructionsLists , settings )
     print ( str ( devices ) )

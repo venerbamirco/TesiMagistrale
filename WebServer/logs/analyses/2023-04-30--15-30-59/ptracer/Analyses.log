@@ -1,0 +1,84 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 220
+		Maximum duration: 3554
+		Average duration: 738.6451612903226
+		Variance: 353877.3257023934
+		Number measurements: 31
+		List measurements: [2082, 521, 507, 220, 685, 666, 685, 613, 507, 1054, 513, 496, 458, 443, 707, 498, 694, 539, 932, 579, 611, 657, 545, 504, 567, 683, 480, 3554, 605, 644, 649]
+
+	Instruction
+		Name: epoll_pwait
+		Minimum duration: 610
+		Maximum duration: 2688
+		Average duration: 1316
+		Variance: 941458.6666666666
+		Number measurements: 3
+		List measurements: [2688, 650, 610]
+
+	Instruction
+		Name: futex
+		Minimum duration: 509
+		Maximum duration: 3542
+		Average duration: 1237.7142857142858
+		Variance: 1222565.0612244897
+		Number measurements: 7
+		List measurements: [530, 569, 3542, 2250, 705, 509, 559]
+
+	Instruction
+		Name: gettimeofday
+		Minimum duration: 560
+		Maximum duration: 4861
+		Average duration: 2045.2
+		Variance: 3072471.76
+		Number measurements: 5
+		List measurements: [4861, 3360, 560, 727, 718]
+
+	Instruction
+		Name: getuid
+		Minimum duration: 716
+		Maximum duration: 808
+		Average duration: 762
+		Variance: 2116.0
+		Number measurements: 2
+		List measurements: [808, 716]
+
+	Instruction
+		Name: ioctl
+		Minimum duration: 633
+		Maximum duration: 633
+		Average duration: 633
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [633]
+
+	Instruction
+		Name: read
+		Minimum duration: 519
+		Maximum duration: 1014
+		Average duration: 701.6666666666666
+		Variance: 30370.88888888889
+		Number measurements: 6
+		List measurements: [811, 572, 556, 738, 1014, 519]
+
+	Instruction
+		Name: recvfrom
+		Minimum duration: 490
+		Maximum duration: 2126
+		Average duration: 892
+		Variance: 383028.8
+		Number measurements: 5
+		List measurements: [2126, 620, 490, 612, 612]
+
+	Instruction
+		Name: write
+		Minimum duration: 280
+		Maximum duration: 966
+		Average duration: 606.75
+		Variance: 64759.6875
+		Number measurements: 4
+		List measurements: [280, 484, 697, 966]
+

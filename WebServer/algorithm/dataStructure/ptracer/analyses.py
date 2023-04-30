@@ -178,7 +178,7 @@ class Analyses :
         return output
     
     # function used to check actual duration
-    def checkDurationActualInstruction ( self , actualInstruction: str , actualDuration: int ) :
+    def checkDurationActualInstruction ( self , actualInstruction: str , actualDuration: int ) -> bool :
         #
         # obtain the right instruction
         instruction: AnalysesRecord = self.getInstruction ( actualInstruction )
@@ -196,6 +196,9 @@ class Analyses :
                     print ( "----------------------------------------------------------------" )
                     print ( actualInstruction + " has new minimum duration: " + str ( actualDuration ) + " vs " +
                             str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                    #
+                    # add measure of actual instruction
+                    self.addMeasurement ( actualInstruction , actualDuration )
                 #
                 # if longer duration
                 elif actualDuration > instruction.maximumMeasure :
@@ -204,9 +207,12 @@ class Analyses :
                     print ( "----------------------------------------------------------------" )
                     print ( actualInstruction + " has new maximum duration: " + str ( actualDuration ) + " vs " +
                             str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
-                #
-                # add measure of actual instruction
-                self.addMeasurement ( actualInstruction , actualDuration )
+                    #
+                    # add measure of actual instruction
+                    self.addMeasurement ( actualInstruction , actualDuration )
+                    #
+                    # return false because much time
+                    return False
             #
             # else if not training mode
             else :
@@ -220,11 +226,14 @@ class Analyses :
                 # if longer duration
                 if actualDuration > instruction.maximumMeasure :
                     #
-                    #
+                    # print detail about longer duration
                     print ( "----------------------------------------------------------------" )
                     print ( "Timestamp: " + str ( time.time_ns ( ) ) )
                     print ( actualInstruction + " has longer duration: " + str ( actualDuration ) + " vs " +
                             str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                    #
+                    # return false because much time
+                    return False
         #
         # else if the instruction is not mapped
         else :
@@ -242,6 +251,9 @@ class Analyses :
                 print ( "----------------------------------------------------------------" )
                 print ( "Timestamp: " + str ( time.time_ns ( ) ) )
                 print ( "Instruction " + actualInstruction + " not mapped" )
+        #
+        # return True because perfect time duration
+        return True
 
 if __name__ == "__main__" :
     d = Analyses ( )

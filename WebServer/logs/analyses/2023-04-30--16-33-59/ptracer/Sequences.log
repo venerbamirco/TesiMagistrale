@@ -1,0 +1,15 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime]
+
+	Instruction
+		Name: gettimeofday
+		Next: [clock_gettime]
+
+	Instruction
+		Name: recvfrom
+		Next: [gettimeofday]
+

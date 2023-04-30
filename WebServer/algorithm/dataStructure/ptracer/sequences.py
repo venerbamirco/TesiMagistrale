@@ -206,7 +206,7 @@ class Sequences :
         return output
     
     # function used to get the actual sequence previous next instruction pair
-    def getActualSequence ( self , instruction: Instruction , actualInstruction: str ) :
+    def getActualSequence ( self , instruction: Instruction , actualInstruction: str ) -> bool :
         #
         # if actual instruction is not none
         if actualInstruction is not None :
@@ -221,13 +221,19 @@ class Sequences :
             else :
                 #
                 # check sequences previous actual instruction
-                self.checkSequence ( self.previousNextInstructionDictionary [ (instruction.pid , instruction.spid , "prev") ] , actualInstruction )
+                returnValue: bool = self.checkSequence ( self.previousNextInstructionDictionary [ (instruction.pid , instruction.spid , "prev") ] , actualInstruction )
                 #
                 # update the previous with actual instruction
                 self.previousNextInstructionDictionary [ (instruction.pid , instruction.spid , "prev") ] = actualInstruction
+                #
+                # return the result of actual sequence
+                return returnValue
+        #
+        # return true because it is valid
+        return True
     
     # function used to check a sequences in whitelist
-    def checkSequence ( self , previousInstruction: str , nextInstruction: str ) -> None :
+    def checkSequence ( self , previousInstruction: str , nextInstruction: str ) -> bool :
         #
         # obtain the right instruction
         listInstructions: list [ SequenceRecord ] = [ obj for obj in self.listInstructions if obj.name == previousInstruction ]
@@ -264,6 +270,12 @@ class Sequences :
                         #
                         # map actual instruction
                         self.insertNextInstruction ( previousInstruction , nextInstruction )
+                    #
+                    # else if it is a insecure sequence
+                    else:
+                        #
+                        # return false because invalid sequence
+                        return False
                 #
                 # if not training mode
                 else :  #
@@ -274,6 +286,9 @@ class Sequences :
                     #
                     # print statistics
                     self.printStatistics ( )
+                    #
+                    # return false because invalid sequence
+                    return False
         #
         # else if the instruction is not mapped
         else :
@@ -291,6 +306,9 @@ class Sequences :
             #
             # print statistics
             self.printStatistics ( )
+        #
+        # return true because valid sequence
+        return True
     
     # function used to print statistics
     def printStatistics ( self ) :

@@ -2,7 +2,6 @@ import os
 from datetime import datetime
 
 from algorithm.dataStructure.other.file import File
-from algorithm.device.devices import Devices
 from algorithm.manager.android import AndroidManager
 from algorithm.manager.ptracer import PtracerManager
 from algorithm.settings.settings import Settings
@@ -16,10 +15,6 @@ class Manager ( AndroidManager , PtracerManager ) :
         #
         # save the reference of settings
         self.settings: Settings = settings
-        #
-        # create the list of devices
-        self.devices: Devices = Devices ( self.settings )
-        self.devices.addDevice ( "192.168.1.1" )
         #
         # initialize training manager
         self.training: Training = Training ( self.settings )
@@ -71,8 +66,8 @@ class Manager ( AndroidManager , PtracerManager ) :
         os.mkdir ( os.path.join ( mainDirOutputStructureLogs , "other" ) )
         #
         # save list of device
-        fileDevices: File = File ( mainDirOutputStructureLogs + "\\other\\Devices" + self.settings.extensionLogFile , "w" )
-        fileDevices.writeIntoFile ( str ( self.devices ) )
+        fileDevices = File ( os.path.abspath ( "./logs/training/other/Devices.log" ) , "w" )
+        fileDevices.writeIntoFile ( str ( self.training.devices ) )
         #
         # save all android logs
         self.saveAndroidLogs ( mainDirOutputStructureLogs )

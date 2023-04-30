@@ -74,6 +74,12 @@ class AndroidManager :
         #
         # add the charging record in the relative manager
         self.chargingManager.addChargingRecord ( isCharging , usbCharging , acCharging , timestamp )
+        #
+        # if usb charging
+        if usbCharging :
+            #
+            # increment security level
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Charging type" )
     
     # function used to add a record in developer options
     def addDeveloperOptionsRecord ( self , record: str ) -> None :
@@ -91,6 +97,12 @@ class AndroidManager :
         #
         # add the developer options record in the relative manager
         self.developerOptionsManager.addDeveloperOptionRecord ( devOpsEnabled , adbEnabled , timestamp )
+        #
+        # if usb charging
+        if adbEnabled :
+            #
+            # increment security level
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Developer options" )
     
     # function used to add a record in debuggable applications
     def addDebuggableApplicationsRecord ( self , record: str ) -> None :
@@ -105,6 +117,9 @@ class AndroidManager :
         #
         # add the debuggable application record in the relative manager
         self.debuggableApplicationsManager.addDebuggableApplication ( debuggableApplication , timestamp )
+        #
+        # increment security level
+        self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Debuggable applications" )
     
     # function used to add a record in debuggers
     def addDebuggerRecord ( self , record: str ) -> None :
@@ -129,6 +144,9 @@ class AndroidManager :
         #
         # print that a debugger is found
         self.check.debuggerCheck.sayDebuggerFound ( )
+        #
+        # increment security level, block device
+        self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Debugger found" )
     
     # function used to add a record in debuggers
     def addSensorAlertRecord ( self , record: str ) -> None :
@@ -166,6 +184,12 @@ class AndroidManager :
             #
             # add device correctly used
             self.sensorAlertsManager.addCorrectlyUsed ( True , timestamp )
+        #
+        # if some alerts
+        if "device" not in record and "ok" not in record:
+            #
+            # increment security level, block device
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sensor alerts" )
     
     # function used to add a record in calibration
     def addCalibrationRecord ( self , record: str ) -> None :
@@ -234,7 +258,7 @@ class AndroidManager :
         # get roll
         roll: str = record.split ( "#" ) [ 5 ].strip ( ).lower ( )
         #
-        # add the lifecycle record in the relative manager
+        # add the movement record in the relative manager
         self.sensorTextManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
     
     # function used to add a record in ptracer

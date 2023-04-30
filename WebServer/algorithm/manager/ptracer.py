@@ -116,10 +116,22 @@ class PtracerManager :
             if actualInstruction is not None :
                 #
                 # check sequence
-                self.training.sequences.getActualSequence ( instruction , actualInstruction )
+                returnValue: bool = self.training.sequences.getActualSequence ( instruction , actualInstruction )
+                #
+                # if false because sequence non valid
+                if not returnValue :
+                    #
+                    # increment security level
+                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sequence not secure" )
                 #
                 # check duration
-                self.training.analyses.checkDurationActualInstruction ( actualInstruction , actualDuration )
+                returnValue: bool = self.training.analyses.checkDurationActualInstruction ( actualInstruction , actualDuration )
+                #
+                # if false because longer duration
+                if not returnValue :
+                    #
+                    # increment security level
+                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Instructions much time" )
             #
             # delete from the list the actual instruction
             self.listInstruction.remove ( instruction )
@@ -274,6 +286,7 @@ class PtracerManager :
         fileAnalysesTraining.writeIntoFile ( str ( self.training.analyses ) )
         #
         # create the file for instructions list manager
-        fileInstructionsListManager = File ( os.path.abspath ( "./logs/training/ptracer/InstructionsList.log" ) , "a" )
+        fileInstructionsListsManager = File ( os.path.abspath ( "./logs/training/ptracer/InstructionsLists.log" ) , "w" )
+        fileInstructionsListsManager.writeIntoFile ( str ( self.training.instructionsLists ) )
         for pair in self.sequences.dictionaryPidSpid :
-            fileInstructionsListManager.writeIntoFile ( str ( self.sequences.dictionaryPidSpid [ pair ] ) )
+            fileInstructionsListsManager.writeIntoFile ( "\t" + str ( self.sequences.dictionaryPidSpid [ pair ] ) + "\n" )

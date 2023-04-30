@@ -1,0 +1,30 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 515
+		Maximum duration: 674
+		Average duration: 588.6666666666666
+		Variance: 4281.555555555556
+		Number measurements: 3
+		List measurements: [577, 674, 515]
+
+	Instruction
+		Name: gettimeofday
+		Minimum duration: 629
+		Maximum duration: 629
+		Average duration: 629
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [629]
+
+	Instruction
+		Name: recvfrom
+		Minimum duration: 676
+		Maximum duration: 676
+		Average duration: 676
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [676]
+
