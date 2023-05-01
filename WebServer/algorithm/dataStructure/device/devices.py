@@ -67,25 +67,54 @@ class SecurityLevel :
     def incrementSecurityLevel ( self , type: str ) -> int :
         #
         # if the debugger is found
-        if type == "Debugger found" :
+        if type == "Debugger found" or type == "Ptracer Started" :
+            #
+            # debug row
+            print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+            print ( "Security level of device incremented to level n. 10" )
+            print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+            print ( "Device blocked" )
             #
             # block the device immediately
-            self.securityLevel = 10
-        #
-        # else if debugger is not found
-        else :
+            self.securityLevel: int = 10
             #
             # if actual type is in good things
-            if type in self.goodThings:
-                #
-                # increment actual security level
-                self.securityLevel = self.securityLevel + 1
+            if type in self.goodThings :
                 #
                 # add in bad thing current type
                 self.badThings.append ( type )
                 #
                 # remove from good current type
                 self.goodThings.remove ( type )
+        #
+        # else if debugger is not found
+        else :
+            #
+            # if actual type is in good things
+            if type in self.goodThings :
+                #
+                # if security level is less than 10
+                if self.securityLevel < 10 :
+                    #
+                    # increment actual security level
+                    self.securityLevel: int = self.securityLevel + 1
+                #
+                # add in bad thing current type
+                self.badThings.append ( type )
+                #
+                # remove from good current type
+                self.goodThings.remove ( type )
+                #
+                # debug row
+                print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+                print ( "Security level of device incremented to level n. " + str ( self.securityLevel ) )
+                #
+                # if security level equal to 10
+                if self.securityLevel == 10:
+                    #
+                    # debug row
+                    print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+                    print ( "Device blocked" )
         #
         # return security level
         return self.securityLevel
@@ -125,6 +154,27 @@ class Device :
         # only the ip address
         self.ipAddress: str = ipAddress
         #
+        # number of debuggable applications
+        self.numberDebuggableApplications: int = 0
+        #
+        # number of times that the device is stationary
+        self.numberStationary: int = 0
+        #
+        # number of times that the device is in bad position
+        self.numberBadPosition: int = 0
+        #
+        # number of times that an instruction has a long duration
+        self.numberInstructionLongerDuration: int = 0
+        #
+        # number of times that is found a subsequence
+        self.numberFoundSubsequence: int = 0
+        #
+        # maximum length of subsequence
+        self.maximumLengthSubSequence: int = 0
+        #
+        # number of times that a sequence is insecure
+        self.numberInsecureSequence: int = 0
+        #
         # security level
         self.securityLevel: SecurityLevel = SecurityLevel ( settings )
     
@@ -144,7 +194,97 @@ class Device :
         return output
     
     # function used to increment security level
+    def incrementSecurityLevelWithoutPrint ( self , type: str ) -> int :
+        #
+        # increment security level and return the count of bad things
+        return self.securityLevel.incrementSecurityLevel ( type )
+    
+    # function used to increment security level
     def incrementSecurityLevel ( self , type: str ) -> int :
+        #
+        # switch for type of security level
+        match type :
+            #
+            # charging type
+            case "Charging type" :
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found charging type." )
+            #
+            # developer options
+            case "Developer options" :
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found developer options." )
+            #
+            # ptracer started
+            case "Ptracer Started" :
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found ptracer started." )
+            #
+            # debuggable application
+            case "Debuggable applications" :
+                #
+                # increment number of debuggable applications
+                self.numberDebuggableApplications: int = self.numberDebuggableApplications + 1
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found debuggable application. Tot: " + str ( self.numberDebuggableApplications ) )
+            #
+            # device is stationary
+            case "Stationary device" :
+                #
+                # increment number of stationary position
+                self.numberStationary: int = self.numberStationary + 1
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found stationary period. Tot: " + str ( self.numberStationary ) )
+            #
+            # device in bad position
+            case "Sensor alerts" :
+                #
+                # increment number of bad position
+                self.numberBadPosition: int = self.numberBadPosition + 1
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found bad position. Tot: " + str ( self.numberBadPosition ) )
+            #
+            # instruction with longer duration
+            case "Instructions much time" :
+                #
+                # increment number of longer duration instruction
+                self.numberInstructionLongerDuration: int = self.numberInstructionLongerDuration + 1
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found longer instruction. Tot: " + str ( self.numberInstructionLongerDuration ) )
+            #
+            # found subsequence
+            case "Subsequences found" :
+                #
+                # increment number of subsequences
+                self.numberFoundSubsequence: int = self.numberFoundSubsequence + 1
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found subsequence. Tot: " + str ( self.numberFoundSubsequence ) )
+            #
+            # insecure sequence
+            case "Sequence not secure" :
+                #
+                # increment number of insecure sequence
+                self.numberInsecureSequence: int = self.numberInsecureSequence + 1
+                #
+                # debug row
+                print ( "================================================================" )
+                print ( "Found insecure sequence. Tot: " + str ( self.numberInsecureSequence ) )
         #
         # increment security level and return the count of bad things
         return self.securityLevel.incrementSecurityLevel ( type )
@@ -191,62 +331,137 @@ class Devices :
     # function used to increment level of security
     def incrementLevelSecurity ( self , ipAdress: str , type: str ) -> None :
         #
-        # if type is correct
-        if type in self.settings.possibleSecurityLevel :
+        # for each device
+        for device in self.listDevices :
             #
-            # for each device
-            for device in self.listDevices :
+            # if it is the right device
+            if device.ipAddress == ipAdress :
                 #
-                # if it is the right device
-                if device.ipAddress == ipAdress :
+                # increment security level
+                device.incrementSecurityLevel ( type )
+                #
+                # if normal level
+                if device.securityLevel.securityLevel == 1 :
                     #
-                    # increment security level
-                    device.incrementSecurityLevel ( type )
-                    #
-                    # if normal level
-                    if device.securityLevel.securityLevel == 1 :
+                    # if device in safe list
+                    if device in self.listSafeDevices :
                         #
-                        # if device in safe list
-                        if device in self.listSafeDevices :
-                            #
-                            # remove from safe list
-                            self.listSafeDevices.remove ( device )
+                        # remove from safe list
+                        self.listSafeDevices.remove ( device )
+                    #
+                    # if there are not device with same ip address
+                    if not any ( d.ipAddress == ipAdress for d in self.listNormalDevices ) :
                         #
                         # add in normal device list
                         self.listNormalDevices.append ( device )
+                #
+                # if warning level
+                elif device.securityLevel.securityLevel == 5 :
                     #
-                    # if warning level
-                    elif device.securityLevel.securityLevel == 5 :
+                    # if device in normal list
+                    if device in self.listNormalDevices :
                         #
-                        # if device in normal list
-                        if device in self.listNormalDevices :
-                            #
-                            # remove from normal list
-                            self.listNormalDevices.remove ( device )
+                        # remove from normal list
+                        self.listNormalDevices.remove ( device )
+                    #
+                    # if there are not device with same ip address
+                    if not any ( d.ipAddress == ipAdress for d in self.listWarningDevices ) :
                         #
                         # add in warning device list
                         self.listWarningDevices.append ( device )
+                #
+                # if blocked level
+                elif 9 <= device.securityLevel.securityLevel <= 10 :
                     #
-                    # if blocked level
-                    elif 9 <= device.securityLevel.securityLevel <= 10 :
+                    # if device in safe list
+                    if device in self.listSafeDevices :
                         #
-                        # if device in safe list
-                        if device in self.listSafeDevices :
-                            #
-                            # remove from safe list
-                            self.listSafeDevices.remove ( device )
+                        # remove from safe list
+                        self.listSafeDevices.remove ( device )
+                    #
+                    # if device in normal list
+                    elif device in self.listNormalDevices :
                         #
-                        # if device in normal list
-                        elif device in self.listNormalDevices :
-                            #
-                            # remove from normal list
-                            self.listNormalDevices.remove ( device )
+                        # remove from normal list
+                        self.listNormalDevices.remove ( device )
+                    #
+                    # if device in warning list
+                    elif device in self.listWarningDevices :
                         #
-                        # if device in warning list
-                        elif device in self.listWarningDevices :
-                            #
-                            # remove from warning list
-                            self.listWarningDevices.remove ( device )
+                        # remove from warning list
+                        self.listWarningDevices.remove ( device )
+                    #
+                    # if there are not device with same ip address
+                    if not any ( d.ipAddress == ipAdress for d in self.listBlockedDevices ) :
+                        #
+                        # add in blocked device list
+                        self.listBlockedDevices.append ( device )
+    
+    # function used to increment level of security
+    def incrementSecurityLevelWithoutPrint ( self , ipAdress: str , type: str ) -> None :
+        #
+        # for each device
+        for device in self.listDevices :
+            #
+            # if it is the right device
+            if device.ipAddress == ipAdress :
+                #
+                # increment security level
+                device.incrementSecurityLevelWithoutPrint ( type )
+                #
+                # if normal level
+                if device.securityLevel.securityLevel == 1 :
+                    #
+                    # if device in safe list
+                    if device in self.listSafeDevices :
+                        #
+                        # remove from safe list
+                        self.listSafeDevices.remove ( device )
+                    #
+                    # if there are not device with same ip address
+                    if not any ( d.ipAddress == ipAdress for d in self.listNormalDevices ) :
+                        #
+                        # add in normal device list
+                        self.listNormalDevices.append ( device )
+                #
+                # if warning level
+                elif device.securityLevel.securityLevel == 5 :
+                    #
+                    # if device in normal list
+                    if device in self.listNormalDevices :
+                        #
+                        # remove from normal list
+                        self.listNormalDevices.remove ( device )
+                    #
+                    # if there are not device with same ip address
+                    if not any ( d.ipAddress == ipAdress for d in self.listWarningDevices ) :
+                        #
+                        # add in warning device list
+                        self.listWarningDevices.append ( device )
+                #
+                # if blocked level
+                elif 9 <= device.securityLevel.securityLevel <= 10 :
+                    #
+                    # if device in safe list
+                    if device in self.listSafeDevices :
+                        #
+                        # remove from safe list
+                        self.listSafeDevices.remove ( device )
+                    #
+                    # if device in normal list
+                    elif device in self.listNormalDevices :
+                        #
+                        # remove from normal list
+                        self.listNormalDevices.remove ( device )
+                    #
+                    # if device in warning list
+                    elif device in self.listWarningDevices :
+                        #
+                        # remove from warning list
+                        self.listWarningDevices.remove ( device )
+                    #
+                    # if there are not device with same ip address
+                    if not any ( d.ipAddress == ipAdress for d in self.listBlockedDevices ) :
                         #
                         # add in blocked device list
                         self.listBlockedDevices.append ( device )

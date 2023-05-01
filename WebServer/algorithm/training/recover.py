@@ -48,6 +48,8 @@ class Recover :
         #
         # recover lists of instructions
         self.recoverInstructionsLists ( )
+        
+        print("Recover is finished")
     
     # function used to recover all informations about each instruction
     def recoverInformationsInstruction ( self ) -> None :
@@ -184,7 +186,7 @@ class Recover :
                 #
                 # if bad things enabled
                 if badThings :
-                    self.devices.incrementLevelSecurity ( ipAddress , line.strip ( ) )
+                    self.devices.incrementSecurityLevelWithoutPrint ( ipAddress , line.strip ( ) )
     
     # function used to recover all informations about instructions lists
     def recoverInstructionsLists ( self ) -> None :

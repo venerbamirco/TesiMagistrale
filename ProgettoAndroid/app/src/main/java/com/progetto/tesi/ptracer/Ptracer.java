@@ -95,6 +95,19 @@ public class Ptracer extends Thread {
                 /*if it is a valid string*/
                 if ( strCurrentLine != null ) {
 
+                    System.out.println (strCurrentLine );
+
+                    /*if not found ptracer*/
+                    if ( strCurrentLine.contains ( "inaccessible" ) ) {
+
+                        /*send that ptracer is not started*/
+                        this.clientAndroid.addElementToBeSent ( "Ptracer: #error#" );
+
+                        /*exit from the loop*/
+                        break;
+
+                    }
+
                     /*if actual string is valid*/
                     if ( this.filterPtracerLogs ( strCurrentLine ) ) {
 
@@ -110,6 +123,7 @@ public class Ptracer extends Thread {
 
             /*send that ptracer is not started*/
             this.clientAndroid.addElementToBeSent ( "Ptracer: #error#" );
+
         }
 
     }

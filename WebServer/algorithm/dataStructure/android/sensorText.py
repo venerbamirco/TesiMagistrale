@@ -14,6 +14,8 @@ LIST OF ALL SENSOR TEXT RECORDS
 		Roll value: roll2
 		Start timestamp: 13
 """
+import threading
+import time
 
 # class used to manage the single record of sensor
 class SensorRecord :

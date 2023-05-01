@@ -1,3 +1,6 @@
+import threading
+import time
+
 from algorithm.dataStructure.android.charging import Charging
 from algorithm.dataStructure.android.debuggableApplications import DebuggableApplications
 from algorithm.dataStructure.android.debuggers import Debuggers
@@ -54,6 +57,9 @@ class AndroidManager :
         #
         # initialize the ptracer manager
         self.ptracerManager: Ptracer = Ptracer ( )
+        #
+        # flag for bad position
+        self.flagBadPosition: bool = False
     
     # function used to add a record in charging
     def addChargingRecord ( self , record: str ) -> None :
@@ -143,7 +149,7 @@ class AndroidManager :
             self.debuggersManager.setFoundJdwpDebugger ( timestamp )
         #
         # print that a debugger is found
-        self.check.debuggerCheck.sayDebuggerFound ( )
+        self.debuggersManager.sayDebuggerFound ( )
         #
         # increment security level, block device
         self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Debugger found" )
@@ -186,10 +192,35 @@ class AndroidManager :
             self.sensorAlertsManager.addCorrectlyUsed ( True , timestamp )
         #
         # if some alerts
-        if "device" not in record and "ok" not in record:
+        if "device" not in record and "ok" not in record :
             #
-            # increment security level, block device
-            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sensor alerts" )
+            # if flag of bad position is false
+            if not self.flagBadPosition :
+                #
+                # increment security level, block device
+                self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sensor alerts" )
+                #
+                # set flag of bad position to true
+                self.flagBadPosition: bool = True
+                #
+                # create and start a new thread
+                thread = threading.Thread ( target = self.disableFlagBadPosition )
+                thread.start ( )
+    
+    # function used to disable the flag of bad position
+    def disableFlagBadPosition ( self ) -> None :
+        #
+        # actual milliseconds
+        startMilliseconds = time.time_ns ( ) // 1_000_000
+        #
+        # while are not passed 10 seconds
+        while time.time_ns ( ) // 1_000_000 - startMilliseconds < 5000 :
+            #
+            # do nothing
+            pass
+        #
+        # disable flag of bad position
+        self.flagBadPosition: bool = False
     
     # function used to add a record in calibration
     def addCalibrationRecord ( self , record: str ) -> None :
@@ -260,6 +291,30 @@ class AndroidManager :
         #
         # add the movement record in the relative manager
         self.sensorTextManager.addSensorRecord ( azimuth , pitch , roll , timestamp )
+        #
+        # create and start a new thread
+        thread = threading.Thread ( target = self.checkStationarity )
+        thread.start ( )
+    
+    # function used to check if after 10 seconds the device is stationary
+    def checkStationarity ( self ) -> None :
+        #
+        # actual milliseconds
+        startMilliseconds = time.time_ns ( ) // 1_000_000
+        #
+        # actual length of list of sensor records
+        lengthSensorRecords = len ( self.sensorTextManager.listSensorRecord )
+        #
+        # while are not passed 10 seconds
+        while time.time_ns ( ) // 1_000_000 - startMilliseconds < 10000 :
+            if lengthSensorRecords != len ( self.sensorTextManager.listSensorRecord ) :
+                return
+        #
+        #
+        if lengthSensorRecords == len ( self.sensorTextManager.listSensorRecord ) :
+            #
+            # increment security level, block device
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Stationary device" )
     
     # function used to add a record in ptracer
     def addPtracerRecord ( self , record: str ) -> None :
@@ -281,6 +336,9 @@ class AndroidManager :
             #
             # set crashed status on ptracer
             self.ptracerManager.setCrashedPtracerProcess ( timestamp )
+            #
+            # increment security level, block device
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Ptracer Started" )
     
     # function used to save the all android logs
     def saveAndroidLogs ( self , mainDirOutputStructureLogs: str ) :
