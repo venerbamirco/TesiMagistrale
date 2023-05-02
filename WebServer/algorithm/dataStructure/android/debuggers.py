@@ -13,6 +13,8 @@ LIST OF ALL DEBUGGERS
 
 import time
 
+from algorithm.settings.settings import Settings
+
 # class used to manage the debugger
 class Debugger :
     
@@ -103,10 +105,13 @@ class Debuggers :
     # function used to say that a debugger is found
     def sayDebuggerFound ( self ) :
         #
-        # print that a debugger is found
-        print ( "################################################################" )
-        print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-        print ( "A jdwp debugger is found" )
+        # if it is enabled the flag to see if a debugger is found
+        if Settings.debuggerFound :
+            #
+            # print that a debugger is found
+            print ( "################################################################" )
+            print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+            print ( "A jdwp debugger is found" )
 
 if __name__ == "__main__" :
     i = Debuggers ( )

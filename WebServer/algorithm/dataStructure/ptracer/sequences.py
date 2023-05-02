@@ -279,10 +279,13 @@ class Sequences :
                 #
                 # if not training mode
                 else :  #
-                    # it is not a valid sequence
-                    print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
-                    print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                    print ( "Found: " + previousInstruction + " -> " + nextInstruction )
+                    #
+                    # if we can show invalid sequence
+                    if Settings.invalidSequence:
+                        # it is not a valid sequence
+                        print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
+                        print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+                        print ( "Found: " + previousInstruction + " -> " + nextInstruction )
                     #
                     # print statistics
                     self.printStatistics ( )
@@ -299,10 +302,13 @@ class Sequences :
             # if training mode enabled
             if self.settings.training :
                 #
-                # instruction not mapped
-                print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
-                print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                print ( "Instruction " + previousInstruction + " not mapped" )
+                # if we can show invalid sequence
+                if Settings.invalidSequence :
+                    #
+                    # instruction not mapped
+                    print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
+                    print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+                    print ( "Instruction " + previousInstruction + " not mapped" )
             #
             # print statistics
             self.printStatistics ( )
@@ -312,8 +318,11 @@ class Sequences :
     
     # function used to print statistics
     def printStatistics ( self ) :
-        print ( "Good sequences: " + str ( self.goodSequences ) + " " + str ( 100 / (self.goodSequences + self.badSequences) * self.goodSequences ) + "%" )
-        print ( "Bad sequences: " + str ( self.badSequences ) + " " + str ( 100 / (self.goodSequences + self.badSequences) * self.badSequences ) + "%" )
+        #
+        # if we can show invalid sequence
+        if Settings.percentageValidInvalidSequence :
+            print ( "Good sequences: " + str ( self.goodSequences ) + " " + str ( 100 / (self.goodSequences + self.badSequences) * self.goodSequences ) + "%" )
+            print ( "Bad sequences: " + str ( self.badSequences ) + " " + str ( 100 / (self.goodSequences + self.badSequences) * self.badSequences ) + "%" )
 
 if __name__ == "__main__" :
     d = Sequences ( )

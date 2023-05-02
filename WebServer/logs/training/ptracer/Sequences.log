@@ -63,7 +63,7 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 
 	Instruction
 		Name: sched_yield
-		Next: []
+		Next: [clock_gettime]
 
 	Instruction
 		Name: sendto

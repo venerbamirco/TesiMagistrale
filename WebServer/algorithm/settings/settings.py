@@ -3,6 +3,26 @@ import socket
 
 # class used to set all usefully constants
 class Settings :
+    #
+    # ----------------------------------------------------------------------- PRINT ROW
+    #
+    # say if a debugger is found
+    debuggerFound: bool = False
+    #
+    # say security level of device
+    securityLevel: bool = False
+    #
+    # say found new things in security level
+    foundNewThingSecurityLevel: bool = False
+    #
+    # say new duration instruction
+    newDurationInstruction: bool = False
+    #
+    # say invalid sequence
+    invalidSequence: bool = False
+    #
+    # say percentage valid and invalid sequence
+    percentageValidInvalidSequence: bool = False
     
     # constructor for the settings class
     def __init__ ( self ) :

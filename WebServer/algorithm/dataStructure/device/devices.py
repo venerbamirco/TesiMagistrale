@@ -69,11 +69,14 @@ class SecurityLevel :
         # if the debugger is found
         if type == "Debugger found" or type == "Ptracer Started" :
             #
-            # debug row
-            print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
-            print ( "Security level of device incremented to level n. 10" )
-            print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
-            print ( "Device blocked" )
+            # if we can show the security level
+            if Settings.securityLevel:
+                #
+                # debug row
+                print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+                print ( "Security level of device incremented to level n. 10" )
+                print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+                print ( "Device blocked" )
             #
             # block the device immediately
             self.securityLevel: int = 10
@@ -105,16 +108,22 @@ class SecurityLevel :
                 # remove from good current type
                 self.goodThings.remove ( type )
                 #
-                # debug row
-                print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
-                print ( "Security level of device incremented to level n. " + str ( self.securityLevel ) )
+                # if we can show the security level
+                if Settings.securityLevel :
+                    #
+                    # debug row
+                    print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+                    print ( "Security level of device incremented to level n. " + str ( self.securityLevel ) )
                 #
                 # if security level equal to 10
                 if self.securityLevel == 10:
                     #
-                    # debug row
-                    print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
-                    print ( "Device blocked" )
+                    # if we can show the security level
+                    if Settings.securityLevel :
+                        #
+                        # debug row
+                        print ( "@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#@#" )
+                        print ( "Device blocked" )
         #
         # return security level
         return self.securityLevel
@@ -208,23 +217,32 @@ class Device :
             # charging type
             case "Charging type" :
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found charging type." )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel:
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found charging type." )
             #
             # developer options
             case "Developer options" :
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found developer options." )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found developer options." )
             #
             # ptracer started
             case "Ptracer Started" :
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found ptracer started." )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found ptracer started." )
             #
             # debuggable application
             case "Debuggable applications" :
@@ -232,9 +250,12 @@ class Device :
                 # increment number of debuggable applications
                 self.numberDebuggableApplications: int = self.numberDebuggableApplications + 1
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found debuggable application. Tot: " + str ( self.numberDebuggableApplications ) )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found debuggable application. Tot: " + str ( self.numberDebuggableApplications ) )
             #
             # device is stationary
             case "Stationary device" :
@@ -242,9 +263,12 @@ class Device :
                 # increment number of stationary position
                 self.numberStationary: int = self.numberStationary + 1
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found stationary period. Tot: " + str ( self.numberStationary ) )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found stationary period. Tot: " + str ( self.numberStationary ) )
             #
             # device in bad position
             case "Sensor alerts" :
@@ -252,9 +276,12 @@ class Device :
                 # increment number of bad position
                 self.numberBadPosition: int = self.numberBadPosition + 1
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found bad position. Tot: " + str ( self.numberBadPosition ) )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found bad position. Tot: " + str ( self.numberBadPosition ) )
             #
             # instruction with longer duration
             case "Instructions much time" :
@@ -262,9 +289,12 @@ class Device :
                 # increment number of longer duration instruction
                 self.numberInstructionLongerDuration: int = self.numberInstructionLongerDuration + 1
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found longer instruction. Tot: " + str ( self.numberInstructionLongerDuration ) )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found longer instruction. Tot: " + str ( self.numberInstructionLongerDuration ) )
             #
             # found subsequence
             case "Subsequences found" :
@@ -272,9 +302,12 @@ class Device :
                 # increment number of subsequences
                 self.numberFoundSubsequence: int = self.numberFoundSubsequence + 1
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found subsequence. Tot: " + str ( self.numberFoundSubsequence ) )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found subsequence. Tot: " + str ( self.numberFoundSubsequence ) )
             #
             # insecure sequence
             case "Sequence not secure" :
@@ -282,9 +315,12 @@ class Device :
                 # increment number of insecure sequence
                 self.numberInsecureSequence: int = self.numberInsecureSequence + 1
                 #
-                # debug row
-                print ( "================================================================" )
-                print ( "Found insecure sequence. Tot: " + str ( self.numberInsecureSequence ) )
+                # if we can show that a new things is found
+                if Settings.foundNewThingSecurityLevel :
+                    #
+                    # debug row
+                    print ( "================================================================" )
+                    print ( "Found insecure sequence. Tot: " + str ( self.numberInsecureSequence ) )
         #
         # increment security level and return the count of bad things
         return self.securityLevel.incrementSecurityLevel ( type )

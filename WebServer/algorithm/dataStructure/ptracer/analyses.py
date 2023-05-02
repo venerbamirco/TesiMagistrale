@@ -192,10 +192,13 @@ class Analyses :
                 # if shorter duration
                 if actualDuration < instruction.minimumMeasure :
                     #
-                    # new minimum duration actual instruction
-                    print ( "----------------------------------------------------------------" )
-                    print ( actualInstruction + " has new minimum duration: " + str ( actualDuration ) + " vs " +
-                            str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                    # if we can show new duration
+                    if Settings.newDurationInstruction :
+                        #
+                        # new minimum duration actual instruction
+                        print ( "----------------------------------------------------------------" )
+                        print ( actualInstruction + " has new minimum duration: " + str ( actualDuration ) + " vs " +
+                                str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
                     #
                     # add measure of actual instruction
                     self.addMeasurement ( actualInstruction , actualDuration )
@@ -203,10 +206,13 @@ class Analyses :
                 # if longer duration
                 elif actualDuration > instruction.maximumMeasure :
                     #
-                    # new minimum duration actual instruction
-                    print ( "----------------------------------------------------------------" )
-                    print ( actualInstruction + " has new maximum duration: " + str ( actualDuration ) + " vs " +
-                            str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                    # if we can show new duration
+                    if Settings.newDurationInstruction :
+                        #
+                        # new minimum duration actual instruction
+                        print ( "----------------------------------------------------------------" )
+                        print ( actualInstruction + " has new maximum duration: " + str ( actualDuration ) + " vs " +
+                                str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
                     #
                     # add measure of actual instruction
                     self.addMeasurement ( actualInstruction , actualDuration )
@@ -226,11 +232,14 @@ class Analyses :
                 # if longer duration
                 if actualDuration > instruction.maximumMeasure :
                     #
-                    # print detail about longer duration
-                    print ( "----------------------------------------------------------------" )
-                    print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                    print ( actualInstruction + " has longer duration: " + str ( actualDuration ) + " vs " +
-                            str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
+                    # if we can show new duration
+                    if Settings.newDurationInstruction :
+                        #
+                        # print detail about longer duration
+                        print ( "----------------------------------------------------------------" )
+                        print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+                        print ( actualInstruction + " has longer duration: " + str ( actualDuration ) + " vs " +
+                                str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
                     #
                     # return false because much time
                     return False
@@ -247,10 +256,13 @@ class Analyses :
                 # add measure of actual instruction
                 self.addMeasurement ( actualInstruction , actualDuration )
                 #
-                # instruction not mapped
-                print ( "----------------------------------------------------------------" )
-                print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                print ( "Instruction " + actualInstruction + " not mapped" )
+                # if we can show new duration
+                if Settings.newDurationInstruction :
+                    #
+                    # instruction not mapped
+                    print ( "----------------------------------------------------------------" )
+                    print ( "Timestamp: " + str ( time.time_ns ( ) ) )
+                    print ( "Instruction " + actualInstruction + " not mapped" )
         #
         # return True because perfect time duration
         return True
