@@ -14,8 +14,6 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 		Next: []
 """
 
-import time
-
 from algorithm.dataStructure.other.instruction import Instruction
 from algorithm.settings.settings import Settings
 
@@ -71,16 +69,13 @@ class SequenceRecord :
 class Sequences :
     
     # constructor to initialize the structure for sequences
-    def __init__ ( self , settings: Settings ) -> None :
+    def __init__ ( self ) -> None :
         #
         # create a list of all instructions
         self.listInstructions: list [ SequenceRecord ] = list ( )
         #
         # dictionary of list of instructions for each pair pid spid
         self.dictionaryPidSpid: dict [ list [ str ] ] = dict ( )
-        #
-        # save reference for settings
-        self.settings = settings
         #
         # dictionary for previous and next instruction for each pid spid pair
         self.previousNextInstructionDictionary: dict = dict ( )
@@ -90,6 +85,9 @@ class Sequences :
         #
         # save the number of bad sequences
         self.badSequences: int = 0
+        #
+        # save invalid sequences each execution
+        self.invalidSequence: list [ str ] = [ ]
     
     # function used to insert a new instruction in the dictionary
     def addInstruction ( self , pid: int , spid: int , name: str ) -> None :
@@ -257,13 +255,10 @@ class Sequences :
                 self.badSequences: int = self.badSequences + 1
                 #
                 # if training mode enabled
-                if self.settings.training :
-                    #
-                    # debug row
-                    print ( "----------------------------------------------------------------" )
+                if Settings.training :
                     #
                     # insert in input if we want to map this sequence
-                    mapThisSequences = input ( "Insert " + previousInstruction + " -> " + nextInstruction + " sequence? [yes/no] " )
+                    mapThisSequences = input ( "\nInsert " + previousInstruction + " -> " + nextInstruction + " sequence? [yes/no] " )
                     #
                     # if we want to map this sequence
                     if mapThisSequences == "yes" :
@@ -272,7 +267,7 @@ class Sequences :
                         self.insertNextInstruction ( previousInstruction , nextInstruction )
                     #
                     # else if it is a insecure sequence
-                    else:
+                    else :
                         #
                         # return false because invalid sequence
                         return False
@@ -281,11 +276,16 @@ class Sequences :
                 else :  #
                     #
                     # if we can show invalid sequence
-                    if Settings.invalidSequence:
-                        # it is not a valid sequence
-                        print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
-                        print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                        print ( "Found: " + previousInstruction + " -> " + nextInstruction )
+                    if Settings.invalidSequence :
+                        #
+                        # if actual invalid sequence is not in the list of invalid sequence
+                        if previousInstruction + " -> " + nextInstruction not in self.invalidSequence :
+                            #
+                            # insert actual invalid sequence
+                            self.invalidSequence.append ( previousInstruction + " -> " + nextInstruction )
+                            #
+                            # it is not a valid sequence
+                            print ( "\nFound invalid sequence: " + previousInstruction + " -> " + nextInstruction )
                     #
                     # print statistics
                     self.printStatistics ( )
@@ -300,15 +300,13 @@ class Sequences :
             self.insertInstruction ( previousInstruction )
             #
             # if training mode enabled
-            if self.settings.training :
+            if Settings.training :
                 #
                 # if we can show invalid sequence
                 if Settings.invalidSequence :
                     #
                     # instruction not mapped
-                    print ( "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" )
-                    print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                    print ( "Instruction " + previousInstruction + " not mapped" )
+                    print ( "\nInstruction " + previousInstruction + " not mapped" )
             #
             # print statistics
             self.printStatistics ( )
@@ -321,7 +319,7 @@ class Sequences :
         #
         # if we can show invalid sequence
         if Settings.percentageValidInvalidSequence :
-            print ( "Good sequences: " + str ( self.goodSequences ) + " " + str ( 100 / (self.goodSequences + self.badSequences) * self.goodSequences ) + "%" )
+            print ( "\nGood sequences: " + str ( self.goodSequences ) + " " + str ( 100 / (self.goodSequences + self.badSequences) * self.goodSequences ) + "%" )
             print ( "Bad sequences: " + str ( self.badSequences ) + " " + str ( 100 / (self.goodSequences + self.badSequences) * self.badSequences ) + "%" )
 
 if __name__ == "__main__" :

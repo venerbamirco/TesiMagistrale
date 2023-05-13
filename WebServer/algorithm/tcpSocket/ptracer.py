@@ -1,16 +1,15 @@
-from algorithm.manager.manager import Manager
 from algorithm.dataStructure.other.file import File
+from algorithm.manager.manager import Manager
 from algorithm.tcpSocket.generalSocket import GeneralSocket
-from algorithm.settings.settings import Settings
 
 # class for the ptracer socket
 class Ptracer ( GeneralSocket ) :
     
     # constructor for the android socket class
-    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings , managerAlgorithm: Manager ) :
+    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , managerAlgorithm: Manager ) :
         #
         # initialize the general socket
-        super ( ).__init__ ( name , host , port , clients , manageFile , settings , managerAlgorithm )
+        super ( ).__init__ ( name , host , port , clients , manageFile , managerAlgorithm )
         #
         # variables to manage if we have found all types of input details
         self.pid = None

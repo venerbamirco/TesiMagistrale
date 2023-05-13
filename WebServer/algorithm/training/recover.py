@@ -11,7 +11,7 @@ from algorithm.settings.settings import Settings
 class Recover :
     
     # constructor to initialize the recover object
-    def __init__ ( self , analyses: Analyses , sequences: Sequences , devices: Devices , instructionsLists: InstructionsLists , settings: Settings ) -> None :
+    def __init__ ( self , analyses: Analyses , sequences: Sequences , devices: Devices , instructionsLists: InstructionsLists ) -> None :
         #
         # save the reference for analyses manager
         self.analyses: Analyses = analyses
@@ -223,10 +223,9 @@ class Recover :
                     self.instructionsLists.appendElementLastList ( instruction )
 
 if __name__ == "__main__" :
-    settings = Settings ( )
-    analyses = Analyses ( settings )
-    sequences = Sequences ( settings )
-    devices = Devices ( settings )
+    analyses = Analyses ( )
+    sequences = Sequences ( )
+    devices = Devices ( )
     instructionsLists = InstructionsLists ( )
-    rec = Recover ( analyses , sequences , devices , instructionsLists , settings )
+    rec = Recover ( analyses , sequences , devices , instructionsLists )
     print ( str ( devices ) )

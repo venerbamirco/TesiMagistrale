@@ -4,26 +4,22 @@ from datetime import datetime
 from algorithm.dataStructure.other.file import File
 from algorithm.manager.android import AndroidManager
 from algorithm.manager.ptracer import PtracerManager
-from algorithm.settings.settings import Settings
 from algorithm.training.training import Training
 
 # class used to manage all the parts of the algorithm
 class Manager ( AndroidManager , PtracerManager ) :
     
     # constructor to initialize the manager
-    def __init__ ( self , settings: Settings ) -> None :
-        #
-        # save the reference of settings
-        self.settings: Settings = settings
+    def __init__ ( self ) -> None :
         #
         # initialize training manager
-        self.training: Training = Training ( self.settings )
+        self.training: Training = Training ( )
         #
         # initialize android manager
-        AndroidManager.__init__ ( self , self.settings , self.training )
+        AndroidManager.__init__ ( self , self.training )
         #
         # initialize ptracer manager
-        PtracerManager.__init__ ( self , self.settings , self.training )
+        PtracerManager.__init__ ( self , self.training )
         #
         # flag to check if android socket is terminated
         self.flagAndroidSocket = False

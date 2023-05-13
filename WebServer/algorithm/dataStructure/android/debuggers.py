@@ -105,13 +105,14 @@ class Debuggers :
     # function used to say that a debugger is found
     def sayDebuggerFound ( self ) :
         #
-        # if it is enabled the flag to see if a debugger is found
-        if Settings.debuggerFound :
+        # if it is not training mode
+        if not Settings.training:
             #
-            # print that a debugger is found
-            print ( "################################################################" )
-            print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-            print ( "A jdwp debugger is found" )
+            # if it is enabled the flag to see if a debugger is found
+            if Settings.debuggerFound :
+                #
+                # print that a debugger is found
+                print ( "\nA jdwp debugger is found" )
 
 if __name__ == "__main__" :
     i = Debuggers ( )

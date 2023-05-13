@@ -13,25 +13,22 @@ from functions.functions import lcs_algo
 class PtracerManager :
     
     # constructor to initialize the ptracer manager
-    def __init__ ( self , settings: Settings , training: Training ) -> None :
+    def __init__ ( self , training: Training ) -> None :
         #
         # save the reference for training manager
         self.training: Training = training
-        #
-        # save the reference for settings
-        self.settings: Settings = settings
         #
         # create a list of instruction objects
         self.listInstruction: list [ Instruction ] = list ( )
         #
         # initialize the analyses manager
-        self.analyses: Analyses = Analyses ( self.settings )
+        self.analyses: Analyses = Analyses ( )
         #
         # initialize the instruction manager
         self.instructions: Instructions = Instructions ( self.analyses )
         #
         # initialize the sequences manager
-        self.sequences: Sequences = Sequences ( self.settings )
+        self.sequences: Sequences = Sequences ( )
         #
         # variable used to say that we are in the start part or in the finish part of the instruction
         self.startPartInstructionLogs: bool = None
@@ -119,40 +116,6 @@ class PtracerManager :
             # if actual instruction valid
             if actualInstruction is not None :
                 #
-                # if there are previous executions
-                if len ( self.training.instructionsLists.instructionsList ) > 0 :
-                    #
-                    # get last execution instructions
-                    instructionsLastExecutions: list [ str ] = self.training.instructionsLists.instructionsList [ -1 ]
-                    print ( "First" )
-                    print ( instructionsLastExecutions )
-                    #
-                    # get actual sequence instructions
-                    actualInstructions: list [ str ] = self.sequences.dictionaryPidSpid [ instruction.pid , instruction.spid ]
-                    print ( "Second" )
-                    print ( actualInstructions )
-                    print ( "Result" )
-                    #
-                    # get list of subsequence with last execution
-                    listSubsequence: list [ str ] = lcs_algo ( instructionsLastExecutions , actualInstructions , len ( instructionsLastExecutions ) , len ( actualInstructions ) )
-                    #
-                    # for each subsequence
-                    for subsequence in listSubsequence :
-                        #
-                        # if actual subsequence in list safe subsequence
-                        if subsequence in self.safeSubsequence :
-                            print ( "Safe subsequence found: " + str ( subsequence ) )
-                        #
-                        # if actual subsequence is not in safe subsequence
-                        else :
-                            print ( "Insecure subsequence found: " + str ( subsequence ) )
-                            returnValue: bool = input ( "Is safe this subsequence= [yes/no]: " )
-                            if returnValue == "yes" :
-                                self.safeSubsequence.append ( subsequence )
-                            else :
-                                pass
-                    print("\n\n")
-                #
                 # check sequence
                 returnValue: bool = self.training.sequences.getActualSequence ( instruction , actualInstruction )
                 #
@@ -170,6 +133,39 @@ class PtracerManager :
                     #
                     # increment security level
                     self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Instructions much time" )
+                #
+                # if there are previous executions
+                if len ( self.training.instructionsLists.instructionsList ) > 0 :
+                    #
+                    # do nothing for the mooment
+                    return
+                    #
+                    # get last execution instructions
+                    instructionsLastExecutions: list [ str ] = self.training.instructionsLists.instructionsList [ -1 ]
+                    #
+                    # get actual sequence instructions
+                    actualInstructions: list [ str ] = self.sequences.dictionaryPidSpid [ instruction.pid , instruction.spid ]
+                    #
+                    # get list of subsequence with last execution
+                    listSubsequence: list [ str ] = lcs_algo ( instructionsLastExecutions , actualInstructions , len ( instructionsLastExecutions ) , len ( actualInstructions ) )
+                    #
+                    # for each subsequence
+                    for subsequence in listSubsequence :
+                        #
+                        # if actual subsequence in list safe subsequence
+                        if subsequence in self.safeSubsequence :
+                            
+                            print ( "Safe subsequence found: " + str ( subsequence ) )
+                        #
+                        # if actual subsequence is not in safe subsequence
+                        else :
+                            print ( "Insecure subsequence found: " + str ( subsequence ) )
+                            returnValue: bool = input ( "Is safe this subsequence= [yes/no]: " )
+                            if returnValue == "yes" :
+                                self.safeSubsequence.append ( subsequence )
+                            else :
+                                pass
+                    print ( "\n\n" )
             #
             # delete from the list the actual instruction
             self.listInstruction.remove ( instruction )
@@ -299,19 +295,19 @@ class PtracerManager :
     def savePtracerLogs ( self , mainDirOutputStructureLogs: str ) :
         #
         # create the file for analyses manager
-        fileAnalysesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Analyses" + self.settings.extensionLogFile , "w" )
+        fileAnalysesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Analyses" + Settings.extensionLogFile , "w" )
         fileAnalysesManager.writeIntoFile ( self.analyses )
         #
         # create the file for instructions manager
-        fileInstructionsManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Instructions" + self.settings.extensionLogFile , "w" )
+        fileInstructionsManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Instructions" + Settings.extensionLogFile , "w" )
         fileInstructionsManager.writeIntoFile ( self.instructions )
         #
         # create the file for sequences manager
-        fileSequencesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Sequences" + self.settings.extensionLogFile , "w" )
+        fileSequencesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Sequences" + Settings.extensionLogFile , "w" )
         fileSequencesManager.writeIntoFile ( self.sequences )
         #
         # create the file for instructions list manager
-        fileInstructionsListManager = File ( mainDirOutputStructureLogs + "\\ptracer\\InstructionsList" + self.settings.extensionLogFile , "w" )
+        fileInstructionsListManager = File ( mainDirOutputStructureLogs + "\\ptracer\\InstructionsList" + Settings.extensionLogFile , "w" )
         for pair in self.sequences.dictionaryPidSpid :
             fileInstructionsListManager.writeIntoFile ( str ( pair ) + " -> " + str ( self.sequences.dictionaryPidSpid [ pair ] ) )
         #

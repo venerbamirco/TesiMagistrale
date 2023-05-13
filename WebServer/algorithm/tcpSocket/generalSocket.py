@@ -8,7 +8,7 @@ from algorithm.settings.settings import Settings
 class GeneralSocket :
     
     # constructor to initialize the whole manageSocket object
-    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , settings: Settings , managerAlgorithm: Manager ) :
+    def __init__ ( self , name: str , host: str , port: int , clients: int , manageFile: File , managerAlgorithm: Manager ) :
         #
         # save the name for the tcpSocket
         self.name = name
@@ -24,9 +24,6 @@ class GeneralSocket :
         #
         # save the reference for the other
         self.manageFile = manageFile
-        #
-        # save the reference for the settings
-        self.settings = settings
         #
         # save the server socket reference
         self.serversocket = None
@@ -77,7 +74,7 @@ class GeneralSocket :
         self.conn , self.address = self.serversocket.accept ( )
         #
         # set timeout for connection
-        self.conn.settimeout ( self.settings.timeout )
+        self.conn.settimeout ( Settings.timeout )
         #
         # save the ip address of actual device
         ipaddress: str = str ( self.address ).strip ( "#()#\n" ).split ( "," ) [ 0 ].strip ( "''" )
@@ -107,7 +104,7 @@ class GeneralSocket :
                         break
                 #
                 # receive data stream, it won't accept data packet greater than 10240 bytes
-                receivedMessageBytes = self.conn.recv ( self.settings.dimensionSocketData )
+                receivedMessageBytes = self.conn.recv ( Settings.dimensionSocketData )
                 #
                 # if there aren't received data
                 if not receivedMessageBytes :

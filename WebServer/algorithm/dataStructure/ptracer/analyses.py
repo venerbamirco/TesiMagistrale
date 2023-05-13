@@ -11,7 +11,6 @@ ANALYSIS OF ALL INSTRUCTIONS
 		List measurements: [1, 2, 3, 4, 5, 6]
 """
 
-import time
 from statistics import mean
 
 from numpy import var
@@ -100,10 +99,7 @@ class AnalysesRecord :
 class Analyses :
     
     # constructor to initialize the structure for analyses
-    def __init__ ( self , settings: Settings ) -> None :
-        #
-        # save reference for settings
-        self.settings = settings
+    def __init__ ( self ) -> None :
         #
         # create an empty list of analyses instructions
         self.listAllInstructions: list [ AnalysesRecord ] = list ( )
@@ -187,7 +183,7 @@ class Analyses :
         if instruction is not None :
             #
             # if training mode enabled
-            if self.settings.training :
+            if Settings.training :
                 #
                 # if shorter duration
                 if actualDuration < instruction.minimumMeasure :
@@ -196,8 +192,7 @@ class Analyses :
                     if Settings.newDurationInstruction :
                         #
                         # new minimum duration actual instruction
-                        print ( "----------------------------------------------------------------" )
-                        print ( actualInstruction + " has new minimum duration: " + str ( actualDuration ) + " vs " +
+                        print ( "\n" + actualInstruction + " has new minimum duration: " + str ( actualDuration ) + " vs " +
                                 str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
                     #
                     # add measure of actual instruction
@@ -210,8 +205,7 @@ class Analyses :
                     if Settings.newDurationInstruction :
                         #
                         # new minimum duration actual instruction
-                        print ( "----------------------------------------------------------------" )
-                        print ( actualInstruction + " has new maximum duration: " + str ( actualDuration ) + " vs " +
+                        print ( "\n" + actualInstruction + " has new maximum duration: " + str ( actualDuration ) + " vs " +
                                 str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
                     #
                     # add measure of actual instruction
@@ -236,9 +230,7 @@ class Analyses :
                     if Settings.newDurationInstruction :
                         #
                         # print detail about longer duration
-                        print ( "----------------------------------------------------------------" )
-                        print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                        print ( actualInstruction + " has longer duration: " + str ( actualDuration ) + " vs " +
+                        print ( "\n" + actualInstruction + " has longer duration: " + str ( actualDuration ) + " vs " +
                                 str ( instruction.minimumMeasure ) + "->" + str ( instruction.maximumMeasure ) )
                     #
                     # return false because much time
@@ -248,7 +240,7 @@ class Analyses :
         else :
             #
             # if training mode enabled
-            if self.settings.training :
+            if Settings.training :
                 #
                 # map actual instruction
                 self.addInstruction ( actualInstruction )
@@ -260,9 +252,13 @@ class Analyses :
                 if Settings.newDurationInstruction :
                     #
                     # instruction not mapped
-                    print ( "----------------------------------------------------------------" )
-                    print ( "Timestamp: " + str ( time.time_ns ( ) ) )
-                    print ( "Instruction " + actualInstruction + " not mapped" )
+                    print ( "\n" + actualInstruction + " has longer duration: " + str ( actualDuration ) + ", now is mapped" )
+            #
+            # if not training mode
+            else :
+                #
+                # instruction not mapped
+                print ( "\n" + actualInstruction + " not mapped mapped" )
         #
         # return True because perfect time duration
         return True

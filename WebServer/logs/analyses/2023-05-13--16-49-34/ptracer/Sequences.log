@@ -1,0 +1,43 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, epoll_pwait, futex, gettimeofday, read, recvfrom, write]
+
+	Instruction
+		Name: epoll_pwait
+		Next: [read, recvfrom]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, epoll_pwait, futex, read, recvfrom, write]
+
+	Instruction
+		Name: gettimeofday
+		Next: [clock_gettime, futex, gettimeofday, madvise, read, write]
+
+	Instruction
+		Name: getuid
+		Next: [epoll_pwait]
+
+	Instruction
+		Name: ioctl
+		Next: [futex, write]
+
+	Instruction
+		Name: madvise
+		Next: [clock_gettime, madvise]
+
+	Instruction
+		Name: read
+		Next: [clock_gettime, getuid]
+
+	Instruction
+		Name: recvfrom
+		Next: [clock_gettime, futex, gettimeofday, ioctl, recvfrom]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime, futex, recvfrom]
+

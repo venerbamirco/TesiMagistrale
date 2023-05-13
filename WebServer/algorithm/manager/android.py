@@ -20,13 +20,10 @@ from utils.functions import strToBool
 class AndroidManager :
     
     # constructor to initialize the android manager
-    def __init__ ( self , settings: Settings , training: Training ) -> None :
+    def __init__ ( self , training: Training ) -> None :
         #
         # save the reference for training manager
         self.training: Training = training
-        #
-        # save the reference for settings
-        self.settings: Settings = settings
         #
         # initialize the charging manager
         self.chargingManager: Charging = Charging ( )
@@ -344,41 +341,41 @@ class AndroidManager :
     def saveAndroidLogs ( self , mainDirOutputStructureLogs: str ) :
         #
         # create the file for charging manager
-        fileChargingManager: File = File ( mainDirOutputStructureLogs + "\\android\\Charging" + self.settings.extensionLogFile , "w" )
+        fileChargingManager: File = File ( mainDirOutputStructureLogs + "\\android\\Charging" + Settings.extensionLogFile , "w" )
         fileChargingManager.writeIntoFile ( self.chargingManager )
         #
         # create the file for developer options manager
-        fileDeveloperOptionsManager: File = File ( mainDirOutputStructureLogs + "\\android\\DeveloperOptions" + self.settings.extensionLogFile , "w" )
+        fileDeveloperOptionsManager: File = File ( mainDirOutputStructureLogs + "\\android\\DeveloperOptions" + Settings.extensionLogFile , "w" )
         fileDeveloperOptionsManager.writeIntoFile ( self.developerOptionsManager )
         #
         # create the file for debuggable applications manager
-        fileDebuggableApplicationsManager: File = File ( mainDirOutputStructureLogs + "\\android\\DebuggableApplications" + self.settings.extensionLogFile , "w" )
+        fileDebuggableApplicationsManager: File = File ( mainDirOutputStructureLogs + "\\android\\DebuggableApplications" + Settings.extensionLogFile , "w" )
         fileDebuggableApplicationsManager.writeIntoFile ( self.debuggableApplicationsManager )
         #
         # create the file for debuggers manager
-        fileDebuggersManager: File = File ( mainDirOutputStructureLogs + "\\android\\Debuggers" + self.settings.extensionLogFile , "w" )
+        fileDebuggersManager: File = File ( mainDirOutputStructureLogs + "\\android\\Debuggers" + Settings.extensionLogFile , "w" )
         fileDebuggersManager.writeIntoFile ( self.debuggersManager )
         #
         # create the file for sensor alerts manager
-        fileSensorAlertsManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorAlerts" + self.settings.extensionLogFile , "w" )
+        fileSensorAlertsManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorAlerts" + Settings.extensionLogFile , "w" )
         fileSensorAlertsManager.writeIntoFile ( self.sensorAlertsManager )
         #
         # create the file for calibration manager
-        fileSensorCalibrationManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorCalibration" + self.settings.extensionLogFile , "w" )
+        fileSensorCalibrationManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorCalibration" + Settings.extensionLogFile , "w" )
         fileSensorCalibrationManager.writeIntoFile ( self.sensorCalibrationManager )
         #
         # create the file for lifecycle manager
-        fileLifecycleManager: File = File ( mainDirOutputStructureLogs + "\\android\\Lifecycle" + self.settings.extensionLogFile , "w" )
+        fileLifecycleManager: File = File ( mainDirOutputStructureLogs + "\\android\\Lifecycle" + Settings.extensionLogFile , "w" )
         fileLifecycleManager.writeIntoFile ( self.lifecycleManager )
         #
         # create the file for sensor number manager
-        fileSensorNumberManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorNumber" + self.settings.extensionLogFile , "w" )
+        fileSensorNumberManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorNumber" + Settings.extensionLogFile , "w" )
         fileSensorNumberManager.writeIntoFile ( self.sensorNumberManager )
         #
         # create the file for sensor text manager
-        fileSensorTextManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorText" + self.settings.extensionLogFile , "w" )
+        fileSensorTextManager: File = File ( mainDirOutputStructureLogs + "\\android\\SensorText" + Settings.extensionLogFile , "w" )
         fileSensorTextManager.writeIntoFile ( self.sensorTextManager )
         #
         # create the file for ptracer manager
-        filePtracerManager: File = File ( mainDirOutputStructureLogs + "\\android\\Ptracer" + self.settings.extensionLogFile , "w" )
+        filePtracerManager: File = File ( mainDirOutputStructureLogs + "\\android\\Ptracer" + Settings.extensionLogFile , "w" )
         filePtracerManager.writeIntoFile ( self.ptracerManager )
