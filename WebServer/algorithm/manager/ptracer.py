@@ -36,8 +36,8 @@ class PtracerManager :
         # instruction to finish it
         self.finishInstruction: Instruction = Instruction ( )
         #
-        # list of safe subsequence
-        self.safeSubsequence: list [ str ] = list ( )
+        # list of subsequence in relation last execution
+        self.listAllSubsequences: list [ str ] = list ( )
     
     # function used to start a new instruction
     def startNewInstruction ( self ) -> None :
@@ -133,39 +133,73 @@ class PtracerManager :
                     #
                     # increment security level
                     self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Instructions much time" )
+                
                 #
-                # if there are previous executions
-                if len ( self.training.instructionsLists.instructionsList ) > 0 :
+                # if not training mode
+                if not Settings.training :
                     #
-                    # do nothing for the mooment
-                    return
-                    #
-                    # get last execution instructions
-                    instructionsLastExecutions: list [ str ] = self.training.instructionsLists.instructionsList [ -1 ]
-                    #
-                    # get actual sequence instructions
-                    actualInstructions: list [ str ] = self.sequences.dictionaryPidSpid [ instruction.pid , instruction.spid ]
-                    #
-                    # get list of subsequence with last execution
-                    listSubsequence: list [ str ] = lcs_algo ( instructionsLastExecutions , actualInstructions , len ( instructionsLastExecutions ) , len ( actualInstructions ) )
-                    #
-                    # for each subsequence
-                    for subsequence in listSubsequence :
+                    # if there are previous executions
+                    if len ( self.training.instructionsLists.instructionsList ) > 0 :
                         #
-                        # if actual subsequence in list safe subsequence
-                        if subsequence in self.safeSubsequence :
-                            
-                            print ( "Safe subsequence found: " + str ( subsequence ) )
+                        # get last execution instructions
+                        instructionsLastExecutions: list [ str ] = self.training.instructionsLists.instructionsList [ -1 ]
                         #
-                        # if actual subsequence is not in safe subsequence
-                        else :
-                            print ( "Insecure subsequence found: " + str ( subsequence ) )
-                            returnValue: bool = input ( "Is safe this subsequence= [yes/no]: " )
-                            if returnValue == "yes" :
-                                self.safeSubsequence.append ( subsequence )
-                            else :
-                                pass
-                    print ( "\n\n" )
+                        # get actual sequence instructions
+                        actualInstructions: list [ str ] = self.sequences.dictionaryPidSpid [ instruction.pid , instruction.spid ]
+                        #
+                        # get list of subsequence with last execution
+                        listSubsequence: list [ str ] = lcs_algo ( instructionsLastExecutions , actualInstructions , len ( instructionsLastExecutions ) , len ( actualInstructions ) )
+                        #
+                        # for each subsequence
+                        for subsequence in listSubsequence :
+                            #
+                            # if actual subsequence is longer than a tot
+                            if subsequence.count ( "," ) > Settings.numberInstructionInSubsequence :
+                                #
+                                # flag for insertion
+                                insertionFlag: bool = False
+                                #
+                                # number of found subsequences
+                                numberOfFoundSubsequences: int = len ( self.listAllSubsequences )
+                                #
+                                # for each subsequence in the list already saved
+                                for i in range ( 0 , len ( self.listAllSubsequences ) ) :
+                                    #
+                                    # if sub is longer than actual
+                                    if subsequence in self.listAllSubsequences [ i ] :
+                                        #
+                                        # subsequence already in the list
+                                        insertionFlag: bool = True
+                                    #
+                                    # if sub is less than actual
+                                    elif self.listAllSubsequences [ i ] in subsequence :
+                                        #
+                                        # remove the shortest subsequence
+                                        self.listAllSubsequences.remove ( self.listAllSubsequences [ i ] )
+                                        #
+                                        # addd the longest subsequence
+                                        self.listAllSubsequences.append ( subsequence )
+                                        #
+                                        # subsequence inserted in the list
+                                        insertionFlag: bool = True
+                                        #
+                                        # rerun the whole list
+                                        i = 0
+                                #
+                                # if the insertion flag is false
+                                if not insertionFlag :
+                                    #
+                                    # insert actual subsequence
+                                    self.listAllSubsequences.append ( subsequence )
+                                #
+                                # if we add a new subsequence
+                                if numberOfFoundSubsequences < len ( self.listAllSubsequences ) :
+                                    #
+                                    # print found new subsequence
+                                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Subsequences found" )
+                                    #
+                                    # update number of found sequences
+                                    numberOfFoundSubsequences: int = len ( self.listAllSubsequences )
             #
             # delete from the list the actual instruction
             self.listInstruction.remove ( instruction )
@@ -328,5 +362,22 @@ class PtracerManager :
         # create the file for instructions list manager
         fileInstructionsListsManager = File ( os.path.abspath ( "./logs/training/ptracer/InstructionsLists.log" ) , "w" )
         fileInstructionsListsManager.writeIntoFile ( str ( self.training.instructionsLists ) )
+        #
+        # number of total instructions
+        totalInstruction: int = 0
+        #
+        # list of all sequences
+        listAllSequences: list [ str ] = list ( )
         for pair in self.sequences.dictionaryPidSpid :
-            fileInstructionsListsManager.writeIntoFile ( "\t" + str ( self.sequences.dictionaryPidSpid [ pair ] ) + "\n" )
+            for element in self.sequences.dictionaryPidSpid [ pair ] :
+                totalInstruction: int = totalInstruction + 1
+                listAllSequences.append ( element )
+        fileInstructionsListsManager.writeIntoFile ( "\t" + str ( listAllSequences ) + "\n" )
+        #
+        # create the file for found subsequences
+        fileFoundSubsequencesManager = File ( os.path.abspath ( mainDirOutputStructureLogs + "\\ptracer\\FoundSubsequences.log" ) , "w" )
+        fileFoundSubsequencesManager.writeIntoFile ( "\nLIST OF FOUND SUBSEQUENCES\n" )
+        for subsequence in self.listAllSubsequences :
+            fileFoundSubsequencesManager.writeIntoFile ( "\tSUBSEQUENCE" )
+            fileFoundSubsequencesManager.writeIntoFile ( "\t\tPortion of code: " + str ( 100 / totalInstruction * (subsequence.count ( "," ) + 1) ) + "%" )
+            fileFoundSubsequencesManager.writeIntoFile ( "\t\tSubsequence:" + str ( subsequence ) + "\n" )

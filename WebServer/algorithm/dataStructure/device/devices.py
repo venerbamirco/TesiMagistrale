@@ -327,16 +327,18 @@ class Device :
                 case "Subsequences found" :
                     #
                     # increment number of subsequences
-                    self.numberFoundInsecureSubsequence: int = self.numberFoundInsecureSubsequence + 1
+                    self.numberFoundInsecureSubsequence: int = self.numberFoundInsecureSubsequence + 1  #
+                    #
+                    print ( "\nFound subsequence" )
                     #
                     # if we found tot insecure subsequences
-                    if self.numberFoundInsecureSubsequence >= Settings.numberInsecureSubsequences :
+                    if self.numberFoundInsecureSubsequence == Settings.numberInsecureSubsequences :
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
                             #
                             # debug row
-                            print ( "\nInsecure subsequence many times" )
+                            print ( "\nSubsequences many times" )
                         #
                         # increment security level and return the count of bad things
                         return self.securityLevel.incrementSecurityLevel ( type )

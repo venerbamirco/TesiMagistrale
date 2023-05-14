@@ -86,7 +86,7 @@ class Settings :
     # ----------------------------------------------------------------------- Training mode
     #
     # training mode
-    training = True
+    training = False
     #
     # ----------------------------------------------------------------------- NUMBER OF THINGS SECURE -> INSECURE
     #
@@ -95,6 +95,9 @@ class Settings :
     #
     # number of instructions with longer durations
     numberInstructionLongerDuration = 5
+    #
+    # minimum length for subsequence
+    numberInstructionInSubsequence = 10
     #
     # number of insecure sequence
     numberInsecureSequence = 5

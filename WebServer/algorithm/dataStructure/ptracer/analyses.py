@@ -267,7 +267,7 @@ class Analyses :
             else :
                 #
                 # instruction not mapped
-                print ( "\n" + actualInstruction + " not mapped mapped" )
+                print ( "\n" + actualInstruction + " not mapped" )
         #
         # return True because perfect time duration
         return True
