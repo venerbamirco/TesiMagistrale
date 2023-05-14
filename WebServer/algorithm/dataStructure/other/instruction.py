@@ -28,13 +28,19 @@ class Instruction :
     # function used to get the duration of actual instruction
     def getDuration ( self ) -> int :
         #
-        # if the instruction is finished
-        if self.finished :
+        # if it is possible to calculate the duration
+        if self.finishTimestamp :
+            #
+            # if negative duration
+            if self.finishTimestamp - self.startTimestamp < 0 :
+                #
+                # return positive duration
+                return self.startTimestamp - self.finishTimestamp
             #
             # return the duration in milliseconds
             return self.finishTimestamp - self.startTimestamp
         #
-        # else if the instruction is not finished
+        # else if the range is not finished
         else :
             #
             # return a zero duration

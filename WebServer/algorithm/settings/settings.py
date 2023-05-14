@@ -86,7 +86,7 @@ class Settings :
     # ----------------------------------------------------------------------- Training mode
     #
     # training mode
-    training = False
+    training = True
     #
     # ----------------------------------------------------------------------- NUMBER OF THINGS SECURE -> INSECURE
     #
@@ -102,11 +102,16 @@ class Settings :
     # number of insecure subsequences
     numberInsecureSubsequences = 5
     #
+    # length of subsequences
+    lengthSubsequences = 5
+    #
     # number of stationary device
     numberStationaryDevice = 5
+    #
+    # milliseconds to consider the device in stationary position
+    numberMillisecondsDeviceIsStationary = 10000
     
     #
-    
     # function used to get the folder and other for ptracer logs
     def getPtracerLogs ( self ) :
         # return the folder and the filename for ptracer logs

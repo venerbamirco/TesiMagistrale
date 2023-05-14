@@ -70,6 +70,12 @@ class InstructionRecord :
             # if valid finish and start timestamp
             if self.finishTimestamp is not None and self.startTimestamp is not None :
                 #
+                # if negative duration
+                if self.finishTimestamp - self.startTimestamp < 0 :
+                    #
+                    # return positive duration
+                    return self.startTimestamp - self.finishTimestamp
+                #
                 # return the duration in milliseconds
                 return self.finishTimestamp - self.startTimestamp
         #

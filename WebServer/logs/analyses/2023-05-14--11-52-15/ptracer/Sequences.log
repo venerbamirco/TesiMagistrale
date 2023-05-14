@@ -1,0 +1,83 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, close, connect, epoll_pwait, futex, getppid, gettimeofday, getuid, ioctl, read, recvfrom, write, writev]
+
+	Instruction
+		Name: close
+		Next: [clock_gettime, futex, getppid, getuid, sendto]
+
+	Instruction
+		Name: connect
+		Next: [clock_gettime]
+
+	Instruction
+		Name: epoll_pwait
+		Next: [clock_gettime, futex, read, recvfrom]
+
+	Instruction
+		Name: faccessat
+		Next: [clock_gettime, faccessat]
+
+	Instruction
+		Name: fcntl
+		Next: [clock_gettime]
+
+	Instruction
+		Name: fstat
+		Next: [fcntl, ioctl]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, epoll_pwait, futex, gettimeofday, read, recvfrom]
+
+	Instruction
+		Name: getppid
+		Next: [socket]
+
+	Instruction
+		Name: getsockopt
+		Next: [close]
+
+	Instruction
+		Name: gettimeofday
+		Next: [clock_gettime, futex, gettimeofday, read, recvfrom, sendto, write]
+
+	Instruction
+		Name: getuid
+		Next: [clock_gettime, epoll_pwait, fstat, futex, getppid, writev]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime, faccessat, fstat, futex, getsockopt, getuid, ioctl, openat, write]
+
+	Instruction
+		Name: openat
+		Next: [fstat]
+
+	Instruction
+		Name: read
+		Next: [clock_gettime, futex, getuid, recvfrom]
+
+	Instruction
+		Name: recvfrom
+		Next: [clock_gettime, futex, gettimeofday, ioctl, recvfrom]
+
+	Instruction
+		Name: sendto
+		Next: [recvfrom]
+
+	Instruction
+		Name: socket
+		Next: [fcntl]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime, futex]
+
+	Instruction
+		Name: writev
+		Next: [futex, getuid]
+

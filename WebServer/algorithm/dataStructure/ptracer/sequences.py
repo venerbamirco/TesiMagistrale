@@ -92,6 +92,12 @@ class Sequences :
     # function used to insert a new instruction in the dictionary
     def addInstruction ( self , pid: int , spid: int , name: str ) -> None :
         #
+        # if name not valid
+        if name == "" :
+            #
+            # exit from the function
+            return
+        #
         # if the pair pid spid is not in the dictionary
         if (pid , spid) not in self.dictionaryPidSpid :
             #
@@ -149,6 +155,12 @@ class Sequences :
     # function used to insert a new instruction in the analyses
     def insertInstruction ( self , name: str ) -> None :
         #
+        # if name not valid
+        if name == "" :
+            #
+            # exit from the function
+            return
+        #
         # if instruction not in the list
         if not any ( instruction.name == name for instruction in self.listInstructions ) :
             #
@@ -163,6 +175,12 @@ class Sequences :
     
     # function used to insert a next instruction in the analyses
     def insertNextInstruction ( self , previousInstruction: str , nextInstruction: str ) -> None :
+        #
+        # if name not valid
+        if previousInstruction == "" or nextInstruction == "" :
+            #
+            # exit from the function
+            return
         #
         # if previous instruction not in the list
         if not any ( instruction.name == previousInstruction for instruction in self.listInstructions ) :

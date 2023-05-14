@@ -290,6 +290,12 @@ class PtracerManager :
                 #
                 # set duration of last instruction of the list
                 instruction.duration: int = instruction.finishTimestamp - instruction.startTimestamp
+                #
+                # if duration is negative
+                if instruction.duration < 0 :
+                    #
+                    # set positive duration
+                    instruction.duration: int = instruction.duration * (-1)
     
     # function used to save the all ptracer logs
     def savePtracerLogs ( self , mainDirOutputStructureLogs: str ) :

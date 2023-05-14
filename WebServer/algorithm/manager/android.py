@@ -302,15 +302,19 @@ class AndroidManager :
         # actual length of list of sensor records
         lengthSensorRecords = len ( self.sensorTextManager.listSensorRecord )
         #
-        # while are not passed 10 seconds
-        while time.time_ns ( ) // 1_000_000 - startMilliseconds < 10000 :
+        # while are not passed tot seconds
+        while time.time_ns ( ) // 1_000_000 - startMilliseconds < Settings.numberMillisecondsDeviceIsStationary :
+            #
+            # if the device change position
             if lengthSensorRecords != len ( self.sensorTextManager.listSensorRecord ) :
+                #
+                # break the loop
                 return
         #
-        #
+        # if the device not change position
         if lengthSensorRecords == len ( self.sensorTextManager.listSensorRecord ) :
             #
-            # increment security level, block device
+            # increment security level because it is stationary
             self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Stationary device" )
     
     # function used to add a record in ptracer

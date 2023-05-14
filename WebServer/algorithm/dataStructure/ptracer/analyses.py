@@ -47,11 +47,14 @@ class AnalysesRecord :
     # function used to insert a new measure for the actual instruction
     def addMeasurement ( self , duration: int ) -> None :
         #
-        # increment the number of measurements
-        self.numberMeasurements: int = self.numberMeasurements + 1
-        #
-        # add the new measure in the list
-        self.listMeasurements.append ( duration )
+        # if there are less than 1000
+        if len(self.listMeasurements)<1000:
+            #
+            # increment the number of measurements
+            self.numberMeasurements: int = self.numberMeasurements + 1
+            #
+            # add the new measure in the list
+            self.listMeasurements.append ( duration )
         #
         # update the minimum measure of duration
         self.minimumMeasure: int = min ( self.listMeasurements )
@@ -213,6 +216,12 @@ class Analyses :
                     #
                     # return false because much time
                     return False
+                #
+                # else normal duration
+                else :
+                    #
+                    # add measure of actual instruction
+                    self.addMeasurement ( actualInstruction , actualDuration )
             #
             # else if not training mode
             else :
