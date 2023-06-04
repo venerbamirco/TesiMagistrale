@@ -33,7 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private static File recording;
     public static final int REQUEST_AUDIO_PERMISSION_CODE = 1;
 
-    /*variable for the data management class object*/ DataManagement dataManagement;
+    /*variable for the data management class object*/
+    DataManagement dataManagement;
 
     @Override
     protected void onCreate ( Bundle savedInstanceState ) {
@@ -41,70 +42,12 @@ public class MainActivity extends AppCompatActivity {
 
         audioRecorder ( );
 
-        /*show dialog for configuration*/
-        this.alertConfiguration ( );
+        /*initialize all necessary variables*/
+        this.initializeVariables ( );
 
     }
 
     /*-----------------------------------------------------CONFIGURATION-------------------------------------------------------*/
-
-    /*function used to show the alert dialog for the starter configuration*/
-    private void alertConfiguration ( ) {
-
-        /*create the alert*/
-        AlertDialog.Builder alert = new AlertDialog.Builder ( this );
-
-        /*layout for multiple input texts*/
-        LinearLayout layout = new LinearLayout ( MainActivity.this );
-        layout.setOrientation ( LinearLayout.VERTICAL );
-
-        /*set details of alert*/
-        alert.setTitle ( "Configuration" );
-
-        /*insert ip address of server*/
-        final EditText inputIpAddress = new EditText ( this );
-        inputIpAddress.setHint ( "Ip address server" );
-        inputIpAddress.setText ( "192.168.1.10" );
-        inputIpAddress.setGravity ( Gravity.CENTER_HORIZONTAL );
-        layout.addView ( inputIpAddress );
-
-        /*insert port of ptracer default 1500*/
-        final EditText inputPortPtracer = new EditText ( this );
-        inputPortPtracer.setHint ( "Port ptracer socket: 1500" );
-        inputPortPtracer.setText ( "1500" );
-        inputPortPtracer.setGravity ( Gravity.CENTER_HORIZONTAL );
-        layout.addView ( inputPortPtracer );
-
-        /*insert port of android default 1501*/
-        final EditText inputPortAndroid = new EditText ( this );
-        inputPortAndroid.setHint ( "Port android socket: 1501" );
-        inputPortAndroid.setText ( "1501" );
-        inputPortAndroid.setGravity ( Gravity.CENTER_HORIZONTAL );
-        layout.addView ( inputPortAndroid );
-
-        /*set the whole layout in dialog*/
-        alert.setView ( layout );
-
-        /*ok button*/
-        alert.setPositiveButton ( "Ok" , ( dialog , whichButton ) -> {
-
-            /*set details for network communication*/
-            Settings.ipAddress = inputIpAddress.getText ( ).toString ( );
-            Settings.portPtracer = Integer.parseInt ( inputPortPtracer.getText ( ).toString ( ) );
-            Settings.portAndroid = Integer.parseInt ( inputPortAndroid.getText ( ).toString ( ) );
-
-            /*initialize all necessary variables*/
-            this.initializeVariables ( );
-
-        } );
-
-        /*cancel button*/
-        alert.setNegativeButton ( "Cancel" , ( dialog , whichButton ) -> {
-        } );
-
-        /*show the alert*/
-        alert.show ( );
-    }
 
     /*function used to initialize all necessary variables*/
     private void initializeVariables ( ) {

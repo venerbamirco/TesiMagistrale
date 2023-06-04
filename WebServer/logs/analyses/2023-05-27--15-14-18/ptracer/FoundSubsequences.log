@@ -1,0 +1,27 @@
+
+LIST OF FOUND SUBSEQUENCES
+
+	SUBSEQUENCE
+		Portion of code: 11.009174311926607%
+		Subsequence:'clock_gettime', 'gettimeofday', 'read', 'clock_gettime', 'read', 'getuid', 'epoll_pwait', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime'
+
+	SUBSEQUENCE
+		Portion of code: 19.26605504587156%
+		Subsequence:'clock_gettime', 'write', 'futex', 'futex', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'read', 'getuid', 'epoll_pwait', 'read', 'recvfrom', 'recvfrom', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime'
+
+	SUBSEQUENCE
+		Portion of code: 17.431192660550458%
+		Subsequence:'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime', 'ioctl', 'clock_gettime', 'ioctl', 'ioctl', 'ioctl', 'clock_gettime', 'read', 'getuid', 'epoll_pwait', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime'
+
+	SUBSEQUENCE
+		Portion of code: 11.009174311926607%
+		Subsequence:'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime', 'read', 'getuid', 'epoll_pwait', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read'
+
+	SUBSEQUENCE
+		Portion of code: 17.431192660550458%
+		Subsequence:'ioctl', 'clock_gettime', 'read', 'getuid', 'epoll_pwait', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'recvfrom'
+
+	SUBSEQUENCE
+		Portion of code: 18.34862385321101%
+		Subsequence:'ioctl', 'clock_gettime', 'read', 'getuid', 'epoll_pwait', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'recvfrom', 'ioctl'
+

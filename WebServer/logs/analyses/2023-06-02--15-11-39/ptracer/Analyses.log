@@ -1,0 +1,102 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 211
+		Maximum duration: 12327
+		Average duration: 1596.4583333333333
+		Variance: 7196962.248263888
+		Number measurements: 24
+		List measurements: [2089, 348, 4763, 279, 289, 1136, 1707, 1602, 892, 12327, 6526, 1225, 233, 243, 234, 246, 211, 287, 256, 351, 686, 633, 907, 845]
+
+	Instruction
+		Name: futex
+		Minimum duration: 217
+		Maximum duration: 3362
+		Average duration: 1285.6666666666667
+		Variance: 2156200.222222222
+		Number measurements: 3
+		List measurements: [217, 278, 3362]
+
+	Instruction
+		Name: getuid
+		Minimum duration: 3699
+		Maximum duration: 3699
+		Average duration: 3699
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [3699]
+
+	Instruction
+		Name: ioctl
+		Minimum duration: 549
+		Maximum duration: 18465
+		Average duration: 3090.875
+		Variance: 33815109.859375
+		Number measurements: 8
+		List measurements: [18465, 549, 967, 1042, 687, 705, 1276, 1036]
+
+	Instruction
+		Name: mmap
+		Minimum duration: 1212
+		Maximum duration: 1212
+		Average duration: 1212
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [1212]
+
+	Instruction
+		Name: mprotect
+		Minimum duration: 750
+		Maximum duration: 3954
+		Average duration: 1179.3636363636363
+		Variance: 791902.049586777
+		Number measurements: 11
+		List measurements: [991, 3954, 767, 817, 788, 862, 1194, 750, 750, 1148, 952]
+
+	Instruction
+		Name: munmap
+		Minimum duration: 711
+		Maximum duration: 711
+		Average duration: 711
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [711]
+
+	Instruction
+		Name: openat
+		Minimum duration: 653
+		Maximum duration: 1225
+		Average duration: 939
+		Variance: 81796.0
+		Number measurements: 2
+		List measurements: [653, 1225]
+
+	Instruction
+		Name: prctl
+		Minimum duration: 746
+		Maximum duration: 809
+		Average duration: 777.5
+		Variance: 992.25
+		Number measurements: 2
+		List measurements: [746, 809]
+
+	Instruction
+		Name: rt_sigprocmask
+		Minimum duration: 198
+		Maximum duration: 496
+		Average duration: 277.375
+		Variance: 9527.234375
+		Number measurements: 8
+		List measurements: [344, 496, 213, 207, 243, 201, 317, 198]
+
+	Instruction
+		Name: write
+		Minimum duration: 496
+		Maximum duration: 496
+		Average duration: 496
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [496]
+

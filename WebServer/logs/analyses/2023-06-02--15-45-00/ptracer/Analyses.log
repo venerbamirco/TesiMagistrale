@@ -1,0 +1,165 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 242
+		Maximum duration: 9805
+		Average duration: 1541.9253731343283
+		Variance: 3453176.994430831
+		Number measurements: 67
+		List measurements: [1685, 592, 1200, 898, 2528, 1032, 724, 3479, 1758, 742, 623, 641, 1556, 580, 541, 1050, 853, 827, 9805, 307, 1198, 2925, 749, 601, 3711, 809, 8081, 1494, 324, 284, 264, 499, 339, 267, 242, 455, 407, 573, 617, 273, 3841, 461, 897, 1976, 317, 567, 5242, 933, 1511, 4168, 784, 398, 5797, 1870, 5082, 921, 1116, 659, 1072, 371, 4925, 619, 624, 756, 641, 1191, 1037]
+
+	Instruction
+		Name: close
+		Minimum duration: 221
+		Maximum duration: 221
+		Average duration: 221
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [221]
+
+	Instruction
+		Name: epoll_pwait
+		Minimum duration: 688
+		Maximum duration: 3168
+		Average duration: 1928
+		Variance: 1537600.0
+		Number measurements: 2
+		List measurements: [688, 3168]
+
+	Instruction
+		Name: fstat
+		Minimum duration: 242
+		Maximum duration: 242
+		Average duration: 242
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [242]
+
+	Instruction
+		Name: futex
+		Minimum duration: 786
+		Maximum duration: 10478
+		Average duration: 5511.75
+		Variance: 13891529.1875
+		Number measurements: 4
+		List measurements: [786, 3325, 7458, 10478]
+
+	Instruction
+		Name: gettimeofday
+		Minimum duration: 197
+		Maximum duration: 7306
+		Average duration: 2348
+		Variance: 8309413.5
+		Number measurements: 4
+		List measurements: [197, 1156, 7306, 733]
+
+	Instruction
+		Name: getuid
+		Minimum duration: 203
+		Maximum duration: 1272
+		Average duration: 650.625
+		Variance: 200192.984375
+		Number measurements: 8
+		List measurements: [1015, 1272, 232, 203, 218, 266, 746, 1253]
+
+	Instruction
+		Name: ioctl
+		Minimum duration: 276
+		Maximum duration: 13125
+		Average duration: 2551
+		Variance: 9730717.894736841
+		Number measurements: 19
+		List measurements: [1293, 894, 13125, 1631, 1425, 3847, 2776, 688, 1550, 659, 1579, 797, 396, 691, 276, 8707, 2354, 3722, 2059]
+
+	Instruction
+		Name: mmap
+		Minimum duration: 339
+		Maximum duration: 1060
+		Average duration: 580.3333333333334
+		Variance: 115041.55555555556
+		Number measurements: 3
+		List measurements: [1060, 342, 339]
+
+	Instruction
+		Name: mprotect
+		Minimum duration: 283
+		Maximum duration: 3998
+		Average duration: 900.1666666666666
+		Variance: 757905.5833333335
+		Number measurements: 18
+		List measurements: [883, 771, 734, 740, 3998, 800, 630, 770, 1712, 1929, 343, 336, 386, 805, 391, 319, 283, 373]
+
+	Instruction
+		Name: munmap
+		Minimum duration: 279
+		Maximum duration: 723
+		Average duration: 435
+		Variance: 41568.0
+		Number measurements: 3
+		List measurements: [723, 303, 279]
+
+	Instruction
+		Name: openat
+		Minimum duration: 311
+		Maximum duration: 596
+		Average duration: 501
+		Variance: 18050.0
+		Number measurements: 3
+		List measurements: [596, 596, 311]
+
+	Instruction
+		Name: prctl
+		Minimum duration: 202
+		Maximum duration: 1393
+		Average duration: 511.8333333333333
+		Variance: 182483.8055555556
+		Number measurements: 6
+		List measurements: [1393, 685, 330, 254, 202, 207]
+
+	Instruction
+		Name: read
+		Minimum duration: 770
+		Maximum duration: 1447
+		Average duration: 987.2
+		Variance: 63985.36000000001
+		Number measurements: 5
+		List measurements: [818, 828, 770, 1447, 1073]
+
+	Instruction
+		Name: readlinkat
+		Minimum duration: 356
+		Maximum duration: 356
+		Average duration: 356
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [356]
+
+	Instruction
+		Name: recvfrom
+		Minimum duration: 1496
+		Maximum duration: 7051
+		Average duration: 4273.5
+		Variance: 7714506.25
+		Number measurements: 2
+		List measurements: [7051, 1496]
+
+	Instruction
+		Name: sendto
+		Minimum duration: 1912
+		Maximum duration: 1912
+		Average duration: 1912
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [1912]
+
+	Instruction
+		Name: write
+		Minimum duration: 458
+		Maximum duration: 4299
+		Average duration: 1422.3333333333333
+		Variance: 1822255.555555556
+		Number measurements: 6
+		List measurements: [1346, 458, 1442, 509, 480, 4299]
+

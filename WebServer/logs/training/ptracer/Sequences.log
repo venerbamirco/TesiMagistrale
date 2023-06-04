@@ -3,19 +3,15 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 
 	Instruction
 		Name: clock_gettime
-		Next: [clock_gettime, close, connect, epoll_pwait, fcntl, fstat, futex, getppid, gettimeofday, getuid, ioctl, madvise, read, recvfrom, sendto, write, writev]
+		Next: [close, connect, epoll_pwait, fstat, futex, getppid, gettimeofday, getuid, ioctl, madvise, read, recvfrom, sendto, write, writev]
 
 	Instruction
 		Name: close
-		Next: [clock_gettime, close, futex, getppid, getuid, ioctl, madvise, rt_sigprocmask, sendto, sigaltstack]
+		Next: [clock_gettime, getppid, getuid, ioctl, madvise, rt_sigprocmask, sendto, sigaltstack]
 
 	Instruction
 		Name: connect
 		Next: [clock_gettime]
-
-	Instruction
-		Name: dup
-		Next: []
 
 	Instruction
 		Name: epoll_create1
@@ -27,7 +23,7 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 
 	Instruction
 		Name: epoll_pwait
-		Next: [clock_gettime, futex, read, recvfrom]
+		Next: [clock_gettime, futex, recvfrom]
 
 	Instruction
 		Name: eventfd2
@@ -43,11 +39,11 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 
 	Instruction
 		Name: fstat
-		Next: [clock_gettime, close, fcntl, futex, getuid, ioctl, mmap]
+		Next: [clock_gettime, close, futex, getuid, mmap]
 
 	Instruction
 		Name: futex
-		Next: [clock_gettime, close, epoll_pwait, fcntl, fstat, futex, getppid, getpriority, gettimeofday, getuid, ioctl, madvise, mmap, openat, prctl, read, recvfrom, sendto, write]
+		Next: [clock_gettime, getpriority, gettimeofday, getuid, ioctl, madvise, mmap, openat, prctl, read, recvfrom, sendto, write]
 
 	Instruction
 		Name: getppid
@@ -67,11 +63,11 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 
 	Instruction
 		Name: getuid
-		Next: [clock_gettime, epoll_pwait, fstat, futex, getppid, getuid, writev]
+		Next: [clock_gettime, fstat, futex, getppid, getuid, writev]
 
 	Instruction
 		Name: ioctl
-		Next: [clock_gettime, close, faccessat, fcntl, fstat, futex, getsockopt, getuid, ioctl, mmap, openat, sigaltstack, write]
+		Next: [clock_gettime, close, fcntl, fstat, futex, getuid, ioctl, mmap, openat, sigaltstack, write]
 
 	Instruction
 		Name: madvise
@@ -102,12 +98,16 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 		Next: [clock_gettime, futex, getuid, ioctl, recvfrom, sched_yield]
 
 	Instruction
+		Name: readlinkat
+		Next: []
+
+	Instruction
 		Name: recvfrom
-		Next: [clock_gettime, futex, gettimeofday, ioctl, madvise, recvfrom, sched_yield]
+		Next: [clock_gettime, ioctl, madvise, recvfrom, sched_yield]
 
 	Instruction
 		Name: rt_sigprocmask
-		Next: [clock_gettime, futex, madvise, mprotect, munmap, rt_sigprocmask]
+		Next: [clock_gettime, futex, mprotect, munmap, rt_sigprocmask]
 
 	Instruction
 		Name: sched_yield
@@ -135,9 +135,9 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 
 	Instruction
 		Name: write
-		Next: [clock_gettime, futex, gettimeofday, getuid, madvise, recvfrom]
+		Next: [clock_gettime, getuid, madvise, recvfrom]
 
 	Instruction
 		Name: writev
-		Next: [clock_gettime, futex, getuid]
+		Next: [futex, getuid]
 

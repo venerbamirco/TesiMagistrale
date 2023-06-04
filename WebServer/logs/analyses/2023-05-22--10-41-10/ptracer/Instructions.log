@@ -1,0 +1,922 @@
+
+LIST OF ALL TERMINATED INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279785040
+		Finish: 1684742279788302
+		Duration: 3262
+		Return Value: 0
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279788370
+		Finish: 1684742279800681
+		Duration: 12311
+		Return Value: 1
+
+	Instruction
+		Name: read
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279800765
+		Finish: 1684742279801177
+		Duration: 412
+		Return Value: 8
+
+	Instruction
+		Name: clock_gettime
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279801238
+		Finish: 1684742279802622
+		Duration: 1384
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279808038
+		Finish: 1684742279808924
+		Duration: 886
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279808977
+		Finish: 1684742279810468
+		Duration: 1491
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279810599
+		Finish: 1684742279811444
+		Duration: 845
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279815322
+		Finish: 1684742279816132
+		Duration: 810
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 32636
+		Spid: 32636
+		Status: Finished
+		Start: 1684742279816239
+		Finish: 1684742279816471
+		Duration: 232
+		Return Value: 48
+
+	Instruction
+		Name: gettimeofday
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817462030
+		Finish: 1684744817462630
+		Duration: 600
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817462895
+		Finish: 1684744817465839
+		Duration: 2944
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817466016
+		Finish: 1684744817467334
+		Duration: 1318
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817467475
+		Finish: 1684744817468136
+		Duration: 661
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817468198
+		Finish: 1684744817471950
+		Duration: 3752
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817472379
+		Finish: 1684744817474200
+		Duration: 1821
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817474274
+		Finish: 1684744817474908
+		Duration: 634
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817474964
+		Finish: 1684744817475469
+		Duration: 505
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817475518
+		Finish: 1684744817476027
+		Duration: 509
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817476084
+		Finish: 1684744817478127
+		Duration: 2043
+		Return Value: 0
+
+	Instruction
+		Name: write
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817478312
+		Finish: 1684744817479182
+		Duration: 870
+		Return Value: 8
+
+	Instruction
+		Name: futex
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817481258
+		Finish: 1684744817482054
+		Duration: 796
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817482158
+		Finish: 1684744817483749
+		Duration: 1591
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817484201
+		Finish: 1684744817484602
+		Duration: 401
+		Return Value: 0
+
+	Instruction
+		Name: write
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817484707
+		Finish: 1684744817490775
+		Duration: 6068
+		Return Value: 8
+
+	Instruction
+		Name: futex
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817490889
+		Finish: 1684744817492743
+		Duration: 1854
+		Return Value: 18446744073709551605
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817493065
+		Finish: 1684744817494000
+		Duration: 935
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817494223
+		Finish: 1684744817500121
+		Duration: 5898
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817500202
+		Finish: 1684744817500998
+		Duration: 796
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817501134
+		Finish: 1684744817505141
+		Duration: 4007
+		Return Value: 10028
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817505487
+		Finish: 1684744817508183
+		Duration: 2696
+		Return Value: 1
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817508216
+		Finish: 1684744817509547
+		Duration: 1331
+		Return Value: 8
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817509700
+		Finish: 1684744817510495
+		Duration: 795
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817510595
+		Finish: 1684744817511250
+		Duration: 655
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817511408
+		Finish: 1684744817511663
+		Duration: 255
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817511713
+		Finish: 1684744817511910
+		Duration: 197
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817512026
+		Finish: 1684744817512628
+		Duration: 602
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817512720
+		Finish: 1684744817513565
+		Duration: 845
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817513658
+		Finish: 1684744817514702
+		Duration: 1044
+		Return Value: 10028
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817514896
+		Finish: 1684744817515192
+		Duration: 296
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817515281
+		Finish: 1684744817515883
+		Duration: 602
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817515958
+		Finish: 1684744817519582
+		Duration: 3624
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817519632
+		Finish: 1684744817538957
+		Duration: 19325
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817539343
+		Finish: 1684744817540826
+		Duration: 1483
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817541163
+		Finish: 1684744817542062
+		Duration: 899
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817542145
+		Finish: 1684744817543270
+		Duration: 1125
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817543482
+		Finish: 1684744817545250
+		Duration: 1768
+		Return Value: 10028
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817545422
+		Finish: 1684744817547110
+		Duration: 1688
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817547170
+		Finish: 1684744817547466
+		Duration: 296
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817547544
+		Finish: 1684744817548023
+		Duration: 479
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817548109
+		Finish: 1684744817550576
+		Duration: 2467
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817550655
+		Finish: 1684744817550867
+		Duration: 212
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817551143
+		Finish: 1684744817551395
+		Duration: 252
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817551439
+		Finish: 1684744817551623
+		Duration: 184
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817551651
+		Finish: 1684744817551828
+		Duration: 177
+		Return Value: 0
+
+	Instruction
+		Name: write
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817551863
+		Finish: 1684744817552319
+		Duration: 456
+		Return Value: 8
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817552735
+		Finish: 1684744817563053
+		Duration: 10318
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817563184
+		Finish: 1684744817563966
+		Duration: 782
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817564056
+		Finish: 1684744817568995
+		Duration: 4939
+		Return Value: 10028
+
+	Instruction
+		Name: futex
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817569610
+		Finish: 1684744817570782
+		Duration: 1172
+		Return Value: 1
+
+	Instruction
+		Name: futex
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817572010
+		Finish: 1684744817572717
+		Duration: 707
+		Return Value: 1
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817572878
+		Finish: 1684744817574049
+		Duration: 1171
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817574112
+		Finish: 1684744817575215
+		Duration: 1103
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817575272
+		Finish: 1684744817575769
+		Duration: 497
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817575894
+		Finish: 1684744817576224
+		Duration: 330
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817576279
+		Finish: 1684744817576486
+		Duration: 207
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817576748
+		Finish: 1684744817576929
+		Duration: 181
+		Return Value: 0
+
+	Instruction
+		Name: ioctl
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817576966
+		Finish: 1684744817577440
+		Duration: 474
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817577516
+		Finish: 1684744817578054
+		Duration: 538
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817578268
+		Finish: 1684744817578701
+		Duration: 433
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817578760
+		Finish: 1684744817579193
+		Duration: 433
+		Return Value: 0
+
+	Instruction
+		Name: ioctl
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817579296
+		Finish: 1684744817579831
+		Duration: 535
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817579996
+		Finish: 1684744817580887
+		Duration: 891
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817580951
+		Finish: 1684744817581564
+		Duration: 613
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817581665
+		Finish: 1684744817582275
+		Duration: 610
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817582336
+		Finish: 1684744817583307
+		Duration: 971
+		Return Value: 0
+
+	Instruction
+		Name: ioctl
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817583408
+		Finish: 1684744817584463
+		Duration: 1055
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817584540
+		Finish: 1684744817586196
+		Duration: 1656
+		Return Value: 0
+
+	Instruction
+		Name: ioctl
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817586374
+		Finish: 1684744817600203
+		Duration: 13829
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817600393
+		Finish: 1684744817600695
+		Duration: 302
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817600751
+		Finish: 1684744817601598
+		Duration: 847
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817601687
+		Finish: 1684744817601907
+		Duration: 220
+		Return Value: 10028
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817601949
+		Finish: 1684744817602418
+		Duration: 469
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817602454
+		Finish: 1684744817602705
+		Duration: 251
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817602753
+		Finish: 1684744817603255
+		Duration: 502
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817603291
+		Finish: 1684744817606175
+		Duration: 2884
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817606243
+		Finish: 1684744817606528
+		Duration: 285
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817606688
+		Finish: 1684744817607301
+		Duration: 613
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817607347
+		Finish: 1684744817607587
+		Duration: 240
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817607650
+		Finish: 1684744817607882
+		Duration: 232
+		Return Value: 10028
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817607941
+		Finish: 1684744817608177
+		Duration: 236
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 4326
+		Spid: 4326
+		Status: Finished
+		Start: 1684744817608209
+		Finish: 1684744817608402
+		Duration: 193
+		Return Value: 0
+
+LIST OF ALL NOT TERMINATED INSTRUCTIONS
+
+	Instruction
+		Name: getuid
+		Pid: 32636
+		Spid: 32636
+		Status: Executing
+		Start: 1684742279816563
+

@@ -1,0 +1,952 @@
+
+LIST OF ALL TERMINATED INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850401995541
+		Finish: 1684850402003366
+		Duration: 7825
+		Return Value: 0
+
+	Instruction
+		Name: futex
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402003489
+		Finish: 1684850402004635
+		Duration: 1146
+		Return Value: 0
+
+	Instruction
+		Name: futex
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402004728
+		Finish: 1684850402005376
+		Duration: 648
+		Return Value: 18446744073709551605
+
+	Instruction
+		Name: futex
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402005694
+		Finish: 1684850402006704
+		Duration: 1010
+		Return Value: 1
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402007406
+		Finish: 1684850402008196
+		Duration: 790
+		Return Value: 1
+
+	Instruction
+		Name: recvfrom
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402008266
+		Finish: 1684850402008969
+		Duration: 703
+		Return Value: 64
+
+	Instruction
+		Name: recvfrom
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402009169
+		Finish: 1684850402009691
+		Duration: 522
+		Return Value: 18446744073709551605
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402009892
+		Finish: 1684850402010448
+		Duration: 556
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24437
+		Spid: 24437
+		Status: Finished
+		Start: 1684850402010718
+		Finish: 1684850402011294
+		Duration: 576
+		Return Value: 0
+
+	Instruction
+		Name: close
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425608401
+		Finish: 1684850425609956
+		Duration: 1555
+		Return Value: 0
+
+	Instruction
+		Name: ioctl
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425610074
+		Finish: 1684850425611549
+		Duration: 1475
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425612072
+		Finish: 1684850425613423
+		Duration: 1351
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425613502
+		Finish: 1684850425614944
+		Duration: 1442
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425615146
+		Finish: 1684850425617659
+		Duration: 2513
+		Return Value: 10358
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425617874
+		Finish: 1684850425618646
+		Duration: 772
+		Return Value: 1
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425618733
+		Finish: 1684850425639607
+		Duration: 20874
+		Return Value: 8
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425640559
+		Finish: 1684850425646724
+		Duration: 6165
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425647406
+		Finish: 1684850425649253
+		Duration: 1847
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425649348
+		Finish: 1684850425649615
+		Duration: 267
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425649654
+		Finish: 1684850425649965
+		Duration: 311
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425650186
+		Finish: 1684850425650543
+		Duration: 357
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425650612
+		Finish: 1684850425651334
+		Duration: 722
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425651429
+		Finish: 1684850425652102
+		Duration: 673
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425652166
+		Finish: 1684850425662695
+		Duration: 10529
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425662837
+		Finish: 1684850425665486
+		Duration: 2649
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425665706
+		Finish: 1684850425666492
+		Duration: 786
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425666577
+		Finish: 1684850425666865
+		Duration: 288
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425667005
+		Finish: 1684850425667307
+		Duration: 302
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425667361
+		Finish: 1684850425667625
+		Duration: 264
+		Return Value: 0
+
+	Instruction
+		Name: write
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425667716
+		Finish: 1684850425667994
+		Duration: 278
+		Return Value: 8
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425668582
+		Finish: 1684850425668884
+		Duration: 302
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425669299
+		Finish: 1684850425669837
+		Duration: 538
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425669907
+		Finish: 1684850425670343
+		Duration: 436
+		Return Value: 0
+
+	Instruction
+		Name: recvfrom
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425670470
+		Finish: 1684850425670782
+		Duration: 312
+		Return Value: 18446744073709551605
+
+	Instruction
+		Name: ioctl
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425670872
+		Finish: 1684850425671536
+		Duration: 664
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425671766
+		Finish: 1684850425672290
+		Duration: 524
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425672423
+		Finish: 1684850425672805
+		Duration: 382
+		Return Value: 0
+
+	Instruction
+		Name: write
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425672889
+		Finish: 1684850425673342
+		Duration: 453
+		Return Value: 8
+
+	Instruction
+		Name: futex
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425675543
+		Finish: 1684850425678030
+		Duration: 2487
+		Return Value: 1
+
+	Instruction
+		Name: futex
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425678167
+		Finish: 1684850425679927
+		Duration: 1760
+		Return Value: 1
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425681015
+		Finish: 1684850425681596
+		Duration: 581
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425681714
+		Finish: 1684850425683070
+		Duration: 1356
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425683328
+		Finish: 1684850425683832
+		Duration: 504
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425684402
+		Finish: 1684850425685170
+		Duration: 768
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425685309
+		Finish: 1684850425685969
+		Duration: 660
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425686390
+		Finish: 1684850425687428
+		Duration: 1038
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425687526
+		Finish: 1684850425689497
+		Duration: 1971
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425689608
+		Finish: 1684850425691149
+		Duration: 1541
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425691224
+		Finish: 1684850425692831
+		Duration: 1607
+		Return Value: 0
+
+	Instruction
+		Name: madvise
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425692907
+		Finish: 1684850425695107
+		Duration: 2200
+		Return Value: 0
+
+	Instruction
+		Name: futex
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425703654
+		Finish: 1684850425704442
+		Duration: 788
+		Return Value: 1
+
+	Instruction
+		Name: futex
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425704600
+		Finish: 1684850425704844
+		Duration: 244
+		Return Value: 1
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425707544
+		Finish: 1684850425708006
+		Duration: 462
+		Return Value: 0
+
+	Instruction
+		Name: write
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425708113
+		Finish: 1684850425708758
+		Duration: 645
+		Return Value: 8
+
+	Instruction
+		Name: futex
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425708952
+		Finish: 1684850425711315
+		Duration: 2363
+		Return Value: 1
+
+	Instruction
+		Name: futex
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425711477
+		Finish: 1684850425712644
+		Duration: 1167
+		Return Value: 18446744073709551605
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425713525
+		Finish: 1684850425715210
+		Duration: 1685
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425715323
+		Finish: 1684850425715629
+		Duration: 306
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425715689
+		Finish: 1684850425716011
+		Duration: 322
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425716090
+		Finish: 1684850425716336
+		Duration: 246
+		Return Value: 10358
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425716400
+		Finish: 1684850425716760
+		Duration: 360
+		Return Value: 2
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425716799
+		Finish: 1684850425717047
+		Duration: 248
+		Return Value: 8
+
+	Instruction
+		Name: recvfrom
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425717096
+		Finish: 1684850425717344
+		Duration: 248
+		Return Value: 64
+
+	Instruction
+		Name: recvfrom
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425717376
+		Finish: 1684850425717597
+		Duration: 221
+		Return Value: 18446744073709551605
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425717755
+		Finish: 1684850425718086
+		Duration: 331
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425718187
+		Finish: 1684850425723174
+		Duration: 4987
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425723290
+		Finish: 1684850425724210
+		Duration: 920
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425724300
+		Finish: 1684850425724887
+		Duration: 587
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425725010
+		Finish: 1684850425725427
+		Duration: 417
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425725633
+		Finish: 1684850425726430
+		Duration: 797
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425726484
+		Finish: 1684850425727261
+		Duration: 777
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425727442
+		Finish: 1684850425736378
+		Duration: 8936
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425736683
+		Finish: 1684850425737989
+		Duration: 1306
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425738159
+		Finish: 1684850425739926
+		Duration: 1767
+		Return Value: 10358
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425740050
+		Finish: 1684850425740933
+		Duration: 883
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425741021
+		Finish: 1684850425741742
+		Duration: 721
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425741960
+		Finish: 1684850425742676
+		Duration: 716
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425742909
+		Finish: 1684850425743299
+		Duration: 390
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425743357
+		Finish: 1684850425743778
+		Duration: 421
+		Return Value: 48
+
+	Instruction
+		Name: ioctl
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425744019
+		Finish: 1684850425744881
+		Duration: 862
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425744982
+		Finish: 1684850425745981
+		Duration: 999
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425746250
+		Finish: 1684850425749405
+		Duration: 3155
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425749499
+		Finish: 1684850425749852
+		Duration: 353
+		Return Value: 10358
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425749925
+		Finish: 1684850425750325
+		Duration: 400
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425750536
+		Finish: 1684850425750793
+		Duration: 257
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425750916
+		Finish: 1684850425751181
+		Duration: 265
+		Return Value: 0
+
+	Instruction
+		Name: gettimeofday
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425751238
+		Finish: 1684850425755513
+		Duration: 4275
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425755607
+		Finish: 1684850425756268
+		Duration: 661
+		Return Value: 48
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425756565
+		Finish: 1684850425756963
+		Duration: 398
+		Return Value: 0
+
+	Instruction
+		Name: read
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425757051
+		Finish: 1684850425757860
+		Duration: 809
+		Return Value: 48
+
+	Instruction
+		Name: getuid
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425757961
+		Finish: 1684850425758881
+		Duration: 920
+		Return Value: 10358
+
+	Instruction
+		Name: epoll_pwait
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425758995
+		Finish: 1684850425759251
+		Duration: 256
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425759301
+		Finish: 1684850425760338
+		Duration: 1037
+		Return Value: 0
+
+	Instruction
+		Name: clock_gettime
+		Pid: 24912
+		Spid: 24912
+		Status: Finished
+		Start: 1684850425760441
+		Finish: 1684850425760833
+		Duration: 392
+		Return Value: 0
+
+LIST OF ALL NOT TERMINATED INSTRUCTIONS
+
+	Instruction
+		Name: gettimeofday
+		Pid: 24437
+		Spid: 24437
+		Status: Executing
+		Start: 1684850402011352
+

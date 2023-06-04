@@ -1,0 +1,23 @@
+
+LIST OF FOUND SUBSEQUENCES
+
+	SUBSEQUENCE
+		Portion of code: 10.68702290076336%
+		Subsequence:'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom'
+
+	SUBSEQUENCE
+		Portion of code: 13.740458015267176%
+		Subsequence:'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'futex', 'futex', 'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait'
+
+	SUBSEQUENCE
+		Portion of code: 45.80152671755725%
+		Subsequence:'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom', 'recvfrom', 'clock_gettime', 'epoll_pwait', 'recvfrom', 'gettimeofday', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex'
+
+	SUBSEQUENCE
+		Portion of code: 21.37404580152672%
+		Subsequence:'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'clock_gettime', 'clock_gettime'
+
+	SUBSEQUENCE
+		Portion of code: 9.160305343511451%
+		Subsequence:'futex', 'futex', 'futex', 'futex', 'futex', 'futex', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime'
+
