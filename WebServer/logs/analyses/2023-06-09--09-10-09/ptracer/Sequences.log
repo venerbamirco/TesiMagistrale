@@ -1,0 +1,43 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, gettimeofday, getuid, ioctl, read]
+
+	Instruction
+		Name: epoll_pwait
+		Next: [clock_gettime]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, futex, getuid]
+
+	Instruction
+		Name: gettimeofday
+		Next: [read]
+
+	Instruction
+		Name: getuid
+		Next: [clock_gettime, epoll_pwait, writev]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime]
+
+	Instruction
+		Name: madvise
+		Next: [madvise]
+
+	Instruction
+		Name: read
+		Next: [clock_gettime, futex, getuid]
+
+	Instruction
+		Name: rt_sigprocmask
+		Next: [madvise, rt_sigprocmask]
+
+	Instruction
+		Name: writev
+		Next: [clock_gettime, futex]
+

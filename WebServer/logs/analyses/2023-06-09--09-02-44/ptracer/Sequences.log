@@ -1,0 +1,43 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, epoll_ctl, futex, ioctl, recvfrom]
+
+	Instruction
+		Name: close
+		Next: [ioctl]
+
+	Instruction
+		Name: epoll_ctl
+		Next: [clock_gettime]
+
+	Instruction
+		Name: fcntl
+		Next: [close]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, futex]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime, fcntl, ioctl, write]
+
+	Instruction
+		Name: mprotect
+		Next: [mprotect, write]
+
+	Instruction
+		Name: recvfrom
+		Next: [ioctl]
+
+	Instruction
+		Name: rt_sigprocmask
+		Next: [mprotect, rt_sigprocmask]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime]
+

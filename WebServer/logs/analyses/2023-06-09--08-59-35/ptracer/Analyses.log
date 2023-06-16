@@ -1,0 +1,156 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 183
+		Maximum duration: 10983
+		Average duration: 1261.5185185185185
+		Variance: 3371095.508916325
+		Number measurements: 54
+		List measurements: [4850, 1739, 1756, 831, 596, 234, 432, 1402, 558, 543, 352, 762, 4857, 300, 638, 4666, 1332, 1105, 4949, 1471, 894, 10983, 488, 626, 2747, 3875, 1164, 735, 675, 812, 707, 329, 213, 203, 183, 335, 218, 304, 342, 274, 375, 750, 344, 299, 238, 342, 221, 241, 310, 1576, 618, 822, 2120, 386]
+
+	Instruction
+		Name: close
+		Minimum duration: 1370
+		Maximum duration: 1370
+		Average duration: 1370
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [1370]
+
+	Instruction
+		Name: fstat
+		Minimum duration: 637
+		Maximum duration: 637
+		Average duration: 637
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [637]
+
+	Instruction
+		Name: futex
+		Minimum duration: 171
+		Maximum duration: 4075
+		Average duration: 753.8064516129032
+		Variance: 714169.1238293445
+		Number measurements: 31
+		List measurements: [2607, 1363, 1280, 287, 251, 4075, 800, 2082, 681, 660, 1043, 261, 235, 171, 173, 613, 221, 179, 294, 188, 230, 197, 312, 1115, 795, 1129, 217, 184, 217, 1192, 316]
+
+	Instruction
+		Name: gettimeofday
+		Minimum duration: 1281
+		Maximum duration: 1281
+		Average duration: 1281
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [1281]
+
+	Instruction
+		Name: getuid
+		Minimum duration: 202
+		Maximum duration: 16778
+		Average duration: 3590.5
+		Variance: 35323645.25
+		Number measurements: 6
+		List measurements: [202, 1810, 2056, 16778, 392, 305]
+
+	Instruction
+		Name: ioctl
+		Minimum duration: 208
+		Maximum duration: 15132
+		Average duration: 1863.7058823529412
+		Variance: 11765736.207612459
+		Number measurements: 17
+		List measurements: [15132, 337, 227, 208, 249, 901, 703, 618, 1731, 1512, 2256, 719, 3234, 753, 2449, 286, 368]
+
+	Instruction
+		Name: madvise
+		Minimum duration: 3124
+		Maximum duration: 3124
+		Average duration: 3124
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [3124]
+
+	Instruction
+		Name: mmap
+		Minimum duration: 279
+		Maximum duration: 712
+		Average duration: 563.3333333333334
+		Variance: 40450.88888888889
+		Number measurements: 3
+		List measurements: [279, 712, 699]
+
+	Instruction
+		Name: mprotect
+		Minimum duration: 275
+		Maximum duration: 11096
+		Average duration: 1430
+		Variance: 5300163.3
+		Number measurements: 20
+		List measurements: [388, 1479, 289, 275, 535, 339, 3010, 1805, 1210, 993, 639, 1327, 747, 837, 918, 717, 11096, 656, 689, 651]
+
+	Instruction
+		Name: munmap
+		Minimum duration: 631
+		Maximum duration: 899
+		Average duration: 773
+		Variance: 12098.666666666666
+		Number measurements: 3
+		List measurements: [899, 789, 631]
+
+	Instruction
+		Name: openat
+		Minimum duration: 646
+		Maximum duration: 4156
+		Average duration: 1982.6666666666667
+		Variance: 2403355.555555555
+		Number measurements: 3
+		List measurements: [4156, 1146, 646]
+
+	Instruction
+		Name: prctl
+		Minimum duration: 243
+		Maximum duration: 943
+		Average duration: 511.1666666666667
+		Variance: 65991.80555555555
+		Number measurements: 6
+		List measurements: [243, 274, 943, 310, 609, 688]
+
+	Instruction
+		Name: readlinkat
+		Minimum duration: 706
+		Maximum duration: 706
+		Average duration: 706
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [706]
+
+	Instruction
+		Name: recvfrom
+		Minimum duration: 840
+		Maximum duration: 840
+		Average duration: 840
+		Variance: 0.0
+		Number measurements: 1
+		List measurements: [840]
+
+	Instruction
+		Name: rt_sigprocmask
+		Minimum duration: 179
+		Maximum duration: 242
+		Average duration: 200.33333333333334
+		Variance: 443.55555555555566
+		Number measurements: 6
+		List measurements: [186, 186, 242, 201, 208, 179]
+
+	Instruction
+		Name: write
+		Minimum duration: 607
+		Maximum duration: 1078
+		Average duration: 870.5714285714286
+		Variance: 26950.5306122449
+		Number measurements: 7
+		List measurements: [1078, 689, 1045, 806, 920, 949, 607]
+

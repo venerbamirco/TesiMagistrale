@@ -1,0 +1,48 @@
+
+ANALYSIS OF ALL INSTRUCTIONS
+
+	Instruction
+		Name: clock_gettime
+		Minimum duration: 188
+		Maximum duration: 3079
+		Average duration: 605.5869565217391
+		Variance: 430789.5902646503
+		Number measurements: 46
+		List measurements: [1040, 223, 890, 378, 624, 1118, 1038, 707, 664, 1030, 699, 361, 230, 253, 214, 247, 2888, 1254, 713, 782, 221, 230, 188, 211, 194, 201, 206, 205, 195, 199, 192, 227, 198, 3079, 811, 2398, 304, 229, 208, 221, 232, 256, 552, 731, 581, 235]
+
+	Instruction
+		Name: epoll_pwait
+		Minimum duration: 163392
+		Maximum duration: 200593
+		Average duration: 194911.2
+		Variance: 112952215.16000001
+		Number measurements: 10
+		List measurements: [196476, 200593, 198597, 198600, 198396, 163392, 199477, 194699, 199261, 199621]
+
+	Instruction
+		Name: futex
+		Minimum duration: 204
+		Maximum duration: 1515
+		Average duration: 470.1578947368421
+		Variance: 135352.86980609418
+		Number measurements: 19
+		List measurements: [813, 574, 223, 247, 1189, 949, 222, 211, 237, 204, 211, 210, 274, 287, 417, 315, 390, 1515, 445]
+
+	Instruction
+		Name: gettimeofday
+		Minimum duration: 282
+		Maximum duration: 1034
+		Average duration: 544.625
+		Variance: 69066.484375
+		Number measurements: 8
+		List measurements: [647, 313, 302, 862, 1034, 511, 282, 406]
+
+	Instruction
+		Name: recvfrom
+		Minimum duration: 253
+		Maximum duration: 1718
+		Average duration: 668.0434782608696
+		Variance: 112277.86767485821
+		Number measurements: 23
+		List measurements: [926, 1718, 284, 253, 691, 708, 587, 464, 804, 642, 915, 1034, 295, 645, 563, 670, 748, 1209, 678, 517, 270, 265, 479]
+
