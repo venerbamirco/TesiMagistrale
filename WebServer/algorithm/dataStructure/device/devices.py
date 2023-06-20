@@ -17,6 +17,8 @@ LIST OF ALL DEVICES
 			Subsequences found
 			Sequence not secure
 """
+from datetime import datetime
+
 from algorithm.settings.settings import Settings
 
 # Security levels
@@ -59,6 +61,13 @@ class SecurityLevel :
         #
         # bad things
         self.badThings: list [ str ] = list ( )
+        #
+        # timestamp for each flag
+        self.timestampFlags: list [ str ] = list ( )
+        #
+        # initialize structure of timestamp of each flag
+        for i in range ( 0 , 10 ) :
+            self.timestampFlags.append ( "" )
     
     # function used to increment the security level
     def incrementSecurityLevel ( self , type: str ) -> int :
@@ -75,17 +84,18 @@ class SecurityLevel :
                     # debug row
                     print ( "Security level of device = 10, device blocked" )
                 #
-                # block the device immediately
-                self.securityLevel: int = 10
-                #
                 # if actual type is in good things
                 if type in self.goodThings :
+                    #
+                    # block the device immediately
+                    self.securityLevel: int = 10
                     #
                     # add in bad thing current type
                     self.badThings.append ( type )
                     #
                     # remove from good current type
                     self.goodThings.remove ( type )
+                    #
             #
             # else if debugger is not found and ptracer is started
             else :
@@ -202,18 +212,21 @@ class Device :
                 #
                 # debugger
                 case "Debugger found" :
+                    self.securityLevel.timestampFlags [ 6 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                     #
                     # increment security level and return the count of bad things
                     return self.securityLevel.incrementSecurityLevel ( type )
                 #
                 # ptracer not started
                 case "Ptracer Started" :
+                    self.securityLevel.timestampFlags [ 3 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                     #
                     # increment security level and return the count of bad things
                     return self.securityLevel.incrementSecurityLevel ( type )
                 #
                 # charging type
                 case "Charging type" :
+                    self.securityLevel.timestampFlags [ 2 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                     #
                     # if we can show that a new things is found
                     if Settings.foundNewThingSecurityLevel :
@@ -226,6 +239,7 @@ class Device :
                 #
                 # developer options
                 case "Developer options" :
+                    self.securityLevel.timestampFlags [ 1 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                     #
                     # if we can show that a new things is found
                     if Settings.foundNewThingSecurityLevel :
@@ -236,20 +250,9 @@ class Device :
                     # increment security level and return the count of bad things
                     return self.securityLevel.incrementSecurityLevel ( type )
                 #
-                # ptracer started
-                case "Ptracer Started" :
-                    #
-                    # if we can show that a new things is found
-                    if Settings.foundNewThingSecurityLevel :
-                        #
-                        # debug row
-                        print ( "\nPtracer not started" )
-                    #
-                    # increment security level and return the count of bad things
-                    return self.securityLevel.incrementSecurityLevel ( type )
-                #
                 # debuggable application
                 case "Debuggable applications" :
+                    self.securityLevel.timestampFlags [ 0 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                     #
                     # increment number of debuggable applications
                     self.numberDebuggableApplications: int = self.numberDebuggableApplications + 1
@@ -274,6 +277,7 @@ class Device :
                     #
                     # if we found tot insecure sequences
                     if self.numberStationary == Settings.numberStationaryDevice :
+                        self.securityLevel.timestampFlags [ 4 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -295,6 +299,7 @@ class Device :
                     #
                     # if we found tot bad positions
                     if self.numberBadPosition == Settings.numberSensorAlerts :
+                        self.securityLevel.timestampFlags [ 5 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -313,6 +318,7 @@ class Device :
                     #
                     # if we found tot longer instructions
                     if self.numberInstructionLongerDuration == Settings.numberInstructionLongerDuration :
+                        self.securityLevel.timestampFlags [ 7 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -333,6 +339,7 @@ class Device :
                     #
                     # if we found tot insecure subsequences
                     if self.numberFoundInsecureSubsequence == Settings.numberInsecureSubsequences :
+                        self.securityLevel.timestampFlags [ 8 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -351,6 +358,7 @@ class Device :
                     #
                     # if we found tot insecure sequences
                     if self.numberInsecureSequence == Settings.numberInsecureSequence :
+                        self.securityLevel.timestampFlags [ 9 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :

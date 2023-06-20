@@ -331,8 +331,28 @@ class PtracerManager :
                     # set positive duration
                     instruction.duration: int = instruction.duration * (-1)
     
-    # function used to save the all ptracer logs
-    def savePtracerLogs ( self , mainDirOutputStructureLogs: str ) :
+    # function used to get the list of changed flags inside a specific timestamp range
+    def getListOfCHangedFlags ( self , flagAndroid: list [ str ] , startTimestamp: str , finishTimestamp: str ) :
+        #
+        # flags in this timestamp range
+        flagActualTimestamp: list [ str ] = [ ]
+        #
+        # for each flag
+        for flag in flagAndroid :
+            #
+            # decode actual flag
+            x , y = flag
+            #
+            # if flag in actual range
+            if str ( startTimestamp ) <= str ( x ) < str ( finishTimestamp ) :
+                #
+                # append actual flag
+                flagActualTimestamp.append ( flag )
+        #
+        # return actual flag value
+        return flagActualTimestamp
+    
+    def savePtracerLogs ( self , mainDirOutputStructureLogs: str , flagAndroid: list [ str ] ) :
         #
         # create the file for analyses manager
         fileAnalysesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Analyses" + Settings.extensionLogFile , "w" )
@@ -381,3 +401,25 @@ class PtracerManager :
             fileFoundSubsequencesManager.writeIntoFile ( "\tSUBSEQUENCE" )
             fileFoundSubsequencesManager.writeIntoFile ( "\t\tPortion of code: " + str ( 100 / totalInstruction * (subsequence.count ( "," ) + 1) ) + "%" )
             fileFoundSubsequencesManager.writeIntoFile ( "\t\tSubsequence:" + str ( subsequence ) + "\n" )
+        
+        #
+        # create the csv file for instructions
+        fileCsvInstructions = File ( os.path.abspath ( mainDirOutputStructureLogs + "\\ptracer\\csvFile.csv" ) , "w" )
+        fileCsvInstructions.writeIntoFile ( "macrodroid=" + str ( Settings.macroDroid ) )
+        fileCsvInstructions.writeIntoFile ( "fakeclient=" + str ( Settings.fakeClient ) )
+        fileCsvInstructions.writeIntoFile ( "id,pid,spid,name,finished,start,finish,return" )
+        fileCsvInstructions.writeIntoFile ( "\t\t\t\t,Timestamp,DebugApp,DeveloperOptions,ChargingType,PtracerStarted,StationaryDevice,SensorAlert,DebuggerFound,InstructionMuchTime,SubsequenceFound,SequenceNotSecure" )
+        id = 1
+        for i in self.instructions.listAllInstructions :
+            if i.startTimestamp is not None and i.finishTimestamp is not None :
+                fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) )
+                #
+                # get list of flag that change in actual timestamp range
+                actualFlags = self.getListOfCHangedFlags ( flagAndroid , i.startTimestamp , i.finishTimestamp )
+                #
+                # for each flag
+                for flag in actualFlags :
+                    x , y = flag
+                    if str ( i.startTimestamp ) <= str ( x ) < str ( i.finishTimestamp ) :
+                        fileCsvInstructions.writeIntoFile ( "\t\t\t\t" + x + "," + y )
+                id = id + 1

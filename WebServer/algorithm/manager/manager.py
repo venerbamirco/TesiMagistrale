@@ -4,6 +4,7 @@ from datetime import datetime
 from algorithm.dataStructure.other.file import File
 from algorithm.manager.android import AndroidManager
 from algorithm.manager.ptracer import PtracerManager
+from algorithm.settings.settings import Settings
 from algorithm.training.training import Training
 
 # class used to manage all the parts of the algorithm
@@ -65,8 +66,52 @@ class Manager ( AndroidManager , PtracerManager ) :
         fileDevices = File ( os.path.abspath ( "./logs/training/other/Devices.log" ) , "w" )
         fileDevices.writeIntoFile ( str ( self.training.devices ) )
         #
+        # file csv flag
+        fileCsv = File ( mainDirOutputStructureLogs + "\\Android\\" + "fileCsv.csv" , "w" )
+        fileCsv.writeIntoFile ( "fakeclient=" + str ( Settings.fakeClient ) )
+        fileCsv.writeIntoFile ( "Start,DebugApp,DeveloperOptions,ChargingType,PtracerStarted,StationaryDevice,SensorAlert,DebuggerFound,InstructionMuchTime,SubsequenceFound,SequenceNotSecure" )
+        #
+        # print in csv file all security level flags
+        order = [ ]
+        for i in range ( 0 , len ( self.training.devices.listDevices [ 0 ].securityLevel.timestampFlags ) ) :
+            if self.training.devices.listDevices [ 0 ].securityLevel.timestampFlags [ i ] != "" :
+                order.append ( (i , self.training.devices.listDevices [ 0 ].securityLevel.timestampFlags [ i ]) )
+        s = ""
+        done = [ ]
+        finish = [ ]
+        while len ( order ) > 0 :
+            minimum = min ( order , key = lambda x : x [ 1 ] )
+            x , y = minimum
+            done.append ( x )
+            order.remove ( minimum )
+            for i in order :
+                x1 , y1 = i
+                if y == y1 :
+                    done.append ( x1 )
+                    order.remove ( i )
+            s = s + y + ","
+            s1 = ""
+            for i in range ( 0 , 10 ) :
+                if i in done :
+                    if i == 9 :
+                        s = s + "alert"
+                        s1 = s1 + "alert"
+                    else :
+                        s = s + "alert,"
+                        s1 = s1 + "alert,"
+                else :
+                    if i == 9 :
+                        s = s + "no"
+                        s1 = s1 + "no"
+                    else :
+                        s = s + "no,"
+                        s1 = s1 + "no,"
+            s = s + "\n"
+            finish.append ( (y , s1) )
+        fileCsv.writeIntoFile ( s )
+        #
         # save all android logs
         self.saveAndroidLogs ( mainDirOutputStructureLogs )
         #
         # save all ptracer logs
-        self.savePtracerLogs ( mainDirOutputStructureLogs )
+        self.savePtracerLogs ( mainDirOutputStructureLogs,finish )

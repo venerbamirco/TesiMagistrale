@@ -4,6 +4,12 @@ import socket
 # class used to set all usefully constants
 class Settings :
     #
+    # flag for macrodroid
+    macroDroid=False
+    #
+    # flag for fake client
+    fakeClient=False
+    #
     # ----------------------------------------------------------------------- LOG FILES
     #
     # name for the extension of log other
@@ -42,7 +48,7 @@ class Settings :
     hostname = socket.gethostname ( )
     #
     # variable to define the max dimension of tcpSocket data
-    dimensionSocketData = 100
+    dimensionSocketData = 1024
     #
     # variable to define the timeout for connection
     timeout = 1

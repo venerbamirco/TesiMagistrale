@@ -42,6 +42,10 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 		Next: [clock_gettime, close, futex, getuid, mmap]
 
 	Instruction
+		Name: fstatfs
+		Next: []
+
+	Instruction
 		Name: futex
 		Next: [clock_gettime, getpriority, gettimeofday, getuid, ioctl, madvise, mmap, openat, prctl, read, recvfrom, sendto, write]
 
@@ -92,6 +96,10 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 	Instruction
 		Name: prctl
 		Next: [getpriority, mmap]
+
+	Instruction
+		Name: pread64
+		Next: []
 
 	Instruction
 		Name: read
