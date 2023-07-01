@@ -1,0 +1,23 @@
+
+LIST OF FOUND SUBSEQUENCES
+
+	SUBSEQUENCE
+		Portion of code: 6.511627906976744%
+		Subsequence:'prctl', 'mprotect', 'mprotect', 'mprotect', 'mprotect', 'mmap', 'prctl', 'openat', 'openat', 'mprotect', 'mprotect', 'mprotect', 'mprotect', 'munmap'
+
+	SUBSEQUENCE
+		Portion of code: 12.55813953488372%
+		Subsequence:'ioctl', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'ioctl', 'clock_gettime', 'ioctl', 'mprotect', 'mprotect', 'clock_gettime', 'ioctl', 'clock_gettime', 'ioctl', 'write', 'ioctl', 'clock_gettime', 'ioctl', 'clock_gettime', 'ioctl', 'write', 'write', 'getuid', 'getuid', 'getuid', 'getuid', 'gettimeofday', 'futex'
+
+	SUBSEQUENCE
+		Portion of code: 20.46511627906977%
+		Subsequence:'futex', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'ioctl', 'clock_gettime', 'ioctl', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'write', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'prctl', 'mprotect', 'mprotect', 'mprotect', 'mprotect', 'mmap', 'prctl', 'openat', 'readlinkat', 'fstat', 'mmap', 'prctl', 'munmap', 'close', 'mprotect', 'mprotect', 'mprotect', 'mprotect', 'munmap', 'prctl'
+
+	SUBSEQUENCE
+		Portion of code: 9.767441860465116%
+		Subsequence:'getuid', 'epoll_pwait', 'read', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'ioctl', 'clock_gettime', 'read', 'getuid', 'epoll_pwait', 'clock_gettime', 'clock_gettime', 'gettimeofday', 'read', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime'
+
+	SUBSEQUENCE
+		Portion of code: 6.511627906976744%
+		Subsequence:'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime', 'clock_gettime'
+

@@ -1,0 +1,75 @@
+
+LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
+
+	Instruction
+		Name: clock_gettime
+		Next: [clock_gettime, futex, gettimeofday, getuid, ioctl, prctl, read, write]
+
+	Instruction
+		Name: close
+		Next: [mprotect]
+
+	Instruction
+		Name: epoll_pwait
+		Next: [clock_gettime, read]
+
+	Instruction
+		Name: fstat
+		Next: [mmap]
+
+	Instruction
+		Name: futex
+		Next: [clock_gettime, futex, getuid, ioctl, prctl, write]
+
+	Instruction
+		Name: gettimeofday
+		Next: [futex, read]
+
+	Instruction
+		Name: getuid
+		Next: [epoll_pwait, futex, gettimeofday, getuid, writev]
+
+	Instruction
+		Name: ioctl
+		Next: [clock_gettime, futex, ioctl, mprotect, write]
+
+	Instruction
+		Name: madvise
+		Next: [madvise, write]
+
+	Instruction
+		Name: mmap
+		Next: [prctl]
+
+	Instruction
+		Name: mprotect
+		Next: [clock_gettime, madvise, mmap, mprotect, munmap]
+
+	Instruction
+		Name: munmap
+		Next: [close, futex, prctl]
+
+	Instruction
+		Name: openat
+		Next: [mprotect, openat, readlinkat]
+
+	Instruction
+		Name: prctl
+		Next: [futex, mprotect, munmap, openat]
+
+	Instruction
+		Name: read
+		Next: [clock_gettime, getuid, ioctl]
+
+	Instruction
+		Name: readlinkat
+		Next: [fstat]
+
+	Instruction
+		Name: write
+		Next: [clock_gettime, futex, getuid, ioctl, write]
+
+	Instruction
+		Name: writev
+		Next: [getuid]
+

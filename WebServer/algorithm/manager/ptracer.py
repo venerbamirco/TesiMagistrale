@@ -407,19 +407,44 @@ class PtracerManager :
         fileCsvInstructions = File ( os.path.abspath ( mainDirOutputStructureLogs + "\\ptracer\\csvFile.csv" ) , "w" )
         fileCsvInstructions.writeIntoFile ( "macrodroid=" + str ( Settings.macroDroid ) )
         fileCsvInstructions.writeIntoFile ( "fakeclient=" + str ( Settings.fakeClient ) )
-        fileCsvInstructions.writeIntoFile ( "id,pid,spid,name,finished,start,finish,return" )
-        fileCsvInstructions.writeIntoFile ( "\t\t\t\t,Timestamp,DebugApp,DeveloperOptions,ChargingType,PtracerStarted,StationaryDevice,SensorAlert,DebuggerFound,InstructionMuchTime,SubsequenceFound,SequenceNotSecure" )
+        fileCsvInstructions.writeIntoFile ( "Id,Pid,Spid,Name,Finished,StartTimestamp,FinishTimestamp,ReturnValue,Timestamp,DebugApp,DeveloperOptions,ChargingType,PtracerStarted,StationaryDevice,SensorAlert,DebuggerFound,InstructionMuchTime,SubsequenceFound,SequenceNotSecure" )
         id = 1
+        print ( flagAndroid )
+        prev = ",no,no,no,no,no,no,no,no,no,no"
         for i in self.instructions.listAllInstructions :
             if i.startTimestamp is not None and i.finishTimestamp is not None :
-                fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) )
-                #
-                # get list of flag that change in actual timestamp range
-                actualFlags = self.getListOfCHangedFlags ( flagAndroid , i.startTimestamp , i.finishTimestamp )
-                #
-                # for each flag
-                for flag in actualFlags :
-                    x , y = flag
-                    if str ( i.startTimestamp ) <= str ( x ) < str ( i.finishTimestamp ) :
-                        fileCsvInstructions.writeIntoFile ( "\t\t\t\t" + x + "," + y )
+                if id == 1 :
+                    fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + str ( i.startTimestamp ) + str ( prev ) )
+                else :
+                    #
+                    # get list of flag that change in actual timestamp range
+                    actualFlags = self.getListOfCHangedFlags ( flagAndroid , i.startTimestamp , i.finishTimestamp )
+                    if len ( actualFlags ) > 0 :
+                        #
+                        # for each flag
+                        for flag in actualFlags :
+                            x , y = flag
+                            x = int ( x )
+                            y = "," + y
+                            print ( "--------" )
+                            print ( x )
+                            print ( y )
+                            # print ( "ciao" )
+                            print ( str ( int ( i.startTimestamp / 1000 ) ) + " <= " + str ( int ( x / 1000 ) ) + " <= " + str ( int ( i.finishTimestamp / 1000 ) ) )
+                            print ( "ciao" )
+                            if str ( i.startTimestamp ) <= str ( x ) <= str ( i.finishTimestamp ) :
+                                print ( "ciao1" )
+                                if str ( i.startTimestamp ) == str ( x ) :
+                                    print ( "ciao2" )
+                                    fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( x ) + str ( y ) )
+                                    prev = y
+                                else :
+                                    print ( "ciao3" )
+                                    fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( i.startTimestamp ) + str ( prev ) )
+                                    fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( x ) + str ( y ) )
+                                    prev = y
+                    else :
+                        print ( "ciao4" )
+                        fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( i.startTimestamp ) + str ( prev ) )
+                
                 id = id + 1

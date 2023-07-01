@@ -14,6 +14,10 @@ LIST OF ALL SEQUENCES FOR EACH INSTRUCTION
 		Next: [clock_gettime]
 
 	Instruction
+		Name: dup
+		Next: []
+
+	Instruction
 		Name: epoll_create1
 		Next: [epoll_ctl]
 
