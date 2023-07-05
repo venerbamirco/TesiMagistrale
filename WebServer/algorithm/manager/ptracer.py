@@ -1,4 +1,6 @@
 import os
+from datetime import datetime
+from typing import Any
 
 from algorithm.dataStructure.other.file import File
 from algorithm.dataStructure.other.instruction import Instruction
@@ -123,7 +125,8 @@ class PtracerManager :
                 if not returnValue :
                     #
                     # increment security level
-                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sequence not secure" )
+                    t = int ( int ( str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" ) ) / 1000 )
+                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sequence not secure" , t )
                 #
                 # check duration
                 returnValue: bool = self.training.analyses.checkDurationActualInstruction ( actualInstruction , actualDuration )
@@ -132,7 +135,8 @@ class PtracerManager :
                 if not returnValue :
                     #
                     # increment security level
-                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Instructions much time" )
+                    t = int ( int ( str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" ) ) / 1000 )
+                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Instructions much time" , t )
                 
                 #
                 # if not training mode
@@ -196,7 +200,8 @@ class PtracerManager :
                                 if numberOfFoundSubsequences < len ( self.listAllSubsequences ) :
                                     #
                                     # print found new subsequence
-                                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Subsequences found" )
+                                    t = int ( int ( str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" ) ) / 1000 )
+                                    self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Subsequences found" , t )
                                     #
                                     # update number of found sequences
                                     numberOfFoundSubsequences: int = len ( self.listAllSubsequences )
@@ -332,19 +337,20 @@ class PtracerManager :
                     instruction.duration: int = instruction.duration * (-1)
     
     # function used to get the list of changed flags inside a specific timestamp range
-    def getListOfCHangedFlags ( self , flagAndroid: list [ str ] , startTimestamp: str , finishTimestamp: str ) :
+    def getListOfCHangedFlags ( self , flagAndroid: list [ Any ] , startTimestamp: int , finishTimestamp: int ) :
         #
         # flags in this timestamp range
-        flagActualTimestamp: list [ str ] = [ ]
+        flagActualTimestamp: list [ Any ] = [ ]
         #
         # for each flag
         for flag in flagAndroid :
             #
             # decode actual flag
             x , y = flag
+            x = int ( x )
             #
             # if flag in actual range
-            if str ( startTimestamp ) <= str ( x ) < str ( finishTimestamp ) :
+            if str ( x ) < str ( int ( finishTimestamp / 1000 ) ) :
                 #
                 # append actual flag
                 flagActualTimestamp.append ( flag )
@@ -352,7 +358,7 @@ class PtracerManager :
         # return actual flag value
         return flagActualTimestamp
     
-    def savePtracerLogs ( self , mainDirOutputStructureLogs: str , flagAndroid: list [ str ] ) :
+    def savePtracerLogs ( self , mainDirOutputStructureLogs: str , flagAndroid: list [ Any ] ) :
         #
         # create the file for analyses manager
         fileAnalysesManager = File ( mainDirOutputStructureLogs + "\\ptracer\\Analyses" + Settings.extensionLogFile , "w" )
@@ -409,7 +415,7 @@ class PtracerManager :
         fileCsvInstructions.writeIntoFile ( "fakeclient=" + str ( Settings.fakeClient ) )
         fileCsvInstructions.writeIntoFile ( "Id,Pid,Spid,Name,Finished,StartTimestamp,FinishTimestamp,ReturnValue,Timestamp,DebugApp,DeveloperOptions,ChargingType,PtracerStarted,StationaryDevice,SensorAlert,DebuggerFound,InstructionMuchTime,SubsequenceFound,SequenceNotSecure" )
         id = 1
-        print ( flagAndroid )
+        enabledFlag = list ( )
         prev = ",no,no,no,no,no,no,no,no,no,no"
         for i in self.instructions.listAllInstructions :
             if i.startTimestamp is not None and i.finishTimestamp is not None :
@@ -420,31 +426,32 @@ class PtracerManager :
                     # get list of flag that change in actual timestamp range
                     actualFlags = self.getListOfCHangedFlags ( flagAndroid , i.startTimestamp , i.finishTimestamp )
                     if len ( actualFlags ) > 0 :
+                        done = False
                         #
                         # for each flag
                         for flag in actualFlags :
                             x , y = flag
                             x = int ( x )
                             y = "," + y
-                            print ( "--------" )
-                            print ( x )
-                            print ( y )
-                            # print ( "ciao" )
-                            print ( str ( int ( i.startTimestamp / 1000 ) ) + " <= " + str ( int ( x / 1000 ) ) + " <= " + str ( int ( i.finishTimestamp / 1000 ) ) )
-                            print ( "ciao" )
-                            if str ( i.startTimestamp ) <= str ( x ) <= str ( i.finishTimestamp ) :
-                                print ( "ciao1" )
+                            if x not in enabledFlag :
+                                enabledFlag.append ( x )
+                                
                                 if str ( i.startTimestamp ) == str ( x ) :
-                                    print ( "ciao2" )
+                                    done = True
                                     fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( x ) + str ( y ) )
                                     prev = y
-                                else :
-                                    print ( "ciao3" )
+                                elif str ( i.startTimestamp ) < str ( x ) :
+                                    done = True
                                     fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( i.startTimestamp ) + str ( prev ) )
                                     fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( x ) + str ( y ) )
                                     prev = y
+                                else :
+                                    done = True
+                                    fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( x ) + str ( y ) )
+                                    prev = y
+                        if not done :
+                            fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( i.startTimestamp ) + str ( prev ) )
                     else :
-                        print ( "ciao4" )
                         fileCsvInstructions.writeIntoFile ( str ( id ) + "," + str ( i.pid ) + "," + str ( i.spid ) + "," + str ( i.name ) + "," + str ( i.finished ) + "," + str ( i.startTimestamp ) + "," + str ( i.finishTimestamp ) + "," + str ( i.returnValue ) + "," + str ( i.startTimestamp ) + str ( prev ) )
-                
-                id = id + 1
+            
+            id = id + 1

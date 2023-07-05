@@ -202,7 +202,7 @@ class Device :
         return self.securityLevel.incrementSecurityLevel ( type )
     
     # function used to increment security level
-    def incrementSecurityLevel ( self , type: str ) -> int :
+    def incrementSecurityLevel ( self , type: str, timestamp:int ) -> int :
         #
         # if not training mode
         if not Settings.training :
@@ -212,21 +212,21 @@ class Device :
                 #
                 # debugger
                 case "Debugger found" :
-                    self.securityLevel.timestampFlags [ 6 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                    self.securityLevel.timestampFlags [ 6 ] = str ( timestamp)
                     #
                     # increment security level and return the count of bad things
                     return self.securityLevel.incrementSecurityLevel ( type )
                 #
                 # ptracer not started
                 case "Ptracer Started" :
-                    self.securityLevel.timestampFlags [ 3 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                    self.securityLevel.timestampFlags [ 3 ] = str ( timestamp)
                     #
                     # increment security level and return the count of bad things
                     return self.securityLevel.incrementSecurityLevel ( type )
                 #
                 # charging type
                 case "Charging type" :
-                    self.securityLevel.timestampFlags [ 2 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                    self.securityLevel.timestampFlags [ 2 ] = str ( timestamp)
                     #
                     # if we can show that a new things is found
                     if Settings.foundNewThingSecurityLevel :
@@ -239,7 +239,7 @@ class Device :
                 #
                 # developer options
                 case "Developer options" :
-                    self.securityLevel.timestampFlags [ 1 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                    self.securityLevel.timestampFlags [ 1 ] = str ( timestamp)
                     #
                     # if we can show that a new things is found
                     if Settings.foundNewThingSecurityLevel :
@@ -252,7 +252,7 @@ class Device :
                 #
                 # debuggable application
                 case "Debuggable applications" :
-                    self.securityLevel.timestampFlags [ 0 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                    self.securityLevel.timestampFlags [ 0 ] = str ( timestamp)
                     #
                     # increment number of debuggable applications
                     self.numberDebuggableApplications: int = self.numberDebuggableApplications + 1
@@ -277,7 +277,7 @@ class Device :
                     #
                     # if we found tot insecure sequences
                     if self.numberStationary == Settings.numberStationaryDevice :
-                        self.securityLevel.timestampFlags [ 4 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                        self.securityLevel.timestampFlags [ 4 ] = str ( timestamp)
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -299,7 +299,7 @@ class Device :
                     #
                     # if we found tot bad positions
                     if self.numberBadPosition == Settings.numberSensorAlerts :
-                        self.securityLevel.timestampFlags [ 5 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                        self.securityLevel.timestampFlags [ 5 ] = str ( timestamp)
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -318,7 +318,7 @@ class Device :
                     #
                     # if we found tot longer instructions
                     if self.numberInstructionLongerDuration == Settings.numberInstructionLongerDuration :
-                        self.securityLevel.timestampFlags [ 7 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                        self.securityLevel.timestampFlags [ 7 ] = str ( timestamp)
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -339,7 +339,7 @@ class Device :
                     #
                     # if we found tot insecure subsequences
                     if self.numberFoundInsecureSubsequence == Settings.numberInsecureSubsequences :
-                        self.securityLevel.timestampFlags [ 8 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                        self.securityLevel.timestampFlags [ 8 ] = str ( timestamp)
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -358,7 +358,7 @@ class Device :
                     #
                     # if we found tot insecure sequences
                     if self.numberInsecureSequence == Settings.numberInsecureSequence :
-                        self.securityLevel.timestampFlags [ 9 ] = str ( datetime.now ( ).timestamp ( ) ).replace ( "." , "" )
+                        self.securityLevel.timestampFlags [ 9 ] = str ( timestamp)
                         #
                         # if we can show that a new things is found
                         if Settings.foundNewThingSecurityLevel :
@@ -409,7 +409,7 @@ class Devices :
             self.listSafeDevices.append ( device )
     
     # function used to increment level of security
-    def incrementLevelSecurity ( self , ipAdress: str , type: str ) -> None :
+    def incrementLevelSecurity ( self , ipAdress: str , type: str , timestamp: int ) -> None :
         #
         # for each device
         for device in self.listDevices :
@@ -418,7 +418,7 @@ class Devices :
             if device.ipAddress == ipAdress :
                 #
                 # increment security level
-                device.incrementSecurityLevel ( type )
+                device.incrementSecurityLevel ( type, timestamp )
                 #
                 # if normal level
                 if device.securityLevel.securityLevel == 1 :

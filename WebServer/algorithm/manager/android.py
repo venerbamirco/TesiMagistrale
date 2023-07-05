@@ -82,7 +82,7 @@ class AndroidManager :
         if usbCharging :
             #
             # increment security level
-            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Charging type" )
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Charging type", timestamp )
     
     # function used to add a record in developer options
     def addDeveloperOptionsRecord ( self , record: str ) -> None :
@@ -105,7 +105,7 @@ class AndroidManager :
         if adbEnabled :
             #
             # increment security level
-            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Developer options" )
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Developer options", timestamp )
     
     # function used to add a record in debuggable applications
     def addDebuggableApplicationsRecord ( self , record: str ) -> None :
@@ -122,7 +122,7 @@ class AndroidManager :
         self.debuggableApplicationsManager.addDebuggableApplication ( debuggableApplication , timestamp )
         #
         # increment security level
-        self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Debuggable applications" )
+        self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Debuggable applications", timestamp )
     
     # function used to add a record in debuggers
     def addDebuggerRecord ( self , record: str ) -> None :
@@ -149,7 +149,7 @@ class AndroidManager :
         self.debuggersManager.sayDebuggerFound ( )
         #
         # increment security level, block device
-        self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Debugger found" )
+        self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Debugger found", timestamp )
     
     # function used to add a record in debuggers
     def addSensorAlertRecord ( self , record: str ) -> None :
@@ -195,7 +195,7 @@ class AndroidManager :
             if not self.flagBadPosition :
                 #
                 # increment security level, block device
-                self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sensor alerts" )
+                self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Sensor alerts", timestamp )
                 #
                 # set flag of bad position to true
                 self.flagBadPosition: bool = True
@@ -315,7 +315,7 @@ class AndroidManager :
         if lengthSensorRecords == len ( self.sensorTextManager.listSensorRecord ) :
             #
             # increment security level because it is stationary
-            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Stationary device" )
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Stationary device", startMilliseconds )
     
     # function used to add a record in ptracer
     def addPtracerRecord ( self , record: str ) -> None :
@@ -339,7 +339,7 @@ class AndroidManager :
             self.ptracerManager.setCrashedPtracerProcess ( timestamp )
             #
             # increment security level, block device
-            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Ptracer Started" )
+            self.training.devices.incrementLevelSecurity ( self.training.devices.listDevices [ 0 ].ipAddress , "Ptracer Started" , timestamp)
     
     # function used to save the all android logs
     def saveAndroidLogs ( self , mainDirOutputStructureLogs: str ) :
