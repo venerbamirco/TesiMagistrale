@@ -1,0 +1,1296 @@
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049225452
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049226099
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049226251
+Syscall = write (64)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049226677
+Return value: 0x0000000000000008
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049226840
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049228963
+Return value: 0x0000000000000001
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049229859
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049230157
+Return value: 0xfffffffffffffff5
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049231035
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049237011
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049237445
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049238114
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049238381
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049239125
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049239347
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049239606
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049239803
+Syscall = getuid (174)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049241373
+Return value: 0x000000000000287c
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29761
+SPID: 29761
+Timestamp: 1691399049241605
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075596328
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075596574
+Syscall = getuid (174)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075597283
+Return value: 0x000000000000287c
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075597423
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075597627
+Return value: 0x0000000000000002
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075597711
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075597888
+Return value: 0x0000000000000008
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075597936
+Syscall = recvfrom (207)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075598142
+Return value: 0x0000000000000040
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075598176
+Syscall = recvfrom (207)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075598379
+Return value: 0xfffffffffffffff5
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075598509
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075598724
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075598804
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599010
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599048
+Syscall = gettimeofday (169)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599243
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599304
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRYSTOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599504
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599561
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599772
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075599812
+Syscall = gettimeofday (169)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075600014
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075600051
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075600758
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075600874
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075601137
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075601204
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075601510
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075601576
+Syscall = getuid (174)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075601777
+Return value: 0x000000000000287c
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075601830
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075602038
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075602074
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075602272
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075602322
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075602523
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075602558
+Syscall = gettimeofday (169)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075604029
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075604082
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075604316
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075604505
+Syscall = ioctl (29)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075605058
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075605681
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075606525
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075606659
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075607461
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075607569
+Syscall = getuid (174)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075608091
+Return value: 0x000000000000287c
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075608181
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075609058
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075609802
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075610459
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075610551
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075611581
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075611638
+Syscall = gettimeofday (169)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075612161
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075612214
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075612665
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075612898
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075623126
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075623268
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075623992
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075624153
+Syscall = getuid (174)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075624727
+Return value: 0x000000000000287c
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075624883
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075625442
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075625612
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075626433
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075626615
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075627275
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075627349
+Syscall = gettimeofday (169)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075627918
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075628048
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075628494
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075629307
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075629983
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075630050
+Syscall = ioctl (29)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075631240
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075631364
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075631980
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075632039
+Syscall = ioctl (29)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075632566
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075633070
+Syscall = ioctl (29)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075633844
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075634263
+Syscall = ioctl (29)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075635254
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075636136
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075638812
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075638994
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075639629
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075639749
+Syscall = getuid(174)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075640030
+Return value: 0x000000000000287c
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075640140
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075641097
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075641171
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075641918
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075642052
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075642629
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075642876
+Syscall = gettimeofday (169)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075643427
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075643523
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075644103
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075644279
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075644900
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075645050
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075645648
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID:29966
+Timestamp: 1691399075645742
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075646261
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075646354
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075646893
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075646986
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075647550
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075647699
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075648317
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075649979
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075650897
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075650970
+Syscall = clock_gettime (113)
+------------------SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075651560
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075651703
+Syscall = recvfrom (207)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075652186
+Return value: 0xfffffffffffffff5
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075652258
+Syscall = ioctl (29)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075653914
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075654019
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075654778
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075654828
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075655556
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075655644
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075655906
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075656011
+Syscall = write (64)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075656514
+Return value: 0x0000000000000008
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075656780
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075657113
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075659104
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075659485
+Return value: 0x0000000000000001
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075659525
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075659778
+Return value: 0x0000000000000001
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075661810
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075662131
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075662174
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075662385
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075663081
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075663416
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075663454
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075663661
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075663694
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075663886
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075663919
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664103
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664132
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664314
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664342
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664546
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664576
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664757
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664787
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075664974
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665005
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665185
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665214
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665421
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665454
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665640
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665670
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665854
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075665883
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075666065
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075666095
+Syscall = madvise (233)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075666339
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075667799
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075668220
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075668275
+Syscall = write (64)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075668781
+Return value: 0x0000000000000008
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075668832
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075675511
+Return value: 0x0000000000000001
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075675572
+Syscall = futex (98)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075677000
+Return value: 0xfffffffffffffff5
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075677134
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075677409
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075677502
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075677778
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075677868
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678086
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678135
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678348
+Return value: 0x0000000000000030
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678420
+Syscall = getuid (174)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678628
+Return value: 0x000000000000287c
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678690
+Syscall = epoll_pwait (22)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678935
+Return value: 0x0000000000000002
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075678971
+Syscall = read (63)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075679185
+Return value: 0x0000000000000008
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075679235
+Syscall = recvfrom (207)
+------------------SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075679445
+Return value: 0x0000000000000040
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075679479
+Syscall = recvfrom (207)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075679674
+Return value: 0xfffffffffffffff5
+------------------ SYSCALL EXIT STOP ------------------
+------------------ SYSCALL ENTRY START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075679808
+Syscall = clock_gettime (113)
+------------------ SYSCALL ENTRY STOP ------------------
+------------------ SYSCALL EXIT START ------------------
+PID: 29966
+SPID: 29966
+Timestamp: 1691399075680027
+Return value: 000000000000000000
+------------------ SYSCALL EXIT STOP ------------------

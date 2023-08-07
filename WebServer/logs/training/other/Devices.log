@@ -3,23 +3,23 @@ LIST OF ALL DEVICES SAFE DEVICES, LEVEL=0
 
 LIST OF ALL DEVICES NORMAL DEVICES, LEVEL=1-4
 
+LIST OF ALL DEVICES WARNING DEVICES, LEVEL=5-8
+
 	Device
 		Ip address: 192.168.1.13
-		Security level: 4
+		Security level: 5
 		Good things:
 			Ptracer Started
 			Stationary device
 			Sensor alerts
 			Debugger found
 			Instructions much time
-			Subsequences found
 		Bad things:
 			Debuggable applications
 			Developer options
 			Sequence not secure
 			Charging type
-
-LIST OF ALL DEVICES WARNING DEVICES, LEVEL=5-8
+			Subsequences found
 
 LIST OF ALL DEVICES BLOCKED DEVICES, LEVEL=9-10
 
